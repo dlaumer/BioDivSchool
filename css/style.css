@@ -1,0 +1,108 @@
+* { 
+  -moz-box-sizing: border-box; 
+  -webkit-box-sizing: border-box; 
+   box-sizing: border-box; 
+   line-height: 150%;
+
+}
+
+:root {
+  --now: #17bebb;
+  --no_project: #bebebe;
+  --project: #F3511B;
+  --highlight: #E0CA3C;
+  --grey: #4c4c4c;
+}
+
+
+#start {
+  display: flex;
+  align-items: center;
+}
+
+
+
+#welcome{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: nowrap;
+  justify-content: normal;
+  align-content: stretch;
+
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height:auto;
+  background: white;
+}
+
+
+.background {
+  width: 100%;
+  height: 100%;
+}
+
+#pageContainer {
+  width: 100%;
+  height: 90%;
+  padding: 2%;
+}
+
+#footer {
+  width: 100%;
+  height: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn1 {
+  text-align: center;
+  background-color: transparent;
+  color: var(--project);
+  border-radius: 10px;
+  border: 1px solid var(--project);
+  margin: 2%;
+  padding: 10px;
+  font-size: 3vh;
+  min-width: 20vw;
+}
+
+.btn1:hover {
+  background-color: var(--project);
+  color: white;
+}
+
+.btn2 {
+  text-align: center;
+  background-color: transparent;
+  color: var(--grey);
+  border-radius: 10px;
+  border: 1px solid var(--grey);
+  margin: 2%;
+  padding: 10px;
+  font-size: 3vh;
+  min-width: 20vw;
+}
+
+.btn2:hover {
+  background-color: var(--grey);
+  color: white;
+}
+
+.page {
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+
+.active {
+  display: block;
+}
+
+.pageTitle {
+  width: 100%;
+  height: 15%;
+  font-size: 5vh;
+}
