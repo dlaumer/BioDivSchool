@@ -1,5 +1,11 @@
+/*
+--------------
+App.js
+--------------
+Holds the main functionality for the webpage. The main buttons and all the different pages.
+*/
+
 define([
-    "esri/core/Accessor",
     "dojo/dom",
 
     "dojo/dom-construct",
@@ -8,7 +14,6 @@ define([
     "biodivschool/Page"
 
 ], function (
-    Accessor, 
     dom, domCtr, win, on, Page ) {
 
     return class App {
@@ -65,7 +70,10 @@ define([
 
         
         addPage(title) {
-            this.pages.push(new Page(this.pages.length, this.pageContainer, title));
+            let page = new Page(this.pages.length, this.pageContainer, title)
+            this.pages.push(page);
+
+            return page;
         }
     }
 });

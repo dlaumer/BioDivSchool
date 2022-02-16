@@ -95,6 +95,8 @@
   width: 100%;
   height: 100%;
   display: none;
+  overflow: auto;
+
 }
 
 .active {
@@ -105,4 +107,42 @@
   width: 100%;
   height: 15%;
   font-size: 5vh;
+}
+
+.element {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+
+.labelText {
+  display: flex;
+  align-items: center;
+  text-align: left;
+  font-size: 3vh;
+  width: 50vw;
+
+}
+
+.input {
+  border-radius: 10px;
+  border: 1px solid var(--project);
+  margin: 2%;
+  padding: 0px 10px;
+  font-size: 2vh;
+  height: 8vh;
+  min-width: 300px;
+}
+
+#dateTime {
+  border-radius: 10px !important;
+  border: 1px solid var(--project) !important;
+  width: 300px !important;
+  height: 8vh !important;
+  margin: 2% !important;
+  padding: 0px 10px !important;
 }

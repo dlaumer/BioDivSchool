@@ -1,11 +1,19 @@
+/*
+--------------
+Page.js
+--------------
+Holds all the objects for one page. Pages are used to split up the input elements into chunks, so that not everything is in one long scrollable page.
+
+*/
+
 define([
-  "esri/core/Accessor",
   "dojo/dom",
 
   "dojo/dom-construct",
   "dojo/_base/window",
   "dojo/on",
-], function (Accessor, dom, domCtr, win, on) {
+  "biodivschool/Element"
+], function (dom, domCtr, win, on, Element) {
   return class Page {
     constructor(id, container, title) {
       this.id = id;
@@ -40,6 +48,12 @@ define([
 
     }
 
-    addElement() {}
+    addElement(type, key, args) {
+
+      let elem = new Element(this, this.elements.length, this.page);
+      elem.init(type, key, args);
+      this.elements.push(elem);
+
+    }
   };
 });
