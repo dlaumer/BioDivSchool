@@ -34,7 +34,6 @@ define([
             this.clickHandler();
             this.content = new Content(this.app);
             this.content.init();
-            this.app.init();
         }
 
         // Create the GUI of the start screen
