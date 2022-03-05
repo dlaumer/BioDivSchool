@@ -15,10 +15,12 @@ define([
     "dojo/on",
 
     "biodivschool/App",
-    "biodivschool/Content"
+    "biodivschool/Content",
+    "biodivschool/ArcGis"
+
 
 ], function ( 
-    dom, domCtr, win, on, App, Content) {
+    dom, domCtr, win, on, App, Content, ArcGis) {
 
     return class Start {
 

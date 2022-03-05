@@ -24,7 +24,8 @@ define([
     return class Content {
 
         constructor(app) {
-            this.app = app
+            this.app = app;
+
         }
 
         // Start the start screen
@@ -36,9 +37,9 @@ define([
             page1.addElement("dropdownInput", "dropdown", {text:"Dropdown", placeholder: "Geschlecht", options: [{key: "male", label: "Male"}, {key: "female", label: "Female"}]});
 
             
-        
+
             let page2 = this.app.addPage("Page 2");
-            page2.addElement("simpleTextInput", "name", {text:"What is your name?", placeholder: "Your name"});
+            page2.addElement("mapInput", "gebiete", {text: "Zeichne die Gebiete"});
 
             let page3 = this.app.addPage("Page 3");
             let page4 = this.app.addPage("Page 4");

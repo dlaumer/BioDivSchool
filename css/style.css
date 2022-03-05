@@ -118,7 +118,6 @@
   padding: 10px;
 }
 
-
 .labelText {
   display: flex;
   align-items: center;
@@ -136,6 +135,11 @@
   font-size: 2vh;
   height: 8vh;
   min-width: 300px;
+}
+
+.map {
+  height: 90%;
+  width: 100%;
 }
 
 #dateTime {

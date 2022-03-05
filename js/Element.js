@@ -12,14 +12,17 @@ define([
     "dojo/dom-construct",
     "dojo/_base/window",
     "dojo/on",
-  ], function (dom, domCtr, win, on) {
+
+    "biodivschool/ArcGis"
+
+  ], function (dom, domCtr, win, on, ArcGis) {
     return class Element {
       constructor(page, id, container) {
         this.page = page;
         this.id = id;
         this.name = this.page.name + "_element_" + id.toString();
         this.container = container;
-
+        this.arcgis = new ArcGis
   
         this.valueSet = false;
 
@@ -39,6 +42,12 @@ define([
                 break;
             case "dropdownInput":
                 this.addDropdownInput(args);
+                break;
+            case "sliderInput":
+                this.addSliderInput(args);
+                break;
+            case "mapInput":
+                this.addMap(args);
                 break;
         }
 
@@ -61,7 +70,7 @@ define([
       addDropdownInput(args) {
         this.element = domCtr.create("div", { id: this.name, className: "element"}, this.container);        
         this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text}, this.element);
-        this.input = domCtr.create("select", {class:"input"}, this.element);
+        this.input = domCtr.create("select", {className:"input"}, this.element);
 
         domCtr.create("option", {value:"",  disabled:true, selected:true, innerHTML: args.placeholder}, this.input);
         for (const i in args.options) {
@@ -69,7 +78,22 @@ define([
         }
       }
 
-      
+      addSliderInput(args) {
+        this.element = domCtr.create("div", { id: this.name, className: "element"}, this.container);        
+        this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text}, this.element);
+    
+      }
+
+
+      addMap(args) {
+        this.element = domCtr.create("div", { id: this.name, className: "element", style: "height: 85%;"}, this.container); 
+        this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text, style: "height: 10%;"}, this.element);
+        this.input = domCtr.create("div", {id: this.name + "_map", className:"map"}, this.element);
+        this.map = this.arcgis.addMap(this.input.id);   
+
+
+      }
+        
   
       clickHandler() {
   
