@@ -56,21 +56,21 @@ define([
       addSimpleTextInput(args) {
         this.element = domCtr.create("div", { id: this.name, className: "element"}, this.container);
         this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text}, this.element);
-        this.input = domCtr.create("input", { className: "input", placeholder: args.placeholder }, this.element);
+        this.input = domCtr.create("input", { className: "input inputField", placeholder: args.placeholder }, this.element);
 
       }
 
       addDateTimeInput(args) {
         this.element = domCtr.create("div", { id: this.name, className: "element"}, this.container);
         this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text}, this.element);
-        this.input = domCtr.create("input", {id: "dateTime", type:"datetime-local", className: "dateTimeInput" }, this.element);
+        this.input = domCtr.create("input", {id: "dateTime", type:"datetime-local", className: "input dateTimeInput" }, this.element);
 
       }
 
       addDropdownInput(args) {
         this.element = domCtr.create("div", { id: this.name, className: "element"}, this.container);        
         this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text}, this.element);
-        this.input = domCtr.create("select", {className:"input"}, this.element);
+        this.input = domCtr.create("select", {className:"input inputField"}, this.element);
 
         domCtr.create("option", {value:"",  disabled:true, selected:true, innerHTML: args.placeholder}, this.input);
         for (const i in args.options) {
@@ -81,7 +81,22 @@ define([
       addSliderInput(args) {
         this.element = domCtr.create("div", { id: this.name, className: "element"}, this.container);        
         this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text}, this.element);
-    
+        this.sliderContainer = domCtr.create("div", {className: "input"}, this.element);        
+        this.sliderContainer2 = domCtr.create("div", {style: "width: 80%"}, this.sliderContainer);
+        this.input = domCtr.create("input", {type:"range", className: "slider", min: args.min, max: args.max, value: (args.max - args.min)/2, step: args.step}, this.sliderContainer2);
+        this.ticksContainer = domCtr.create("div", {className: "ticksContainer"}, this.sliderContainer2);        
+        for (let i = args.min; i <= args.max; i += args.step) {
+          domCtr.create("div", {className: "ticks"}, this.ticksContainer);
+        }
+        this.labelContainer = domCtr.create("div", {className: "ticksContainer", style: "padding: 0 5px;"}, this.sliderContainer2);  
+        domCtr.create("div", {className: "labels", innerHTML: args.min}, this.labelContainer);
+        domCtr.create("div", {className: "labels", innerHTML: args.max}, this.labelContainer);     
+
+        this.bubble = domCtr.create("div", {className: "bubble"}, this.sliderContainer);   
+        this.input.addEventListener("input", () => {
+          this.bubble.innerHTML = this.input.value;
+        });
+        this.bubble.innerHTML = this.input.value;
       }
 
 

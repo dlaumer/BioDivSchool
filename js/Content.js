@@ -30,13 +30,21 @@ define([
 
         // Start the start screen
         init() {
-            let page1 = this.app.addPage("Allgemeine Infos");
-            page1.addElement("simpleTextInput", "standort", {text:"Was ist der Name des Standorts?", placeholder: "Standort"});
-            page1.addElement("simpleTextInput", "organisation", {text:"Was ist der Name der Organisation oder Schule?", placeholder: "Organisation/Schule"});
-            page1.addElement("dateTimeInput", "date", {text:"Datum und Uhrzeit"});
-            page1.addElement("dropdownInput", "dropdown", {text:"Dropdown", placeholder: "Geschlecht", options: [{key: "male", label: "Male"}, {key: "female", label: "Female"}]});
-
             
+            let page0 = this.app.addPage("Slider Test")
+            page0.addElement("simpleTextInput", "standort", {text:"Was ist der Name des Standorts?", placeholder: "Standort"});
+            page0.addElement("simpleTextInput", "organisation", {text:"Was ist der Name der Organisation oder Schule?", placeholder: "Organisation/Schule"});
+            page0.addElement("dateTimeInput", "date", {text:"Datum und Uhrzeit"});
+            page0.addElement("dropdownInput", "dropdown", {text:"Dropdown", placeholder: "Geschlecht", options: [{key: "male", label: "Male"}, {key: "female", label: "Female"}]});
+
+            let page1 = this.app.addPage("Allgemeine Infos");
+
+            page1.addElement("sliderInput", "slider", {text: "How much of this?",min: 0, max: 1, step: 0.1}); 
+
+            page1.addElement("sliderInput", "slider", {text: "How much of that?",  min: 0, max: 10, step: 0.5}); 
+
+            page1.addElement("sliderInput", "slider", {text: "How much of those?", min: 0, max: 100, step: 2}); 
+
 
             let page2 = this.app.addPage("Page 2");
             page2.addElement("mapInput", "gebiete", {text: "Zeichne die Gebiete"});
