@@ -55,5 +55,17 @@ define([
       this.elements.push(elem);
 
     }
+
+    addWarning() {
+      if (document.getElementById("warning") == null) {
+        this.element = domCtr.create("div", { id: "warning", className: "warning", innerHTML: "Please fill in all the elements first!"}, this.page);  
+      }
+     
+    }
+
+    removeWarning() {
+      domCtr.destroy("warning");
+    }
+
   };
 });

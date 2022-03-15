@@ -47,14 +47,22 @@ define([
             // Some info about the project
             domCtr.create("div", { id: "description1", innerHTML: "BioDivSchool Web App", style: "font-size: 4vh"}, container);
 
-            this.start = domCtr.create("div", { id: "btn_start", className: "btn1", innerHTML: "Start" }, container);
+            this.input = domCtr.create("input", { className: "input inputField", placeholder: "Gruppen ID" }, container);
+
+            this.start = domCtr.create("div", { id: "btn_start", className: "btn1", innerHTML: "Start", disabled:true}, container);
         }
 
         // Handle all the interactions
         clickHandler() {
 
+        on(this.input, "input", function (evt) {
+            this.start.disabled = false;
+        }.bind(this));
+
+            
         on(this.start, "click", function (evt) {
-            this.app.init();
+
+            this.app.init(this.input.value);
         }.bind(this));
 
         }

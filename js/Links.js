@@ -12,6 +12,7 @@ define([
 
         constructor() {
             this.geometryLayerId = "3c34d04c41fd47d4b8852788c00e2f1f";
+            this.dataLayerId = "51be950e7c1b4cbb8085c67a2c412868";
         }
     };
 });

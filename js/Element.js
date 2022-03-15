@@ -22,11 +22,12 @@ define([
         this.id = id;
         this.name = this.page.name + "_element_" + id.toString();
         this.container = container;
-        this.arcgis = new ArcGis
+        this.arcgis = new ArcGis();
   
         this.valueSet = false;
+        this.value = null;
+        this.setValue = null;
 
-        this.clickHandler();
       }
   
       init(type, key, args) {
@@ -43,11 +44,17 @@ define([
             case "dropdownInput":
                 this.addDropdownInput(args);
                 break;
+            case "radioButtonInput":
+                this.addRadioButtonInput(args);
+                break;
             case "sliderInput":
                 this.addSliderInput(args);
                 break;
             case "mapInput":
                 this.addMap(args);
+                break;
+            case "finalButton":
+                this.addFinalButton(args);
                 break;
         }
 
@@ -58,13 +65,27 @@ define([
         this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text}, this.element);
         this.input = domCtr.create("input", { className: "input inputField", placeholder: args.placeholder }, this.element);
 
+        on(this.input, "input", function (evt) {
+          this.clickHandler(evt.target.value)
+        }.bind(this));
+
+        this.setValue = function (value) {
+          this.input.value = value
+        }
       }
 
       addDateTimeInput(args) {
         this.element = domCtr.create("div", { id: this.name, className: "element"}, this.container);
         this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text}, this.element);
-        this.input = domCtr.create("input", {id: "dateTime", type:"datetime-local", className: "input dateTimeInput" }, this.element);
+        this.input = domCtr.create("input", {id: "dateTime", type:"date", className: "input dateTimeInput" }, this.element);
+        
+        on(this.input, "input", function (evt) {
+          this.clickHandler(evt.target.value)
+        }.bind(this));
 
+        this.setValue = function (value) {
+          this.input.value = new Date(value).toISOString().split("T")[0]
+        }
       }
 
       addDropdownInput(args) {
@@ -74,7 +95,33 @@ define([
 
         domCtr.create("option", {value:"",  disabled:true, selected:true, innerHTML: args.placeholder}, this.input);
         for (const i in args.options) {
-            domCtr.create("option", {value:args.options[i].value, innerHTML: args.options[i].label}, this.input);
+            domCtr.create("option", {value:args.options[i].key, innerHTML: args.options[i].label}, this.input);
+        }
+
+        on(this.input, "change", function (evt) {
+          this.clickHandler(evt.target.value)
+        }.bind(this));
+        
+        this.setValue = function (value) {
+          this.input.value = value
+        }
+      }
+
+      addRadioButtonInput(args) {
+        this.element = domCtr.create("div", { id: this.name, className: "element", style: "align-items: start;"}, this.container);        
+        this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text}, this.element);
+        this.input = domCtr.create("div", {className: "input inputRows"}, this.element);        
+        for (const i in args.options) {
+          let radioButtonContainer = domCtr.create("div", {className: "radioButtonContainer"}, this.input); 
+          domCtr.create("input", {type: "radio", name: this.key, id: args.options[i].key, className: "radioButton"}, radioButtonContainer);  
+          domCtr.create("label", {for: args.options[i].key, innerHTML: args.options[i].label }, radioButtonContainer);  
+        }
+        on(this.input, "change", function (evt) {
+          this.clickHandler(evt.target.id)
+        }.bind(this));
+        
+        this.setValue = function (value) {
+          document.getElementById(value).checked = true;
         }
       }
 
@@ -97,6 +144,15 @@ define([
           this.bubble.innerHTML = this.input.value;
         });
         this.bubble.innerHTML = this.input.value;
+
+        on(this.input, "input", function (evt) {
+          this.clickHandler(this.input.value)
+        }.bind(this));
+
+        this.setValue = function (value) {
+          this.input.value = value
+          this.bubble.innerHTML = value;
+        }
       }
 
 
@@ -106,13 +162,35 @@ define([
         this.input = domCtr.create("div", {id: this.name + "_map", className:"map"}, this.element);
         this.map = this.arcgis.addMap(this.input.id);   
 
+      }
 
+      addFinalButton(args) {
+        this.element = domCtr.create("div", { id: this.name, className: "element final"}, this.container);  
+        this.label = domCtr.create("div", { className: "labelText labelFinal", innerHTML: args.text}, this.element);      
+        this.final = domCtr.create("div", { id: "btn_final", className: "btn1", innerHTML: "Final" }, this.element);
+
+        on(this.final, "click", function (evt) {
+          console.log(args.func)
+          args.func();
+        }.bind(this));
       }
         
   
-      clickHandler() {
-  
+      clickHandler(value) {
+        this.valueSet = true;
+        this.value = value;
+        this.checkValueSet();
       }
+
+      checkValueSet() {
+        if (this.valueSet) {
+          this.label.style.color = "black";
+        }
+        else {
+          this.label.style.color = "red";
+        }
+      }
+
     }
       
   });

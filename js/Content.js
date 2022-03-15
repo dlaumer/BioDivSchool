@@ -31,28 +31,28 @@ define([
         // Start the start screen
         init() {
             
-            let page0 = this.app.addPage("Slider Test")
+            let page0 = this.app.addPage("Allgemeine Infos")
             page0.addElement("simpleTextInput", "standort", {text:"Was ist der Name des Standorts?", placeholder: "Standort"});
             page0.addElement("simpleTextInput", "organisation", {text:"Was ist der Name der Organisation oder Schule?", placeholder: "Organisation/Schule"});
-            page0.addElement("dateTimeInput", "date", {text:"Datum und Uhrzeit"});
-            page0.addElement("dropdownInput", "dropdown", {text:"Dropdown", placeholder: "Geschlecht", options: [{key: "male", label: "Male"}, {key: "female", label: "Female"}]});
+            page0.addElement("dateTimeInput", "datum", {text:"Datum und Uhrzeit"});
+            page0.addElement("dropdownInput", "dropdownTest", {text:"Dropdown", placeholder: "Test", options: [{key: "test1", label: "Test 1"}, {key: "test2", label: "Test 2"}]});
+            page0.addElement("radioButtonInput", "radioButtonTest", {text:"Radio Buttons", options: [{key: "test1", label: "Test 1"}, {key: "test2", label: "Test 2"}, {key: "test3", label: "Test 3"}, {key: "test4", label: "Test 4"}]});
 
-            let page1 = this.app.addPage("Allgemeine Infos");
+            let page1 = this.app.addPage("Slider Test");
 
-            page1.addElement("sliderInput", "slider", {text: "How much of this?",min: 0, max: 1, step: 0.1}); 
-
-            page1.addElement("sliderInput", "slider", {text: "How much of that?",  min: 0, max: 10, step: 0.5}); 
-
-            page1.addElement("sliderInput", "slider", {text: "How much of those?", min: 0, max: 100, step: 2}); 
+            page1.addElement("sliderInput", "slider1", {text: "How much of this?",min: 0, max: 1, step: 0.1}); 
+            page1.addElement("sliderInput", "slider2", {text: "How much of that?",  min: 0, max: 10, step: 0.5}); 
+            page1.addElement("sliderInput", "slider3", {text: "How much of those?", min: 0, max: 100, step: 2}); 
 
 
             let page2 = this.app.addPage("Page 2");
-            page2.addElement("mapInput", "gebiete", {text: "Zeichne die Gebiete"});
+            //page2.addElement("mapInput", "gebiete", {text: "Zeichne die Gebiete"});
 
             let page3 = this.app.addPage("Page 3");
-            let page4 = this.app.addPage("Page 4");
+            let page4 = this.app.addFinalPage("Ende");
 
         }
 
+        
     };
 });

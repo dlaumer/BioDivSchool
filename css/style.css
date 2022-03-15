@@ -14,6 +14,9 @@
   --grey: #4c4c4c;
 }
 
+label, legend {
+  margin: 0 0 0.5rem 0;
+}
 
 #start {
   display: flex;
@@ -67,6 +70,7 @@
   padding: 10px;
   font-size: 3vh;
   min-width: 20vw;
+  max-width: 30vw;
 }
 
 .btn1:hover {
@@ -118,6 +122,15 @@
   padding: 10px;
 }
 
+.warning {
+  color: red;
+}
+
+.final {
+  align-items: center;
+  flex-direction: column;
+}
+
 .labelText {
   display: flex;
   align-items: center;
@@ -127,10 +140,22 @@
 
 }
 
+.labelFinal {
+  display: block;
+  text-align: center;
+  margin: 0 0 100px 0;
+}
+
 .input {
   width: 40% !important;
   display: flex;
   flex-direction: row;
+}
+
+.inputRows {
+  flex-direction: column;
+  margin: 20px;
+
 }
 
 .inputField {
@@ -147,6 +172,10 @@
     width: 100% !important;
   }
 
+}
+
+.radioButton {
+  margin: 0 20px 0 0;
 }
 
 .slider {
