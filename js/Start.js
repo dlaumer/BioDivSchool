@@ -37,7 +37,7 @@ define([
                 this.clickHandler();
                 this.content = new Content(this.app);
                 this.content.init();
-                //this.app.init("10");
+                this.app.init("11");
             });
         }
 

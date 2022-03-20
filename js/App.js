@@ -101,7 +101,7 @@ define([
         "click",
         function (evt) {
           this.save.innerHTML = "Saving..."
-          let elements = that.getAllElements();
+          let elements = that.getAllElements(false);
           that.uploadData(elements).then((value) => {
             this.save.innerHTML = "Save";
             this.save.className = "btn1 btn_disabled";
@@ -177,10 +177,10 @@ define([
     }
 
     loadInputs(data) {
-      let elements = that.getAllElements();
+      let elements = that.getAllElements(false);
 
       for (let item in data) {
-        if (item in elements) {
+        if (item in elements && data[item] != null) {
           elements[item].clickHandler(data[item]);
           elements[item].setValue(data[item]);
         }
@@ -189,7 +189,7 @@ define([
 
     checkInputs() {
       
-      let elements = that.getAllElements();
+      let elements = that.getAllElements(true);
       if (Object.values(elements).every(elem => elem.value != null)) {
         that.lastPage.removeWarning();
         that.uploadData(elements)
@@ -200,15 +200,16 @@ define([
     }
 
 
-    getAllElements() {
+    getAllElements(checkIfSet) {
       let data = {}
       for (let pageIndex in that.pages) {
         let page = that.pages[pageIndex];
         if (page != that.lastPage) {
           for (let elemIndex in page.elements) {
             let elem = page.elements[elemIndex];
-            
-            elem.checkValueSet();
+            if (checkIfSet) {
+              elem.checkValueSet();
+            }
             data[elem.key] = elem;
           }
         }

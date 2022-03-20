@@ -90,10 +90,12 @@ legend {
   max-width: 30vw;
 }
 
-.btn1:hover {
+
+.btn1:hover, .btn1:active{
   background-color: var(--project);
   color: white;
 }
+
 
 .btn2 {
   text-align: center;
@@ -107,7 +109,7 @@ legend {
   min-width: 20vw;
 }
 
-.btn2:hover {
+.btn2:hover, .btn2:active {
   background-color: var(--grey);
   color: white;
 }
