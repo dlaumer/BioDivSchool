@@ -14,40 +14,42 @@ define([
   "dojo/on",
   "biodivschool/Page",
   "biodivschool/ArcGis",
-  "biodivschool/Start"
-
-
+  "biodivschool/Start",
 ], function (dom, domCtr, win, on, Page, ArcGis, Start) {
   return class App {
-    constructor(callback) {
-      
+    constructor(offline, callback) {
+      that = this;
 
-      this.arcgis = new ArcGis()
-      this.arcgis.init(() => {
+      this.offline = offline;
+      if (!this.offline) {
+        this.arcgis = new ArcGis();
+        this.arcgis.init(() => {
+          this.createUI();
+          this.clickHandler();
+          this.pages = [];
+          callback();
+        });
+      } else {
         this.createUI();
         this.clickHandler();
         this.pages = [];
         callback();
-      });
-
-      that = this;
+      }
     }
 
     init(gruppenId) {
-      
       document.getElementById("btn_start").innerHTML = "Loading...";
       this.gruppenId = gruppenId;
 
       // Add a new element in the database
       let that = this;
-      this.arcgis.addFeature(that.gruppenId, (info) => {
+      if (!this.offline) {
+        this.arcgis.addFeature(that.gruppenId, (info) => {
           let data = info.data;
-          console.log(data);
           that.objectId = info.objectId;
           if (!info.newFeature) {
-              that.loadInputs(data.attributes);
-          }          
-
+            that.loadInputs(data.attributes);
+          }
           // destroy welcome page when app is started
           domCtr.destroy("start");
           this.background.style.display = "block";
@@ -56,7 +58,17 @@ define([
           // TODO Warning if did not work!
           this.userName.innerHTML = "Gruppen ID: " + this.gruppenId;
           this.save.className = "btn1 btn_disabled";
-      })
+        });
+      } else {
+        // destroy welcome page when app is started
+        domCtr.destroy("start");
+        this.background.style.display = "block";
+        this.pages[0].init(null);
+        this.currentPage = 0;
+        // TODO Warning if did not work!
+        this.userName.innerHTML = "Gruppen ID: " + this.gruppenId;
+        this.save.className = "btn1 btn_disabled";
+      }
     }
 
     createUI() {
@@ -65,11 +77,19 @@ define([
         { class: "background", style: "display: none" },
         win.body()
       );
-      this.header =  domCtr.create("div", { id: "header" }, this.background);
-      this.save = domCtr.create("div", { id: "save", className: "btn1 btn_disabled", innerHTML: "Save" }, this.header);
+      this.header = domCtr.create("div", { id: "header" }, this.background);
+      this.save = domCtr.create(
+        "div",
+        { id: "save", className: "btn1 btn_disabled", innerHTML: "Save" },
+        this.header
+      );
 
-      this.userName = domCtr.create("div", { id: "userName"}, this.header);
-      this.logout = domCtr.create("div", { id: "logout", className: "btn1", innerHTML: "Logout" }, this.header);
+      this.userName = domCtr.create("div", { id: "userName" }, this.header);
+      this.logout = domCtr.create(
+        "div",
+        { id: "logout", className: "btn1", innerHTML: "Logout" },
+        this.header
+      );
 
       this.pageContainer = domCtr.create(
         "div",
@@ -95,25 +115,24 @@ define([
     }
 
     clickHandler() {
-
       on(
         this.save,
         "click",
         function (evt) {
-          this.save.innerHTML = "Saving..."
+          this.save.innerHTML = "Saving...";
           let elements = that.getAllElements(false);
-          that.uploadData(elements).then((value) => {
-            this.save.innerHTML = "Save";
-            this.save.className = "btn1 btn_disabled";
-          })
-          .catch((reason) => {
-            this.save.innerHTML = "Save";
-            this.save.className = "btn1";
-            alert("Saving not successful");
-            console.log(reason);
-
-          });
-         
+          that
+            .uploadData(elements)
+            .then((value) => {
+              this.save.innerHTML = "Save";
+              this.save.className = "btn1 btn_disabled";
+            })
+            .catch((reason) => {
+              this.save.innerHTML = "Save";
+              this.save.className = "btn1";
+              alert("Saving not successful");
+              console.log(reason);
+            });
         }.bind(this)
       );
 
@@ -136,7 +155,6 @@ define([
           if (this.currentPage - 1 < 0) {
             this.back.style.visibility = "hidden";
           }
-
         }.bind(this)
       );
 
@@ -153,8 +171,6 @@ define([
           }
         }.bind(this)
       );
-
-      
     }
 
     addPage(title) {
@@ -188,20 +204,17 @@ define([
     }
 
     checkInputs() {
-      
       let elements = that.getAllElements(true);
-      if (Object.values(elements).every(elem => elem.value != null)) {
+      if (Object.values(elements).every((elem) => elem.value != null)) {
         that.lastPage.removeWarning();
-        that.uploadData(elements)
-      }
-      else {
+        that.uploadData(elements);
+      } else {
         that.lastPage.addWarning();
       }
     }
 
-
     getAllElements(checkIfSet) {
-      let data = {}
+      let data = {};
       for (let pageIndex in that.pages) {
         let page = that.pages[pageIndex];
         if (page != that.lastPage) {
@@ -220,17 +233,15 @@ define([
 
     uploadData(data) {
       return new Promise((resolve, reject) => {
-
-        that.arcgis.updateFeature(this.objectId, data).then((value) => {
-          resolve(value)
-        })
-        .catch((reason) => {
-          reject(reason)
-        })
-        
-    })
-
-       
+        that.arcgis
+          .updateFeature(this.objectId, data)
+          .then((value) => {
+            resolve(value);
+          })
+          .catch((reason) => {
+            reject(reason);
+          });
+      });
     }
   };
 });

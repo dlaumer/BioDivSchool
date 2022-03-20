@@ -30,14 +30,17 @@ define([
         }
 
         // Start the start screen
-        init() {
+        init(offline) {
             // Make new app 
-            this.app = new App(() => {
+            this.offline = offline;
+            this.app = new App(this.offline, () => {
                 this.createUI();
                 this.clickHandler();
-                this.content = new Content(this.app);
+                this.content = new Content(that);
                 this.content.init();
-                this.app.init("11");
+                if (this.offline) {
+                    that.init("11");
+                }
             });
         }
 

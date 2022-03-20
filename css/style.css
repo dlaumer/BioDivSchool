@@ -3,6 +3,7 @@
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   line-height: 150%;
+  font-family: var(--calcite-sans-family);
 }
 
 :root {
@@ -13,10 +14,10 @@
   --grey: #4c4c4c;
 }
 
-label,
-legend {
-  margin: 0 0 0.5rem 0;
+body {
+  margin: 0;
 }
+
 
 #start {
   display: flex;
@@ -46,16 +47,20 @@ legend {
 #header {
   height: 10%;
   min-height: 50px;
+  position: relative;
+  width: 100%;
+  top: 0;
+  right: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0 10px;
-  border-bottom: 1px solid var(--no_project);
+  padding: 0 10px;
+  background-color: #f5f3f3;
 }
 
 #userName {
   font-size: min(3vmax, 18px);;
-  color: var(--no_project);
+  color: var(--grey);
 }
 
 
@@ -75,7 +80,8 @@ legend {
   justify-content: center;
   position: absolute;
     bottom: 0;
-    background-color: white;
+    right: 0;
+    background-color: #f5f3f3;
 }
 
 .btn1 {
@@ -188,14 +194,14 @@ legend {
   border: 1px solid var(--no_project);
   margin: 2%;
   padding: 0px 10px;
-  font-size: min(3vmax, 18px);;
-  height: 8vh;
+  font-size: min(3vmax, 18px);
+  height: min(8vmax, 50px);
 }
 
 input[type='date'] {
   border-radius: 10px !important;
   border: 1px solid var(--no_project) !important;
-  height: 8vh !important;
+  height: min(8vmax, 50px) !important;
   margin: 2% !important;
   padding: 0px 10px !important;
   font-size: min(3vmax, 18px);;

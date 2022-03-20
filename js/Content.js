@@ -46,7 +46,7 @@ define([
 
 
             let page2 = this.app.addPage("Page 2");
-            page2.addElement("mapInput", "gebiete", {text: "Zeichne die Gebiete"});
+            //page2.addElement("mapInput", "gebiete", {text: "Zeichne die Gebiete"});
 
             let page3 = this.app.addPage("Page 3");
             let page4 = this.app.addFinalPage("Ende");
