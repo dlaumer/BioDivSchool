@@ -41,14 +41,21 @@ define([
     clickHandler() {}
 
     // Here the ID of the table on AGO
-    init() {
+    init(callback) {
       this.table = new FeatureLayer({
         portalItem: {
           id: this.links.dataLayerId,
         },
       });
       var that = this;
-      that.table.load();
+      that.table.load()
+      .then(() => { 
+        callback();
+       })
+      .catch((error) => {
+        console.log(error);
+        //alert("The connection to the database could not be established: " +  error.toString());
+      });
     }
     // function to add one row to the table
     addFeature(gruppenId, callback) {
@@ -60,7 +67,6 @@ define([
         if (results.features.length > 0) {
             console.log(results)
           callback({newFeature: false, data: results.features[0], objectId: results.features[0].getObjectId()});
-          //TODO: Fill in existing data!
         } else {
           // Make a new entry
           const attributes = { gruppenId: gruppenId };
@@ -113,10 +119,10 @@ define([
     }
 
     // function to change one row in the table
-    updateFeature(objectid, data, callback) {
-      // Create empty query, means to take all rows!
+    updateFeature(objectid, data) {
 
-      this.table
+      return new Promise((resolve, reject) => {
+        this.table
         .queryFeatures({
           objectIds: [objectid],
           outFields: ["*"],
@@ -135,14 +141,21 @@ define([
                 updateFeatures: [editFeature],
               })
               .then((value) => {
-                callback(value);
+                resolve(value);
               })
               .catch((reason) => {
-                callback(reason);
+                reject(reason);
               });
           } else {
+            reject("Object not found")
           }
         });
+       
+    })
+      // Create empty query, means to take all rows!
+
+
+      
     }
 
     addMap(container) {

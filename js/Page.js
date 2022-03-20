@@ -15,7 +15,8 @@ define([
   "biodivschool/Element"
 ], function (dom, domCtr, win, on, Element) {
   return class Page {
-    constructor(id, container, title) {
+    constructor(app, id, container, title) {
+      this.app = app;
       this.id = id;
       this.name = "page_" + id.toString();
       this.container = container;
@@ -50,7 +51,7 @@ define([
 
     addElement(type, key, args) {
 
-      let elem = new Element(this, this.elements.length, this.page);
+      let elem = new Element(this.app, this, this.elements.length, this.page);
       elem.init(type, key, args);
       this.elements.push(elem);
 

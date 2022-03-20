@@ -25,38 +25,46 @@ define([
     return class Start {
 
         constructor() {
-           // Make new app 
-            this.app = new App();
+            this.createSplashScreen();
 
         }
 
         // Start the start screen
         init() {
-            this.createUI();
-            this.clickHandler();
-            this.content = new Content(this.app);
-            this.content.init();
+            // Make new app 
+            this.app = new App(() => {
+                this.createUI();
+                this.clickHandler();
+                this.content = new Content(this.app);
+                this.content.init();
+                //this.app.init("10");
+            });
+        }
+
+
+        createSplashScreen() {
+
+            this.background = domCtr.create("div", { id: "start", class: "background" }, win.body());
+            this.container = domCtr.create("div", { id: "welcome" }, this.background);
+           
+            // Some info about the project
+            domCtr.create("div", { id: "description1", innerHTML: "BioDivSchool Web App", style: "font-size: 4vh"}, this.container);
+            this.loading = domCtr.create("div", { id: "loading", innerHTML: "Loading...", style: "font-size: 2vh"}, this.container);
+
         }
 
         // Create the GUI of the start screen
         createUI() {
-
-            var background = domCtr.create("div", { id: "start", class: "background" }, win.body());
-            var container = domCtr.create("div", { id: "welcome" }, background);
-           
-            // Some info about the project
-            domCtr.create("div", { id: "description1", innerHTML: "BioDivSchool Web App", style: "font-size: 4vh"}, container);
-
-            this.input = domCtr.create("input", { className: "input inputField", placeholder: "Gruppen ID" }, container);
-
-            this.start = domCtr.create("div", { id: "btn_start", className: "btn1", innerHTML: "Start", disabled:true}, container);
+            domCtr.destroy("loading");
+            this.input = domCtr.create("input", { className: "input inputField", placeholder: "Gruppen ID" }, this.container);
+            this.start = domCtr.create("div", { id: "btn_start", className: "btn1 btn_disabled", innerHTML: "Start"}, this.container);
         }
 
         // Handle all the interactions
         clickHandler() {
 
         on(this.input, "input", function (evt) {
-            this.start.disabled = false;
+            this.start.className = "btn1";
         }.bind(this));
 
             

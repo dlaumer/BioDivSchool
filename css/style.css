@@ -1,20 +1,20 @@
-* { 
-  -moz-box-sizing: border-box; 
-  -webkit-box-sizing: border-box; 
-   box-sizing: border-box; 
-   line-height: 150%;
-
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  line-height: 150%;
 }
 
 :root {
   --now: #17bebb;
   --no_project: #bebebe;
-  --project: #F3511B;
-  --highlight: #E0CA3C;
+  --project: #f3511b;
+  --highlight: #e0ca3c;
   --grey: #4c4c4c;
 }
 
-label, legend {
+label,
+legend {
   margin: 0 0 0.5rem 0;
 }
 
@@ -23,9 +23,7 @@ label, legend {
   align-items: center;
 }
 
-
-
-#welcome{
+#welcome {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,30 +32,50 @@ label, legend {
   align-content: stretch;
 
   padding: 0;
-  margin: 0;
+  margin: 30px;
   width: 100%;
-  height:auto;
+  height: auto;
   background: white;
 }
-
 
 .background {
   width: 100%;
   height: 100%;
 }
 
+#header {
+  height: 10%;
+  min-height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 10px;
+  border-bottom: 1px solid var(--no_project);
+}
+
+#userName {
+  font-size: min(3vmax, 18px);;
+  color: var(--no_project);
+}
+
+
+
 #pageContainer {
   width: 100%;
-  height: 90%;
+  height: 80%;
   padding: 2%;
 }
 
 #footer {
   width: 100%;
   height: 10%;
+  min-height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: absolute;
+    bottom: 0;
+    background-color: white;
 }
 
 .btn1 {
@@ -66,9 +84,8 @@ label, legend {
   color: var(--project);
   border-radius: 10px;
   border: 1px solid var(--project);
-  margin: 2%;
-  padding: 10px;
-  font-size: 3vh;
+  padding: 5px;
+  font-size: min(3vmax, 18px);;
   min-width: 20vw;
   max-width: 30vw;
 }
@@ -85,8 +102,8 @@ label, legend {
   border-radius: 10px;
   border: 1px solid var(--grey);
   margin: 2%;
-  padding: 10px;
-  font-size: 3vh;
+  padding: 5px;
+  font-size: min(3vmax, 18px);;
   min-width: 20vw;
 }
 
@@ -95,12 +112,18 @@ label, legend {
   color: white;
 }
 
+.btn_disabled {
+  border-color: var(--grey) !important;
+  opacity: 0.5 !important;
+  color: var(--grey) !important;
+  pointer-events: none;
+}
+
 .page {
   width: 100%;
   height: 100%;
   display: none;
   overflow: auto;
-
 }
 
 .active {
@@ -109,8 +132,9 @@ label, legend {
 
 .pageTitle {
   width: 100%;
-  height: 15%;
-  font-size: 5vh;
+  font-size: min(5vmax, 30px);
+  padding: 10px;
+
 }
 
 .element {
@@ -135,9 +159,8 @@ label, legend {
   display: flex;
   align-items: center;
   text-align: left;
-  font-size: 3vh;
+  font-size: min(3vmax, 18px);;
   width: 50vw;
-
 }
 
 .labelFinal {
@@ -150,32 +173,56 @@ label, legend {
   width: 40% !important;
   display: flex;
   flex-direction: row;
+  font-size: min(3vmax, 18px);;
 }
 
 .inputRows {
   flex-direction: column;
-  margin: 20px;
-
+  margin: 2%;
 }
 
 .inputField {
   border-radius: 10px;
-  border: 1px solid var(--project);
+  border: 1px solid var(--no_project);
   margin: 2%;
   padding: 0px 10px;
-  font-size: 2vh;
+  font-size: min(3vmax, 18px);;
   height: 8vh;
 }
 
-@media screen and (max-width: 600px) {
+input[type='date'] {
+  border-radius: 10px !important;
+  border: 1px solid var(--no_project) !important;
+  height: 8vh !important;
+  margin: 2% !important;
+  padding: 0px 10px !important;
+  font-size: min(3vmax, 18px);;
+}
+
+
+@media (max-width: 600px) {
   .input {
     width: 100% !important;
   }
 
+  .labelText {
+    width: 100%;
+  }
+}
+
+.radioButtonContainer {
+  display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 5px 0;
 }
 
 .radioButton {
   margin: 0 20px 0 0;
+}
+
+label {
+  margin: 0 !important;
 }
 
 .slider {
@@ -193,7 +240,7 @@ label, legend {
   width: 20px;
   height: 20px;
   border-radius: 10px;
-  background: var(--project);;
+  background: var(--project);
   cursor: pointer;
 }
 
@@ -201,7 +248,7 @@ label, legend {
   width: 20px;
   height: 20px;
   border-radius: 10px;
-  background: var(--project);;
+  background: var(--project);
   cursor: pointer;
 }
 
@@ -232,7 +279,7 @@ label, legend {
   margin: 0 0 0 20px;
   padding: 4px 12px;
   border-radius: 4px;
-  display: flex; 
+  display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 10px;
@@ -244,10 +291,3 @@ label, legend {
   width: 100%;
 }
 
-.dateTimeInput {
-  border-radius: 10px !important;
-  border: 1px solid var(--project) !important;
-  height: 8vh !important;
-  margin: 2% !important;
-  padding: 0px 10px !important;
-}

@@ -17,7 +17,8 @@ define([
 
   ], function (dom, domCtr, win, on, ArcGis) {
     return class Element {
-      constructor(page, id, container) {
+      constructor(app, page, id, container) {
+        this.app = app;
         this.page = page;
         this.id = id;
         this.name = this.page.name + "_element_" + id.toString();
@@ -180,6 +181,7 @@ define([
         this.valueSet = true;
         this.value = value;
         this.checkValueSet();
+        this.app.save.className = "btn1"
       }
 
       checkValueSet() {
