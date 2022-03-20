@@ -294,8 +294,48 @@ label {
   border: 1px solid var(--no_project);
 }
 
-.map {
-  height: 90%;
+.elementMap {
+  height: 100%;
+}
+.mapContainer {
   width: 100%;
+  height: 80%;
+  display: flex;
+  flex-direction: row;
 }
 
+.map {
+  height: 100%;
+  width: 70%;
+}
+
+.editor {
+  height: 100%;
+  width: 30%;
+}
+
+
+
+@media (max-width: 600px) {
+
+  .elementMap {
+    height: "";
+  }
+
+  .mapContainer {
+    flex-direction: column;
+    height: 400px;
+  }
+
+  .map  {
+    width: 100% !important;
+    height: 70% !important;
+  }
+
+  .editor {
+    width: 100% !important;
+    height: 40%;
+  }
+
+
+}

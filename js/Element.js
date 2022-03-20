@@ -158,10 +158,13 @@ define([
 
 
       addMap(args) {
-        this.element = domCtr.create("div", { id: this.name, className: "element", style: "height: 85%;"}, this.container); 
-        this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text, style: "height: 10%;"}, this.element);
-        this.input = domCtr.create("div", {id: this.name + "_map", className:"map"}, this.element);
-        this.map = this.arcgis.addMap(this.input.id);   
+        this.element = domCtr.create("div", { id: this.name, className: "element elementMap"}, this.container); 
+        this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text, style: "width: 100%;"}, this.element);
+        this.mapContainer = domCtr.create("div", {className: "mapContainer"}, this.element); 
+        this.input = domCtr.create("div", {id: this.name + "_map", className:"map"}, this.mapContainer);
+        this.editor = domCtr.create("div", {id: this.name + "_editor", className:"editor"}, this.mapContainer);
+
+        this.map = this.arcgis.addMap(this.input.id, this.editor.id);   
 
       }
 

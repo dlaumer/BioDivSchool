@@ -158,7 +158,7 @@ define([
       
     }
 
-    addMap(container) {
+    addMap(containerMap, containerEditor) {
       esriConfig.portalUrl = "https://swissparks.maps.arcgis.com/";
       let geometry = new FeatureLayer({
         portalItem: {
@@ -175,20 +175,18 @@ define([
 
       let view = new MapView({
         map: map,
-        container: container,
+        container: containerMap,
       });
 
       const editor = new Editor({
         view: view,
+        container: containerEditor
       });
-
-      view.ui.add(new Expand({ content: editor, view: view }), "top-right");
 
       const locate = new Locate({
         view: view,
         useHeadingEnabled: false,
       });
-      view.ui.add(locate, "top-left");
       view.when(() => {
         locate.when(() => {
           locate.locate();
