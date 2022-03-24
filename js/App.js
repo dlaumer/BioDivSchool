@@ -227,14 +227,24 @@ define([
           }
         }
       }
-      console.log(data);
       return data;
     }
 
-    uploadData(data) {
+    parseElements(elements) {
+      let data = {}
+      for (let elem in elements) {
+        data = {...data, ...elements[elem].readValue()};
+      }
+      return data;
+
+    }
+
+    uploadData(elements) {
+      let data = this.parseElements(elements);
+
       return new Promise((resolve, reject) => {
         that.arcgis
-          .updateFeature(this.objectId, data)
+          .updateFeature(this.objectId, parsedData)
           .then((value) => {
             resolve(value);
           })

@@ -54,7 +54,7 @@ define([
       let elem = new Element(this.app, this, this.elements.length, this.page);
       elem.init(type, key, args);
       this.elements.push(elem);
-
+      return elem;
     }
 
     addWarning() {

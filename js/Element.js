@@ -28,6 +28,8 @@ define([
         this.valueSet = false;
         this.value = null;
         this.setValue = null;
+        this.hasPoints = false;
+        this.points = null;
 
       }
   
@@ -99,8 +101,20 @@ define([
             domCtr.create("option", {value:args.options[i].key, innerHTML: args.options[i].label}, this.input);
         }
 
+        if (args.points != null) {
+          this.hasPoints = true;
+          this.keyPoints = args.points;
+          this.pointsDict = {}
+          for (const i in args.options) {
+            this.pointsDict[args.options[i].label] = args.options[i].key;
+          }
+        }
+
         on(this.input, "change", function (evt) {
-          this.clickHandler(evt.target.value)
+          this.clickHandler(evt.target.options[evt.target.selectedIndex].innerHTML);
+          if (this.hasPoints) {
+            this.points = evt.target.value
+          }
         }.bind(this));
         
         this.setValue = function (value) {
@@ -117,8 +131,21 @@ define([
           domCtr.create("input", {type: "radio", name: this.key, id: args.options[i].key, className: "radioButton"}, radioButtonContainer);  
           domCtr.create("label", {for: args.options[i].key, innerHTML: args.options[i].label }, radioButtonContainer);  
         }
+
+        if (args.points != null) {
+          this.hasPoints = true;
+          this.keyPoints = args.points;
+          this.pointsDict = {}
+          for (const i in args.options) {
+            this.pointsDict[args.options[i].label] = args.options[i].key;
+          }
+        }
+
         on(this.input, "change", function (evt) {
-          this.clickHandler(evt.target.id)
+          this.clickHandler(evt.target.labels[0].innerHTML)
+          if (this.hasPoints) {
+            this.points = evt.target.id;
+          }
         }.bind(this));
         
         this.setValue = function (value) {
@@ -183,6 +210,9 @@ define([
       clickHandler(value) {
         this.valueSet = true;
         this.value = value;
+        if (this.hasPoints) {
+          this.points = this.pointsDict[this.value];
+        }
         this.checkValueSet();
         this.app.save.className = "btn1"
       }
@@ -195,6 +225,18 @@ define([
           this.label.style.color = "red";
         }
       }
+
+      readValue() {
+        let output = {}
+        output[this.key] = this.value;
+        if (this.hasPoints) {
+          output[this.keyPoints] = parseInt(this.points);
+        }
+        return output;
+         
+      }
+
+      
 
     }
       

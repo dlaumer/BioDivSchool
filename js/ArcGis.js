@@ -133,7 +133,7 @@ define([
           if (results.features.length > 0) {
             let editFeature = results.features[0];
             for (const item in data) {
-              editFeature.attributes[item] = data[item].value;
+              editFeature.attributes[item] = data[item];
             }
             // finally, upload the new data to ArcGIS Online
             this.table

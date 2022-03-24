@@ -37,7 +37,7 @@ define([
                 this.createUI();
                 this.clickHandler();
                 this.content = new Content(that);
-                this.content.init();
+                this.content.init2();
                 if (this.offline) {
                     that.init("1");
                 }
