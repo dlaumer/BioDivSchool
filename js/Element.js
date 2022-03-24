@@ -56,9 +56,16 @@ define([
             case "mapInput":
                 this.addMap(args);
                 break;
+            case "textInfo":
+                  this.addTextInfo(args);
+                  break;
             case "finalButton":
                 this.addFinalButton(args);
                 break;
+        }
+
+        if (args.textInfo) {
+          this.addTextInfo(args.textInfo);
         }
 
       }
@@ -104,11 +111,13 @@ define([
         if (args.points != null) {
           this.hasPoints = true;
           this.keyPoints = args.points;
-          this.pointsDict = {}
+          
+        }
+
+        this.pointsDict = {}
           for (const i in args.options) {
             this.pointsDict[args.options[i].label] = args.options[i].key;
           }
-        }
 
         on(this.input, "change", function (evt) {
           this.clickHandler(evt.target.options[evt.target.selectedIndex].innerHTML);
@@ -135,10 +144,11 @@ define([
         if (args.points != null) {
           this.hasPoints = true;
           this.keyPoints = args.points;
-          this.pointsDict = {}
-          for (const i in args.options) {
-            this.pointsDict[args.options[i].label] = args.options[i].key;
-          }
+          
+        }
+        this.pointsDict = {}
+        for (const i in args.options) {
+          this.pointsDict[args.options[i].label] = args.options[i].key;
         }
 
         on(this.input, "change", function (evt) {
@@ -149,7 +159,7 @@ define([
         }.bind(this));
         
         this.setValue = function (value) {
-          document.getElementById(value).checked = true;
+          document.getElementById( this.pointsDict[value]).checked = true;
         }
       }
 
@@ -194,6 +204,19 @@ define([
         this.map = this.arcgis.addMap(this.input.id, this.editor.id);   
 
       }
+
+      addTextInfo(args) { 
+
+        //this.label.innerHTML = this.label.innerHTML + "<br><br> <a onclick=expand()>sdsdd</a>" + args.linkText;
+        this.link = domCtr.create("div", { className: "labelText linkText", innerHTML: args.linkText}, this.element);
+        this.textInfo = domCtr.create("div", { className: "expandable", innerHTML: args.text, }, this.element);
+
+        on(this.link, "click", function (evt) {
+          this.textInfo.style.display = this.textInfo.style.display=="" ? "block" : "";
+        }.bind(this));
+      }
+
+     
 
       addFinalButton(args) {
         this.element = domCtr.create("div", { id: this.name, className: "element final"}, this.container);  

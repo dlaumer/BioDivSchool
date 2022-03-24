@@ -244,7 +244,7 @@ define([
 
       return new Promise((resolve, reject) => {
         that.arcgis
-          .updateFeature(this.objectId, parsedData)
+          .updateFeature(this.objectId, data)
           .then((value) => {
             resolve(value);
           })
