@@ -6,6 +6,12 @@
   font-family: var(--calcite-sans-family);
 }
 
+/*
+.esri-editor__control-button {
+  display:none
+}
+*/
+
 :root {
   --now: #17bebb;
   --no_project: #bebebe;
@@ -320,14 +326,17 @@ label {
   flex-direction: row;
 }
 
+.areaInfo {
+  width: 100%;
+}
+
 .map {
   height: 100%;
   width: 70%;
 }
 
 .editor {
-  height: 100%;
-  width: 30%;
+    width: 30%;
 }
 
 

@@ -13,9 +13,8 @@ define([
     "dojo/_base/window",
     "dojo/on",
 
-    "biodivschool/ArcGis"
 
-  ], function (dom, domCtr, win, on, ArcGis) {
+  ], function (dom, domCtr, win, on) {
     return class Element {
       constructor(app, page, id, container) {
         this.app = app;
@@ -23,11 +22,10 @@ define([
         this.id = id;
         this.name = this.page.name + "_element_" + id.toString();
         this.container = container;
-        this.arcgis = new ArcGis();
   
         this.valueSet = false;
         this.value = null;
-        this.setValue = null;
+        this.setterUI = null;
         this.hasPoints = false;
         this.points = null;
 
@@ -76,10 +74,10 @@ define([
         this.input = domCtr.create("input", { className: "input inputField", placeholder: args.placeholder }, this.element);
 
         on(this.input, "input", function (evt) {
-          this.clickHandler(evt.target.value)
+          this.setter(evt.target.value)
         }.bind(this));
 
-        this.setValue = function (value) {
+        this.setterUI = function (value) {
           this.input.value = value
         }
       }
@@ -90,10 +88,10 @@ define([
         this.input = domCtr.create("input", {id: "dateTime", type:"date", className: "input dateTimeInput" }, this.element);
         
         on(this.input, "input", function (evt) {
-          this.clickHandler(evt.target.value)
+          this.setter(evt.target.value)
         }.bind(this));
 
-        this.setValue = function (value) {
+        this.setterUI = function (value) {
           this.input.value = new Date(value).toISOString().split("T")[0]
         }
       }
@@ -120,13 +118,13 @@ define([
           }
 
         on(this.input, "change", function (evt) {
-          this.clickHandler(evt.target.options[evt.target.selectedIndex].innerHTML);
+          this.setter(evt.target.options[evt.target.selectedIndex].innerHTML);
           if (this.hasPoints) {
             this.points = evt.target.value
           }
         }.bind(this));
         
-        this.setValue = function (value) {
+        this.setterUI = function (value) {
           this.input.value = value
         }
       }
@@ -152,13 +150,13 @@ define([
         }
 
         on(this.input, "change", function (evt) {
-          this.clickHandler(evt.target.labels[0].innerHTML)
+          this.setter(evt.target.labels[0].innerHTML)
           if (this.hasPoints) {
             this.points = evt.target.id;
           }
         }.bind(this));
         
-        this.setValue = function (value) {
+        this.setterUI = function (value) {
           document.getElementById( this.pointsDict[value]).checked = true;
         }
       }
@@ -184,10 +182,10 @@ define([
         this.bubble.innerHTML = this.input.value;
 
         on(this.input, "input", function (evt) {
-          this.clickHandler(this.input.value)
+          this.setter(this.input.value)
         }.bind(this));
 
-        this.setValue = function (value) {
+        this.setterUI = function (value) {
           this.input.value = value
           this.bubble.innerHTML = value;
         }
@@ -199,11 +197,62 @@ define([
         this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text, style: "width: 100%;"}, this.element);
         this.mapContainer = domCtr.create("div", {className: "mapContainer"}, this.element); 
         this.input = domCtr.create("div", {id: this.name + "_map", className:"map"}, this.mapContainer);
-        this.editor = domCtr.create("div", {id: this.name + "_editor", className:"editor"}, this.mapContainer);
+        this.editorContainer = domCtr.create("div", {className: "editor"}, this.mapContainer); 
+        this.editor = domCtr.create("div", {id: this.name + "_editor"}, this.editorContainer);
+        this.areaInfo = domCtr.create("div", {id: this.name + "_areaInfo", className: "areaInfo"}, this.element);
+        this.createButton = domCtr.create("div", { id: this.name + "_create", className: "btn1 btn_disabled", innerHTML: "Create" }, this.editorContainer);
+ 
+        this.geometry = that.arcgis.addMap(this.input.id, this.editor.id, this.createButton,this);   
 
-        this.map = this.arcgis.addMap(this.input.id, this.editor.id);   
+        if (args.points != null) {
+          this.keyArea = args.area;
+          this.area = 0;
 
+          this.keyRatio = args.ratio.key;
+          this.ratioStops = args.ratio.stops;
+
+          this.hasPoints = true;
+          this.keyPoints = args.points;
+          
+        }
+
+        this.setterUI = function (value) {
+          
+        }
       }
+
+      calculateRatioAndPoints() {
+
+        that.arcgis.calculateArea(this.value).then((area) => {
+          this.area = area;
+          let numRatio = 0;
+            if (this.area == 0) {
+              this.ratio =  "0-" + (this.ratioStops[0]*100).toFixed(0) + "%"
+              this.points = parseInt(Object.keys(this.ratioStops)[0]);
+            }
+            else {
+              numRatio = this.area/this.app.projectArea;
+              if (numRatio > 1) {
+                alert("Das Gebiet darf nicht grösser sein als das Projektgebiet!");
+              }
+              for (let i in this.ratioStops) {
+                if (numRatio < this.ratioStops[i]) {
+                    this.ratio = (this.ratioStops[i-1]? this.ratioStops[i-1]*100: 0).toFixed(0) + "-" + (this.ratioStops[i]*100).toFixed(0) + "%"
+                    this.points = parseInt(i);
+                    break;
+                }
+              }
+            }
+            this.areaInfo.innerHTML = "Totale Fläche: " + this.area.toFixed(0) + " m2, Ratio = " + (numRatio*100).toFixed(2) + "%, Ratio Gruppe= " + this.ratio + ", Punkte= " + this.points.toFixed(0);
+          
+        })
+        .catch((error) => {
+          alert("Flächenberechnung nicht erfolgreich")
+          console.log(error)
+        });
+        
+      }
+
 
       addTextInfo(args) { 
 
@@ -230,14 +279,44 @@ define([
       }
         
   
-      clickHandler(value) {
+      setter(value) {
         this.valueSet = true;
         this.value = value;
+        if (this.type == "mapInput") {
+          this.geometry.definitionExpression = "objectid in (" + value.substring(1,value.length-1) + ")";
+        }
+
         if (this.hasPoints) {
-          this.points = this.pointsDict[this.value];
+          if (this.type == "mapInput") {
+            this.calculateRatioAndPoints();
+          }
+          else {
+            this.points = this.pointsDict[this.value];
+          }
         }
         this.checkValueSet();
         this.app.save.className = "btn1"
+
+       
+      }
+
+      
+
+      getter() {
+        let output = {}
+        output[this.key] = this.value;
+        if (this.hasPoints) {
+          if (this.type == "mapInput") {
+            output[this.keyPoints] = parseInt(this.points);
+            output[this.keyRatio] = this.ratio;
+            output[this.keyArea] = this.area;
+          }
+          else {
+            output[this.keyPoints] = parseInt(this.points);
+          }
+        }
+        return output;
+         
       }
 
       checkValueSet() {
@@ -247,16 +326,6 @@ define([
         else {
           this.label.style.color = "red";
         }
-      }
-
-      readValue() {
-        let output = {}
-        output[this.key] = this.value;
-        if (this.hasPoints) {
-          output[this.keyPoints] = parseInt(this.points);
-        }
-        return output;
-         
       }
 
       

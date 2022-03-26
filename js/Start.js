@@ -39,7 +39,7 @@ define([
                 this.content = new Content(that);
                 this.content.init();
                 if (this.offline) {
-                    that.init("1");
+                    that.init("1", "a");
                 }
             });
         }
@@ -59,21 +59,42 @@ define([
         // Create the GUI of the start screen
         createUI() {
             domCtr.destroy("loading");
-            this.input = domCtr.create("input", { className: "input inputField", placeholder: "Gruppen ID" }, this.container);
+            this.inputProjectId = domCtr.create("input", { className: "input inputField", placeholder: "Projekt ID" }, this.container);
+            this.inputGroupId = domCtr.create("select", {className:"input inputField", style: "display: none"}, this.container);
+
+            domCtr.create("option", {value:"",  disabled:true, selected:true, innerHTML: "Gruppe"}, this.inputGroupId);
+            let options = [
+                { key: "a", label: "Gruppe a" },
+                { key: "b", label: "Gruppe b" },
+                { key: "c", label: "Gruppe c" },
+                { key: "d", label: "Gruppe d" },
+                { key: "e", label: "Gruppe e" },
+              ];
+            for (const i in options) {
+                domCtr.create("option", {value:options[i].key, innerHTML: options[i].label}, this.inputGroupId);
+            }
             this.start = domCtr.create("div", { id: "btn_start", className: "btn1 btn_disabled", innerHTML: "Start"}, this.container);
         }
 
         // Handle all the interactions
         clickHandler() {
 
-        on(this.input, "input", function (evt) {
-            this.start.className = "btn1";
+        on(this.inputProjectId, "input", function (evt) {
+            this.inputGroupId.style.display = "block";
         }.bind(this));
 
+        on(this.inputGroupId, "change", function (evt) {
+            if (this.inputProjectId.value != "") {
+                this.start.className = "btn1";
+            } 
+            else {
+                this.start.className = "btn1 btn_disabled";
+            }
+        }.bind(this));
             
         on(this.start, "click", function (evt) {
 
-            this.app.init(this.input.value);
+            this.app.init(this.inputProjectId.value, this.inputGroupId.value);
         }.bind(this));
 
         }

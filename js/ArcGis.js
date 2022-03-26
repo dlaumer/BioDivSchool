@@ -13,9 +13,12 @@ define([
   "esri/widgets/Expand",
   "esri/widgets/Locate",
   "esri/Graphic",
+  "esri/geometry/geometryEngine",
 
   "biodivschool/Links",
   "esri/config",
+  "dojo/dom-construct",
+
 ], function (
   Accessor,
   FeatureLayer,
@@ -25,8 +28,10 @@ define([
   Expand,
   Locate,
   Graphic,
+  geometryEngine,
   Links,
-  esriConfig
+  esriConfig,
+  domCtr
 ) {
   return class ArcGis {
     constructor(content) {
@@ -47,20 +52,41 @@ define([
           id: this.links.dataLayerId,
         },
       });
-      var that = this;
-      that.table.load()
+      this.table.load()
+      .then(() => { 
+        callback();
+
+       })
+      .catch((error) => {
+        console.log(error);
+        alert("The connection to the database could not be established: " +  error.toString());
+      });
+
+      
+        
+    }
+
+
+    initGeo(callback) {
+      this.geometry = new FeatureLayer({
+        portalItem: {
+          id: this.links.geometryLayerId,
+        },
+      });
+      this.geometry.load()
       .then(() => { 
         callback();
        })
       .catch((error) => {
         console.log(error);
-        //alert("The connection to the database could not be established: " +  error.toString());
+        alert("The connection to the database could not be established: " +  error.toString());
       });
     }
+
     // function to add one row to the table
-    addFeature(gruppenId, callback) {
+    checkData(projectId, groupId, callback) {
       var query = this.table.createQuery();
-      query.where = "gruppenId = " + gruppenId;
+      query.where =  "projectid= '" + projectId + "' AND groupid= '" + groupId + "'";
 
       this.table.queryFeatures(query).then((results) => {
         // If it already exists, load the existing values
@@ -69,7 +95,7 @@ define([
           callback({newFeature: false, data: results.features[0], objectId: results.features[0].getObjectId()});
         } else {
           // Make a new entry
-          const attributes = { gruppenId: gruppenId };
+          const attributes = { "projectid": projectId, "groupid": groupId };
 
           const addFeature = new Graphic({
             geometry: null,
@@ -81,7 +107,14 @@ define([
               addFeatures: [addFeature],
             })
             .then((editInfo) => {
-              callback({newFeature: true, data: editInfo.addFeatureResults[0], objectId: editInfo.addFeatureResults[0].objectId});
+              if (editInfo.addFeatureResults[0].objectId != -1) {
+                callback({newFeature: true, data: editInfo.addFeatureResults[0], objectId: editInfo.addFeatureResults[0].objectId});
+
+              }
+              else {
+                alert("loading not possible: " + editInfo.addFeatureResults[0].error.message)
+                console.error(editInfo.addFeatureResults[0].error)
+              }
             });
         }
       });
@@ -158,12 +191,41 @@ define([
       
     }
 
-    addMap(containerMap, containerEditor) {
+    calculateArea(objectIds) {
+
+      return new Promise((resolve, reject) => {
+        let totalArea = 0;
+        var query = this.geometry.createQuery();
+        query.where =  "objectid in (" + objectIds.substring(1,objectIds.length-1) + ")";
+        
+        this.geometry.queryFeatures(query).then((results) => {
+          // If it already exists, load the existing values
+          if (results.features.length > 0) {
+              for (let i=0; i< results.features.length;i++) {
+                  let geom = results.features[i].geometry;
+                  totalArea += geometryEngine.geodesicArea(geom, "square-meters");
+              }
+          };
+          resolve(totalArea);
+         
+        })
+        .catch((error) => {
+            alert(error.message);
+            reject();
+        });
+
+      });
+      
+    }
+
+    addMap(containerMap, containerEditor, createButton, element) {
+
       esriConfig.portalUrl = "https://swissparks.maps.arcgis.com/";
       let geometry = new FeatureLayer({
         portalItem: {
           id: this.links.geometryLayerId,
         },
+        definitionExpression: "objectid = 0"
       });
 
       // TODO: Add Filter for group ID
@@ -187,11 +249,78 @@ define([
         view: view,
         useHeadingEnabled: false,
       });
+
+      
+
+      createButton.addEventListener("click", () => {
+        createButton.innerHTML = "Creating...";
+        createButton.style.pointerEvents = "none"
+        editor.activeWorkflow.data.creationInfo.layer.applyEdits({addFeatures: editor.activeWorkflow.pendingFeatures}).then((editInfo) => {
+          if (editInfo.addFeatureResults[0].objectId != -1) {
+          let value = []
+          for (let i=0;i<editInfo.addFeatureResults.length; i++) {
+            value.push(editInfo.addFeatureResults[i].objectId)
+          }
+          let newValue = value;
+          if (element.valueSet) {
+            newValue = [...value, ...JSON.parse(element.value)];
+          }
+          element.setter(JSON.stringify(newValue));
+          editor.activeWorkflow.reset();
+          
+          createButton.className = "btn1 btn_disabled"
+        }
+        else {
+          alert("Saving not possible: " + editInfo.addFeatureResults[0].error.message)
+          createButton.style.pointerEvents = ""
+          console.error(editInfo.addFeatureResults[0].error)
+        }
+        createButton.innerHTML = "Create";
+        });
+      })
+
+      
+      editor.watch("activeWorkflow.numPendingFeatures", function(newValue, oldValue) {
+        if (newValue != 0) {
+          createButton.className = "btn1"
+        }
+        /*
+        if (editor.activeWorkflow) {
+          calculateArea();
+        }
+        */
+      });
+      
+
+      // TODO also calculate exisiting areas!
+      function calculateAreaPending() {
+        let totalArea = 0
+        for (let i = 0; i < editor.activeWorkflow.pendingFeatures.length; i++) {
+          let geom = editor.activeWorkflow.pendingFeatures.getItemAt(i).geometry;
+          totalArea += geometryEngine.geodesicArea(geom, "square-meters");
+        }
+        return totalArea
+      }
+
+      editor.viewModel.featureFormViewModel.on("value-change", () => {
+        console.log("I'm here")
+        // This should fire when I click "create"
+      })
+
+
+      editor.when(() => {
+        let panel = document.getElementById(containerEditor).querySelector(".esri-editor__panel-content")
+      })
+
+      //view.ui.add(createButton, "bottom-right");
       view.when(() => {
         locate.when(() => {
           locate.locate();
+          
         });
       });
+      return geometry;
+
     }
   };
 });

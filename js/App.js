@@ -19,15 +19,25 @@ define([
   return class App {
     constructor(offline, callback) {
       that = this;
+      that.projectAreaId = "[12]";
+      
 
       this.offline = offline;
       if (!this.offline) {
         this.arcgis = new ArcGis();
         this.arcgis.init(() => {
-          this.createUI();
-          this.clickHandler();
-          this.pages = [];
-          callback();
+
+          this.arcgis.initGeo(() => {
+            this.arcgis.calculateArea(that.projectAreaId).then((area) => {
+              that.projectArea = area;
+            });
+            this.createUI();
+            this.clickHandler();
+            this.pages = [];
+            callback();
+          })
+
+          
         });
       } else {
         this.createUI();
@@ -35,16 +45,19 @@ define([
         this.pages = [];
         callback();
       }
+
+      
     }
 
-    init(gruppenId) {
+    init(projectId, groupId) {
       document.getElementById("btn_start").innerHTML = "Loading...";
-      this.gruppenId = gruppenId;
+      this.projectId = projectId;
+      this.groupId = groupId;
 
       // Add a new element in the database
       let that = this;
       if (!this.offline) {
-        this.arcgis.addFeature(that.gruppenId, (info) => {
+        this.arcgis.checkData(that.projectId, that.groupId, (info) => {
           let data = info.data;
           that.objectId = info.objectId;
           if (!info.newFeature) {
@@ -56,7 +69,7 @@ define([
           this.pages[0].init(null);
           this.currentPage = 0;
           // TODO Warning if did not work!
-          this.userName.innerHTML = "Gruppen ID: " + this.gruppenId;
+          this.userName.innerHTML = "Projekt: " + this.projectId + ", Gruppe: " + this.groupId;
           this.save.className = "btn1 btn_disabled";
         });
       } else {
@@ -66,7 +79,7 @@ define([
         this.pages[0].init(null);
         this.currentPage = 0;
         // TODO Warning if did not work!
-        this.userName.innerHTML = "Gruppen ID: " + this.gruppenId;
+        this.userName.innerHTML = "Projekt: " + this.projectId + ", Gruppe: " + this.groupId;
         this.save.className = "btn1 btn_disabled";
       }
     }
@@ -197,8 +210,8 @@ define([
 
       for (let item in data) {
         if (item in elements && data[item] != null) {
-          elements[item].clickHandler(data[item]);
-          elements[item].setValue(data[item]);
+          elements[item].setter(data[item]);
+          elements[item].setterUI(data[item]);
         }
       }
     }
@@ -233,7 +246,7 @@ define([
     parseElements(elements) {
       let data = {}
       for (let elem in elements) {
-        data = {...data, ...elements[elem].readValue()};
+        data = {...data, ...elements[elem].getter()};
       }
       return data;
 
