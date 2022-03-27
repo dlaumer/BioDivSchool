@@ -13,20 +13,21 @@ define([
   "dojo/_base/window",
   "dojo/on",
   "biodivschool/Page",
+  "biodivschool/Consolidation",
+
   "biodivschool/ArcGis",
   "biodivschool/Start",
-], function (dom, domCtr, win, on, Page, ArcGis, Start) {
+], function (dom, domCtr, win, on, Page, Consolidation, ArcGis, Start) {
   return class App {
-    constructor(offline, callback) {
+    constructor(offline, mode, callback) {
       that = this;
       that.projectAreaId = "[12]";
-      
-
+      that.mode = mode;
       this.offline = offline;
+
       if (!this.offline) {
         this.arcgis = new ArcGis();
         this.arcgis.init(() => {
-
           this.arcgis.initGeo(() => {
             this.arcgis.calculateArea(that.projectAreaId).then((area) => {
               that.projectArea = area;
@@ -63,25 +64,55 @@ define([
           if (!info.newFeature) {
             that.loadInputs(data.attributes);
           }
-          // destroy welcome page when app is started
-          domCtr.destroy("start");
-          this.background.style.display = "block";
-          this.pages[0].init(null);
-          this.currentPage = 0;
-          // TODO Warning if did not work!
-          this.userName.innerHTML = "Projekt: " + this.projectId + ", Gruppe: " + this.groupId;
-          this.save.className = "btn1 btn_disabled";
+          this.initUI();
         });
       } else {
-        // destroy welcome page when app is started
-        domCtr.destroy("start");
-        this.background.style.display = "block";
-        this.pages[0].init(null);
-        this.currentPage = 0;
-        // TODO Warning if did not work!
-        this.userName.innerHTML = "Projekt: " + this.projectId + ", Gruppe: " + this.groupId;
-        this.save.className = "btn1 btn_disabled";
+        this.initUI();
       }
+    }
+
+    initConsolidation(projectId) {
+      document.getElementById("btn_start").innerHTML = "Loading...";
+      this.projectId = projectId;
+      this.groupId = "all";
+
+      // Add a new element in the database
+      let that = this;
+      if (!this.offline) {
+        this.arcgis.checkDataGroups(that.projectId, (data) => {
+          that.dataGroups = data;
+          that.loadInputsGroup(that.dataGroups);
+          this.arcgis.checkData(that.projectId, that.groupId, (info) => {
+            let data = info.data;
+            that.objectId = info.objectId;
+            if (!info.newFeature) {
+              that.loadInputs(data.attributes);
+            }
+            else {
+              that.calculateAverages(that.dataGroups);
+              //ToDo: upload averages!
+            }
+            that.calculateAverages(that.dataGroups); 
+            this.initUI();
+          });
+          
+        });
+
+        
+      } else {
+        this.initUI();
+      }
+    }
+
+    initUI() {
+      // destroy welcome page when app is started
+      domCtr.destroy("start");
+      this.background.style.display = "block";
+      this.pages[0].init(null);
+      this.currentPage = 0;
+      // TODO Warning if did not work!
+      this.userName.innerHTML = "Projekt: " + this.projectId + ", Gruppe: " + this.groupId;
+      this.save.className = "btn1 btn_disabled";
     }
 
     createUI() {
@@ -187,9 +218,19 @@ define([
     }
 
     addPage(title) {
-      let page = new Page(this, this.pages.length, this.pageContainer, title);
-      this.pages.push(page);
+      let page;
+      if (that.mode == "consolidation") {
+        page = new Consolidation(this, this.pages.length, this.pageContainer, title)
+      }
+      else {
+        page = this.addPageNormal(title, this.pageContainer)
+      }
+      return page;
+    }
 
+    addPageNormal(title, container) {
+      let page = new Page(this, this.pages.length, container, title);
+      this.pages.push(page);
       return page;
     }
 
@@ -214,6 +255,14 @@ define([
           elements[item].setterUI(data[item]);
         }
       }
+    }
+
+    loadInputsGroup(data) {
+      console.log("Anzahl Gruppen: " + data.length.toFixed(0))
+    }
+
+    calculateAverages(data) {
+      console.log(data)
     }
 
     checkInputs() {

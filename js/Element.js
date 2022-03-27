@@ -29,6 +29,9 @@ define([
         this.hasPoints = false;
         this.points = null;
 
+        this.pageWidth = 0;
+        window.onresize = this.reportWindowSize;
+
       }
   
       init(type, key, args) {
@@ -65,6 +68,8 @@ define([
         if (args.textInfo) {
           this.addTextInfo(args.textInfo);
         }
+
+        this.reportWindowSize();
 
       }
   
@@ -328,7 +333,21 @@ define([
         }
       }
 
-      
+
+      reportWindowSize() {
+        this.elementWidth = document.getElementsByClassName("element")[0].clientWidth;
+  
+        console.log(this.pageWidth);
+  
+        if (this.elementWidth < 600 ) {
+          
+          document.head.appendChild(style);
+          
+        } else {
+          document.head.removeChild(style);
+        }
+  
+      }
 
     }
       

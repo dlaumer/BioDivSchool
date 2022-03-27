@@ -77,6 +77,26 @@ body {
   padding: 2%;
 }
 
+.consolidationContainer {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  flex-direction: row;
+}
+
+.consolidation{
+  width: 60%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.groupDiv {
+  height: 50%;
+  width: 30%;
+}
+
 #footer {
   width: 100%;
   height: 10%;
@@ -229,17 +249,6 @@ input[type='date'] {
   font-size: min(3vmax, 18px);;
 }
 
-
-@media (max-width: 600px) {
-  .input {
-    width: 100% !important;
-  }
-
-  .labelText {
-    width: 100%;
-  }
-}
-
 .radioButtonContainer {
   display: flex;
     flex-direction: row;
@@ -339,28 +348,3 @@ label {
     width: 30%;
 }
 
-
-
-@media (max-width: 600px) {
-
-  .elementMap {
-    height: "";
-  }
-
-  .mapContainer {
-    flex-direction: column;
-    height: 400px;
-  }
-
-  .map  {
-    width: 100% !important;
-    height: 70% !important;
-  }
-
-  .editor {
-    width: 100% !important;
-    height: 40%;
-  }
-
-
-}

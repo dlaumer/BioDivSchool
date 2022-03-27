@@ -91,7 +91,6 @@ define([
       this.table.queryFeatures(query).then((results) => {
         // If it already exists, load the existing values
         if (results.features.length > 0) {
-            console.log(results)
           callback({newFeature: false, data: results.features[0], objectId: results.features[0].getObjectId()});
         } else {
           // Make a new entry
@@ -116,6 +115,20 @@ define([
                 console.error(editInfo.addFeatureResults[0].error)
               }
             });
+        }
+      });
+    }
+
+    checkDataGroups(projectId, callback) {
+      var query = this.table.createQuery();
+      query.where =  "projectid= '" + projectId + "' AND groupid <> 'all'";
+
+      this.table.queryFeatures(query).then((results) => {
+        // If it already exists, load the existing values
+        if (results.features.length > 0) {
+          callback(results.features);
+        } else {
+          alert("Es gibt keine Gruppen mit dieser ProjektID")
         }
       });
     }

@@ -29,70 +29,83 @@ define([
 
     // Start the start screen
     makeContent() {
-      /*
-            ==========
-            Elements
-            ==========
+    /*
+    ==========
+    Elements
+    ==========
 
-            simpleTextInput
-            ---------------
-            - text
-            - placeholder
-            - textInfo (optional)
-                - linkText
-                - text
-
-
-            dateTimeInput
-            --------------
-            - text
-            - textInfo (optional)
-                - linkText
-                - text
-
-            dropdownInput
-            --------------
-            - text
-            - placeholder
-            - points (optional)
-            - options
-                - key (points as string!)
-                - label
-            - textInfo (optional)
-                - linkText
-                - text
-            
-
-            radioButtonInput
-            ------------------
-            - text
-            - points (optional)
-            - options
-                - key (points as string!)
-                - label
-            - textInfo (optional)
-                - linkText
-                - text
+    simpleTextInput
+    ---------------
+    - text
+    - placeholder
+    - textInfo (optional)
+        - linkText
+        - text
 
 
-            sliderInput
-            -----------
-            - text
-            - min
-            - max
-            - step
-            - textInfo (optional)
-                - linkText
-                - text
+    dateTimeInput
+    --------------
+    - text
+    - textInfo (optional)
+        - linkText
+        - text
 
-            mapInput
-            --------
-            - text
-            - textInfo (optional)
-                - linkText
-                - text
+    dropdownInput
+    --------------
+    - text
+    - placeholder
+    - points (optional)
+    - options
+        - key (points as string!)
+        - label
+    - textInfo (optional)
+        - linkText
+        - text
+    
 
-            */
+    radioButtonInput
+    ------------------
+    - text
+    - points (optional)
+    - options
+        - key (points as string!)
+        - label
+    - textInfo (optional)
+        - linkText
+        - text
+
+
+    sliderInput
+    -----------
+    - text
+    - min
+    - max
+    - step
+    - textInfo (optional)
+        - linkText
+        - text
+
+    mapInput
+    --------
+    - text
+    - textInfo (optional)
+        - linkText
+        - text
+    - area (optional)
+    - ratio (optional)
+      - key
+      - stops
+    - points (optional)
+
+    */
+
+      this.groups = [
+        { key: "a", label: "Gruppe a" },
+        { key: "b", label: "Gruppe b" },
+        { key: "c", label: "Gruppe c" },
+        { key: "d", label: "Gruppe d" },
+        { key: "e", label: "Gruppe e" },
+      ]
 
       // Christian: Weitere Elemente hinzufuegen
       let page_projekt = this.app.addPage("Projekt");
