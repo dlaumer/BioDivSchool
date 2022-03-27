@@ -43,7 +43,7 @@ define([
         if (this.offline) {
           that.init("1", "a");
         }
-        this.app.initConsolidation("1")
+        //this.app.initConsolidation("1")
       });
     }
 

@@ -66,7 +66,7 @@ define([
         prevPage.page.className = "page";
       }
       this.page.className = "page active";
-      
+
 
     }
 

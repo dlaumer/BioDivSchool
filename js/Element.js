@@ -339,13 +339,19 @@ define([
   
         console.log(this.pageWidth);
   
-        if (this.elementWidth < 600 ) {
+        if (this.elementWidth != 0) {
+          if (this.elementWidth < 600 ) {
           
-          document.head.appendChild(style);
-          
-        } else {
-          document.head.removeChild(style);
+            document.head.appendChild(style);
+            
+          } else {
+            if (document.head.contains(style)){
+              document.head.removeChild(style);
+
+            }
+          }
         }
+        
   
       }
 

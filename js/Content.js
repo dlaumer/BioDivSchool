@@ -105,6 +105,8 @@ define([
         { key: "c", label: "Gruppe c" },
         { key: "d", label: "Gruppe d" },
         { key: "e", label: "Gruppe e" },
+        { key: "f", label: "Gruppe f" },
+
       ]
 
       // Christian: Weitere Elemente hinzufuegen
