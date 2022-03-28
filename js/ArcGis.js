@@ -150,6 +150,22 @@ define([
         });
     }
 
+
+    // function to read all rows of the tables
+    readGeometry(objectIds) {
+      return new Promise((resolve, reject) => {
+        // Create empty query, means to take all rows!
+        var query = this.geometry.createQuery();
+        query.where =  "objectid in (" + objectIds.substring(1,objectIds.length-1) + ")";
+
+        this.geometry.queryFeatures(query).then((results) => {
+          if (results.features.length > 0) {
+            resolve(results.features);
+          }
+        });
+      });
+    }
+
     // function to read all rows of the tables
     readFeatures() {
       return new Promise((resolve, reject) => {
@@ -231,7 +247,7 @@ define([
       
     }
 
-    addMap(containerMap, containerEditor, createButton, element) {
+    addMap(containerMap, containerEditor, element) {
 
       esriConfig.portalUrl = "https://swissparks.maps.arcgis.com/";
       let geometry = new FeatureLayer({
@@ -241,12 +257,30 @@ define([
         definitionExpression: "objectid = 0"
       });
 
+      let projectArea = new FeatureLayer({
+        portalItem: {
+          id: this.links.geometryLayerId,
+        },
+        definitionExpression: "objectid = " + that.projectAreaId.substring(1, that.projectAreaId.length-1),
+        editingEnabled: false, 
+        renderer:  {
+          type: "simple",  // autocasts as new SimpleRenderer()
+          symbol: { 
+            type: "simple-fill", // autocasts as new SimpleFillSymbol()
+            color: [255, 0, 0, 0.145] },  
+        }
+      });
+
+
       // TODO: Add Filter for group ID
       let map = new Map({
         basemap: "satellite",
       });
-
+      map.add(projectArea);
       map.add(geometry);
+
+      // ToDo: Zoom to layer, or to reference area?
+      
 
       let view = new MapView({
         map: map,
@@ -265,38 +299,10 @@ define([
 
       
 
-      createButton.addEventListener("click", () => {
-        createButton.innerHTML = "Creating...";
-        createButton.style.pointerEvents = "none"
-        editor.activeWorkflow.data.creationInfo.layer.applyEdits({addFeatures: editor.activeWorkflow.pendingFeatures}).then((editInfo) => {
-          if (editInfo.addFeatureResults[0].objectId != -1) {
-          let value = []
-          for (let i=0;i<editInfo.addFeatureResults.length; i++) {
-            value.push(editInfo.addFeatureResults[i].objectId)
-          }
-          let newValue = value;
-          if (element.valueSet) {
-            newValue = [...value, ...JSON.parse(element.value)];
-          }
-          element.setter(JSON.stringify(newValue));
-          editor.activeWorkflow.reset();
-          
-          createButton.className = "btn1 btn_disabled"
-        }
-        else {
-          alert("Saving not possible: " + editInfo.addFeatureResults[0].error.message)
-          createButton.style.pointerEvents = ""
-          console.error(editInfo.addFeatureResults[0].error)
-        }
-        createButton.innerHTML = "Create";
-        });
-      })
 
       
       editor.watch("activeWorkflow.numPendingFeatures", function(newValue, oldValue) {
-        if (newValue != 0) {
-          createButton.className = "btn1"
-        }
+        
         /*
         if (editor.activeWorkflow) {
           calculateArea();
@@ -315,6 +321,40 @@ define([
         return totalArea
       }
 
+      geometry.on("edits", function(editInfo) {
+        console.log(editInfo);
+        if (editInfo.addedFeatures.length > 0) {
+          if (editInfo.addedFeatures[0].objectId != -1) {
+            let value = []
+            for (let i=0;i<editInfo.addedFeatures.length; i++) {
+              value.push(editInfo.addedFeatures[i].objectId)
+            }
+            let newValue = value;
+            if (element.valueSet) {
+              newValue = [...value, ...JSON.parse(element.value)];
+            }
+            element.setter(JSON.stringify(newValue));          
+          }
+          else {
+            alert("Saving not possible: " + editInfo.addedFeatures[0].error.message)
+          }
+        }
+
+        if (editInfo.deletedFeatures.length > 0) {
+          if (editInfo.deletedFeatures[0].objectId != -1) {
+            let newValue = JSON.parse(element.value);
+            for (let i=0;i<editInfo.deletedFeatures.length; i++) {
+              newValue.pop(editInfo.deletedFeatures[i].objectId)
+            }
+            element.setter(JSON.stringify(newValue));          
+          }
+          else {
+            alert("Saving not possible: " + editInfo.addedFeatures[0].error.message)
+          }
+        }
+        
+      })
+
       editor.viewModel.featureFormViewModel.on("value-change", () => {
         console.log("I'm here")
         // This should fire when I click "create"
@@ -325,12 +365,17 @@ define([
         let panel = document.getElementById(containerEditor).querySelector(".esri-editor__panel-content")
       })
 
-      //view.ui.add(createButton, "bottom-right");
       view.when(() => {
+        this.readGeometry(that.projectAreaId).then((projectAreaFeature) => {
+          view.goTo(projectAreaFeature[0].geometry)
+
+        });
+        /*
         locate.when(() => {
           locate.locate();
           
         });
+        */
       });
       return geometry;
 

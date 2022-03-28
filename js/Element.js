@@ -205,9 +205,8 @@ define([
         this.editorContainer = domCtr.create("div", {className: "editor"}, this.mapContainer); 
         this.editor = domCtr.create("div", {id: this.name + "_editor"}, this.editorContainer);
         this.areaInfo = domCtr.create("div", {id: this.name + "_areaInfo", className: "areaInfo"}, this.element);
-        this.createButton = domCtr.create("div", { id: this.name + "_create", className: "btn1 btn_disabled", innerHTML: "Create" }, this.editorContainer);
  
-        this.geometry = that.arcgis.addMap(this.input.id, this.editor.id, this.createButton,this);   
+        this.geometry = that.arcgis.addMap(this.input.id, this.editor.id,this);   
 
         if (args.points != null) {
           this.keyArea = args.area;

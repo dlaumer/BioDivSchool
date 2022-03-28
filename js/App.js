@@ -21,7 +21,7 @@ define([
   return class App {
     constructor(offline, mode, callback) {
       that = this;
-      that.projectAreaId = "[12]";
+      that.projectAreaId = "[104]";
       that.mode = mode;
       this.offline = offline;
 

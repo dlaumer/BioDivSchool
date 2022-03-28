@@ -60,6 +60,7 @@ define([
       this.groupDivs = {}
       for (let i in that.content.groups) {
         this.groupDivs[that.content.groups[i].key] = domCtr.create("div", { className: "groupDiv", innerHTML: that.content.groups[i].label}, consolidation);
+        this.addElementGroup()
       }
 
       let elem = page.addElementNormal(type, key, args, consolidationContainer);
