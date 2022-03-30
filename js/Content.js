@@ -184,6 +184,12 @@ define([
         
       });
 
+      //test10b_neophyten__geomoid
+      page_regionalitaet.addElement("mapInput", "neophyten__geomoid", {
+        text: `Test test 10b.`,
+        
+      });
+
       let page4 = this.app.addFinalPage("Ende");
     }
 
