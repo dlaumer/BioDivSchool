@@ -83,6 +83,23 @@ define([
       });
     }
 
+
+    initProject(callback) {
+      this.project = new FeatureLayer({
+        portalItem: {
+          id: this.links.projectLayerId,
+        },
+      });
+      this.project.load()
+      .then(() => { 
+        callback();
+       })
+      .catch((error) => {
+        console.log(error);
+        alert("The connection to the database could not be established: " +  error.toString());
+      });
+    }
+
     // function to add one row to the table
     checkData(projectId, groupId, callback) {
       var query = this.table.createQuery();
@@ -152,13 +169,19 @@ define([
 
 
     // function to read all rows of the tables
-    readGeometry(objectIds) {
+    readGeometry(objectIds, database) {
+
+      let data = this.geometry
+      if (database == "project") {
+        data = this.project
+      }
+
       return new Promise((resolve, reject) => {
         // Create empty query, means to take all rows!
-        var query = this.geometry.createQuery();
+        var query = data.createQuery();
         query.where =  "objectid in (" + objectIds.substring(1,objectIds.length-1) + ")";
 
-        this.geometry.queryFeatures(query).then((results) => {
+        data.queryFeatures(query).then((results) => {
           if (results.features.length > 0) {
             resolve(results.features);
           }
@@ -219,15 +242,20 @@ define([
 
       
     }
+    // ToDo: Get projectId and not objectid!
+    calculateArea(objectIds, database) {
 
-    calculateArea(objectIds) {
-
+      let data = this.geometry
+      if (database == "project") {
+        data = this.project
+      }
+     
       return new Promise((resolve, reject) => {
         let totalArea = 0;
-        var query = this.geometry.createQuery();
+        var query = data.createQuery();
         query.where =  "objectid in (" + objectIds.substring(1,objectIds.length-1) + ")";
         
-        this.geometry.queryFeatures(query).then((results) => {
+        data.queryFeatures(query).then((results) => {
           // If it already exists, load the existing values
           if (results.features.length > 0) {
               for (let i=0; i< results.features.length;i++) {
@@ -259,7 +287,7 @@ define([
 
       let projectArea = new FeatureLayer({
         portalItem: {
-          id: this.links.geometryLayerId,
+          id: this.links.projectLayerId,
         },
         definitionExpression: "objectid = " + that.projectAreaId.substring(1, that.projectAreaId.length-1),
         editingEnabled: false, 
@@ -361,12 +389,10 @@ define([
       })
 
 
-      editor.when(() => {
-        let panel = document.getElementById(containerEditor).querySelector(".esri-editor__panel-content")
-      })
+      
 
       view.when(() => {
-        this.readGeometry(that.projectAreaId).then((projectAreaFeature) => {
+        this.readGeometry(that.projectAreaId, "project").then((projectAreaFeature) => {
           view.goTo(projectAreaFeature[0].geometry)
 
         });

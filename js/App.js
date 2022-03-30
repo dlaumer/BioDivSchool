@@ -21,7 +21,7 @@ define([
   return class App {
     constructor(offline, mode, callback) {
       that = this;
-      that.projectAreaId = "[104]";
+      that.projectAreaId = "[1]";
       that.mode = mode;
       this.offline = offline;
 
@@ -29,16 +29,15 @@ define([
         this.arcgis = new ArcGis();
         this.arcgis.init(() => {
           this.arcgis.initGeo(() => {
-            this.arcgis.calculateArea(that.projectAreaId).then((area) => {
-              that.projectArea = area;
-            });
+            this.arcgis.initProject(() => {
+              
             this.createUI();
             this.clickHandler();
             this.pages = [];
             callback();
           })
 
-          
+        })
         });
       } else {
         this.createUI();
@@ -55,6 +54,9 @@ define([
       this.projectId = projectId;
       this.groupId = groupId;
 
+      this.arcgis.calculateArea(this.projectAreaId, "project").then((area) => {
+        this.projectArea = area;
+      });
       // Add a new element in the database
       let that = this;
       if (!this.offline) {
@@ -76,6 +78,10 @@ define([
       this.projectId = projectId;
       this.groupId = "all";
 
+      this.arcgis.calculateArea(this.projectAreaId, "project").then((area) => {
+        this.projectArea = area;
+      });
+      
       // Add a new element in the database
       let that = this;
       if (!this.offline) {

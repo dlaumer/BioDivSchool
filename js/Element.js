@@ -159,7 +159,7 @@ define([
         }.bind(this));
         
         this.setterUI = function (value) {
-          this.input.value = value
+          this.input.value = this.pointsDict[value]
         }
       }
 
@@ -256,7 +256,7 @@ define([
 
       calculateRatioAndPoints() {
 
-        that.arcgis.calculateArea(this.value).then((area) => {
+        that.arcgis.calculateArea(this.value, "geometry").then((area) => {
           this.area = area;
           let numRatio = 0;
             if (this.area == 0) {
