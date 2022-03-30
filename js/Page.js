@@ -6,34 +6,7 @@ Holds all the objects for one page. Pages are used to split up the input element
 
 */
 
-let style = document.createElement('style')
-      style.innerHTML =`
-      .input {
-        width: 100% !important;
-      }
-    
-      .labelText {
-        width: 100% !important;
-      }
-      
-      .elementMap {
-        height: "" !important;
-      }
-    
-      .mapContainer {
-        flex-direction: column !important;
-        height: 400px !important;
-      }
-    
-      .map  {
-        width: 100% !important;
-        height: 70% !important;
-      }
-    
-      .editor {
-        width: 100% !important;
-        height: 40% !important;
-      }`;
+
 
 define([
   "dojo/dom",
@@ -67,6 +40,7 @@ define([
       }
       this.page.className = "page active";
 
+      this.elements[0].reportWindowSize();
 
     }
 

@@ -110,37 +110,27 @@ define([
       ]
 
       // Christian: Weitere Elemente hinzufuegen
-      let page_projekt = this.app.addPage("Projekt");
-      page_projekt.addElement("simpleTextInput", "name", {
-        text: "Name des Standorts: ",
-        placeholder: "Standort",
-      });
-      page_projekt.addElement("simpleTextInput", "school", {
-        text: "Name der Organisation oder Schule: ",
-        placeholder: "Schule",
-      });
-      page_projekt.addElement("dateTimeInput", "CreationDate", {
-        text: "Datum",
-      });
-
+     
       let page_regionalitaet = this.app.addPage("Regionalität der Pflanzen");
      
-      page_regionalitaet.addElement("mapInput", "a8_wild_geomoid", {
+      //8_wild_geomoid
+      page_regionalitaet.addElement("mapInput", "wild_geomoid", {
         text: `Auf welcher Fläche wachsen weitgehend nur heimische Wildpflanzen?
             Markiere solche Flächen in der gezeigten Untersuchungsfläche.
             Benutze dazu das Polygon-Werkzeug.`,
-        area: "a8_wild_geomarea",
+        area: "wild_geomarea",
         ratio: {
-          key: "a8_wild_geomarearatio",
+          key: "wild_geomarearatio",
           stops: {"0": 0.25,"2": 0.5,"4": 0.75,"6": 1}
         },
-        points: "a8_wild_points"
+        points: "wild_points"
 
       });
-      page_regionalitaet.addElement("dropdownInput", "a9_arten", {
+      //9_arten
+      page_regionalitaet.addElement("dropdownInput", "arten", {
         text: "Wie viele verschiedene Arten von Wildpflanzen wachsen auf der gesamten Untersuchungsfläche?",
         placeholder: "Auswählen",
-        points: "a9_arten_points",
+        points: "arten_points",
         options: [
           { key: "0", label: "weniger als 10 verschiedene Arten" },
           { key: "1", label: "11 – 20 Arten" },
@@ -158,10 +148,11 @@ define([
         }
       });
 
-      page_regionalitaet.addElement("dropdownInput", "a10_neophyten", {
+      //10_neophyten
+      page_regionalitaet.addElement("dropdownInput", "neophyten", {
         text: "Gibt es im Untersuchungsgebiet schädliche gebietsfremde Pflanzen?",
         placeholder: "Auswählen",
-        points: "a10_neophyten_points",
+        points: "neophyten_points",
         options: [
           { key: "2", label: "keine" },
           {
@@ -175,16 +166,20 @@ define([
           },
         ],
       });
-      page_regionalitaet.addElement("dropdownInput", "a10a_neophytenmenge", {
+
+      //10a_neophytenmenge
+      page_regionalitaet.addElement("dropdownInput", "neophytenmenge", {
         text: "Wie gross ist die Fläche, die insgesamt durch alle schädlichen gebietsfremden Pflanzen bedeckt wird?",
         placeholder: "Auswählen",
-        points: "s10a_neophytenmenge_points",
+        points: "neophytenmenge_points",
         options: [
           { key: "-1", label: "kleiner als ein Parkplatz für ein Auto " },
           { key: "-2", label: "grösser als ein Parkplatz für ein Auto " },
         ],
       });
-      page_regionalitaet.addElement("mapInput", "a10b_neophyten__geomoid", {
+
+      //10b_neophyten__geomoid
+      page_regionalitaet.addElement("mapInput", "neophyten__geomoid", {
         text: `Markiere alle Standorte mit schädlichen gebietsfremden Pflanzen.`,
         
       });
@@ -192,6 +187,10 @@ define([
       let page4 = this.app.addFinalPage("Ende");
     }
 
+
+
+
+    
     makeContent2() {
       let page0 = this.app.addPage("Allgemeine Infos");
       page0.addElement("simpleTextInput", "standort", {

@@ -253,12 +253,29 @@ define([
         if (item in elements && data[item] != null) {
           elements[item].setter(data[item]);
           elements[item].setterUI(data[item]);
+          
         }
       }
     }
 
     loadInputsGroup(data) {
       console.log("Anzahl Gruppen: " + data.length.toFixed(0))
+
+      let newData = {}
+      for (let item in data[0].attributes) {
+        newData[item] = {}
+        for (let group = 0; group < data.length; group++ ) {
+          newData[item][data[group].attributes.groupid] = data[group].attributes[item]
+        }
+      }
+
+      let elements = that.getAllElements(false);
+
+      for (let item in newData) {
+        if (Object.keys(elements).indexOf(item) > -1 && newData[item] != null) {
+          elements[item].setterGroups(newData[item])
+        }
+      }
     }
 
     calculateAverages(data) {

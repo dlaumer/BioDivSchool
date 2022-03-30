@@ -6,6 +6,35 @@ Holds all the input elements for ONE feature in the database, one key-value pair
 
 */
 
+let style = document.createElement('style')
+      style.innerHTML =`
+      .input {
+        width: 100% !important;
+      }
+    
+      .labelText {
+        width: 100% !important;
+      }
+      
+      .elementMap {
+        height: "" !important;
+      }
+    
+      .mapContainer {
+        flex-direction: column !important;
+        height: 400px !important;
+      }
+    
+      .map  {
+        width: 100% !important;
+        height: 70% !important;
+      }
+    
+      .editor {
+        width: 100% !important;
+        height: 40% !important;
+      }`;
+
 define([
     "dojo/dom",
   
@@ -29,7 +58,9 @@ define([
         this.hasPoints = false;
         this.points = null;
 
-        this.pageWidth = 0;
+        this.groupDivs = null;
+
+        this.elementWidth = 0;
         window.onresize = this.reportWindowSize;
 
       }
@@ -68,8 +99,6 @@ define([
         if (args.textInfo) {
           this.addTextInfo(args.textInfo);
         }
-
-        this.reportWindowSize();
 
       }
   
@@ -304,6 +333,16 @@ define([
        
       }
 
+      setterGroups(values){
+
+        for (let i in values) {
+          if (this.groupDivs[i]) {
+            this.groupDivs[i].innerHTML = values[i];
+
+          }
+        }
+      }
+
       
 
       getter() {
@@ -336,7 +375,7 @@ define([
       reportWindowSize() {
         this.elementWidth = document.getElementsByClassName("element")[0].clientWidth;
   
-        console.log(this.pageWidth);
+        console.log(this.elementWidth);
   
         if (this.elementWidth != 0) {
           if (this.elementWidth < 600 ) {

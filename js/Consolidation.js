@@ -59,8 +59,11 @@ define([
 
       this.groupDivs = {}
       for (let i in that.content.groups) {
-        this.groupDivs[that.content.groups[i].key] = domCtr.create("div", { className: "groupDiv", innerHTML: that.content.groups[i].label}, consolidation);
-        this.addElementGroup()
+        let groupDivContainer = domCtr.create("div", { className: "groupDivContainer"}, consolidation);
+        domCtr.create("div", { className: "groupDivTitle", innerHTML: that.content.groups[i].label}, groupDivContainer);
+        let resultContainer = domCtr.create("div", { className: "resultContainer", }, groupDivContainer);
+        this.groupDivs[that.content.groups[i].key] = domCtr.create("div", { className: "groupResult"}, resultContainer);
+        
       }
 
       let elem = page.addElementNormal(type, key, args, consolidationContainer);

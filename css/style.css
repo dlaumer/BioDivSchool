@@ -93,9 +93,23 @@ body {
   overflow: auto;
 }
 
-.groupDiv {
+.groupDivContainer {
   height: 50%;
   width: 30%;
+  padding: 10px;
+}
+
+.groupDivTitle {
+  width: 100%;
+  font-weight: bold;
+}
+
+
+
+.groupResult {
+  width: 100%;
+  background-color: var(--no_project);
+  padding: 10px;
 }
 
 #footer {
@@ -347,5 +361,6 @@ label {
 
 .editor {
     width: 30%;
+    overflow: auto;
 }
 

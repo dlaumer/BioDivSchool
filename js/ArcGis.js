@@ -86,7 +86,7 @@ define([
     // function to add one row to the table
     checkData(projectId, groupId, callback) {
       var query = this.table.createQuery();
-      query.where =  "projectid= '" + projectId + "' AND groupid= '" + groupId + "'";
+      query.where =  "projectid= '" + projectId + "' AND gruppe= '" + groupId + "'";
 
       this.table.queryFeatures(query).then((results) => {
         // If it already exists, load the existing values
@@ -94,7 +94,7 @@ define([
           callback({newFeature: false, data: results.features[0], objectId: results.features[0].getObjectId()});
         } else {
           // Make a new entry
-          const attributes = { "projectid": projectId, "groupid": groupId };
+          const attributes = { "projectid": projectId, "gruppe": groupId };
 
           const addFeature = new Graphic({
             geometry: null,
@@ -121,7 +121,7 @@ define([
 
     checkDataGroups(projectId, callback) {
       var query = this.table.createQuery();
-      query.where =  "projectid= '" + projectId + "' AND groupid <> 'all'";
+      query.where =  "projectid= '" + projectId + "' AND gruppe <> 'all'";
 
       this.table.queryFeatures(query).then((results) => {
         // If it already exists, load the existing values
