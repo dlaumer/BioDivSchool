@@ -335,12 +335,42 @@ define([
 
       setterGroups(values){
 
-        for (let i in values) {
-          if (this.groupDivs[i]) {
-            this.groupDivs[i].innerHTML = values[i];
+        
+          for (let i in values) {
+            if (this.groupDivs[i] && values[i] != null) {
+              if (this.type == "mapInput") {
+                let geometryTemp = that.arcgis.addMap(this.groupDivs[i], null, null);   
+                geometryTemp.definitionExpression = "objectid in (" + values[i].substring(1,values[i].length-1) + ")";
+              }
+              else {
 
+                domCtr.create("div", { className: "groupResult", innerHTML: values[i]},  this.groupDivs[i])
+
+
+                var trace = {
+                  histfunc: "count",
+                  //width: document.getElementById('consolidation_' + this.key).clientWidth,
+                  x: values["all"],
+                  type: 'histogram',
+                };
+
+                var layout = {
+                  yaxis: {
+                    title: 'Anzahl',
+                  },
+                  width: 500
+                };
+              var data = [trace];
+              Plotly.newPlot('consolidation_' + this.key, data, layout);
+                  
+              }
+
+            }
           }
-        }
+
+          
+          
+        
       }
 
       

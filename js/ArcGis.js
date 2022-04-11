@@ -14,6 +14,7 @@ define([
   "esri/widgets/Locate",
   "esri/Graphic",
   "esri/geometry/geometryEngine",
+  "esri/widgets/Fullscreen",
 
   "biodivschool/Links",
   "esri/config",
@@ -29,6 +30,7 @@ define([
   Locate,
   Graphic,
   geometryEngine,
+  Fullscreen,
   Links,
   esriConfig,
   domCtr
@@ -226,7 +228,13 @@ define([
                 updateFeatures: [editFeature],
               })
               .then((value) => {
-                resolve(value);
+                // ToDo: Check for errors!
+                if (value.updateFeatureResults.error == null) {
+                  resolve(value);
+                }
+                else {
+                  reject(value.updateFeatureResults.error)
+                }
               })
               .catch((reason) => {
                 reject(reason);
@@ -315,29 +323,39 @@ define([
         container: containerMap,
       });
 
-      const editor = new Editor({
-        view: view,
-        container: containerEditor
+      let fullscreen = new Fullscreen({
+        view: view
       });
+      view.ui.add(fullscreen, "bottom-right");
 
+      if (containerEditor) {
+        const editor = new Editor({
+          view: view,
+          container: containerEditor
+        });
+
+        editor.watch("activeWorkflow.numPendingFeatures", function(newValue, oldValue) {
+        
+          /*
+          if (editor.activeWorkflow) {
+            calculateArea();
+          }
+          */
+        });
+        
+      }
+     /*
       const locate = new Locate({
         view: view,
         useHeadingEnabled: false,
       });
+      */
 
       
 
 
       
-      editor.watch("activeWorkflow.numPendingFeatures", function(newValue, oldValue) {
-        
-        /*
-        if (editor.activeWorkflow) {
-          calculateArea();
-        }
-        */
-      });
-      
+
 
       // TODO also calculate exisiting areas!
       function calculateAreaPending() {
@@ -383,19 +401,16 @@ define([
         
       })
 
-      editor.viewModel.featureFormViewModel.on("value-change", () => {
-        console.log("I'm here")
-        // This should fire when I click "create"
-      })
-
-
       
 
       view.when(() => {
-        this.readGeometry(that.projectAreaId, "project").then((projectAreaFeature) => {
-          view.goTo(projectAreaFeature[0].geometry)
-
-        });
+        if (!that.offline) {
+          this.readGeometry(that.projectAreaId, "project").then((projectAreaFeature) => {
+            view.goTo(projectAreaFeature[0].geometry)
+  
+          });
+        }
+        
         /*
         locate.when(() => {
           locate.locate();

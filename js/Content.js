@@ -185,7 +185,7 @@ define([
       });
 
       //test10b_neophyten__geomoid
-      page_regionalitaet.addElement("mapInput", "neophyten__geomoid", {
+      page_regionalitaet.addElement("mapInput", "versieg_geomoid", {
         text: `Test test 10b.`,
         
       });

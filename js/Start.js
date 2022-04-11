@@ -35,7 +35,7 @@ define([
       this.app = new App(this.offline, this.mode, () => {
         
         this.content = new Content(that);
-        this.app.content = this.content;
+        that.content = this.content;
 
         this.content.init();
         this.createUI();

@@ -56,13 +56,14 @@ define([
       
 
       let consolidation = domCtr.create("div", { className: "consolidation"}, consolidationContainer);   
-
+      let consolidationDiagramm = domCtr.create("div", { className: "consolidation", id: "consolidation_" + key, style: "display:none"}, consolidationContainer);   
+     
       this.groupDivs = {}
       for (let i in that.content.groups) {
         let groupDivContainer = domCtr.create("div", { className: "groupDivContainer"}, consolidation);
         domCtr.create("div", { className: "groupDivTitle", innerHTML: that.content.groups[i].label}, groupDivContainer);
-        let resultContainer = domCtr.create("div", { className: "resultContainer", }, groupDivContainer);
-        this.groupDivs[that.content.groups[i].key] = domCtr.create("div", { className: "groupResult"}, resultContainer);
+        this.groupDivs[that.content.groups[i].key] = domCtr.create("div", { className: "resultContainer", }, groupDivContainer);
+
         
       }
 
@@ -70,6 +71,32 @@ define([
       
       elem.element.style.width = "40%";
       elem.groupDivs = this.groupDivs;
+
+      if (type != "mapInput") {
+      let diagram = domCtr.create(
+        "div",
+        { id: "diagram", className: "btn1", innerHTML: "Diagram", style: "height: fit-content" },
+        elem.element
+      );
+
+      on(
+        diagram,
+        "click",
+        function (evt) {
+          if (evt.target.innerHTML == "Diagram") {
+            consolidation.style.display = "none";
+            consolidationDiagramm.style.display = "flex";
+            evt.target.innerHTML = "Werte";
+          }
+          else {
+            consolidation.style.display = "flex";
+            consolidationDiagramm.style.display = "none";
+            evt.target.innerHTML = "Diagram";
+          }
+        }
+      );
+      }
+
       return elem;
     }
 

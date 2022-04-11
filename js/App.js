@@ -24,9 +24,9 @@ define([
       that.projectAreaId = "[1]";
       that.mode = mode;
       this.offline = offline;
+      this.arcgis = new ArcGis();
 
       if (!this.offline) {
-        this.arcgis = new ArcGis();
         this.arcgis.init(() => {
           this.arcgis.initGeo(() => {
             this.arcgis.initProject(() => {
@@ -54,12 +54,13 @@ define([
       this.projectId = projectId;
       this.groupId = groupId;
 
-      this.arcgis.calculateArea(this.projectAreaId, "project").then((area) => {
-        this.projectArea = area;
-      });
+
       // Add a new element in the database
       let that = this;
       if (!this.offline) {
+        this.arcgis.calculateArea(this.projectAreaId, "project").then((area) => {
+          that.projectArea = area;
+        });
         this.arcgis.checkData(that.projectId, that.groupId, (info) => {
           let data = info.data;
           that.objectId = info.objectId;
@@ -86,8 +87,7 @@ define([
       let that = this;
       if (!this.offline) {
         this.arcgis.checkDataGroups(that.projectId, (data) => {
-          that.dataGroups = data;
-          that.loadInputsGroup(that.dataGroups);
+          let dataGroups = that.parseGroups(data);
           this.arcgis.checkData(that.projectId, that.groupId, (info) => {
             let data = info.data;
             that.objectId = info.objectId;
@@ -95,10 +95,12 @@ define([
               that.loadInputs(data.attributes);
             }
             else {
-              that.calculateAverages(that.dataGroups);
+              //that.dataGroups = that.calculateAverages(dataGroups);
               //ToDo: upload averages!
             }
-            that.calculateAverages(that.dataGroups); 
+            that.dataGroups = that.calculateAverages(dataGroups); 
+            
+            that.loadInputsGroup(that.dataGroups);
             this.initUI();
           });
           
@@ -264,28 +266,45 @@ define([
       }
     }
 
-    loadInputsGroup(data) {
+    parseGroups(data) {
       console.log("Anzahl Gruppen: " + data.length.toFixed(0))
 
       let newData = {}
       for (let item in data[0].attributes) {
         newData[item] = {}
         for (let group = 0; group < data.length; group++ ) {
-          newData[item][data[group].attributes.groupid] = data[group].attributes[item]
+          newData[item][data[group].attributes["gruppe"]] = data[group].attributes[item]
         }
       }
+      return newData;
+
+    }
+
+    loadInputsGroup(data) {
 
       let elements = that.getAllElements(false);
 
-      for (let item in newData) {
-        if (Object.keys(elements).indexOf(item) > -1 && newData[item] != null) {
-          elements[item].setterGroups(newData[item])
+      for (let item in data) {
+        if (Object.keys(elements).indexOf(item) > -1 && data[item] != null) {
+          elements[item].setterGroups(data[item])
         }
       }
     }
 
     calculateAverages(data) {
       console.log(data)
+
+      for (let i in data) {
+
+        let temp = []
+        for (let j in data[i]) {
+          temp.push(data[i][j])
+        }
+        data[i]["all"] = temp
+      }
+      return data
+
+     
     }
 
     checkInputs() {
