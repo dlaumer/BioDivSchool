@@ -24,7 +24,12 @@ define([
 
 
     init() {
+      if (that.mode == "project") {
+        this.makeContentProject()
+      }
+      else {
         this.makeContent();
+      }
     }
 
     // Start the start screen
@@ -195,6 +200,23 @@ define([
 
 
 
+    makeContentProject() {
+      let page0 = this.app.addPage("Projekt Infos");
+
+      page0.addElement("simpleTextInput", "standort", {
+        text: "Was ist der Name des Standorts?",
+        placeholder: "Standort",
+      });
+      page0.addElement("simpleTextInput", "organisation", {
+        text: "Was ist der Name der Organisation oder Schule?",
+        placeholder: "Organisation/Schule",
+      });
+      page0.addElement("dateTimeInput", "datum", { text: "Datum und Uhrzeit" });
+      page0.addElement("mapInput", "gebiete", { text: "Zeichne das Projektgebiet ein" });
+
+      this.app.addFinalPage("Ende");
+
+    }
 
     
     makeContent2() {

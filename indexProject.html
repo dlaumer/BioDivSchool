@@ -4,18 +4,17 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>BioDivSchool Konsolidierung</title>
+  <title>BioDivSchool Projekt</title>
 
   <!-- ArcGIS JavaScript API 4.21 stylesheet -->
-  <link rel="stylesheet" href="../arcgis_js_v422_api/arcgis_js_api/javascript/4.22/esri/css/main.css">
-  <link rel="stylesheet" href="../claro.css" />
+  <link rel="stylesheet" href="https://js.arcgis.com/4.23/esri/css/main.css">
+  <link rel="stylesheet" href="https://js.arcgis.com/4.23/dijit/themes/claro/claro.css" />
   <!-- calcite-web -->
-  <!--
   <link rel="stylesheet" href="https://s3-us-west-1.amazonaws.com/patterns.esri.com/files/calcite-web/1.0.0-beta.31/css/calcite-web.min.css">
   <script src="https://s3-us-west-1.amazonaws.com/patterns.esri.com/files/calcite-web/1.0.0-beta.31/js/calcite-web.min.js"></script>
--->
+
   <link id="style_light" rel="stylesheet" title="biodivschool" href="css/style.css">
-  <script src='https://cdn.plot.ly/plotly-2.11.1.min.js'></script>
+
   <script>
     dojoConfig= {
         has: {
@@ -25,22 +24,18 @@
         packages: [{
         name: "biodivschool",
         location: location.pathname.replace(/\/[^/]+$/, '') + "/js"
-        },
-        {
-        name: "esri",
-        location: "arcgis_js_v422_api/arcgis_js_api/javascript/4.22/esri/"
         }], 
         parseOnLoad: false,
         async: true
     };
   </script>
-  <script src="../dojo.js"></script>
-
+  <!-- ArcGIS JavaScript API 4.21  -->
+  <script src="https://js.arcgis.com/4.23/"></script>
   <!-- load app.js -->
   <script>
   require(["biodivschool/Start",  "dojo/domReady!"],function(Start){
-    var start = new Start("consolidation");
-    start.init(true);    
+    var start = new Start("project");
+    start.init(false);    
   });
   </script>
 

@@ -21,6 +21,7 @@ define([
   return class App {
     constructor(offline, mode, callback) {
       that = this;
+      that.pointsTotal = 0;
       that.projectAreaId = "[1]";
       that.mode = mode;
       this.offline = offline;
@@ -30,14 +31,12 @@ define([
         this.arcgis.init(() => {
           this.arcgis.initGeo(() => {
             this.arcgis.initProject(() => {
-              
-            this.createUI();
-            this.clickHandler();
-            this.pages = [];
-            callback();
-          })
-
-        })
+              this.createUI();
+              this.clickHandler();
+              this.pages = [];
+              callback();
+            });
+          });
         });
       } else {
         this.createUI();
@@ -45,8 +44,6 @@ define([
         this.pages = [];
         callback();
       }
-
-      
     }
 
     init(projectId, groupId) {
@@ -54,14 +51,35 @@ define([
       this.projectId = projectId;
       this.groupId = groupId;
 
+      // Add a new element in the database
+      let that = this;
+      if (!this.offline) {
+        this.arcgis
+          .calculateArea(this.projectAreaId, "project")
+          .then((area) => {
+            that.projectArea = area;
+          });
+        this.arcgis.checkData(that.projectId, that.groupId, (info) => {
+          let data = info.data;
+          that.objectId = info.objectId;
+          if (!info.newFeature) {
+            that.loadInputs(data.attributes);
+          }
+          this.initUI();
+        });
+      } else {
+        this.initUI();
+      }
+    }
+
+    initProject(projectId) {
+      document.getElementById("btn_start").innerHTML = "Loading...";
+      this.projectId = projectId;
 
       // Add a new element in the database
       let that = this;
       if (!this.offline) {
-        this.arcgis.calculateArea(this.projectAreaId, "project").then((area) => {
-          that.projectArea = area;
-        });
-        this.arcgis.checkData(that.projectId, that.groupId, (info) => {
+        this.arcgis.checkData(that.projectId, null, (info) => {
           let data = info.data;
           that.objectId = info.objectId;
           if (!info.newFeature) {
@@ -79,34 +97,31 @@ define([
       this.projectId = projectId;
       this.groupId = "all";
 
-      this.arcgis.calculateArea(this.projectAreaId, "project").then((area) => {
-        this.projectArea = area;
-      });
-      
-      // Add a new element in the database
       let that = this;
+
       if (!this.offline) {
+        this.arcgis
+          .calculateArea(this.projectAreaId, "project")
+          .then((area) => {
+            this.projectArea = area;
+          });
         this.arcgis.checkDataGroups(that.projectId, (data) => {
           let dataGroups = that.parseGroups(data);
+          let occurences = that.countOccurence(dataGroups);
+          that.loadInputsGroup(that.dataGroups, occurences.count);
           this.arcgis.checkData(that.projectId, that.groupId, (info) => {
             let data = info.data;
             that.objectId = info.objectId;
             if (!info.newFeature) {
               that.loadInputs(data.attributes);
+            } else {
+              that.loadInputs(occurences.dataAll);
+              that.saveData();
             }
-            else {
-              //that.dataGroups = that.calculateAverages(dataGroups);
-              //ToDo: upload averages!
-            }
-            that.dataGroups = that.calculateAverages(dataGroups); 
-            
-            that.loadInputsGroup(that.dataGroups);
+
             this.initUI();
           });
-          
         });
-
-        
       } else {
         this.initUI();
       }
@@ -119,7 +134,10 @@ define([
       this.pages[0].init(null);
       this.currentPage = 0;
       // TODO Warning if did not work!
-      this.userName.innerHTML = "Projekt: " + this.projectId + ", Gruppe: " + this.groupId;
+      this.userName.innerHTML =
+        that.mode == "project"
+          ? "Projekt: " + this.projectId
+          : "Projekt: " + this.projectId + ", Gruppe: " + this.groupId;
       this.save.className = "btn1 btn_disabled";
     }
 
@@ -149,6 +167,25 @@ define([
         this.background
       );
       this.footer = domCtr.create("div", { id: "footer" }, this.background);
+      this.footerLeft = domCtr.create(
+        "div",
+        { className: "footerElements" },
+        this.footer
+      );
+      this.pointsTotalDiv = domCtr.create(
+        "div",
+        {
+          id: "pointsTotalInfo",
+          className: "pointsInfo",
+          innerHTML: that.mode == "project" ? "" : "Punkte total: 0",
+        },
+        this.footerLeft
+      );
+      this.footerCenter = domCtr.create(
+        "div",
+        { className: "footerElements" },
+        this.footer
+      );
       this.back = domCtr.create(
         "div",
         {
@@ -157,36 +194,39 @@ define([
           innerHTML: "Back",
           style: "visibility:hidden",
         },
-        this.footer
+        this.footerCenter
       );
       this.next = domCtr.create(
         "div",
         { id: "btn_next", className: "btn1", innerHTML: "Next" },
+        this.footerCenter
+      );
+      this.footerRight = domCtr.create(
+        "div",
+        { className: "footerElements" },
         this.footer
       );
     }
 
+    saveData() {
+      this.save.innerHTML = "Saving...";
+      let elements = that.getAllElements(false);
+      that
+        .uploadData(elements)
+        .then((value) => {
+          this.save.innerHTML = "Save";
+          this.save.className = "btn1 btn_disabled";
+        })
+        .catch((reason) => {
+          this.save.innerHTML = "Save";
+          this.save.className = "btn1";
+          alert("Saving not successful");
+          console.log(reason);
+        });
+    }
+
     clickHandler() {
-      on(
-        this.save,
-        "click",
-        function (evt) {
-          this.save.innerHTML = "Saving...";
-          let elements = that.getAllElements(false);
-          that
-            .uploadData(elements)
-            .then((value) => {
-              this.save.innerHTML = "Save";
-              this.save.className = "btn1 btn_disabled";
-            })
-            .catch((reason) => {
-              this.save.innerHTML = "Save";
-              this.save.className = "btn1";
-              alert("Saving not successful");
-              console.log(reason);
-            });
-        }.bind(this)
-      );
+      on(this.save, "click", that.saveData);
 
       on(
         this.logout,
@@ -228,10 +268,14 @@ define([
     addPage(title) {
       let page;
       if (that.mode == "consolidation") {
-        page = new Consolidation(this, this.pages.length, this.pageContainer, title)
-      }
-      else {
-        page = this.addPageNormal(title, this.pageContainer)
+        page = new Consolidation(
+          this,
+          this.pages.length,
+          this.pageContainer,
+          title
+        );
+      } else {
+        page = this.addPageNormal(title, this.pageContainer);
       }
       return page;
     }
@@ -261,50 +305,56 @@ define([
         if (item in elements && data[item] != null) {
           elements[item].setter(data[item]);
           elements[item].setterUI(data[item]);
-          
         }
       }
     }
 
     parseGroups(data) {
-      console.log("Anzahl Gruppen: " + data.length.toFixed(0))
+      console.log("Anzahl Gruppen: " + data.length.toFixed(0));
 
-      let newData = {}
+      let newData = {};
       for (let item in data[0].attributes) {
-        newData[item] = {}
-        for (let group = 0; group < data.length; group++ ) {
-          newData[item][data[group].attributes["gruppe"]] = data[group].attributes[item]
+        newData[item] = {};
+        for (let group = 0; group < data.length; group++) {
+          newData[item][data[group].attributes["gruppe"]] =
+            data[group].attributes[item];
         }
       }
       return newData;
-
     }
 
-    loadInputsGroup(data) {
-
+    loadInputsGroup(data, count) {
       let elements = that.getAllElements(false);
 
       for (let item in data) {
         if (Object.keys(elements).indexOf(item) > -1 && data[item] != null) {
-          elements[item].setterGroups(data[item])
+          elements[item].setterGroups(data[item], count[item]);
         }
       }
     }
 
-    calculateAverages(data) {
-      console.log(data)
+    countOccurence(data) {
+      console.log(data);
+
+      let dataAll = {};
+      let count = {};
 
       for (let i in data) {
-
-        let temp = []
+        count[i] = {};
+        let max = data[i][0];
         for (let j in data[i]) {
-          temp.push(data[i][j])
+          if (data[i][j] in Object.keys(count[i])) {
+            count[i][data[i][j]] += 1;
+          } else {
+            count[i][data[i][j]] = 0;
+          }
+          if (count[i][data[i][j]] > count[i][max]) {
+            max = data[i][j];
+          }
         }
-        data[i]["all"] = temp
+        dataAll[i] = max;
       }
-      return data
-
-     
+      return { count: count, dataAll: dataAll };
     }
 
     checkInputs() {
@@ -335,12 +385,11 @@ define([
     }
 
     parseElements(elements) {
-      let data = {}
+      let data = {};
       for (let elem in elements) {
-        data = {...data, ...elements[elem].getter()};
+        data = { ...data, ...elements[elem].getter() };
       }
       return data;
-
     }
 
     uploadData(elements) {

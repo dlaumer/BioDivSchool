@@ -105,7 +105,8 @@ define([
     // function to add one row to the table
     checkData(projectId, groupId, callback) {
       var query = this.table.createQuery();
-      query.where =  "projectid= '" + projectId + "' AND gruppe= '" + groupId + "'";
+      query.where = groupId == null ? "projectid= '" + projectId + "'" : "projectid= '" + projectId + "' AND gruppe= '" + groupId + "'";
+ 
 
       this.table.queryFeatures(query).then((results) => {
         // If it already exists, load the existing values
@@ -113,7 +114,7 @@ define([
           callback({newFeature: false, data: results.features[0], objectId: results.features[0].getObjectId()});
         } else {
           // Make a new entry
-          const attributes = { "projectid": projectId, "gruppe": groupId };
+          const attributes = groupId == null ? { "projectid": projectId } : { "projectid": projectId, "gruppe": groupId };
 
           const addFeature = new Graphic({
             geometry: null,
@@ -208,8 +209,12 @@ define([
     // function to change one row in the table
     updateFeature(objectid, data) {
 
+      let featureClass = this.table;
+      if (that.mode == "project") {
+        featureClass = this.project;
+      }
       return new Promise((resolve, reject) => {
-        this.table
+        featureClass
         .queryFeatures({
           objectIds: [objectid],
           outFields: ["*"],
@@ -223,7 +228,7 @@ define([
               editFeature.attributes[item] = data[item];
             }
             // finally, upload the new data to ArcGIS Online
-            this.table
+            featureClass
               .applyEdits({
                 updateFeatures: [editFeature],
               })

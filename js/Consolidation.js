@@ -75,7 +75,7 @@ define([
       if (type != "mapInput") {
       let diagram = domCtr.create(
         "div",
-        { id: "diagram", className: "btn1", innerHTML: "Diagram", style: "height: fit-content" },
+        { id: "diagram", className: "btn1", innerHTML: "Diagram"},
         elem.element
       );
 

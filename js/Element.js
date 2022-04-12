@@ -108,7 +108,12 @@ define([
         this.input = domCtr.create("input", { className: "input inputField", placeholder: args.placeholder }, this.element);
 
         on(this.input, "input", function (evt) {
-          this.setter(evt.target.value)
+          if (evt.target.value == "") {
+            this.setter(null)
+          }
+          else {
+            this.setter(evt.target.value)
+          }
         }.bind(this));
 
         this.setterUI = function (value) {
@@ -135,7 +140,7 @@ define([
         this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text}, this.element);
         this.input = domCtr.create("select", {className:"input inputField"}, this.element);
 
-        domCtr.create("option", {value:"",  disabled:true, selected:true, innerHTML: args.placeholder}, this.input);
+        domCtr.create("option", {value:"", selected:true, innerHTML: args.placeholder}, this.input);
         for (const i in args.options) {
             domCtr.create("option", {value:args.options[i].key, innerHTML: args.options[i].label}, this.input);
         }
@@ -143,7 +148,8 @@ define([
         if (args.points != null) {
           this.hasPoints = true;
           this.keyPoints = args.points;
-          
+          this.pointsInfo = domCtr.create("div", {id: this.name + "_pointsInfo", className: "pointsInfo"}, this.label);
+
         }
 
         this.pointsDict = {}
@@ -152,10 +158,15 @@ define([
           }
 
         on(this.input, "change", function (evt) {
-          this.setter(evt.target.options[evt.target.selectedIndex].innerHTML);
-          if (this.hasPoints) {
-            this.points = evt.target.value
+          if (evt.target.selectedIndex == 0) {
+            this.setter(null);
+            
           }
+          else {
+            this.setter(evt.target.options[evt.target.selectedIndex].innerHTML);
+            
+          }
+          
         }.bind(this));
         
         this.setterUI = function (value) {
@@ -176,7 +187,8 @@ define([
         if (args.points != null) {
           this.hasPoints = true;
           this.keyPoints = args.points;
-          
+          this.pointsInfo = domCtr.create("div", {id: this.name + "_pointsInfo", className: "pointsInfo"}, this.label);
+
         }
         this.pointsDict = {}
         for (const i in args.options) {
@@ -185,9 +197,7 @@ define([
 
         on(this.input, "change", function (evt) {
           this.setter(evt.target.labels[0].innerHTML)
-          if (this.hasPoints) {
-            this.points = evt.target.id;
-          }
+          
         }.bind(this));
         
         this.setterUI = function (value) {
@@ -233,9 +243,10 @@ define([
         this.input = domCtr.create("div", {id: this.name + "_map", className:"map"}, this.mapContainer);
         this.editorContainer = domCtr.create("div", {className: "editor"}, this.mapContainer); 
         this.editor = domCtr.create("div", {id: this.name + "_editor"}, this.editorContainer);
-        this.areaInfo = domCtr.create("div", {id: this.name + "_areaInfo", className: "areaInfo"}, this.element);
  
-        this.geometry = that.arcgis.addMap(this.input.id, this.editor.id,this);   
+        if (!that.offline) {
+          this.geometry = that.arcgis.addMap(this.input.id, this.editor.id,this);   
+        }
 
         if (args.points != null) {
           this.keyArea = args.area;
@@ -246,6 +257,8 @@ define([
 
           this.hasPoints = true;
           this.keyPoints = args.points;
+          this.pointsInfo = domCtr.create("div", {id: this.name + "_pointsInfo", className: "pointsInfo"}, this.label);
+
           
         }
 
@@ -270,13 +283,13 @@ define([
               }
               for (let i in this.ratioStops) {
                 if (numRatio < this.ratioStops[i]) {
-                    this.ratio = (this.ratioStops[i-1]? this.ratioStops[i-1]*100: 0).toFixed(0) + "-" + (this.ratioStops[i]*100).toFixed(0) + "%"
+                    this.ratio = (i-1 >= 0? this.ratioStops[i-1]*100: 0).toFixed(0) + "-" + (this.ratioStops[i]*100).toFixed(0) + "%"
                     this.points = parseInt(i);
                     break;
                 }
               }
             }
-            this.areaInfo.innerHTML = "Totale Fläche: " + this.area.toFixed(0) + " m2, Ratio = " + (numRatio*100).toFixed(2) + "%, Ratio Gruppe= " + this.ratio + ", Punkte= " + this.points.toFixed(0);
+            this.pointsInfo.innerHTML = "(Punkte: " + this.points + ", Totale Fläche: " + this.area.toFixed(0) + " m2, Ratio  " + (numRatio*100).toFixed(2) + "%, Ratio Bereich= " + this.ratio + ")";
           
         })
         .catch((error) => {
@@ -313,27 +326,45 @@ define([
         
   
       setter(value) {
-        this.valueSet = true;
-        this.value = value;
-        if (this.type == "mapInput") {
-          this.geometry.definitionExpression = "objectid in (" + value.substring(1,value.length-1) + ")";
-        }
 
-        if (this.hasPoints) {
-          if (this.type == "mapInput") {
-            this.calculateRatioAndPoints();
+        let previousPoints = 0
+          if (this.points != null) {
+            previousPoints = this.points;
           }
-          else {
-            this.points = this.pointsDict[this.value];
+  
+        if (value == null) {
+          this.valueSet = false;
+          this.value = value;
+          this.points = null;
+          this.pointsInfo.innerHTML = "";
+          that.pointsTotal = that.pointsTotal - parseInt(previousPoints);
+          that.pointsTotalDiv.innerHTML = "Punkte total: " + that.pointsTotal.toFixed(0);
+        }
+        else {
+          this.valueSet = true;
+          this.value = value;
+          
+          if (this.type == "mapInput") {
+            this.geometry.definitionExpression = "objectid in (" + value.substring(1,value.length-1) + ")";
+          }
+  
+          if (this.hasPoints) {
+            if (this.type == "mapInput") {
+              this.calculateRatioAndPoints();
+            }
+            else {
+              this.points = this.pointsDict[this.value];
+              this.pointsInfo.innerHTML = this.points==1? "(" + this.points + " Punkt)":"(" + this.points + " Punkte)"
+            }
+            that.pointsTotal = that.pointsTotal - parseInt(previousPoints) + parseInt(this.points);
+            that.pointsTotalDiv.innerHTML = "Punkte total: " + that.pointsTotal.toFixed(0);
           }
         }
-        this.checkValueSet();
         this.app.save.className = "btn1"
 
-       
       }
 
-      setterGroups(values){
+      setterGroups(values, count){
 
         
           for (let i in values) {
@@ -348,10 +379,11 @@ define([
 
 
                 var trace = {
-                  histfunc: "count",
+                  //histfunc: "count",
                   //width: document.getElementById('consolidation_' + this.key).clientWidth,
-                  x: values["all"],
-                  type: 'histogram',
+                  x: Object.keys(count),
+                  y: Object.values(count),
+                  type: 'bar',
                 };
 
                 var layout = {

@@ -21,11 +21,8 @@ define([
   return class Start {
     constructor(mode) {
       this.mode = mode;
-      if (this.mode == "consolidation") {
-        this.createSplashScreenConsolidation();
-      } else {
-        this.createSplashScreen();
-      }
+
+      this.createSplashScreen();
     }
 
     // Start the start screen
@@ -33,7 +30,6 @@ define([
       // Make new app
       this.offline = offline;
       this.app = new App(this.offline, this.mode, () => {
-        
         this.content = new Content(that);
         that.content = this.content;
 
@@ -41,34 +37,18 @@ define([
         this.createUI();
         this.clickHandler();
         if (this.offline) {
-          that.init("1", "a");
+          if (this.mode == "consolidation") {
+            that.initConsolidation("1");
+          }
+          else if (this.mode == "project") {
+            that.initProject("1");
+          }
+          else {
+            that.init("1", "a");
+          }
+          
         }
       });
-    }
-
-    createSplashScreenConsolidation() {
-      this.background = domCtr.create(
-        "div",
-        { id: "start", class: "background" },
-        win.body()
-      );
-      this.container = domCtr.create("div", { id: "welcome" }, this.background);
-
-      // Some info about the project
-      domCtr.create(
-        "div",
-        {
-          id: "description1",
-          innerHTML: "BioDivSchool Consolidation",
-          style: "font-size: 4vh",
-        },
-        this.container
-      );
-      this.loading = domCtr.create(
-        "div",
-        { id: "loading", innerHTML: "Loading...", style: "font-size: 2vh" },
-        this.container
-      );
     }
 
     createSplashScreen() {
@@ -79,12 +59,23 @@ define([
       );
       this.container = domCtr.create("div", { id: "welcome" }, this.background);
 
+      let title = "BioDivSchool Web App";
+
+      switch (this.mode) {
+        case "consolidation":
+          title = "BioDivSchool Consolidation";
+          break;
+        case "project":
+          title = "BioDivSchool Project";
+          break;
+      }
+
       // Some info about the project
       domCtr.create(
         "div",
         {
           id: "description1",
-          innerHTML: "BioDivSchool Web App",
+          innerHTML: title,
           style: "font-size: 4vh",
         },
         this.container
@@ -139,7 +130,7 @@ define([
           if (this.inputProjectId.value == "") {
             this.start.className = "btn1 btn_disabled";
           } else {
-            if (this.mode == "consolidation") {
+            if (this.mode == "consolidation" || this.mode == "project" ) {
               this.start.className = "btn1";
             } else {
               this.inputGroupId.style.display = "block";
@@ -164,17 +155,17 @@ define([
         this.start,
         "click",
         function (evt) {
-            if (this.mode == "consolidation") {
-                this.app.initConsolidation(this.inputProjectId.value);
-            }
-            else {
-                this.app.init(this.inputProjectId.value, this.inputGroupId.value);
-            }
+          if (this.mode == "consolidation") {
+            this.app.initConsolidation(this.inputProjectId.value);
+          }
+          else if (this.mode == "project") {
+            this.app.initProject(this.inputProjectId.value);
+          }
+          else {
+            this.app.init(this.inputProjectId.value, this.inputGroupId.value);
+          }
         }.bind(this)
       );
     }
-
-
-      
   };
 });
