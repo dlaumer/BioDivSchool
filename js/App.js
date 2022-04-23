@@ -22,7 +22,7 @@ define([
     constructor(offline, mode, callback) {
       that = this;
       that.pointsTotal = 0;
-      that.projectAreaId = "[1]";
+      that.projectAreaId = null;
       that.mode = mode;
       this.offline = offline;
       this.arcgis = new ArcGis();
@@ -51,23 +51,36 @@ define([
       this.projectId = projectId;
       this.groupId = groupId;
 
+
       // Add a new element in the database
       let that = this;
+
+            
       if (!this.offline) {
-        this.arcgis
-          .calculateArea(this.projectAreaId, "project")
-          .then((area) => {
-            that.projectArea = area;
-          });
-        this.arcgis.checkData(that.projectId, that.groupId, (info) => {
-          let data = info.data;
-          that.objectId = info.objectId;
-          if (!info.newFeature) {
-            that.loadInputs(data.attributes);
-          }
-          this.initUI();
+
+        // Check if this project alreayd exists
+        this.arcgis.checkDataProject(that.projectId, (info) => {
+          that.projectAreaId = "[" + info.toFixed(0) + "]";
+          that.content.init();
+
+          this.arcgis
+            .calculateArea(this.projectAreaId, "project")
+            .then((area) => {
+              that.projectArea = area;
+            });
+          this.arcgis.checkData(that.projectId, that.groupId, (info) => {
+            if (info != null) {
+              let data = info.data;
+            that.objectId = info.objectId;
+            if (!info.newFeature) {
+              that.loadInputs(data.attributes);
+            }
+            }
+            this.initUI();
         });
+      })
       } else {
+        that.content.init();
         this.initUI();
       }
     }
@@ -80,14 +93,19 @@ define([
       let that = this;
       if (!this.offline) {
         this.arcgis.checkData(that.projectId, null, (info) => {
-          let data = info.data;
-          that.objectId = info.objectId;
-          if (!info.newFeature) {
-            that.loadInputs(data.attributes);
+          if (info != null) {
+            let data = info.data;
+            that.objectId = info.objectId;
+            that.projectAreaId = that.objectId;
+            that.content.init();
+            if (!info.newFeature) {
+              that.loadInputs(data.attributes);
+            }
           }
           this.initUI();
         });
       } else {
+        that.content.init();
         this.initUI();
       }
     }
@@ -100,6 +118,12 @@ define([
       let that = this;
 
       if (!this.offline) {
+
+        // Check if this project alreayd exists
+        this.arcgis.checkDataProject(that.projectId, (info) => {
+          that.projectAreaId = "[" + info.toFixed(0) + "]";
+          that.content.init();
+
         this.arcgis
           .calculateArea(this.projectAreaId, "project")
           .then((area) => {
@@ -122,7 +146,9 @@ define([
             this.initUI();
           });
         });
+        });
       } else {
+        that.content.init();
         this.initUI();
       }
     }
@@ -209,20 +235,22 @@ define([
     }
 
     saveData() {
-      this.save.innerHTML = "Saving...";
+      that.save.innerHTML = "Saving...";
       let elements = that.getAllElements(false);
       that
         .uploadData(elements)
         .then((value) => {
-          this.save.innerHTML = "Save";
-          this.save.className = "btn1 btn_disabled";
+          that.save.innerHTML = "Save";
+          that.save.className = "btn1 btn_disabled";
         })
+        /*
         .catch((reason) => {
-          this.save.innerHTML = "Save";
-          this.save.className = "btn1";
+          that.save.innerHTML = "Save";
+          that.save.className = "btn1";
           alert("Saving not successful");
           console.log(reason);
         });
+        */
     }
 
     clickHandler() {

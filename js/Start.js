@@ -33,7 +33,6 @@ define([
         this.content = new Content(that);
         that.content = this.content;
 
-        this.content.init();
         this.createUI();
         this.clickHandler();
         if (this.offline) {

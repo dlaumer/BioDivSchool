@@ -20,6 +20,16 @@ define([
   return class Content {
     constructor(app) {
       this.app = app;
+
+      this.groups = [
+        { key: "a", label: "Gruppe a" },
+        { key: "b", label: "Gruppe b" },
+        { key: "c", label: "Gruppe c" },
+        { key: "d", label: "Gruppe d" },
+        { key: "e", label: "Gruppe e" },
+        { key: "f", label: "Gruppe f" },
+
+      ]
     }
 
 
@@ -30,6 +40,8 @@ define([
       else {
         this.makeContent();
       }
+
+      
     }
 
     // Start the start screen
@@ -104,15 +116,7 @@ define([
 
     */
 
-      this.groups = [
-        { key: "a", label: "Gruppe a" },
-        { key: "b", label: "Gruppe b" },
-        { key: "c", label: "Gruppe c" },
-        { key: "d", label: "Gruppe d" },
-        { key: "e", label: "Gruppe e" },
-        { key: "f", label: "Gruppe f" },
 
-      ]
 
       // Christian: Weitere Elemente hinzufuegen
 
@@ -356,7 +360,7 @@ define([
       //Baumschicht  muss noch als Titel rein
       //14_baeume
       page_strukturelemente.addElement("dropdownInput", "baeume", {
-        text: "Gibt es auf dem Untersuchungsfläche Bäume?",
+        text: "Gibt es auf der Untersuchungsfläche Bäume?",
         placeholder: "Auswählen",
         points: "baeume_points",
         options: [
@@ -375,7 +379,7 @@ define([
       //Sträucher ohne Hecken  muss noch als Titel rein
       //15_straeucher
       page_strukturelemente.addElement("dropdownInput", "straeucher", {
-        text: "Gibt es auf dem Untersuchungsfläche Gruppen aus mindestens 5 Sträuchern?",
+        text: "Gibt es auf der Untersuchungsfläche Gruppen aus mindestens 5 Sträuchern?",
         placeholder: "Auswählen",
         points: "straeucher_points",
         options: [
@@ -391,7 +395,7 @@ define([
       //Hecken  muss noch als Titel rein
       //16_hecken
       page_strukturelemente.addElement("dropdownInput", "hecken", {
-        text: "Gibt es auf dem Untersuchungsfläche Gruppen aus mindestens 5 Sträuchern?",
+        text: "Gibt es auf der Untersuchungsfläche Gruppen aus mindestens 5 Sträuchern?",
         placeholder: "Auswählen",
         points: "hecken_points",
         options: [
@@ -628,7 +632,7 @@ define([
         text: "Auf welcher Fläche werden chemische Pestizide  zur Schädlingsbekämpfung eingesetzt?<br>Stelle mit dem Regler ein, wie gross der Anteil dieser Fläche an der gesamten unbebauten Untersuchungsfläche ist:",
         min: 0,
         max: 100,
-        step: 0.01,
+        step: 0.1,
       });
       //Chemische Pestizide werden kaum eingesetzt. <5%	2
       //5.1-66%	1
@@ -640,7 +644,7 @@ define([
         text: "Auf welcher Fläche werden ökologische Mittel zur Schädlingsbekämpfung eingesetzt?<br>Wenn solche ökologischen Mittel zu wenig wirken, dann werden auch chemische Pestizide eingesetzt, die aber Nützlinge schonen.<br>Stelle mit dem Regler ein, wie gross der Anteil dieser Fläche an der gesamten unbebauten Untersuchungsfläche ist:",
         min: 0,
         max: 100,
-        step: 0.01,
+        step: 0.1,
       });
       //kaum ökologische Schädlingsbekämpfung <5%	3
       //5.1-50%	2
@@ -816,22 +820,13 @@ define([
         ],
       });      
 
-      let page4 = this.app.addFinalPage("Ende");     
+      this.app.addFinalPage("Ende");     
     }
 
 
     makeContentProject() {
       let page0 = this.app.addPage("Projekt Infos");
 
-      page0.addElement("simpleTextInput", "standort", {
-        text: "Was ist der Name des Standorts?",
-        placeholder: "Standort",
-      });
-      page0.addElement("simpleTextInput", "organisation", {
-        text: "Was ist der Name der Organisation oder Schule?",
-        placeholder: "Organisation/Schule",
-      });
-      page0.addElement("dateTimeInput", "datum", { text: "Datum und Uhrzeit" });
       page0.addElement("mapInput", "gebiete", { text: "Zeichne das Projektgebiet ein" });
 
       this.app.addFinalPage("Ende");

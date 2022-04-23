@@ -211,8 +211,14 @@ define([
         this.sliderContainer = domCtr.create("div", {className: "input"}, this.element);        
         this.sliderContainer2 = domCtr.create("div", {style: "width: 80%"}, this.sliderContainer);
         this.input = domCtr.create("input", {type:"range", className: "slider", min: args.min, max: args.max, value: (args.max - args.min)/2, step: args.step}, this.sliderContainer2);
-        this.ticksContainer = domCtr.create("div", {className: "ticksContainer"}, this.sliderContainer2);        
-        for (let i = args.min; i <= args.max; i += args.step) {
+        this.ticksContainer = domCtr.create("div", {className: "ticksContainer"}, this.sliderContainer2);  
+        
+        // if there are more than 100 steps, don't show all of the ticks because they all overlap.
+        let stepTicks = args.step;
+        if ((args.max - args.min) / args.step > 100) {
+          stepTicks = (args.max - args.min) / 100;
+        }
+        for (let i = args.min; i <= args.max; i += stepTicks) {
           domCtr.create("div", {className: "ticks"}, this.ticksContainer);
         }
         this.labelContainer = domCtr.create("div", {className: "ticksContainer", style: "padding: 0 5px;"}, this.sliderContainer2);  
@@ -245,7 +251,9 @@ define([
         this.editor = domCtr.create("div", {id: this.name + "_editor"}, this.editorContainer);
  
         if (!that.offline) {
-          this.geometry = that.arcgis.addMap(this.input.id, this.editor.id,this);   
+          let info = that.arcgis.addMap(this.input.id, this.editor.id,this);  
+          this.geometry = info.geometry;
+          this.projectAreaClass = info.projectArea; 
         }
 
         if (args.points != null) {
@@ -335,10 +343,14 @@ define([
         if (value == null) {
           this.valueSet = false;
           this.value = value;
-          this.points = null;
-          this.pointsInfo.innerHTML = "";
+          
+          if (this.hasPoints) {
+            this.points = null;
+            this.pointsInfo.innerHTML = "";
           that.pointsTotal = that.pointsTotal - parseInt(previousPoints);
           that.pointsTotalDiv.innerHTML = "Punkte total: " + that.pointsTotal.toFixed(0);
+          }
+          
         }
         else {
           this.valueSet = true;
@@ -435,7 +447,7 @@ define([
 
 
       reportWindowSize() {
-        this.elementWidth = document.getElementsByClassName("element")[0].clientWidth;
+        this.elementWidth = document.getElementsByClassName("background")[0].clientWidth;
   
         console.log(this.elementWidth);
   
