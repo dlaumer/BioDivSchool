@@ -10,16 +10,13 @@ Holds all the objects for one page. Pages are used to split up the input element
 
 define([
   "dojo/dom",
-
   "dojo/dom-construct",
   "dojo/_base/window",
   "dojo/on",
   "biodivschool/Element",
 ], function (dom, domCtr, win, on, Element) {
   return class Page {
-    constructor(app, id, container, title) {
-
-     
+    constructor(app, id, container, title) {     
 
       this.app = app;
       this.id = id;

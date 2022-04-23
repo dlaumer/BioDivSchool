@@ -289,7 +289,7 @@ define([
     addFinalPage(title, func) {
       let page = new Page(this, this.pages.length, this.pageContainer, title);
       page.addElement("finalButton", "final", {
-        text: "Did you fill in all the elements?",
+        text: "Hast du alle Fragen deines Auftrages beantwortet?",
         func: this.checkInputs,
       });
       this.pages.push(page);
