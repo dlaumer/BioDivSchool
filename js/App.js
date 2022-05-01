@@ -198,12 +198,12 @@ define([
         { className: "footerElements" },
         this.footer
       );
-      this.pointsTotalDiv = domCtr.create(
+      this.home = domCtr.create(
         "div",
         {
-          id: "pointsTotalInfo",
-          className: "pointsInfo",
-          innerHTML: that.mode == "project" ? "" : "Punkte total: 0",
+          id: "btn_home",
+          className: "btn2",
+          innerHTML: "Home",
         },
         this.footerLeft
       );
@@ -231,6 +231,15 @@ define([
         "div",
         { className: "footerElements" },
         this.footer
+      );
+      this.pointsTotalDiv = domCtr.create(
+        "div",
+        {
+          id: "pointsTotalInfo",
+          className: "pointsInfo",
+          innerHTML: that.mode == "project" ? "" : "Punkte total: 0",
+        },
+        this.footerRight
       );
     }
 
@@ -265,16 +274,20 @@ define([
       );
 
       on(
+        this.home,
+        "click",
+        function (evt) {
+          this.goToPage(0)
+
+        }.bind(this)
+      );
+
+      on(
         this.back,
         "click",
         function (evt) {
-          this.pages[this.currentPage - 1].init(this.pages[this.currentPage]);
-          this.currentPage = this.currentPage - 1;
-          this.next.style.visibility = "visible";
+          this.goToPage(this.currentPage - 1)
 
-          if (this.currentPage - 1 < 0) {
-            this.back.style.visibility = "hidden";
-          }
         }.bind(this)
       );
 
@@ -282,15 +295,37 @@ define([
         this.next,
         "click",
         function (evt) {
-          this.pages[this.currentPage + 1].init(this.pages[this.currentPage]);
-          this.currentPage = this.currentPage + 1;
-          this.back.style.visibility = "visible";
-
-          if (this.currentPage + 1 == this.pages.length) {
-            this.next.style.visibility = "hidden";
-          }
+          this.goToPage(this.currentPage + 1)
         }.bind(this)
       );
+    }
+
+    goToPage(pageNumber) {
+
+      this.pages[pageNumber].init(this.pages[this.currentPage]);
+      this.currentPage = pageNumber;
+
+      if (this.currentPage + 1 == this.pages.length) {
+        this.next.style.visibility = "hidden";
+      }
+      else {
+        this.next.style.visibility = "visible";
+      }
+
+      if (this.currentPage - 1 < 0) {
+        this.back.style.visibility = "hidden";
+      }
+      else {
+        this.back.style.visibility = "visible";
+      }
+    }
+
+    addStartPage(title) {
+      let page = new Page(this, this.pages.length, this.pageContainer, title);
+      
+      this.pages.push(page);
+      this.startPage = page;
+      return page;
     }
 
     addPage(title) {
@@ -305,6 +340,20 @@ define([
       } else {
         page = this.addPageNormal(title, this.pageContainer);
       }
+
+      // Add to page of content
+      if (this.startPage != null) {
+        let pageNr = this.pages.length-1;
+
+        let elem = domCtr.create(
+          "div",
+          { class: "contentLink", innerHTML: pageNr+ ". " + title },
+          this.startPage.page
+        );
+        elem.addEventListener("click", () => {
+          this.goToPage(pageNr);
+        })
+      }
       return page;
     }
 
@@ -314,7 +363,7 @@ define([
       return page;
     }
 
-    addFinalPage(title, func) {
+    addFinalPage(title) {
       let page = new Page(this, this.pages.length, this.pageContainer, title);
       page.addElement("finalButton", "final", {
         text: "Hast du alle Fragen deines Auftrages beantwortet?",

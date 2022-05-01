@@ -69,6 +69,12 @@ define([
         this.type = type;  
         this.key = key;
 
+        this.element = domCtr.create("div", { id: this.name, className: "element"}, this.container);
+
+        if (args.title) {
+          this.addTitle(args.title);
+        }
+
         switch (this.type) {
             case "simpleTextInput":
                 this.addSimpleTextInput(args);
@@ -103,7 +109,6 @@ define([
       }
   
       addSimpleTextInput(args) {
-        this.element = domCtr.create("div", { id: this.name, className: "element"}, this.container);
         this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text}, this.element);
         this.input = domCtr.create("input", { className: "input inputField", placeholder: args.placeholder }, this.element);
 
@@ -122,7 +127,6 @@ define([
       }
 
       addDateTimeInput(args) {
-        this.element = domCtr.create("div", { id: this.name, className: "element"}, this.container);
         this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text}, this.element);
         this.input = domCtr.create("input", {id: "dateTime", type:"date", className: "input dateTimeInput" }, this.element);
         
@@ -135,8 +139,8 @@ define([
         }
       }
 
+      // ToDo: Mehrfachauswahl!
       addDropdownInput(args) {
-        this.element = domCtr.create("div", { id: this.name, className: "element"}, this.container);        
         this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text}, this.element);
         this.input = domCtr.create("select", {className:"input inputField"}, this.element);
 
@@ -150,12 +154,11 @@ define([
           this.keyPoints = args.points;
           this.pointsInfo = domCtr.create("div", {id: this.name + "_pointsInfo", className: "pointsInfo"}, this.label);
 
-        }
-
-        this.pointsDict = {}
+          this.pointsDict = {}
           for (const i in args.options) {
             this.pointsDict[args.options[i].label] = args.options[i].key;
           }
+        }
 
         on(this.input, "change", function (evt) {
           if (evt.target.selectedIndex == 0) {
@@ -175,7 +178,7 @@ define([
       }
 
       addRadioButtonInput(args) {
-        this.element = domCtr.create("div", { id: this.name, className: "element", style: "align-items: start;"}, this.container);        
+        this.element.style =  "align-items: start;"
         this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text}, this.element);
         this.input = domCtr.create("div", {className: "input inputRows"}, this.element);        
         for (const i in args.options) {
@@ -205,8 +208,9 @@ define([
         }
       }
 
+
+      // ToDo: Points!
       addSliderInput(args) {
-        this.element = domCtr.create("div", { id: this.name, className: "element"}, this.container);        
         this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text}, this.element);
         this.sliderContainer = domCtr.create("div", {className: "input"}, this.element);        
         this.sliderContainer2 = domCtr.create("div", {style: "width: 80%"}, this.sliderContainer);
@@ -231,6 +235,16 @@ define([
         });
         this.bubble.innerHTML = this.input.value;
 
+
+        if (args.points != null) {
+          this.hasPoints = true;
+          this.keyPoints = args.points;
+          this.pointsInfo = domCtr.create("div", {id: this.name + "_pointsInfo", className: "pointsInfo"}, this.label);
+          this.stops = args.stops;
+
+        }
+
+
         on(this.input, "input", function (evt) {
           this.setter(this.input.value)
         }.bind(this));
@@ -243,7 +257,7 @@ define([
 
 
       addMap(args) {
-        this.element = domCtr.create("div", { id: this.name, className: "element elementMap"}, this.container); 
+        this.element.className =  "element elementMap"
         this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text, style: "width: 100%;"}, this.element);
         this.mapContainer = domCtr.create("div", {className: "mapContainer"}, this.element); 
         this.input = domCtr.create("div", {id: this.name + "_map", className:"map"}, this.mapContainer);
@@ -290,9 +304,9 @@ define([
                 alert("Das Gebiet darf nicht grösser sein als das Projektgebiet!");
               }
               for (let i in this.ratioStops) {
-                if (numRatio < this.ratioStops[i]) {
-                    this.ratio = (i-1 >= 0? this.ratioStops[i-1]*100: 0).toFixed(0) + "-" + (this.ratioStops[i]*100).toFixed(0) + "%"
-                    this.points = parseInt(i);
+                if (numRatio < this.ratioStops[i].value) {
+                    this.ratio = (i-1 >= 0? this.ratioStops[i-1].value*100: 0).toFixed(0) + "-" + (this.ratioStops[i].value*100).toFixed(0) + "%"
+                    this.points = this.ratioStops[i].points;
                     break;
                 }
               }
@@ -317,6 +331,11 @@ define([
         on(this.link, "click", function (evt) {
           this.textInfo.style.display = this.textInfo.style.display=="" ? "block" : "";
         }.bind(this));
+      }
+      
+      addTitle(args) {
+
+        this.link = domCtr.create("div", { className: "elementTitle", innerHTML: args}, this.element);
       }
 
      
@@ -365,7 +384,17 @@ define([
               this.calculateRatioAndPoints();
             }
             else {
-              this.points = this.pointsDict[this.value];
+              if (this.type == "sliderInput") {
+                for (let i in this.stops) {
+                  if (parseFloat(this.value) < this.stops[i].value) {
+                    this.points = this.stops[i].points;
+                    break;
+                  }
+                }
+              }
+              else {
+                this.points = this.pointsDict[this.value];
+              }
               this.pointsInfo.innerHTML = this.points==1? "(" + this.points + " Punkt)":"(" + this.points + " Punkte)"
             }
             that.pointsTotal = that.pointsTotal - parseInt(previousPoints) + parseInt(this.points);

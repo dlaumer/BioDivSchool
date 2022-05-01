@@ -37,7 +37,10 @@ define([
       }
       this.page.className = "page active";
 
-      this.elements[0].reportWindowSize();
+      if (this.elements.length > 0) {
+        this.elements[0].reportWindowSize();
+
+      }
 
     }
 

@@ -98,6 +98,8 @@ define([
     - min
     - max
     - step
+    - points
+    - stops
     - textInfo (optional)
         - linkText
         - text
@@ -120,19 +122,20 @@ define([
 
       // Christian: Weitere Elemente hinzufuegen
 
+      this.app.addStartPage("BioDivSchool");
       /*Regionalität der Pflanzen*/
       let page_regionalitaet = this.app.addPage("Regionalität der Pflanzen");
 
-      //Heimische Wildpflanzen  muss noch als Titel rein     
       //08_wild_geomoid
       page_regionalitaet.addElement("mapInput", "wild_geomoid", {
+        title: "Heimische Wildpflanzen",
         text: `Auf welcher Fläche wachsen weitgehend nur heimische Wildpflanzen?
             Markiere solche Flächen in der gezeigten Untersuchungsfläche.
             Benutze dazu das Polygon-Werkzeug.`,
         area: "wild_geomarea",
         ratio: {
           key: "wild_geomarearatio",
-          stops: {"0": 0.25,"2": 0.5,"4": 0.75,"6": 1}
+          stops: [{points: "0", value: 0.25},{points:"2", value:0.5},{points: "4", value:0.75},{points: "6", value:1}]
         },
         points: "wild_points"
 
@@ -159,9 +162,9 @@ define([
         }
       });
 
-      //Schädliche gebietsfremde Pflanzen = invasive Neophyten   muss noch als Titel rein
       //10_neophyten
       page_regionalitaet.addElement("dropdownInput", "neophyten", {
+        title: "Schädliche gebietsfremde Pflanzen = invasive Neophyten",
         text: "Gibt es im Untersuchungsgebiet schädliche gebietsfremde Pflanzen?",
         placeholder: "Auswählen",
         points: "neophyten_points",
@@ -202,35 +205,35 @@ define([
       /*Strukturelemente*/      
       let page_strukturelemente = this.app.addPage("Strukturelemente");
       
-      //Versiegelte Flächen  muss noch als Titel rein
       //11_versieg_geomoid
       page_strukturelemente.addElement("mapInput", "versieg_geomoid", {
+        title: "Versiegelte Flächen ",
         text: `Markiere versiegelte Flächen in der gezeigten Untersuchungsfläche.`,
         area: "versieg_area",
         ratio: {
           key: "versieg_arearatio",
-          stops: {"4": 0.33,"2": 0.5,"1": 0.66,"6": 1}
+          stops: [{points:"4", value: 0.33},{points:"2", value: 0.5},{points:"1", value: 0.66},{points:"6", value:1}]
         },
         points: "versieg_points"
 
       }); 
 
-      //Rasenflächen   muss noch als Titel rein
       //12_rasen_geomoid
       page_strukturelemente.addElement("mapInput", "rasen_geomoid", {
+        title: "Rasenflächen ",
         text: `Markiere Flächen mit Rasen in der gezeigten Untersuchungsfläche.`,
         area: "rasen_area",
         ratio: {
           key: "rasen_area_ratio",
-          stops: {"2": 0.25,"1": 0.5,"0": 1}
+          stops: [{points:"2", value:0.25},{points:"1", value: 0.5},{points:"0", value:1}]
         },
         points: "rasen_points"
 
       }); 
 
-      //Vielfalt der Flächen   muss noch als Titel rein
       //13a_wild_geomoid
       page_strukturelemente.addElement("mapInput", "wild_geomoid", {
+        title: "Vielfalt der Flächen",
         text: `Markiere Flächen mit Gemüsebeeten und/oder Beeten mit Wildblumen in der gezeigten Untersuchungsfläche.`,
         area: "wild_area",
       }); 
@@ -357,9 +360,9 @@ define([
         ],
       });
 
-      //Baumschicht  muss noch als Titel rein
       //14_baeume
       page_strukturelemente.addElement("dropdownInput", "baeume", {
+        title: "Baumschicht",
         text: "Gibt es auf der Untersuchungsfläche Bäume?",
         placeholder: "Auswählen",
         points: "baeume_points",
@@ -376,9 +379,9 @@ define([
 
    
 
-      //Sträucher ohne Hecken  muss noch als Titel rein
       //15_straeucher
       page_strukturelemente.addElement("dropdownInput", "straeucher", {
+        title: "Sträucher ohne Hecken",
         text: "Gibt es auf der Untersuchungsfläche Gruppen aus mindestens 5 Sträuchern?",
         placeholder: "Auswählen",
         points: "straeucher_points",
@@ -392,9 +395,9 @@ define([
         ],
       });
 
-      //Hecken  muss noch als Titel rein
       //16_hecken
       page_strukturelemente.addElement("dropdownInput", "hecken", {
+        title: "Hecken",
         text: "Gibt es auf der Untersuchungsfläche Gruppen aus mindestens 5 Sträuchern?",
         placeholder: "Auswählen",
         points: "hecken_points",
@@ -414,9 +417,9 @@ define([
         ],
       });
 
-      //Vielfalt an einem Ort muss noch als Titel rein
       //17_vielfalt
       page_strukturelemente.addElement("dropdownInput", "vielfalt", {
+        title: "Vielfalt an einem Ort",
         text: "Sind Bäume, Sträucher und heimische Kräuter, Blumen oder Gräser zusammen an einem Ort anzutreffen?",
         placeholder: "Auswählen",
         points: "vielfalt_points",
@@ -428,9 +431,9 @@ define([
         ],
       });
 
-      //Ruderalflächen muss noch als Titel rein
       //18_ruderal
       page_strukturelemente.addElement("dropdownInput", "ruderal", {
+        title: "Ruderalflächen",
         text: "Gibt es auf der Untersuchungsfläche Ruderalflächen mit passenden heimischen Pflanzen?",
         placeholder: "Auswählen",
         points: "ruderal_points",
@@ -443,9 +446,9 @@ define([
         ],
       });
 
-      //Trockenmauern, Steinhaufen muss noch als Titel rein
       //19_mauern
       page_strukturelemente.addElement("dropdownInput", "mauern", {
+        title: "Trockenmauern, Steinhaufen",
         text: "Gibt es auf der Untersuchungsfläche Trockenmauern oder Steinhaufen?",
         placeholder: "Auswählen",
         points: "mauern_points",
@@ -457,9 +460,9 @@ define([
         ],
       });
 
-      //Asthaufen, Totholz muss noch als Titel rein
       //20_totholz
       page_strukturelemente.addElement("dropdownInput", "totholz", {
+        title: "Asthaufen, Totholz",
         text: "Gibt es auf der Untersuchungsfläche Asthaufen, abgestorbene Bäume oder Totholz?",
         placeholder: "Auswählen",
         points: "totholz_points",
@@ -471,9 +474,9 @@ define([
         ],
       });
 
-      //Künstliche Nisthilfen muss noch als Titel rein
       //21_insekten
       page_strukturelemente.addElement("dropdownInput", "insekten", {
+        title: "Künstliche Nisthilfen",
         text: "Gibt es auf der Untersuchungsfläche künstliche Nisthilfen für Insekten?",
         placeholder: "Auswählen",
         points: "insekten_points",
@@ -508,9 +511,9 @@ define([
         ],
       });
 
-      //Gewässer und Feuchtflächen muss noch als Titel rein
       //24_feuchtfl
       page_strukturelemente.addElement("dropdownInput", "feuchtfl", {
+        title: "Gewässer und Feuchtflächen",
         text: "Gibt es Feuchtflächen auf der Untersuchungsfläche?",
         placeholder: "Auswählen",
         points: "feuchtfl_points",
@@ -545,9 +548,9 @@ define([
         ],
       });
 
-      //Umgebung muss noch als Titel rein
       //27_umgebung
       page_strukturelemente.addElement("dropdownInput", "umgebung", {
+        title: "Umgebung",
         text: "Ist die Untersuchungsfläche umgeben von intensiver Landwirtschaft oder überbautem Gebiet?",
         placeholder: "Auswählen",
         points: "umgebung_points",
@@ -561,9 +564,9 @@ define([
       /*Pflege*/
       let page_pflege = this.app.addPage("Pflege");
 
-      //Mähen von Rasen und Wiesen OHNE Sportrasen muss noch als Titel rein
       //28_geraet
       page_pflege.addElement("dropdownInput", "geraet", {
+        title: "Mähen von Rasen und Wiesen OHNE Sportrasen",
         text: "Markiere, mit welchen Geräten der grössere Teil der Grasfläche (ohne Sportrasen) geschnitten wird.?",
         placeholder: "Auswählen",
         points: "geraet_points",
@@ -626,13 +629,15 @@ define([
       }
       });
 
-      //Schädlingsregulierung muss noch als Titel rein
       //30_pestizide
       page_pflege.addElement("sliderInput", "pestizide", {
+        title: "Schädlingsregulierung",
         text: "Auf welcher Fläche werden chemische Pestizide  zur Schädlingsbekämpfung eingesetzt?<br>Stelle mit dem Regler ein, wie gross der Anteil dieser Fläche an der gesamten unbebauten Untersuchungsfläche ist:",
         min: 0,
         max: 100,
         step: 0.1,
+        stops: [{points: "2", value: 5},{points:"1", value:66},{points:"0", value:100}],
+        points: "pestizide_points"
       });
       //Chemische Pestizide werden kaum eingesetzt. <5%	2
       //5.1-66%	1
@@ -645,6 +650,8 @@ define([
         min: 0,
         max: 100,
         step: 0.1,
+        stops: [{points:"2",value:5},{points:"1", value:75},{points:"0",value:100}],
+        points: "bekaempfung_points"
       });
       //kaum ökologische Schädlingsbekämpfung <5%	3
       //5.1-50%	2
@@ -652,9 +659,9 @@ define([
       //ökologische Schädlingsbekämpfung auf der gesamten unbebauten Fläche >75%	0
       //points: "bekaempfung_points",
 
-      //Unkrautregulierungg muss noch als Titel rein
       //32_unkraut
       page_pflege.addElement("dropdownInput", "unkraut", {
+        title: "Unkrautregulierung",
         text: "Wie werden Unkräuter oder unerwünschte Pflanzen zur Hauptsache bekämpft?",
         placeholder: "Auswählen",
         points: "unkraut_points",
@@ -666,9 +673,9 @@ define([
         ],
       });
 
-      //Düngen muss noch als Titel rein
       //33_duengen
       page_pflege.addElement("dropdownInput", "duengen", {
+        title: "Düngen",
         text: "Wie werden Grasflächen (Wiesen, Rasen inklusive Sportrasen) gedüngt?",
         placeholder: "Auswählen",
         points: "duengen_points",
@@ -681,9 +688,9 @@ define([
         ],
       });
 
-      //Düngemittel muss noch als Titel rein
       //34_mitteln
       page_pflege.addElement("dropdownInput", "mitteln", {
+        title: "Düngemittel",
         text: "Mit welchen Mitteln werden Grasflächen (Wiesen, Rasen inklusive Sportrasen) zur Hauptsache gedüngt?",
         placeholder: "Auswählen",
         points: "mitteln_points",
@@ -696,9 +703,9 @@ define([
         ],
       });
 
-      //Laub muss noch als Titel rein
       //35_laub
       page_pflege.addElement("dropdownInput", "laub", {
+        title: "Laub",
         text: "Was passiert im Herbst mit dem Laub?",
         placeholder: "Auswählen",
         points: "laub_points",
@@ -709,9 +716,9 @@ define([
         ],
       });
 
-      //alte Samenstände muss noch als Titel rein
       //36_samen
       page_pflege.addElement("dropdownInput", "samen", {
+        title: "Alte Samenstände",
         text: "Was passiert im Herbst mit alten Samenständen von Gras, Blumen und Sträucher?",
         placeholder: "Auswählen",
         points: "samen_points",
@@ -725,9 +732,9 @@ define([
       /*Bauliche Massnahmen*/
        let page_baumassnahmen = this.app.addPage("Bauliche Massnahmen");
 
-      //Begrüniung von Dach oder Fassaden muss noch als Titel rein
       //37_fldacher
       page_baumassnahmen.addElement("dropdownInput", "fldacher", {
+        title: "Begrünung von Dach oder Fassaden",
         text: "Gibt es auf Flachdächern eine Begrünung?",
         placeholder: "Auswählen",
         points: "fldacher_points",
@@ -750,9 +757,9 @@ define([
       });
 
      
-      //Kräuter- oder Gemüsegarten muss noch als Titel rein
       //39_kraeuter
       page_baumassnahmen.addElement("dropdownInput", "kraeuter", {
+        title: "Kräuter- oder Gemüsegarten",
         text: "Gibt es auf der Untersuchungsfläche einen biologisch bearbeiteten Kräuter- oder Gemüsegarten?",
         placeholder: "Auswählen",
         points: "kraeuter_points",
@@ -763,9 +770,9 @@ define([
       });
 
       
-      //Fallen für Tiere muss noch als Titel rein
       //40a_glas
       page_baumassnahmen.addElement("dropdownInput", "a_glas", {
+        title: "Fallen für Tiere",
         text: "Gibt es an den Gebäuden grosse Glasflächen?",
         placeholder: "Auswählen",
         points: "a_glas_points",

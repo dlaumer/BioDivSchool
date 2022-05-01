@@ -13,12 +13,12 @@
 */
 
 :root {
-  --now: #17bebb;
-  --no_project: #bebebe;
-  --very_grey: #f5f3f3;
-  --project: #f3511b;
+  --gray: #bebebe;
+  --very_gray: #f5f3f3;
+  --project: #4ba000;
+  --expandable: #7fd63266;
   --highlight: #e0ca3c;
-  --grey: #4c4c4c;
+  --dark_gray: #4c4c4c;
 }
 
 body {
@@ -62,12 +62,12 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 0 10px;
-  background-color: var(--very_grey);
+  background-color: var(--very_gray);
 }
 
 #userName {
   font-size: min(3vmax, 18px);;
-  color: var(--grey);
+  color: var(--dark_gray);
 }
 
 
@@ -100,6 +100,16 @@ body {
   padding: 10px;
 }
 
+.contentLink {
+  cursor: pointer;
+  padding: 15px;
+  border-style: solid;
+  margin: 10px;
+}
+
+.contentLink:hover {
+  background-color: var(--expandable);
+}
 
 
 .groupDivTitle {
@@ -117,7 +127,7 @@ body {
 
 .groupResult {
   width: 100%;
-  background-color: var(--very_grey);
+  background-color: var(--very_gray);
   padding: 10px;
 }
 
@@ -129,9 +139,9 @@ body {
   align-items: center;
   justify-content: space-between;
   position: absolute;
-    bottom: 0;
-    right: 0;
-    background-color: var(--very_grey);
+  bottom: 0;
+  right: 0;
+  background-color: var(--very_gray);
 }
 
 .footerElements {
@@ -144,6 +154,7 @@ body {
 
 #pointsTotalInfo {
   padding: 20px;
+  text-align: right;
 }
 
 
@@ -165,7 +176,7 @@ body {
   color: white;
 }
 
-#diagram {
+diagram {
   height: fit-content;
   position: absolute;
   bottom: 12%;
@@ -174,9 +185,9 @@ body {
 .btn2 {
   text-align: center;
   background-color: transparent;
-  color: var(--grey);
+  color: var(--dark_gray);
   border-radius: 10px;
-  border: 1px solid var(--grey);
+  border: 1px solid var(--dark_gray);
   margin: 2%;
   padding: 5px;
   font-size: min(3vmax, 18px);;
@@ -184,14 +195,14 @@ body {
 }
 
 .btn2:hover, .btn2:active {
-  background-color: var(--grey);
+  background-color: var(--dark_gray);
   color: white;
 }
 
 .btn_disabled {
-  border-color: var(--grey) !important;
+  border-color: var(--dark_gray) !important;
   opacity: 0.5 !important;
-  color: var(--grey) !important;
+  color: var(--dark_gray) !important;
   pointer-events: none;
 }
 
@@ -219,21 +230,30 @@ body {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 30px 10px;}
+  padding: 30px 10px;
+}
+
+.elementTitle {
+  width:100%;
+
+  font-weight: bold;
+}
 
 .linkText {
   color: var(--project);
   cursor: pointer;
   width: 100vw;
+  padding: 10px;
 }
 
 .linkText:hover {
-  background-color:#f3511b1c;
+  background-color:var(--expandable);
 }
 .expandable {
   width: 100%;
   display: none;
-  background-color:#f3511b1c;
+  background-color: var(--expandable);
+  padding: 10px;
 }
 
 .warning {
@@ -274,7 +294,7 @@ body {
 
 .inputField {
   border-radius: 10px;
-  border: 1px solid var(--no_project);
+  border: 1px solid var(--gray);
   margin: 2%;
   padding: 0px 10px;
   font-size: min(3vmax, 18px);
@@ -283,7 +303,7 @@ body {
 
 input[type='date'] {
   border-radius: 10px !important;
-  border: 1px solid var(--no_project) !important;
+  border: 1px solid var(--gray) !important;
   height: min(8vmax, 50px) !important;
   margin: 2% !important;
   padding: 0px 10px !important;
@@ -309,7 +329,7 @@ label {
   -webkit-appearance: none;
   height: 5px;
   outline: none;
-  background: var(--no_project);
+  background: var(--gray);
   margin: 30px 0 15px 0;
   width: 100%;
 }
@@ -343,7 +363,7 @@ label {
 }
 
 .ticks {
-  background-color: #4c4c4c;
+  background-color: var(--dark_gray);
   width: 1px;
   height: 5px;
 }
@@ -354,7 +374,7 @@ label {
 }
 
 .bubble {
-  height: 100%;
+  height: 50px;
   width: 50px;
   margin: 0 0 0 20px;
   padding: 4px 12px;
@@ -363,7 +383,7 @@ label {
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  border: 1px solid var(--no_project);
+  border: 1px solid var(--gray);
 }
 
 .elementMap {
