@@ -146,11 +146,11 @@ define([
         placeholder: "Auswählen",
         points: "arten_points",
         options: [
-          { key: "0", label: "weniger als 10 verschiedene Arten" },
-          { key: "1", label: "11 - 20 Arten" },
-          { key: "2", label: "21 - 35 Arten" },
-          { key: "4", label: "36 - 50 Arten" },
-          { key: "4", label: "mehr als 50 verschiedene Arten" },
+          { key: "0", points: 0, label: "weniger als 10 verschiedene Arten" },
+          { key: "1", points: 1, label: "11 – 20 Arten" },
+          { key: "2", points: 2, label: "21 – 35 Arten" },
+          { key: "3", points: 4, label: "36 – 50 Arten" },
+          { key: "4", points: 4, label: "mehr als 50 verschiedene Arten" },
         ],
         textInfo: {
             linkText: "Hinweise zur Bestimmung von Pflanzen",
@@ -169,12 +169,12 @@ define([
         placeholder: "Auswählen",
         points: "neophyten_points",
         options: [
-          { key: "2", label: "keine" },
+          { key: "0", points: 2, label: "keine" },
           {
-            key: "0", label: "eine oder mehrere Arten von schädlichen gebietsfremden Pflanzen",
+            key: "1", points: 0, label: "eine oder mehrere Arten von schädlichen gebietsfremden Pflanzen",
           },
           {
-            key: "-2", label: "mehr als eine Art von schädlichen gebietsfremden Pflanzen",
+            key: "2", points: -2, label: "mehr als eine Art von schädlichen gebietsfremden Pflanzen",
           },
         ],
       });
@@ -185,8 +185,8 @@ define([
         placeholder: "Auswählen",
         points: "neophytenmenge_points",
         options: [
-          { key: "-1", label: "kleiner als ein Parkplatz für ein Auto " },
-          { key: "-2", label: "grösser als ein Parkplatz für ein Auto " },
+          { key: "0", points: -1, label: "kleiner als ein Parkplatz für ein Auto " },
+          { key: "1", points: -2, label: "grösser als ein Parkplatz für ein Auto " },
         ],
       });
 
@@ -243,13 +243,13 @@ define([
         placeholder: "Auswählen",
         points: "wild_points",
         options: [
-          { key: "0", label: "weniger als 3 Strukturelemente vorhanden" },
-          { key: "1", label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" },
-          { key: "2", label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche" },
-          { key: "4", label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" },
-          { key: "6", label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche" },
-          { key: "7", label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" },
-          { key: "8", label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
+          { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden" },
+          { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" },
+          { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche" },
+          { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" },
+          { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche" },
+          { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" },
+          { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
         ],
       });
 
@@ -264,13 +264,13 @@ define([
         placeholder: "Auswählen",
         points: "trocken_points",
         options: [
-          { key: "0", label: "weniger als 3 Strukturelemente vorhanden" },
-          { key: "1", label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" },
-          { key: "2", label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche" },
-          { key: "4", label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" },
-          { key: "6", label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche" },
-          { key: "7", label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" },
-          { key: "8", label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
+          { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden" },
+          { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" },
+          { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche" },
+          { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" },
+          { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche" },
+          { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" },
+          { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
         ],
       }); 
 
@@ -285,13 +285,13 @@ define([
         placeholder: "Auswählen",
         points: "c_gras_points",
         options: [
-          { key: "0", label: "weniger als 3 Strukturelemente vorhanden" },
-          { key: "1", label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" },
-          { key: "2", label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche" },
-          { key: "4", label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" },
-          { key: "6", label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche" },
-          { key: "7", label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" },
-          { key: "8", label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
+          { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden" },
+          { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" },
+          { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche" },
+          { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" },
+          { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche" },
+          { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" },
+          { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
         ],
       });
 
@@ -306,13 +306,13 @@ define([
         placeholder: "Auswählen",
         points: "d_hecken_points",
         options: [
-          { key: "0", label: "weniger als 3 Strukturelemente vorhanden" },
-          { key: "1", label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" },
-          { key: "2", label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche" },
-          { key: "4", label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" },
-          { key: "6", label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche" },
-          { key: "7", label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" },
-          { key: "8", label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
+          { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden" },
+          { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" },
+          { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche" },
+          { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" },
+          { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche" },
+          { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" },
+          { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
         ],
       });
 
@@ -327,13 +327,13 @@ define([
         placeholder: "Auswählen",
         points: "e_baeume_points",
         options: [
-          { key: "0", label: "weniger als 3 Strukturelemente vorhanden" },
-          { key: "1", label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" },
-          { key: "2", label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche" },
-          { key: "4", label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" },
-          { key: "6", label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche" },
-          { key: "7", label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" },
-          { key: "8", label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
+          { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden" },
+          { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" },
+          { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche" },
+          { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" },
+          { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche" },
+          { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" },
+          { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
         ],
       });
       
@@ -350,13 +350,13 @@ define([
         placeholder: "Auswählen",
         points: "f_wasser_points",
         options: [
-          { key: "0", label: "weniger als 3 Strukturelemente vorhanden" },
-          { key: "1", label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" },
-          { key: "2", label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche" },
-          { key: "4", label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" },
-          { key: "6", label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche" },
-          { key: "7", label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" },
-          { key: "8", label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
+          { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden" },
+          { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" },
+          { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche" },
+          { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" },
+          { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche" },
+          { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" },
+          { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
         ],
       });
 
@@ -367,13 +367,13 @@ define([
         placeholder: "Auswählen",
         points: "baeume_points",
         options: [
-          { key: "0", label: "Keine Bäume vorhanden, die höher als 4 - 5 Meter sind." },
-          { key: "1", label: "Keine Bäume vorhanden, die höher als 4 - 5 Meter sind." },
-          { key: "2", label: "Nur 1 Baum vorhanden oder alle Bäume etwa gleich hoch." },
-          { key: "3", label: "Bäume in deutlich unterschiedlichen Höhen vorhanden und mit insgesamt mindestens 3 verschiedene heimische Baumarten vorhanden, aber ohne mindestens zwei der Bäume mit einen Umfang von mehr als 2 Meter." },
-          { key: "4", label: "Bäume in deutlich unterschiedlichen Höhen vorhanden und mit insgesamt mindestens 3 verschiedene heimische Baumarten vorhanden und mit mindestens zwei der Bäume mit einen Umfang von mehr als 2 Meter." },
-          { key: "2", label: "Bäume in deutlich unterschiedlichen Höhen vorhanden und ohne insgesamt mindestens 3 verschiedene heimische Baumarten vorhanden und ohne mindestens zwei der Bäume mit einen Umfang von mehr als 2 Meter." },
-          { key: "3", label: "Bäume in deutlich unterschiedlichen Höhen vorhanden und ohne insgesamt mindestens 3 verschiedene heimische Baumarten vorhanden, aber mit mindestens zwei der Bäume mit einen Umfang von mehr als 2 Meter." },          
+          { key: "0", points: 0, label: "Keine Bäume vorhanden, die höher als 4 - 5 Meter sind." },
+          { key: "1", points: 1, label: "Keine Bäume vorhanden, die höher als 4 - 5 Meter sind." },
+          { key: "2", points: 2, label: "Nur 1 Baum vorhanden oder alle Bäume etwa gleich hoch." },
+          { key: "3", points: 3, label: "Bäume in deutlich unterschiedlichen Höhen vorhanden und mit insgesamt mindestens 3 verschiedene heimische Baumarten vorhanden, aber ohne mindestens zwei der Bäume mit einen Umfang von mehr als 2 Meter." },
+          { key: "4", points: 4, label: "Bäume in deutlich unterschiedlichen Höhen vorhanden und mit insgesamt mindestens 3 verschiedene heimische Baumarten vorhanden und mit mindestens zwei der Bäume mit einen Umfang von mehr als 2 Meter." },
+          { key: "5", points: 2, label: "Bäume in deutlich unterschiedlichen Höhen vorhanden und ohne insgesamt mindestens 3 verschiedene heimische Baumarten vorhanden und ohne mindestens zwei der Bäume mit einen Umfang von mehr als 2 Meter." },
+          { key: "6", points: 3, label: "Bäume in deutlich unterschiedlichen Höhen vorhanden und ohne insgesamt mindestens 3 verschiedene heimische Baumarten vorhanden, aber mit mindestens zwei der Bäume mit einen Umfang von mehr als 2 Meter." },          
         ],
       });
 
@@ -386,12 +386,12 @@ define([
         placeholder: "Auswählen",
         points: "straeucher_points",
         options: [
-          { key: "0", label: "Keine Sträucher oder nur vereinzelte Sträucher vorhanden." },
-          { key: "0", label: "Überwiegend nicht-heimische Sträucher vorhanden. " },
-          { key: "1", label: "1-3 Gruppen aus mindestens 5 Sträuchern vorhanden. Die meisten dieser Sträucher sind heimisch." },
-          { key: "3", label: "1-3 Gruppen aus mindestens 5 Sträuchern vorhanden. Die meisten dieser Sträucher sind heimisch. Insgesamt mehr als 5 verschiedene heimische Straucharten." },
-          { key: "3", label: "Mehr als 3 Gruppen aus mindestens 5 Sträuchern vorhanden. Die meisten dieser Sträucher sind heimisch." },
-          { key: "5", label: "Mehr als 3 Gruppen aus mindestens 5 Sträuchern vorhanden. Die meisten dieser Sträucher sind heimisch. Insgesamt mehr als 5 verschiedene heimische Straucharten." },
+          { key: "0", points: 0, label: "Keine Sträucher oder nur vereinzelte Sträucher vorhanden." },
+          { key: "1", points: 0, label: "Überwiegend nicht-heimische Sträucher vorhanden. " },
+          { key: "2", points: 1, label: "1-3 Gruppen aus mindestens 5 Sträuchern vorhanden. Die meisten dieser Sträucher sind heimisch." },
+          { key: "3", points: 3, label: "1-3 Gruppen aus mindestens 5 Sträuchern vorhanden. Die meisten dieser Sträucher sind heimisch. Insgesamt mehr als 5 verschiedene heimische Straucharten." },
+          { key: "4", points: 3, label: "Mehr als 3 Gruppen aus mindestens 5 Sträuchern vorhanden. Die meisten dieser Sträucher sind heimisch." },
+          { key: "5", points: 5, label: "Mehr als 3 Gruppen aus mindestens 5 Sträuchern vorhanden. Die meisten dieser Sträucher sind heimisch. Insgesamt mehr als 5 verschiedene heimische Straucharten." },
         ],
       });
 
@@ -402,18 +402,18 @@ define([
         placeholder: "Auswählen",
         points: "hecken_points",
         options: [
-          { key: "0", label: "Keine Hecke vorhanden." },
-          { key: "0", label: "Hecken vorhanden. Die Hecken bestehen aber überwiegend aus nicht-heimische Sträuchern." },
-          { key: "1", label: "Eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch." },
-          { key: "1", label: "Eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch. In der Hecke sind nicht insgesamt mehr als 5 verschiedene heimische Straucharten vorhanden. Keine Hecke ist mindestens 2 Meter breit und 10 Meter lang." },
-          { key: "2", label: "Eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch. In der Hecke sind insgesamt mehr als 5 verschiedene heimische Straucharten vorhanden. Keine Hecke ist mindestens 2 Meter breit und 10 Meter lang." },
-          { key: "2", label: "Eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch. In der Hecke sind nicht insgesamt mehr als 5 verschiedene heimische Straucharten vorhanden. Eine Hecke ist mindestens 2 Meter breit und 10 Meter lang." },
-          { key: "3", label: "Eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch. In der Hecke sind  insgesamt mehr als 5 verschiedene heimische Straucharten vorhanden. Eine Hecke ist mindestens 2 Meter breit und 10 Meter lang." },
-          { key: "3", label: "Mehr als eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch." },
-          { key: "3", label: "Mehr als eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch. In der Hecke sind nicht insgesamt mehr als 5 verschiedene heimische Straucharten vorhanden. Keine Hecke ist mindestens 2 Meter breit und 10 Meter lang." },
-          { key: "4", label: "Mehr als eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch. In der Hecke sind insgesamt mehr als 5 verschiedene heimische Straucharten vorhanden. Keine Hecke ist mindestens 2 Meter breit und 10 Meter lang." },
-          { key: "4", label: "Mehr als eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch. In der Hecke sind nicht insgesamt mehr als 5 verschiedene heimische Straucharten vorhanden. Eine Hecke ist mindestens 2 Meter breit und 10 Meter lang." },
-          { key: "5", label: "Mehr als eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch. In der Hecke sind  insgesamt mehr als 5 verschiedene heimische Straucharten vorhanden. Eine Hecke ist mindestens 2 Meter breit und 10 Meter lang." },
+          { key: "0", points: 0, label: "Keine Hecke vorhanden." },
+          { key: "1", points: 0, label: "Hecken vorhanden. Die Hecken bestehen aber überwiegend aus nicht-heimische Sträuchern." },
+          { key: "2", points: 1, label: "Eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch." },
+          { key: "3", points: 1, label: "Eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch. In der Hecke sind nicht insgesamt mehr als 5 verschiedene heimische Straucharten vorhanden. Keine Hecke ist mindestens 2 Meter breit und 10 Meter lang." },
+          { key: "4", points: 2, label: "Eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch. In der Hecke sind insgesamt mehr als 5 verschiedene heimische Straucharten vorhanden. Keine Hecke ist mindestens 2 Meter breit und 10 Meter lang." },
+          { key: "5", points: 2, label: "Eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch. In der Hecke sind nicht insgesamt mehr als 5 verschiedene heimische Straucharten vorhanden. Eine Hecke ist mindestens 2 Meter breit und 10 Meter lang." },
+          { key: "6", points: 3, label: "Eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch. In der Hecke sind  insgesamt mehr als 5 verschiedene heimische Straucharten vorhanden. Eine Hecke ist mindestens 2 Meter breit und 10 Meter lang." },
+          { key: "7", points: 3, label: "Mehr als eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch." },
+          { key: "8", points: 3, label: "Mehr als eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch. In der Hecke sind nicht insgesamt mehr als 5 verschiedene heimische Straucharten vorhanden. Keine Hecke ist mindestens 2 Meter breit und 10 Meter lang." },
+          { key: "9", points: 4, label: "Mehr als eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch. In der Hecke sind insgesamt mehr als 5 verschiedene heimische Straucharten vorhanden. Keine Hecke ist mindestens 2 Meter breit und 10 Meter lang." },
+          { key: "11", points: 4, label: "Mehr als eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch. In der Hecke sind nicht insgesamt mehr als 5 verschiedene heimische Straucharten vorhanden. Eine Hecke ist mindestens 2 Meter breit und 10 Meter lang." },
+          { key: "11", points: 5, label: "Mehr als eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch. In der Hecke sind  insgesamt mehr als 5 verschiedene heimische Straucharten vorhanden. Eine Hecke ist mindestens 2 Meter breit und 10 Meter lang." },
         ],
       });
 
@@ -424,10 +424,10 @@ define([
         placeholder: "Auswählen",
         points: "vielfalt_points",
         options: [
-          { key: "0", label: "Bäume, Sträucher und heimische Kräuter, Blumen oder Gräser sind nirgends zusammen anzutreffen." },
-          { key: "1", label: "Zwei der drei Elemente (1. Bäume, 2. Sträucher und 3. heimische Kräuter, Blumen oder Gräser) kommen zusam-men vor. Alle drei Elemente kommen jedoch nirgends alle zusammen vor." },
-          { key: "2", label: "Bäume, Sträucher und heimische Kräuter, Blumen oder Gräser kommen alle zusammen an einer Stelle vor." },
-          { key: "4", label: "Bäume, Sträucher und heimische Kräuter, Blumen oder Gräser kommen alle zusammen an mehr als einer Stelle vor." },
+          { key: "0", points: 0, label: "Bäume, Sträucher und heimische Kräuter, Blumen oder Gräser sind nirgends zusammen anzutreffen." },
+          { key: "1", points: 1, label: "Zwei der drei Elemente (1. Bäume, 2. Sträucher und 3. heimische Kräuter, Blumen oder Gräser) kommen zusam-men vor. Alle drei Elemente kommen jedoch nirgends alle zusammen vor." },
+          { key: "2", points: 2, label: "Bäume, Sträucher und heimische Kräuter, Blumen oder Gräser kommen alle zusammen an einer Stelle vor." },
+          { key: "3", points: 4, label: "Bäume, Sträucher und heimische Kräuter, Blumen oder Gräser kommen alle zusammen an mehr als einer Stelle vor." },
         ],
       });
 
@@ -438,11 +438,11 @@ define([
         placeholder: "Auswählen",
         points: "ruderal_points",
         options: [
-          { key: "0", label: "Keine Ruderalfläche vorhanden." },
-          { key: "0", label: "Ruderalfläche vorhanden. Darin kommen aber schädliche gebietsfremden Pflanzen vor.." },
-          { key: "1", label: "Ruderalfläche ist insgesamt etwa so gross wie zwei Autoparkplätze." },
-          { key: "2", label: "Ruderalfläche ist insgesamt etwa so gross wie vier Autoparkplätze." },
-          { key: "3", label: "Ruderalfläche ist insgesamt grösser als vier Autoparkplätze." },
+          { key: "0", points: 0, label: "Keine Ruderalfläche vorhanden." },
+          { key: "1", points: 0, label: "Ruderalfläche vorhanden. Darin kommen aber schädliche gebietsfremden Pflanzen vor.." },
+          { key: "2", points: 1, label: "Ruderalfläche ist insgesamt etwa so gross wie zwei Autoparkplätze." },
+          { key: "3", points: 2, label: "Ruderalfläche ist insgesamt etwa so gross wie vier Autoparkplätze." },
+          { key: "4", points: 3, label: "Ruderalfläche ist insgesamt grösser als vier Autoparkplätze." },
         ],
       });
 
@@ -453,10 +453,10 @@ define([
         placeholder: "Auswählen",
         points: "mauern_points",
         options: [
-          { key: "0", label: "Keine Trockenmauern oder Steinhaufen vorhanden." },
-          { key: "1", label: "1 Trockenmauer oder Steinhaufen vorhanden." },
-          { key: "2", label: "2 Trockenmauern oder Steinhaufen vorhanden." },
-          { key: "4", label: "Mehr als 2 Trockenmauern oder Steinhaufen vorhanden." },
+          { key: "0", points: 0, label: "Keine Trockenmauern oder Steinhaufen vorhanden." },
+          { key: "1", points: 1, label: "1 Trockenmauer oder Steinhaufen vorhanden." },
+          { key: "2", points: 2, label: "2 Trockenmauern oder Steinhaufen vorhanden." },
+          { key: "3", points: 4, label: "Mehr als 2 Trockenmauern oder Steinhaufen vorhanden." },
         ],
       });
 
@@ -467,10 +467,10 @@ define([
         placeholder: "Auswählen",
         points: "totholz_points",
         options: [
-          { key: "0", label: "Keine Asthaufen, abgestorbene Bäume oder Totholz vorhanden." },
-          { key: "1", label: "1 Asthaufen, abgestorbener Baum oder Totholzelement vorhanden." },
-          { key: "2", label: "2 Asthaufen, abgestorbene Bäume oder Totholzelemente vorhanden." },
-          { key: "4", label: "Mehr als 2 Asthaufen, abgestorbene Bäume oder Totholzelemente vorhanden." },
+          { key: "0", points: 0, label: "Keine Asthaufen, abgestorbene Bäume oder Totholz vorhanden." },
+          { key: "1", points: 1, label: "1 Asthaufen, abgestorbener Baum oder Totholzelement vorhanden." },
+          { key: "2", points: 2, label: "2 Asthaufen, abgestorbene Bäume oder Totholzelemente vorhanden." },
+          { key: "3", points: 4, label: "Mehr als 2 Asthaufen, abgestorbene Bäume oder Totholzelemente vorhanden." },
         ],
       });
 
@@ -481,9 +481,9 @@ define([
         placeholder: "Auswählen",
         points: "insekten_points",
         options: [
-          { key: "0", label: "Keine künstliche Nisthilfen für Insekten vorhanden." },
-          { key: "1", label: "1-3 künstliche Nisthilfen für Insekten vorhanden." },
-          { key: "2", label: "Mehr als 3 künstliche Nisthilfen für Insekten vorhanden." },
+          { key: "0", points: 0, label: "Keine künstliche Nisthilfen für Insekten vorhanden." },
+          { key: "1", points: 1, label: "1-3 künstliche Nisthilfen für Insekten vorhanden." },
+          { key: "2", points: 2, label: "Mehr als 3 künstliche Nisthilfen für Insekten vorhanden." },
         ],
       });
 
@@ -493,9 +493,9 @@ define([
         placeholder: "Auswählen",
         points: "voegel_points",
         options: [
-          { key: "0", label: "Keine künstliche Nisthilfen für Vögel vorhanden." },
-          { key: "1", label: "1-3 künstliche Nisthilfen für Vögel vorhanden." },
-          { key: "2", label: "Mehr als 3 künstliche Nisthilfen für Vögel vorhanden." },
+          { key: "0", points: 0, label: "Keine künstliche Nisthilfen für Vögel vorhanden." },
+          { key: "1", points: 1, label: "1-3 künstliche Nisthilfen für Vögel vorhanden." },
+          { key: "2", points: 2, label: "Mehr als 3 künstliche Nisthilfen für Vögel vorhanden." },
         ],
       });
 
@@ -505,9 +505,9 @@ define([
         placeholder: "Auswählen",
         points: "saeuger_points",
         options: [
-          { key: "0", label: "Keine künstliche Nisthilfen für kleine Säugetiere vorhanden." },
-          { key: "1", label: "1-3 künstliche Nisthilfen für kleine Säugetiere vorhanden." },
-          { key: "2", label: "Mehr als 3 künstliche Nisthilfen für kleine Säugetiere vorhanden." },
+          { key: "0", points: 0, label: "Keine künstliche Nisthilfen für kleine Säugetiere vorhanden." },
+          { key: "1", points: 1, label: "1-3 künstliche Nisthilfen für kleine Säugetiere vorhanden." },
+          { key: "2", points: 2, label: "Mehr als 3 künstliche Nisthilfen für kleine Säugetiere vorhanden." },
         ],
       });
 
@@ -518,9 +518,9 @@ define([
         placeholder: "Auswählen",
         points: "feuchtfl_points",
         options: [
-          { key: "0", label: "Keine Feuchtflächen vorhanden." },
-          { key: "2", label: "Feuchtflächen insgesamt etwa so gross wie ein Autoparkplatz." },
-          { key: "4", label: "Feuchtflächen insgesamt grösser als ein Autoparkplatz." },
+          { key: "0",points: 0, label: "Keine Feuchtflächen vorhanden." },
+          { key: "1",points: 2, label: "Feuchtflächen insgesamt etwa so gross wie ein Autoparkplatz." },
+          { key: "2",points: 4, label: "Feuchtflächen insgesamt grösser als ein Autoparkplatz." },
         ],
       });
 
@@ -530,10 +530,10 @@ define([
         placeholder: "Auswählen",
         points: "stehgew_points",
         options: [
-          { key: "0", label: "Keine stehenden Gewässer vorhanden." },
-          { key: "1", label: "Fläche mit stehenden Gewässern  insgesamt etwa so gross wie 1 Autoparkplatz." },
-          { key: "2", label: "Fläche mit stehenden Gewässern  insgesamt etwa so gross wie 2 Autoparkplätze." },
-          { key: "4", label: "Fläche mit stehenden Gewässern  insgesamt grösser als 2 Autoparkplätze." },
+          { key: "0", points: 0, label: "Keine stehenden Gewässer vorhanden." },
+          { key: "1", points: 1, label: "Fläche mit stehenden Gewässern  insgesamt etwa so gross wie 1 Autoparkplatz." },
+          { key: "2", points: 2, label: "Fläche mit stehenden Gewässern  insgesamt etwa so gross wie 2 Autoparkplätze." },
+          { key: "4", points: 4, label: "Fläche mit stehenden Gewässern  insgesamt grösser als 2 Autoparkplätze." },
         ],
       });
 
@@ -543,8 +543,8 @@ define([
         placeholder: "Auswählen",
         points: "fliessgew_points",
         options: [
-          { key: "0", label: "Keine Fliessgewässer oder nur Fliessgewässer kürzer als 3 Meter vorhanden." },
-          { key: "6", label: "Ein oder mehrere Fliessgewässer von insgesamt mehr als 3 Meter Länge vorhanden." },
+          { key: "0" ,points: 0, label: "Keine Fliessgewässer oder nur Fliessgewässer kürzer als 3 Meter vorhanden." },
+          { key: "1" ,points: 6, label: "Ein oder mehrere Fliessgewässer von insgesamt mehr als 3 Meter Länge vorhanden." },
         ],
       });
 
@@ -555,9 +555,9 @@ define([
         placeholder: "Auswählen",
         points: "umgebung_points",
         options: [
-          { key: "0", label: "Die Untersuchungsfläche ist zu ungefähr drei Viertel oder mehr umgeben von intensiver Landwirtschaft oder überbautem Gebiet." },
-          { key: "1", label: "Die Untersuchungsfläche ist zu einem Viertel bis zu drei Viertel umgeben von intensiver Landwirtschaft oder überbautem Gebiet." },
-          { key: "4", label: "Die Untersuchungsfläche ist zu weniger als einem Viertel umgeben von intensiver Landwirtschaft oder überbautem Gebiet." },
+          { key: "0",points: 0, label: "Die Untersuchungsfläche ist zu ungefähr drei Viertel oder mehr umgeben von intensiver Landwirtschaft oder überbautem Gebiet." },
+          { key: "1",points: 1, label: "Die Untersuchungsfläche ist zu einem Viertel bis zu drei Viertel umgeben von intensiver Landwirtschaft oder überbautem Gebiet." },
+          { key: "2",points: 4, label: "Die Untersuchungsfläche ist zu weniger als einem Viertel umgeben von intensiver Landwirtschaft oder überbautem Gebiet." },
         ],
       });
 
@@ -571,8 +571,8 @@ define([
         placeholder: "Auswählen",
         points: "geraet_points",
         options: [
-          { key: "0", label: "Rasentraktor, Ride-on Mäher, Rasenmäher, Fadenmäher oder Motorsense." },
-          { key: "3", label: "Sense oder Balkenmäher." },
+          { key: "0", points: 0, label: "Rasentraktor, Ride-on Mäher, Rasenmäher, Fadenmäher oder Motorsense." },
+          { key: "1", points: 3, label: "Sense oder Balkenmäher." },
         ],
       });
 
@@ -582,10 +582,10 @@ define([
         placeholder: "Auswählen",
         points: "maehen_points",
         options: [
-          { key: "-2", label: "Das Gras wird zwischen April und Oktober im Durchschnitt zweimal oder öfter pro Monat geschnitten." },
-          { key: "1", label: "Das Gras wird zwischen April und Oktober im Durchschnitt höchstens einmal pro Monat geschnitten." },
-          { key: "1", label: "Es wird jeweils nicht die ganze Grasfläche zum gleichen Zeitpunkt geschnitten. Verschiedene Grasflächen werden zu unterschiedlichen Zeitpunkten geschnitten." },
-          { key: "1", label: "Ein Teil der Grasfläche wird jedes Jahr gar nicht geschnitten. Das kann jedes Jahr ein anderer Teil sein." },
+          { key: "0", points: -2, label: "Das Gras wird zwischen April und Oktober im Durchschnitt zweimal oder öfter pro Monat geschnitten." },
+          { key: "1", points: 1, label: "Das Gras wird zwischen April und Oktober im Durchschnitt höchstens einmal pro Monat geschnitten." },
+          { key: "2", points: 1, label: "Es wird jeweils nicht die ganze Grasfläche zum gleichen Zeitpunkt geschnitten. Verschiedene Grasflächen werden zu unterschiedlichen Zeitpunkten geschnitten." },
+          { key: "3", points: 1, label: "Ein Teil der Grasfläche wird jedes Jahr gar nicht geschnitten. Das kann jedes Jahr ein anderer Teil sein." },
         ],
       });
 
@@ -599,9 +599,9 @@ define([
         placeholder: "Auswählen",
         points: "umgebung_points",
         options: [
-          { key: "0", label: "Talzone oder Hügelzone." },
-          { key: "0", label: "Bergzonen I oder II." },
-          { key: "0", label: "Bergzonen III oder IV." },
+          { key: "0", points: 0, label: "Talzone oder Hügelzone." },
+          { key: "1", points: 0, label: "Bergzonen I oder II." },
+          { key: "2", points: 0, label: "Bergzonen III oder IV." },
         ],
         textInfo: {
           linkText: "Karte zur Bestimmung der landwirtschaftlichen Zone",
@@ -618,9 +618,9 @@ define([
         placeholder: "Auswählen",
         points: "b_schnitt_points",
         options: [
-          { key: "2", label: "Es gibt Grasflächen (grösser als vier Autoparkplätze), die erst nach dem 15. Juni geschnitten werden." },
-          { key: "2", label: "Es gibt Grasflächen (grösser als vier Autoparkplätze), die erst nach dem 1. Juli geschnitten werden." },
-          { key: "2", label: "Es gibt Grasflächen (grösser als vier Autoparkplätze), die erst nach dem 15. Juli geschnitten werden." },
+          { key: "0", points: 2, label: "Es gibt Grasflächen (grösser als vier Autoparkplätze), die erst nach dem 15. Juni geschnitten werden." },
+          { key: "1", points: 2, label: "Es gibt Grasflächen (grösser als vier Autoparkplätze), die erst nach dem 1. Juli geschnitten werden." },
+          { key: "2", points: 2, label: "Es gibt Grasflächen (grösser als vier Autoparkplätze), die erst nach dem 15. Juli geschnitten werden." },
         ],
         textInfo: {
           linkText: "Karte zur Bestimmung der landwirtschaftlichen Zone",
@@ -679,10 +679,10 @@ define([
         placeholder: "Auswählen",
         points: "unkraut_points",
         options: [
-          { key: "0", label: "Chemische Mittel, so genannte Herbizide." },
-          { key: "1", label: "Abflammen oder mit Hitze erzeugenden Geräten." },
-          { key: "2", label: "Heisses Wasser, Dampf und / oder biologische Mittel und / oder mit Fadenmäher." },
-          { key: "4", label: "Handarbeit." },
+          { key: "0", points: 0, label: "Chemische Mittel, so genannte Herbizide." },
+          { key: "1", points: 1, label: "Abflammen oder mit Hitze erzeugenden Geräten." },
+          { key: "2", points: 2, label: "Heisses Wasser, Dampf und / oder biologische Mittel und / oder mit Fadenmäher." },
+          { key: "3", points: 4, label: "Handarbeit." },
         ],
       });
 
@@ -693,11 +693,11 @@ define([
         placeholder: "Auswählen",
         points: "duengen_points",
         options: [
-          { key: "0", label: "Die gesamten Flächen mit Rasen oder Wiesen ist kleiner als die Fläche für zwei Autoparkplätze." },
-          { key: "0", label: "Grasflächen werden ohne Analyse des Bodens gedüngt." },
-          { key: "1", label: "Alle Grasflächen (Rasen und Wiesen) werden erst gedüngt, wenn eine Analyse des Bodens Bedarf anzeigt." },
-          { key: "2", label: "Rasen werden erst gedüngt, wenn eine Analyse des Bodens Bedarf anzeigt. Wiesen, deren Gras höher als 10 cm wächst, werden nicht gedüngt." },
-          { key: "4", label: "Es wird nicht gedüngt, weder Rasen noch Wiesen." },
+          { key: "0",points: 0, label: "Die gesamten Flächen mit Rasen oder Wiesen ist kleiner als die Fläche für zwei Autoparkplätze." },
+          { key: "1",points: 0, label: "Grasflächen werden ohne Analyse des Bodens gedüngt." },
+          { key: "2",points: 1, label: "Alle Grasflächen (Rasen und Wiesen) werden erst gedüngt, wenn eine Analyse des Bodens Bedarf anzeigt." },
+          { key: "3",points: 2, label: "Rasen werden erst gedüngt, wenn eine Analyse des Bodens Bedarf anzeigt. Wiesen, deren Gras höher als 10 cm wächst, werden nicht gedüngt." },
+          { key: "4",points: 4, label: "Es wird nicht gedüngt, weder Rasen noch Wiesen." },
         ],
       });
 
@@ -708,11 +708,11 @@ define([
         placeholder: "Auswählen",
         points: "mitteln_points",
         options: [
-          { key: "0", label: "Die gesamten Flächen mit Rasen oder Wiesen ist kleiner als die Fläche für zwei Autopark-plätze." },
-          { key: "0", label: "Mineralischer Dünger, Torf." },
-          { key: "1", label: "Organischer Dünger wie Jauche, Mist oder Mulch, Bio-Knospenprodukte." },
-          { key: "2", label: "Eigener Kompost." },
-          { key: "0", label: "Kein Dünger." },
+          { key: "0", points: 0, label: "Die gesamten Flächen mit Rasen oder Wiesen ist kleiner als die Fläche für zwei Autopark-plätze." },
+          { key: "1", points: 0, label: "Mineralischer Dünger, Torf." },
+          { key: "2", points: 1, label: "Organischer Dünger wie Jauche, Mist oder Mulch, Bio-Knospenprodukte." },
+          { key: "3", points: 2, label: "Eigener Kompost." },
+          { key: "4", points: 0, label: "Kein Dünger." },
         ],
       });
 
@@ -723,9 +723,9 @@ define([
         placeholder: "Auswählen",
         points: "laub_points",
         options: [
-          { key: "0", label: "Sämtliches Laub wird eingesammelt und entsorgt." },
-          { key: "1", label: "Vereinzelt wird Laub bewusst belassen." },
-          { key: "2", label: "Es werden bewusst zahlreiche Laubhaufen erstellt." },
+          { key: "0", points: 0, label: "Sämtliches Laub wird eingesammelt und entsorgt." },
+          { key: "1", points: 1, label: "Vereinzelt wird Laub bewusst belassen." },
+          { key: "2", points: 2, label: "Es werden bewusst zahlreiche Laubhaufen erstellt." },
         ],
       });
 
@@ -736,9 +736,9 @@ define([
         placeholder: "Auswählen",
         points: "samen_points",
         options: [
-          { key: "0", label: "Alle alten Samenstände werden eingesammelt und entsorgt." },
-          { key: "1", label: "Vereinzelt werden alte Samenstände bewusst belassen." },
-          { key: "2", label: "Die meisten Samenstände werden bewusst belassen." },
+          { key: "0", points: 0, label: "Alle alten Samenstände werden eingesammelt und entsorgt." },
+          { key: "1", points: 1, label: "Vereinzelt werden alte Samenstände bewusst belassen." },
+          { key: "2", points: 2, label: "Die meisten Samenstände werden bewusst belassen." },
         ],
       });
 
@@ -752,9 +752,9 @@ define([
         placeholder: "Auswählen",
         points: "fldacher_points",
         options: [
-          { key: "0", label: "Keine oder kaum Dachbegrünung." },
-          { key: "1", label: "Ungefähr die Hälfte der Flachdächer ist begrünt und enthält auch Sandflächen und Totholz." },
-          { key: "2", label: "Mehr als die Hälfte der Flachdächer ist begrünt und enthält auch Sandflächen und Totholz." },
+          { key: "0", points: 0, label: "Keine oder kaum Dachbegrünung." },
+          { key: "1", points: 1, label: "Ungefähr die Hälfte der Flachdächer ist begrünt und enthält auch Sandflächen und Totholz." },
+          { key: "2", points: 2, label: "Mehr als die Hälfte der Flachdächer ist begrünt und enthält auch Sandflächen und Totholz." },
         ],
       });
 
@@ -764,8 +764,8 @@ define([
         placeholder: "Auswählen",
         points: "fassaden_points",
         options: [
-          { key: "0", label: "Keine oder nur vereinzelt Fassadenbegrünung." },
-          { key: "1", label: "Fassaden von einer Fläche von insgesamt mindestens zwei Autoparkplätzen ist begrünt." },
+          { key: "0", points: 0, label: "Keine oder nur vereinzelt Fassadenbegrünung." },
+          { key: "1", points: 1, label: "Fassaden von einer Fläche von insgesamt mindestens zwei Autoparkplätzen ist begrünt." },
         ],
       });
 
@@ -777,8 +777,8 @@ define([
         placeholder: "Auswählen",
         points: "kraeuter_points",
         options: [
-          { key: "0", label: "Nein" },
-          { key: "1", label: "Ja" },
+          { key: "0",points: 0, label: "Nein" },
+          { key: "1",points: 1, label: "Ja" },
         ],
       });
 
@@ -790,8 +790,8 @@ define([
         placeholder: "Auswählen",
         points: "a_glas_points",
         options: [
-          { key: "2", label: "Nein" },
-          { key: "0", label: "Ja" },
+          { key: "0",points: 2, label: "Nein" },
+          { key: "1",points: 0, label: "Ja" },
         ],
       });
 
@@ -801,9 +801,9 @@ define([
         placeholder: "Auswählen",
         points: "b_glasschutz_points",
         options: [
-          { key: "0", label: "Glasflächen ohne Vogelschutz." },
-          { key: "0", label: "Glasflächen mit aufgeklebten Umrissen von Vögeln." },
-          { key: "2", label: "Glasflächen mit aufgeklebten Vogelschutzstreifen. (Birdstripes)" },
+          { key: "0",points: 0, label: "Glasflächen ohne Vogelschutz." },
+          { key: "1",points: 0, label: "Glasflächen mit aufgeklebten Umrissen von Vögeln." },
+          { key: "2",points: 2, label: "Glasflächen mit aufgeklebten Vogelschutzstreifen. (Birdstripes)" },
         ],
       });
 
@@ -813,8 +813,8 @@ define([
         placeholder: "Auswählen",
         points: "a_licht_points",
         options: [
-          { key: "2", label: "Nein" },
-          { key: "0", label: "Ja" },
+          { key: "0",points: 2, label: "Nein" },
+          { key: "1",points: 0, label: "Ja" },
         ],
       });
 
@@ -824,8 +824,8 @@ define([
         placeholder: "Auswählen",
         points: "b_lichtart_points",
         options: [
-          { key: "0", label: "Einige Lichtquellen strahlen auch nach oben ab, beispielsweise zur Beleuchtung des Gebäudes." },
-          { key: "1", label: "Gelbliche Lichtquellen, die fast nur nach unten strahlen, beispielsweise Wegbeleuchtung." },
+          { key: "0",points: 0, label: "Einige Lichtquellen strahlen auch nach oben ab, beispielsweise zur Beleuchtung des Gebäudes." },
+          { key: "1",points: 1, label: "Gelbliche Lichtquellen, die fast nur nach unten strahlen, beispielsweise Wegbeleuchtung." },
         ],
       });
 
@@ -835,8 +835,8 @@ define([
         placeholder: "Auswählen",
         points: "schaechte_points",
         options: [
-          { key: "2", label: "Nein oder nur sehr wenige." },
-          { key: "0", label: "Ja" },
+          { key: "0", points: 2, label: "Nein oder nur sehr wenige." },
+          { key: "1", points: 0, label: "Ja" },
         ],
       });      
 

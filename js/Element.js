@@ -158,7 +158,7 @@ define([
 
           this.pointsDict = {}
           for (const i in args.options) {
-            this.pointsDict[args.options[i].label] = args.options[i].key;
+            this.pointsDict[args.options[i].label] = {"points": args.options[i].points, "key": args.options[i].key};
           }
         }
 
@@ -175,7 +175,7 @@ define([
         }.bind(this));
         
         this.setterUI = function (value) {
-          this.input.value = this.pointsDict[value]
+          this.input.value = this.pointsDict[value].key
         }
       }
 
@@ -197,7 +197,7 @@ define([
         }
         this.pointsDict = {}
         for (const i in args.options) {
-          this.pointsDict[args.options[i].label] = args.options[i].key;
+          this.pointsDict[args.options[i].label] = {"points": args.options[i].points, "key": args.options[i].key};
         }
 
         on(this.input, "change", function (evt) {
@@ -206,7 +206,7 @@ define([
         }.bind(this));
         
         this.setterUI = function (value) {
-          document.getElementById( this.pointsDict[value]).checked = true;
+          document.getElementById( this.pointsDict[value].key).checked = true;
         }
       }
 
@@ -358,7 +358,7 @@ define([
   
       setter(value) {
 
-        let previousPoints = "0";
+        let previousPoints = 0;
           if (this.points != null) {
             previousPoints = this.points;
           }
@@ -397,7 +397,7 @@ define([
                 }
               }
               else {
-                this.points = this.pointsDict[this.value];
+                this.points = this.pointsDict[this.value].points;
               }
               this.pointsInfo.innerHTML = this.points==1? "(" + this.points + " Punkt)":"(" + this.points + " Punkte)"
 
