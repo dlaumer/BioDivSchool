@@ -26,6 +26,7 @@ define([
       that.mode = mode;
       this.offline = offline;
       this.arcgis = new ArcGis();
+      that.consolidationWidth = null;
 
       if (!this.offline) {
         this.arcgis.init(() => {
@@ -51,13 +52,10 @@ define([
       this.projectId = projectId;
       this.groupId = groupId;
 
-
       // Add a new element in the database
       let that = this;
 
-            
       if (!this.offline) {
-
         // Check if this project alreayd exists
         this.arcgis.checkDataProject(that.projectId, (info) => {
           that.projectAreaId = "[" + info.toFixed(0) + "]";
@@ -71,14 +69,14 @@ define([
           this.arcgis.checkData(that.projectId, that.groupId, (info) => {
             if (info != null) {
               let data = info.data;
-            that.objectId = info.objectId;
-            if (!info.newFeature) {
-              that.loadInputs(data.attributes);
-            }
+              that.objectId = info.objectId;
+              if (!info.newFeature) {
+                that.loadInputs(data.attributes);
+              }
             }
             this.initUI();
+          });
         });
-      })
       } else {
         that.content.init();
         this.initUI();
@@ -96,11 +94,14 @@ define([
           if (info != null) {
             let data = info.data;
             that.objectId = info.objectId;
-            that.projectAreaId = that.objectId;
+            that.projectAreaId = "[" + that.objectId.toFixed(0) + "]";
             that.content.init();
             if (!info.newFeature) {
               that.loadInputs(data.attributes);
             }
+          }
+          else {
+            that.content.init();
           }
           this.initUI();
         });
@@ -118,34 +119,33 @@ define([
       let that = this;
 
       if (!this.offline) {
-
         // Check if this project alreayd exists
         this.arcgis.checkDataProject(that.projectId, (info) => {
           that.projectAreaId = "[" + info.toFixed(0) + "]";
           that.content.init();
 
-        this.arcgis
-          .calculateArea(this.projectAreaId, "project")
-          .then((area) => {
-            this.projectArea = area;
-          });
-        this.arcgis.checkDataGroups(that.projectId, (data) => {
-          let dataGroups = that.parseGroups(data);
-          let occurences = that.countOccurence(dataGroups);
-          that.loadInputsGroup(that.dataGroups, occurences.count);
-          this.arcgis.checkData(that.projectId, that.groupId, (info) => {
-            let data = info.data;
-            that.objectId = info.objectId;
-            if (!info.newFeature) {
-              that.loadInputs(data.attributes);
-            } else {
-              that.loadInputs(occurences.dataAll);
-              that.saveData();
-            }
+          this.arcgis
+            .calculateArea(this.projectAreaId, "project")
+            .then((area) => {
+              this.projectArea = area;
+            });
+          this.arcgis.checkDataGroups(that.projectId, (data) => {
+            let dataGroups = that.parseGroups(data);
+            let occurences = that.countOccurence(dataGroups);
+            that.loadInputsGroup(dataGroups, occurences.count);
+            this.arcgis.checkData(that.projectId, that.groupId, (info) => {
+              let data = info.data;
+              that.objectId = info.objectId;
+              if (!info.newFeature) {
+                 that.loadInputs(data.attributes);
+              } else {
+                that.loadInputs(occurences.dataAll);
+                that.saveData();
+              }
 
-            this.initUI();
+              this.initUI();
+            });
           });
-        });
         });
       } else {
         that.content.init();
@@ -165,6 +165,7 @@ define([
           ? "Projekt: " + this.projectId
           : "Projekt: " + this.projectId + ", Gruppe: " + this.groupId;
       this.save.className = "btn1 btn_disabled";
+      document.onkeydown = this.checkKey;
     }
 
     createUI() {
@@ -195,7 +196,10 @@ define([
       this.footer = domCtr.create("div", { id: "footer" }, this.background);
       this.footerLeft = domCtr.create(
         "div",
-        { className: "footerElements" },
+        {
+          className: "footerElements",
+          style: "justify-content: start;",
+        },
         this.footer
       );
       this.home = domCtr.create(
@@ -204,6 +208,7 @@ define([
           id: "btn_home",
           className: "btn2",
           innerHTML: "Home",
+          style: "min-width: 10vw;",
         },
         this.footerLeft
       );
@@ -246,13 +251,11 @@ define([
     saveData() {
       that.save.innerHTML = "Saving...";
       let elements = that.getAllElements(false);
-      that
-        .uploadData(elements)
-        .then((value) => {
-          that.save.innerHTML = "Save";
-          that.save.className = "btn1 btn_disabled";
-        })
-        /*
+      that.uploadData(elements).then((value) => {
+        that.save.innerHTML = "Save";
+        that.save.className = "btn1 btn_disabled";
+      });
+      /*
         .catch((reason) => {
           that.save.innerHTML = "Save";
           that.save.className = "btn1";
@@ -277,8 +280,7 @@ define([
         this.home,
         "click",
         function (evt) {
-          this.goToPage(0)
-
+          this.goToPage(0);
         }.bind(this)
       );
 
@@ -286,8 +288,7 @@ define([
         this.back,
         "click",
         function (evt) {
-          this.goToPage(this.currentPage - 1)
-
+          this.goToPage(this.currentPage - 1);
         }.bind(this)
       );
 
@@ -295,34 +296,31 @@ define([
         this.next,
         "click",
         function (evt) {
-          this.goToPage(this.currentPage + 1)
+          this.goToPage(this.currentPage + 1);
         }.bind(this)
       );
     }
 
     goToPage(pageNumber) {
-
       this.pages[pageNumber].init(this.pages[this.currentPage]);
       this.currentPage = pageNumber;
 
       if (this.currentPage + 1 == this.pages.length) {
         this.next.style.visibility = "hidden";
-      }
-      else {
+      } else {
         this.next.style.visibility = "visible";
       }
 
       if (this.currentPage - 1 < 0) {
         this.back.style.visibility = "hidden";
-      }
-      else {
+      } else {
         this.back.style.visibility = "visible";
       }
     }
 
     addStartPage(title) {
       let page = new Page(this, this.pages.length, this.pageContainer, title);
-      
+
       this.pages.push(page);
       this.startPage = page;
       return page;
@@ -343,16 +341,16 @@ define([
 
       // Add to page of content
       if (this.startPage != null) {
-        let pageNr = this.pages.length-1;
+        let pageNr = this.pages.length - 1;
 
         let elem = domCtr.create(
           "div",
-          { class: "contentLink", innerHTML: pageNr+ ". " + title },
+          { class: "contentLink", innerHTML: pageNr + ". " + title },
           this.startPage.page
         );
         elem.addEventListener("click", () => {
-          this.goToPage(pageNr);
-        })
+          this.goToPage(that.mode == "consolidation" ? pageNr + 1 : pageNr);
+        });
       }
       return page;
     }
@@ -418,15 +416,17 @@ define([
 
       for (let i in data) {
         count[i] = {};
-        let max = data[i][0];
+        let max = data[i][Object.keys(data[i])[0]];
         for (let j in data[i]) {
-          if (data[i][j] in Object.keys(count[i])) {
-            count[i][data[i][j]] += 1;
-          } else {
-            count[i][data[i][j]] = 0;
-          }
-          if (count[i][data[i][j]] > count[i][max]) {
-            max = data[i][j];
+          if (data[i][j] != null) {
+            if (Object.keys(count[i]).includes(data[i][j])) {
+              count[i][data[i][j]] += 1;
+            } else {
+              count[i][data[i][j]] = 1;
+            }
+            if (count[i][data[i][j]] > count[i][max]) {
+              max = data[i][j];
+            }
           }
         }
         dataAll[i] = max;
@@ -482,6 +482,20 @@ define([
             reject(reason);
           });
       });
+    }
+
+    checkKey(e) {
+      e = e || window.event;
+
+      if (e.keyCode == "38") {
+        // up arrow
+      } else if (e.keyCode == "40") {
+        // down arrow
+      } else if (e.keyCode == "37") {
+        that.goToPage(that.currentPage - 1);
+      } else if (e.keyCode == "39") {
+        that.goToPage(that.currentPage + 1);
+      }
     }
   };
 });

@@ -60,6 +60,8 @@ define([
 
         this.groupDivs = null;
 
+        this.rules = null;
+
         this.elementWidth = 0;
         window.onresize = this.reportWindowSize;
 
@@ -231,9 +233,9 @@ define([
 
         this.bubble = domCtr.create("div", {className: "bubble"}, this.sliderContainer);   
         this.input.addEventListener("input", () => {
-          this.bubble.innerHTML = this.input.value;
+          this.bubble.innerHTML = this.input.value.toString() + "%";
         });
-        this.bubble.innerHTML = this.input.value;
+        this.bubble.innerHTML = this.input.value.toString() + "%";
 
 
         if (args.points != null) {
@@ -289,7 +291,7 @@ define([
         }
       }
 
-      calculateRatioAndPoints() {
+      calculateRatioAndPoints(previousPoints) {
 
         that.arcgis.calculateArea(this.value, "geometry").then((area) => {
           this.area = area;
@@ -313,6 +315,8 @@ define([
             }
             this.pointsInfo.innerHTML = "(Punkte: " + this.points + ", Totale Fläche: " + this.area.toFixed(0) + " m2, Ratio  " + (numRatio*100).toFixed(2) + "%, Ratio Bereich= " + this.ratio + ")";
           
+            that.pointsTotal = that.pointsTotal - parseInt(previousPoints) + parseInt(this.points);
+            that.pointsTotalDiv.innerHTML = "Punkte total: " + that.pointsTotal.toFixed(0);
         })
         .catch((error) => {
           alert("Flächenberechnung nicht erfolgreich")
@@ -354,7 +358,7 @@ define([
   
       setter(value) {
 
-        let previousPoints = 0
+        let previousPoints = "0";
           if (this.points != null) {
             previousPoints = this.points;
           }
@@ -381,7 +385,7 @@ define([
   
           if (this.hasPoints) {
             if (this.type == "mapInput") {
-              this.calculateRatioAndPoints();
+              this.calculateRatioAndPoints(previousPoints);
             }
             else {
               if (this.type == "sliderInput") {
@@ -396,10 +400,28 @@ define([
                 this.points = this.pointsDict[this.value];
               }
               this.pointsInfo.innerHTML = this.points==1? "(" + this.points + " Punkt)":"(" + this.points + " Punkte)"
+
+              that.pointsTotal = that.pointsTotal - parseInt(previousPoints) + parseInt(this.points);
+              that.pointsTotalDiv.innerHTML = "Punkte total: " + that.pointsTotal.toFixed(0);
             }
-            that.pointsTotal = that.pointsTotal - parseInt(previousPoints) + parseInt(this.points);
-            that.pointsTotalDiv.innerHTML = "Punkte total: " + that.pointsTotal.toFixed(0);
+            
           }
+
+          if (this.rules != null) {
+            for (let i in this.rules) {
+              for (let j in this.rules[i].elements) {
+                this.rules[i].elements[j].element.style.display = "none";
+              }
+              for (let k in this.rules[i].values) {
+                if (this.rules[i].values[k] == this.value) {
+                  for (let j in this.rules[i].elements) {
+                    this.rules[i].elements[j].element.style.display = "block";
+                }
+                }
+            }
+             
+          }
+        }
         }
         this.app.save.className = "btn1"
 
@@ -412,35 +434,44 @@ define([
             if (this.groupDivs[i] && values[i] != null) {
               if (this.type == "mapInput") {
                 let geometryTemp = that.arcgis.addMap(this.groupDivs[i], null, null);   
-                geometryTemp.definitionExpression = "objectid in (" + values[i].substring(1,values[i].length-1) + ")";
+                geometryTemp.geometry.definitionExpression = "objectid in (" + values[i].substring(1,values[i].length-1) + ")";
               }
               else {
 
                 domCtr.create("div", { className: "groupResult", innerHTML: values[i]},  this.groupDivs[i])
-
-
-                var trace = {
-                  //histfunc: "count",
-                  //width: document.getElementById('consolidation_' + this.key).clientWidth,
-                  x: Object.keys(count),
-                  y: Object.values(count),
-                  type: 'bar',
-                };
-
-                var layout = {
-                  yaxis: {
-                    title: 'Anzahl',
-                  },
-                  width: 500
-                };
-              var data = [trace];
-              Plotly.newPlot('consolidation_' + this.key, data, layout);
-                  
               }
+
+               
+                  
+              
 
             }
           }
 
+          if (that.consolidationWidth == null) {
+            that.consolidationWidth = document.getElementById('consolidation_' + this.key).clientWidth;
+          }
+
+          if (this.type != "mapInput") {
+            var trace = {
+              //histfunc: "count",
+              //width: document.getElementById('consolidation_' + this.key).clientWidth,
+              x: Object.keys(count),
+              y: Object.values(count),
+              type: 'bar',
+              hovertemplate: null
+            };
+
+            var layout = {
+              yaxis: {
+                title: 'Anzahl',
+              },
+              width: that.consolidationWidth,
+              hovermode:"x"
+            };
+          var data = [trace];
+          Plotly.newPlot('consolidation_' + this.key, data, layout);
+          }
           
           
         
@@ -476,7 +507,7 @@ define([
 
 
       reportWindowSize() {
-        this.elementWidth = document.getElementsByClassName("background")[0].clientWidth;
+        this.elementWidth = this.element.clientWidth;
   
         console.log(this.elementWidth);
   

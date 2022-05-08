@@ -232,7 +232,7 @@ define([
       }); 
 
       //13a_wild_geomoid
-      page_strukturelemente.addElement("mapInput", "wild_geomoid", {
+      page_strukturelemente.addElement("mapInput", "a_wild_geomoid", {
         title: "Vielfalt der Flächen",
         text: `Markiere Flächen mit Gemüsebeeten und/oder Beeten mit Wildblumen in der gezeigten Untersuchungsfläche.`,
         area: "wild_area",
@@ -254,7 +254,7 @@ define([
       });
 
       //13b_trocken_geomoid
-      page_strukturelemente.addElement("mapInput", "trocken_geomoid", {
+      page_strukturelemente.addElement("mapInput", "b_trocken_geomoid", {
         text: `Markiere Flächen mit Trockenstandorten wie Kies, Sand, Ruderalflächen in der gezeigten Untersuchungsfläche.`,
         area: "trocken_area",
       }); 
@@ -577,7 +577,7 @@ define([
       });
 
       //29_maehen // Achtung Mehrfachauswahl!
-      page_pflege.addElement("dropdownInput", "maehen", {
+      let elem29 = page_pflege.addElement("dropdownInput", "maehen", {
         text: "Markiere alle Aussagen, die auf Mähen von Gras zutreffen:",
         placeholder: "Auswählen",
         points: "maehen_points",
@@ -594,7 +594,7 @@ define([
       //Sonst bitte Fragen 29a und 29b anzeigen.]"
 
       //29a_zone
-      page_pflege.addElement("dropdownInput", "a_zone", {
+      let elem29a = page_pflege.addElement("dropdownInput", "a_zone", {
         text: "Bestimme, in welcher landwirtschaftlichen Zone sich die Untersuchungsfläche befindet.",
         placeholder: "Auswählen",
         points: "umgebung_points",
@@ -611,8 +611,9 @@ define([
       }
       });
 
+
       //29b_schnitt
-      page_pflege.addElement("dropdownInput", "b_schnitt", {
+      let elem29b = page_pflege.addElement("dropdownInput", "b_schnitt", {
         text: "Trifft die folgende Aussage zu?",
         placeholder: "Auswählen",
         points: "b_schnitt_points",
@@ -629,6 +630,18 @@ define([
       }
       });
 
+      // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
+      elem29a.element.style.display = "none";
+      elem29b.element.style.display = "none";
+      // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
+      elem29.rules = [{
+        values: [
+          "Es wird jeweils nicht die ganze Grasfläche zum gleichen Zeitpunkt geschnitten. Verschiedene Grasflächen werden zu unterschiedlichen Zeitpunkten geschnitten.",
+          "Ein Teil der Grasfläche wird jedes Jahr gar nicht geschnitten. Das kann jedes Jahr ein anderer Teil sein." ], 
+        elements: [elem29a, elem29b]
+      }]
+      
+      
       //30_pestizide
       page_pflege.addElement("sliderInput", "pestizide", {
         title: "Schädlingsregulierung",

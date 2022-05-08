@@ -346,9 +346,7 @@ define([
         portalItem: {
           id: this.links.projectLayerId,
         },
-        definitionExpression:
-          "objectid = " +
-          that.projectAreaId.substring(1, that.projectAreaId.length - 1),
+       
         editingEnabled: true,
         renderer: {
           type: "simple", // autocasts as new SimpleRenderer()
@@ -359,6 +357,16 @@ define([
         },
       });
 
+      if (that.projectAreaId != null) {
+        projectArea.definitionExpression = 
+        "objectid = " +
+        that.projectAreaId.substring(1, that.projectAreaId.length - 1)
+      }
+      else {
+        projectArea.definitionExpression = 
+        "objectid = 0 "
+      }
+     
       // TODO: Add Filter for group ID
       let map = new Map({
         basemap: "satellite",
@@ -387,29 +395,8 @@ define([
       });
       view.ui.add(fullscreen, "bottom-right");
 
-      if (containerEditor) {
-        const editor = new Editor({
-          view: view,
-          container: containerEditor,
-        });
-
-        editor.watch(
-          "activeWorkflow.numPendingFeatures",
-          function (newValue, oldValue) {
-            /*
-          if (editor.activeWorkflow) {
-            calculateArea();
-          }
-          */
-          }
-        );
-      }
-      /*
-      const locate = new Locate({
-        view: view,
-        useHeadingEnabled: false,
-      });
-      */
+      
+   
 
       // TODO also calculate exisiting areas!
       function calculateAreaPending() {
@@ -425,6 +412,19 @@ define([
       if (that.mode == "project") {
         projectArea.on("edits", function (editInfo) {
           console.log(editInfo);
+          if (editInfo.addedFeatures.length > 0) {
+            if (editInfo.addedFeatures[0].objectId != -1) {
+              projectArea.definitionExpression = 
+              "objectid = " + editInfo.addedFeatures[0].objectId.toString();
+              that.editor.layerInfos[0].addEnabled = false;
+            }
+            else {
+              alert(
+                "Saving not possible: " +
+                  editInfo.addedFeatures[0].error.message
+              );
+            }
+          }
         });
       } else {
         geometry.on("edits", function (editInfo) {
@@ -465,22 +465,98 @@ define([
         });
       }
 
+      
+
       view.when(() => {
-        if (!that.offline) {
-          this.readGeometry(that.projectAreaId, "project").then(
-            (projectAreaFeature) => {
-              view.goTo(projectAreaFeature[0].geometry);
+        if (containerEditor) {
+
+   
+
+        // Create the Editor
+        that.editor = new Editor({
+          view: view,
+          container: containerEditor,
+
+          // Pass in the configurations created above
+         
+         
+        });
+
+        if (that.mode == "project") {
+          let layerInfos;
+          view.map.layers.forEach((layer) => {
+              // Specify a few of the fields to edit within the form
+              layerInfos = {
+                layer: layer,
+                formTemplate: {
+                  // autocastable to FormTemplate
+                  elements: [
+                    { // autocastable to FieldElement
+                      type: "field",
+                      fieldName: "projectid",
+                      label: "Projekt ID"
+                    },
+                    { // autocastable to FieldElement
+                      type: "field",
+                      fieldName: "name",
+                      label: "Standort"
+                    },
+                    { // autocastable to FieldElement
+                      type: "field",
+                      fieldName: "school",
+                      label: "Schule"
+                    }
+                  ]
+                },
+              };
+          });
+
+          if (that.projectAreaId != null) {
+            layerInfos.addEnabled = false
+          }
+
+          that.editor.layerInfos = [layerInfos]
+
+        }
+  
+        
+        that.editor.watch(
+            "activeWorkflow.numPendingFeatures",
+            function (newValue, oldValue) {
+              /*
+            if (editor.activeWorkflow) {
+              calculateArea();
+            }
+            */
             }
           );
         }
 
-        /*
-        locate.when(() => {
-          locate.locate();
-          
+      if (that.projectAreaId == null) {
+        const locate = new Locate({
+          view: view,
+          useHeadingEnabled: false,
         });
-        */
-      });
+        
+          locate.when(() => {
+            locate.locate();
+            
+          });
+      }
+      else {
+          if (!that.offline) {
+            this.readGeometry(that.projectAreaId, "project").then(
+              (projectAreaFeature) => {
+                view.goTo(projectAreaFeature[0].geometry);
+              }
+            );
+
+          }
+  
+          
+        
+      }
+    });
       return that.mode == "project"? {projectArea: projectArea}: {projectArea:projectArea, geometry:geometry};
     }
   };

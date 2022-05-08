@@ -55,8 +55,10 @@ define([
 
       
 
-      let consolidation = domCtr.create("div", { className: "consolidation"}, consolidationContainer);   
-      let consolidationDiagramm = domCtr.create("div", { className: "consolidation", id: "consolidation_" + key, style: "display:none"}, consolidationContainer);   
+      let consolidationArea = domCtr.create("div", { className: "consolidationArea"}, consolidationContainer);   
+      let consolidation = domCtr.create("div", { className: "consolidation"}, consolidationArea);   
+
+      let consolidationDiagramm = domCtr.create("div", { className: "consolidation", id: "consolidation_" + key, style: "display:none"}, consolidationArea);   
      
       this.groupDivs = {}
       for (let i in that.content.groups) {
@@ -76,7 +78,7 @@ define([
       let diagram = domCtr.create(
         "div",
         { id: "diagram", className: "btn1", innerHTML: "Diagram"},
-        elem.element
+        consolidationArea
       );
 
       on(
