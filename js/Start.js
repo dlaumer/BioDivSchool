@@ -2,7 +2,7 @@
 --------------
 Start.js
 --------------
-Simple landing page before starting the main app.
+Landing page before where you see the different projects
 
 */
 
@@ -35,18 +35,7 @@ define([
 
         this.createUI();
         this.clickHandler();
-        if (this.offline) {
-          if (this.mode == "consolidation") {
-            that.initConsolidation("1");
-          }
-          else if (this.mode == "project") {
-            that.initProject("1");
-          }
-          else {
-            that.init("1", "a");
-          }
-          
-        }
+       
       });
     }
 
@@ -57,24 +46,14 @@ define([
         win.body()
       );
       this.container = domCtr.create("div", { id: "welcome" }, this.background);
-
-      let title = "BioDivSchool Web App";
-
-      switch (this.mode) {
-        case "consolidation":
-          title = "BioDivSchool Consolidation";
-          break;
-        case "project":
-          title = "BioDivSchool Project";
-          break;
-      }
+     
 
       // Some info about the project
       domCtr.create(
         "div",
         {
           id: "description1",
-          innerHTML: title,
+          innerHTML: "BioDivSchool",
           style: "font-size: 4vh",
         },
         this.container
@@ -88,81 +67,93 @@ define([
 
     // Create the GUI of the start screen
     createUI() {
-      domCtr.destroy("loading");
-      this.inputProjectId = domCtr.create(
-        "input",
-        { className: "input inputField", placeholder: "Projekt ID" },
-        this.container
-      );
-      this.inputGroupId = domCtr.create(
-        "select",
-        { className: "input inputField", style: "display: none" },
-        this.container
-      );
+      domCtr.destroy("welcome");
+      
+      this.header = domCtr.create("div", { className: "header" }, this.background);
 
       domCtr.create(
-        "option",
-        { value: "", disabled: true, selected: true, innerHTML: "Gruppe" },
-        this.inputGroupId
-      );
-      let options = this.content.groups;
-      for (const i in options) {
-        domCtr.create(
-          "option",
-          { value: options[i].key, innerHTML: options[i].label },
-          this.inputGroupId
-        );
-      }
-      this.start = domCtr.create(
         "div",
-        { id: "btn_start", className: "btn1 btn_disabled", innerHTML: "Start" },
-        this.container
+        {
+          id: "description1",
+          innerHTML: "BioDivSchool",
+          style: "font-size: 4vh",
+        },
+        this.header
+      );
+
+      this.mapOverview = domCtr.create("div", {id: "mapOverview", className: "mapOverview"}, this.background);
+      
+      that.arcgis.addMapOverview("mapOverview");
+      this.footerTop = domCtr.create("div", { id: "fotterTop", className: "footer", style: "position:relative"}, this.background);
+      this.footerBottom = domCtr.create("div", {id: "fotterTop",  className: "footer"}, this.background);
+
+      this.footerTopLeft = domCtr.create("div", { className: "footerLeft", innerHTML: "Bestehendes Projekt:"}, this.footerTop);
+      this.footerTopRight = domCtr.create("div", { className: "footerRight", innerHTML: "Neues Projekt:"}, this.footerTop);
+
+      this.footerBottomLeft = domCtr.create("div", { className: "footerLeft"}, this.footerBottom);
+      this.footerBottomRight = domCtr.create("div", { className: "footerRight", style: "width: 50%"}, this.footerBottom);
+
+      this.btn_collection = domCtr.create(
+        "div",
+        { id: "btn_collection", className: "btn1", innerHTML: "Erfassung" , style: "min-width: 10vw;"},
+        this.footerBottomLeft
+      );
+      this.btn_consolidation = domCtr.create(
+        "div",
+        { id: "btn_consolidation", className: "btn1", innerHTML: "Konsolidierung" , style: "min-width: 10vw;" },
+        this.footerBottomLeft
+      );
+      this.btn_consolidation = domCtr.create(
+        "div",
+        { id: "btn_consolidation", className: "btn1", innerHTML: "Resultate" , style: "min-width: 10vw;" },
+        this.footerBottomLeft
+      );
+
+
+      this.footerRight = domCtr.create("div", { className: "footerElements", style: "width: 50%"}, this.footerBottomRight);
+
+
+
+      this.btn_project = domCtr.create(
+        "div",
+        { id: "btn_project", className: "btn1", innerHTML: "Neues Projekt" },
+        this.footerRight
       );
     }
 
     // Handle all the interactions
     clickHandler() {
-      on(
-        this.inputProjectId,
-        "input",
-        function (evt) {
-          if (this.inputProjectId.value == "") {
-            this.start.className = "btn1 btn_disabled";
-          } else {
-            if (this.mode == "consolidation" || this.mode == "project" ) {
-              this.start.className = "btn1";
-            } else {
-              this.inputGroupId.style.display = "block";
-            }
-          }
-        }.bind(this)
-      );
 
       on(
-        this.inputGroupId,
-        "change",
-        function (evt) {
-          if (this.inputProjectId.value != "") {
-            this.start.className = "btn1";
-          } else {
-            this.start.className = "btn1 btn_disabled";
-          }
-        }.bind(this)
-      );
-
-      on(
-        this.start,
+        this.btn_collection,
         "click",
         function (evt) {
-          if (this.mode == "consolidation") {
-            this.app.initConsolidation(this.inputProjectId.value);
-          }
-          else if (this.mode == "project") {
-            this.app.initProject(this.inputProjectId.value);
-          }
-          else {
-            this.app.init(this.inputProjectId.value, this.inputGroupId.value);
-          }
+          window.open(
+            window. location. href + '/indexCollection.html',
+            '_blank' // <- This is what makes it open in a new window.
+          );
+        }.bind(this)
+      );
+
+      on(
+        this.btn_consolidation,
+        "click",
+        function (evt) {
+          window.open(
+            window. location. href + '/indexConsolidation.html',
+            '_blank' // <- This is what makes it open in a new window.
+          );
+        }.bind(this)
+      );
+
+        on(
+          this.btn_collection,
+          "click",
+          function (evt) {
+            window.open(
+              window. location. href + '/indexProject.html',
+            '_blank' // <- This is what makes it open in a new window.
+          );
         }.bind(this)
       );
     }

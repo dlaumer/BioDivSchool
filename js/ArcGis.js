@@ -559,5 +559,53 @@ define([
     });
       return that.mode == "project"? {projectArea: projectArea}: {projectArea:projectArea, geometry:geometry};
     }
+
+
+    addMapOverview(containerMap) {
+      esriConfig.portalUrl = "https://swissparks.maps.arcgis.com/";
+
+      let projectArea = new FeatureLayer({
+        portalItem: {
+          id: this.links.projectLayerId,
+        },
+       
+        editingEnabled: false,
+        renderer: {
+          type: "simple", // autocasts as new SimpleRenderer()
+          symbol: {
+            type: "simple-fill", // autocasts as new SimpleFillSymbol()
+            color: [255, 0, 0, 0.145],
+          },
+        },
+      });
+
+     
+      // TODO: Add Filter for group ID
+      let map = new Map({
+        basemap: "satellite",
+      });
+      map.add(projectArea);
+
+
+      let view = new MapView({
+        map: map,
+        container: containerMap,
+      });
+
+      let fullscreen = new Fullscreen({
+        view: view,
+      });
+      view.ui.add(fullscreen, "bottom-right");
+
+      view.when(function() {
+        // MapView is now ready for display and can be used. Here we will
+        // use goTo to view a particular location at a given zoom level and center
+        view.goTo({
+          center: [8.222167506135465, 46.82443911582187],
+          zoom: 8
+        });
+      })
+
+    }
   };
 });

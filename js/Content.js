@@ -44,7 +44,7 @@ define([
       
     }
 
-    // Start the start screen
+    // Start the login screen
     makeContent() {
     /*
     ==========

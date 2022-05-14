@@ -63,7 +63,7 @@ define([
         this.rules = null;
 
         this.elementWidth = 0;
-        window.onresize = this.reportWindowSize;
+        window.onresize = this.reportWindowSize
 
       }
   
@@ -507,22 +507,25 @@ define([
 
 
       reportWindowSize() {
-        this.elementWidth = this.element.clientWidth;
+        if (document.getElementsByClassName("element").length > 0) {
+          this.elementWidth = document.getElementsByClassName("element")[0].clientWidth;
   
-        console.log(this.elementWidth);
-  
-        if (this.elementWidth != 0) {
-          if (this.elementWidth < 600 ) {
-          
-            document.head.appendChild(style);
+          console.log(this.elementWidth);
+    
+          if (this.elementWidth != 0) {
+            if (this.elementWidth < 600 ) {
             
-          } else {
-            if (document.head.contains(style)){
-              document.head.removeChild(style);
-
+              document.head.appendChild(style);
+              
+            } else {
+              if (document.head.contains(style)){
+                document.head.removeChild(style);
+  
+              }
             }
           }
         }
+   
         
   
       }

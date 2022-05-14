@@ -48,7 +48,7 @@ define([
     }
 
     init(projectId, groupId) {
-      document.getElementById("btn_start").innerHTML = "Loading...";
+      document.getElementById("btn_login").innerHTML = "Loading...";
       this.projectId = projectId;
       this.groupId = groupId;
 
@@ -84,7 +84,7 @@ define([
     }
 
     initProject(projectId) {
-      document.getElementById("btn_start").innerHTML = "Loading...";
+      document.getElementById("btn_login").innerHTML = "Loading...";
       this.projectId = projectId;
 
       // Add a new element in the database
@@ -112,7 +112,7 @@ define([
     }
 
     initConsolidation(projectId) {
-      document.getElementById("btn_start").innerHTML = "Loading...";
+      document.getElementById("btn_login").innerHTML = "Loading...";
       this.projectId = projectId;
       this.groupId = "all";
 
@@ -155,7 +155,7 @@ define([
 
     initUI() {
       // destroy welcome page when app is started
-      domCtr.destroy("start");
+      domCtr.destroy("login");
       this.background.style.display = "block";
       this.pages[0].init(null);
       this.currentPage = 0;
@@ -174,7 +174,7 @@ define([
         { class: "background", style: "display: none" },
         win.body()
       );
-      this.header = domCtr.create("div", { id: "header" }, this.background);
+      this.header = domCtr.create("div", { id: "header" , className: "header"}, this.background);
       this.save = domCtr.create(
         "div",
         { id: "save", className: "btn1 btn_disabled", innerHTML: "Save" },
@@ -193,12 +193,12 @@ define([
         { id: "pageContainer" },
         this.background
       );
-      this.footer = domCtr.create("div", { id: "footer" }, this.background);
+      this.footer = domCtr.create("div", { id: "footer", className: "footer" }, this.background);
       this.footerLeft = domCtr.create(
         "div",
         {
           className: "footerElements",
-          style: "justify-content: start;",
+          style: "justify-content: login;",
         },
         this.footer
       );
@@ -322,7 +322,7 @@ define([
       let page = new Page(this, this.pages.length, this.pageContainer, title);
 
       this.pages.push(page);
-      this.startPage = page;
+      this.loginPage = page;
       return page;
     }
 
@@ -340,13 +340,13 @@ define([
       }
 
       // Add to page of content
-      if (this.startPage != null) {
+      if (this.loginPage != null) {
         let pageNr = this.pages.length - 1;
 
         let elem = domCtr.create(
           "div",
           { class: "contentLink", innerHTML: pageNr + ". " + title },
-          this.startPage.page
+          this.loginPage.page
         );
         elem.addEventListener("click", () => {
           this.goToPage(that.mode == "consolidation" ? pageNr + 1 : pageNr);
@@ -409,27 +409,40 @@ define([
     }
 
     countOccurence(data) {
-      console.log(data);
+      let elements = that.getAllElements(false);
 
       let dataAll = {};
       let count = {};
 
       for (let i in data) {
-        count[i] = {};
-        let max = data[i][Object.keys(data[i])[0]];
-        for (let j in data[i]) {
-          if (data[i][j] != null) {
-            if (Object.keys(count[i]).includes(data[i][j])) {
-              count[i][data[i][j]] += 1;
-            } else {
-              count[i][data[i][j]] = 1;
-            }
-            if (count[i][data[i][j]] > count[i][max]) {
-              max = data[i][j];
+        if (Object.keys(elements).indexOf(i) > -1 && data[i] != null) {
+          count[i] = {};
+          let max = data[i][Object.keys(data[i])[0]];
+          let avg = 0;
+          for (let j in data[i]) {
+            if (data[i][j] != null) {
+              if (Object.keys(count[i]).includes(data[i][j])) {
+                count[i][data[i][j]] += 1;
+              } else {
+                count[i][data[i][j]] = 1;
+              }
+              if (count[i][data[i][j]] > count[i][max]) {
+                max = data[i][j];
+              }
+              if (+[data[i][j]] != NaN) {
+                avg += +[data[i][j]];
+              }
             }
           }
+        
+          if (elements[i].type == "sliderInput") {
+            dataAll[i] = (avg / Object.keys(data[i]).length).toFixed(2);
+          }
+          else {
+            dataAll[i] = max;
+          }
+          
         }
-        dataAll[i] = max;
       }
       return { count: count, dataAll: dataAll };
     }
