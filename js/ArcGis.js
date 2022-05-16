@@ -566,12 +566,31 @@ define([
     addMapOverview(containerMap) {
       esriConfig.portalUrl = "https://swissparks.maps.arcgis.com/";
 
+      let  labelClass = {
+        // autocasts as new LabelClass()
+        symbol: {
+          type: "text", // autocasts as new TextSymbol()
+          color: "green",
+          font: {
+            // autocast as new Font()
+            family: "Playfair Display",
+            size: 12,
+            weight: "bold"
+          }
+        },
+        labelPlacement: "above-center",
+        labelExpressionInfo: {
+          expression: "$feature.name"
+        }
+      };
+
       let projectArea = new FeatureLayer({
         portalItem: {
           id: this.links.projectLayerId,
         },
        
         editingEnabled: false,
+        labelingInfo: [labelClass],
         renderer: {
           type: "simple", // autocasts as new SimpleRenderer()
           symbol: {
@@ -581,7 +600,7 @@ define([
         },
       });
 
-     
+          
       // TODO: Add Filter for group ID
       let map = new Map({
         basemap: "topo",
