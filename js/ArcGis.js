@@ -604,7 +604,7 @@ define([
         view: view, // view that provides access to the map's 'topo-vector' basemap
         nextBasemap: "satellite"  // allows for toggling to the 'satellite' basemap
       });
-      view.ui.add(toggle, "top-right");
+      view.ui.add(basemapToggle, "top-right");
 
       view.when(function() {
         // MapView is now ready for display and can be used. Here we will
