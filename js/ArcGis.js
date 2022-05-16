@@ -9,6 +9,7 @@ define([
   "esri/layers/FeatureLayer",
   "esri/Map",
   "esri/views/MapView",
+  "esri/widgets/BasemapToggle",
   "esri/widgets/Editor",
   "esri/widgets/Expand",
   "esri/widgets/Locate",
@@ -24,6 +25,7 @@ define([
   FeatureLayer,
   Map,
   MapView,
+  BasemapToggle,
   Editor,
   Expand,
   Locate,
@@ -582,7 +584,7 @@ define([
      
       // TODO: Add Filter for group ID
       let map = new Map({
-        basemap: "satellite",
+        basemap: "topo",
       });
       map.add(projectArea);
 
@@ -596,6 +598,13 @@ define([
         view: view,
       });
       view.ui.add(fullscreen, "bottom-right");
+
+   
+      let basemapToggle = new BasemapToggle({
+        view: view, // view that provides access to the map's 'topo-vector' basemap
+        nextBasemap: "satellite"  // allows for toggling to the 'satellite' basemap
+      });
+      view.ui.add(toggle, "top-right");
 
       view.when(function() {
         // MapView is now ready for display and can be used. Here we will
