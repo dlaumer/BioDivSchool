@@ -248,12 +248,13 @@ define([
       );
     }
 
-    saveData() {
+    saveData(callback) {
       that.save.innerHTML = "Saving...";
       let elements = that.getAllElements(false);
       that.uploadData(elements).then((value) => {
         that.save.innerHTML = "Save";
         that.save.className = "btn1 btn_disabled";
+        callback()
       });
       /*
         .catch((reason) => {
@@ -266,7 +267,12 @@ define([
     }
 
     clickHandler() {
-      on(this.save, "click", that.saveData);
+      on(this.save, "click", () => {
+        that.saveData(() => {
+          that.save.innerHTML = "Save";
+          that.save.className = "btn1 btn_disabled";
+        })
+      });
 
       on(
         this.logout,
@@ -365,7 +371,7 @@ define([
       let page = new Page(this, this.pages.length, this.pageContainer, title);
       page.addElement("finalButton", "final", {
         text: "Hast du alle Fragen deines Auftrages beantwortet?",
-        func: this.checkInputs,
+        func: this.finalize,
       });
       this.pages.push(page);
       this.lastPage = page;
@@ -453,8 +459,14 @@ define([
         that.lastPage.removeWarning();
         that.uploadData(elements);
       } else {
-        that.lastPage.addWarning();
+        that.lastPage.addWarning("Please fill in all the elements first!");
       }
+    }
+
+    finalize() {
+      that.saveData(() => {
+        that.lastPage.addWarning("The data was saved successfully!");
+      })
     }
 
     getAllElements(checkIfSet) {

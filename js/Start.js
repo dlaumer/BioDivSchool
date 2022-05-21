@@ -103,9 +103,9 @@ define([
         { id: "btn_consolidation", className: "btn1", innerHTML: "Konsolidierung" , style: "min-width: 10vw;" },
         this.footerBottomLeft
       );
-      this.btn_consolidation = domCtr.create(
+      this.btn_results = domCtr.create(
         "div",
-        { id: "btn_consolidation", className: "btn1", innerHTML: "Resultate" , style: "min-width: 10vw;" },
+        { id: "btn_results", className: "btn1", innerHTML: "Resultate" , style: "min-width: 10vw;" },
         this.footerBottomLeft
       );
 
@@ -147,13 +147,10 @@ define([
       );
 
         on(
-          this.btn_collection,
+          this.btn_results,
           "click",
           function (evt) {
-            window.open(
-              window. location. href + '/indexProject.html',
-            '_blank' // <- This is what makes it open in a new window.
-          );
+            
         }.bind(this)
       );
     }

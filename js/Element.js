@@ -15,10 +15,6 @@ let style = document.createElement('style')
       .labelText {
         width: 100% !important;
       }
-      
-      .elementMap {
-        height: "" !important;
-      }
     
       .mapContainer {
         flex-direction: column !important;
@@ -259,7 +255,7 @@ define([
 
 
       addMap(args) {
-        this.element.className =  "element elementMap"
+        this.element.className =  "element"
         this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text, style: "width: 100%;"}, this.element);
         this.mapContainer = domCtr.create("div", {className: "mapContainer"}, this.element); 
         this.input = domCtr.create("div", {id: this.name + "_map", className:"map"}, this.mapContainer);
@@ -333,7 +329,7 @@ define([
         this.textInfo = domCtr.create("div", { className: "expandable", innerHTML: args.text, }, this.element);
 
         on(this.link, "click", function (evt) {
-          this.textInfo.style.display = this.textInfo.style.display=="" ? "block" : "";
+          this.textInfo.style.display = this.textInfo.style.display=="" ? "flex" : "";
         }.bind(this));
       }
       

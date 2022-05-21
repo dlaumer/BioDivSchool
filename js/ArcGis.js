@@ -13,6 +13,8 @@ define([
   "esri/widgets/Editor",
   "esri/widgets/Expand",
   "esri/widgets/Locate",
+  "esri/widgets/Home",
+  "esri/Viewpoint",
   "esri/Graphic",
   "esri/geometry/geometryEngine",
   "esri/widgets/Fullscreen",
@@ -29,6 +31,8 @@ define([
   Editor,
   Expand,
   Locate,
+  Home,
+  Viewpoint,
   Graphic,
   geometryEngine,
   Fullscreen,
@@ -392,12 +396,30 @@ define([
         container: containerMap,
       });
 
-      let fullscreen = new Fullscreen({
+      const fullscreen = new Fullscreen({
         view: view,
       });
       view.ui.add(fullscreen, "bottom-right");
 
+      const homeButton = new Home({
+        view: view,
+      });
+      this.readGeometry(that.projectAreaId, "project").then(
+        (projectAreaFeature) => {
+          homeButton.viewpoint = new Viewpoint({
+            targetGeometry: projectAreaFeature[0].geometry.extent
+          });
+        })
+      view.ui.add(homeButton, "top-left")
+
+      const locate = new Locate({
+        view: view,
+        useHeadingEnabled: false,
+      });
+
+      view.ui.add(locate, "top-left")
       
+
    
 
       // TODO also calculate exisiting areas!
@@ -468,6 +490,7 @@ define([
       }
 
       
+      
 
       view.when(() => {
         if (containerEditor) {
@@ -535,10 +558,6 @@ define([
         }
 
       if (that.projectAreaId == null) {
-        const locate = new Locate({
-          view: view,
-          useHeadingEnabled: false,
-        });
         
           locate.when(() => {
             locate.locate();

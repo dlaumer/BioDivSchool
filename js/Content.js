@@ -126,17 +126,17 @@ define([
       /*Regionalität der Pflanzen*/
       let page_regionalitaet = this.app.addPage("Regionalität der Pflanzen");
 
-      //TEXTINFO
-      /*
-      Titel: Heimische Wildpflanzen (08, 09)
-      Text: "Alle Arten einer Region bilden zusammen ein Nahrungsnetz.
-      [Bild H01_1]
-      Heimische Pflanzen sind die Grundlage von Nahrungsnetzen. Deshalb sollte es möglichst viele Flächen mit heimischen Wildpflanzen geben."
-      */
+
+      page_regionalitaet.addTextInfo({
+        title: "Heimische Wildpflanzen (08, 09)",
+        text: `Alle Arten einer Region bilden zusammen ein Nahrungsnetz.
+        [Bild H01_1]
+        Heimische Pflanzen sind die Grundlage von Nahrungsnetzen. Deshalb sollte es möglichst viele Flächen mit heimischen Wildpflanzen geben.
+        `
+      })
 
       //08_wild_geomoid
       page_regionalitaet.addElement("mapInput", "wild_geomoid", {
-        title: "Heimische Wildpflanzen",
         text: `08: Auf welcher Fläche wachsen weitgehend nur heimische Wildpflanzen?
             Markiere solche Flächen in der gezeigten Untersuchungsfläche.
             Benutze dazu das Polygon-Werkzeug.`,
@@ -147,14 +147,18 @@ define([
         },
         points: "wild_points",
         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-        /*textInfo: {
+        textInfo: {
           linkText: "Zusatzinfos",
-          text: `<img src="../img/Fotos_Hilfestellungen/H08_1_heimische_Blumenstraeucher.jpg" alt="H08_1" width="100%">
+          text: `<div class="textInfoElements"><img src="../img/Fotos_Hilfestellungen/H08_1_heimische_Blumenstraeucher.jpg" alt="H08_1" width="100%">
           Zu heimischen Wildpflanzen gehören Blumen, Sträucher und Bäume, die natürlich hier wachsen.
+          </div>
+          <div class="textInfoElements">
           Nicht dazu gehören:
           <img src="../img/Fotos_Hilfestellungen/H08_2_Sportrasen.jpg" alt="H08_2" width="100%">
-          Sportrasen und Wiesen mit Gras, das immer kürzer ist als 10 cm. Solche Flächen werden nicht zu Flächen mit heimischen Wildpflanzen gezählt.`,
-        }*/
+          Sportrasen und Wiesen mit Gras, das immer kürzer ist als 10 cm. Solche Flächen werden nicht zu Flächen mit heimischen Wildpflanzen gezählt.
+          </div>
+          `,
+        }
       });  
 
 
@@ -182,13 +186,10 @@ define([
         }
       });
 
-      //TEXTINFO
-      /*
-      Titel: Schädliche gebietsfremde Pflanzen (invasive Neophyten)  (10, 10a, 10b)   
-      */
-
+  
       //10_neophyten
       page_regionalitaet.addElement("dropdownInput", "neophyten", {
+        title: "Schädliche gebietsfremde Pflanzen (invasive Neophyten)  (10, 10a, 10b)",
         text: "10: Gibt es im Untersuchungsgebiet schädliche gebietsfremde Pflanzen?",
         placeholder: "Auswählen",
         points: "neophyten_points",
@@ -202,15 +203,15 @@ define([
           },
         ],
         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-        /*textInfo: {
+        textInfo: {
             linkText: "Zusatzinfos",
             text: `Gebietsfremde Pflanzen sind Pflanzen, die natürlicher Weise nicht hier wachsen. Sie werden Neophyten genannt. Die meisten Neophyten sind harmlos. Es gibt aber Neophyten, die Probleme bereiten. Solche Neophyten sind schädlich.
             Die wichtigsten schädlichen Neophyten findest du unter:<br>
             <ul>
-              <li><a target = "_blank" href = "https://www.neophyt.ch>neophyt.ch</a></li>
-              <li><a target = "_blank" href = "http://www.neophyten-schweiz.ch/index.php?l=D&p=1&t=5>neophyten-schweiz.ch</a></li>
+              <li><a target = "_blank" href = "https://www.neophyt.ch">neophyt.ch</a></li>
+              <li><a target = "_blank" href = "http://www.neophyten-schweiz.ch/index.php?l=D&p=1&t=5">neophyten-schweiz.ch</a></li>
             </ul>`,
-        }*/
+        }
       });
 
 
@@ -240,20 +241,31 @@ define([
       /*Strukturelemente*/      
       let page_strukturelemente = this.app.addPage("Strukturelemente");
 
-      //TEXTINFO
-      /*
-      Titel: Versiegelte Flächen (11)
-      Text: "Auf einer versiegelten Fläche wachsen keine Pflanzen. Der Boden einer versiegelten Fläche ist ziemlich wasserdicht und luftdicht zugedeckt.
-      Auf versiegelten Flächen kann deshalb Regenwasser nicht mehr in den Boden versickern.<br>
-      Beispiele von versiegelten Flächen:<br>
-      <ul>
-              <li>Überall, wo Gebäude stehen</li>
-              <li><img src="../img/Fotos_Hilfestellungen/H11_1_Asphalt.jpg" alt="H11_1" width="100%"><br>Asphalt, Teer</li>
-              <li><img src="../img/Fotos_Hilfestellungen/H11_2_Sportbelag.jpg" alt="H11_2 width="100%"><br>Sportbelag</li>
-      "
-      */
+      page_strukturelemente.addTextInfo({
+        title: "Versiegelte Flächen (11)",
+        text: `Auf einer versiegelten Fläche wachsen keine Pflanzen. Der Boden einer versiegelten Fläche ist ziemlich wasserdicht und luftdicht zugedeckt.
+        Auf versiegelten Flächen kann deshalb Regenwasser nicht mehr in den Boden versickern.<br>
+        `,
 
+        textInfo: {
+          linkText: "Beispiele von versiegelten Flächen",
+        text:
+        `
+        <div class= textInfoElements>
+          Überall, wo Gebäude stehen:
+
+          Asphalt, Teer
+          <img src="../img/Fotos_Hilfestellungen/H11_1_Asphalt.jpg" alt="H11_1" width="100%">
+          </div>
+          <div class= textInfoElements>
+          Sportbelag
+          <img src="../img/Fotos_Hilfestellungen/H11_2_Sportbelag.jpg" alt="H11_2 width="100%">
+          </div>
+          `
+        }
+      })
       
+
       //11_versieg_geomoid
       page_strukturelemente.addElement("mapInput", "versieg_geomoid", {
         text: `11: Markiere versiegelte Flächen in der gezeigten Untersuchungsfläche.`,
@@ -264,22 +276,35 @@ define([
         },
         points: "versieg_points",
          //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          /*textInfo: {
+          textInfo: {
           linkText: "Zusatzinfos",
-          text: `Strukturelemente sind einzelne Teile eines Lebensraums wie beispielsweise:
+          text: `
+          <div class="textInfoElements">
+          Strukturelemente sind einzelne Teile eines Lebensraums wie beispielsweise:
+          Bäume
           <img src="../img/Fotos_Hilfestellungen/H11a_1_Baeume.jpg" alt="H11a_1" width="100%">
-          Bäume<br><br>
+          </div>
+          <div class="textInfoElements">
+          Sträucher
           <img src="../img/Fotos_Hilfestellungen/H11a_2_Straeucher.jpg" alt="H11a_2" width="100%">
-          Sträucher<br><br>
+          </div>
+          <div class="textInfoElements">
+          Blumenwiesen
           <img src="../img/Fotos_Hilfestellungen/H11a_3_Blumenwiese.jpg" alt="H11a_3" width="100%">
-          Blumenwiesen<br><br>
-          <img src="../img/Fotos_Hilfestellungen/H11a_4_Kiesflaeche.jpg" alt="H11a_4" width="100%">     
-          Kiesflächen<br><br>
+          </div>
+          <div class="textInfoElements">
+          Kiesflächen
+          <img src="../img/Fotos_Hilfestellungen/H11a_4_Kiesflaeche.jpg" alt="H11a_4" width="100%">
+          </div>
+          <div class="textInfoElements">     
+          Tümpel
           <img src="../img/Fotos_Hilfestellungen/H11a_5_Tuempel.jpg" alt="H11a_5" width="100%">
-          Tümpel<br><br>
+          </div>
+          
+          
           Verschiedene Strukturelemente bieten verschiedenen Lebewesen Lebensraum und Nahrung. Je mehr verschiedene Strukturelemente, desto mehr verschiedene Arten gibt es auf einer Fläche."
           `,
-        }*/
+        }
 
       }); 
 
@@ -298,35 +323,41 @@ define([
         },
         points: "rasen_points",
         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          /*textInfo: {
+          textInfo: {
           linkText: "Zusatzinfos",
-          text: `<img src="../img/Fotos_Hilfestellungen/H08_2_Sportrasen.jpg" alt="H08_2" width="100%">
+          text: `<div class="textInfoElements"><img src="../img/Fotos_Hilfestellungen/H08_2_Sportrasen.jpg" alt="H08_2" width="100%">
            Sportrasen und Wiesen mit Gras, das immer kürzer ist als 10 cm. Solche Rasenflächen sind sehr arm an verschiedenen Lebewesen."
-         `,
-        }*/
+         </div>
+           `,
+        }
 
       }); 
 
-       //TEXTINFO
-      /*
-      Titel: Vielfalt der Flächen (13a, 13b, 13c, 13d, 13e, 13f) 
-      Text:  Verschiedene Flächen bieten verschiedenen Lebewesen Lebensraum und Nahrung. Je mehr verschiedenartige Flächen, desto mehr verschiedene Arten gibt es.  
-      */
 
+      page_strukturelemente.addTextInfo({
+        title: "Vielfalt der Flächen (13a, 13b, 13c, 13d, 13e, 13f)",
+        text: "Verschiedene Flächen bieten verschiedenen Lebewesen Lebensraum und Nahrung. Je mehr verschiedenartige Flächen, desto mehr verschiedene Arten gibt es."
+      })
       //13a_wild_geomoid
       page_strukturelemente.addElement("mapInput", "a_wild_geomoid", {    
         text: `13a: Markiere Flächen mit Gemüsebeeten und/oder Beeten mit Wildblumen in der gezeigten Untersuchungsfläche.`,
         area: "wild_area",
         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          /*textInfo: {
+          textInfo: {
           linkText: "Zusatzinfos",
           text: `
-          <img src="../img/Fotos_Hilfestellungen/H13a_1_Gemuesebeet.jpg" alt="H13a_1" width="100%">
+          <div class="textInfoElements">
           Gemüsebeet
+          <img src="../img/Fotos_Hilfestellungen/H13a_1_Gemuesebeet.jpg" alt="H13a_1" width="100%">
+          </div>
+          
+          <div class="textInfoElements">
+          Beet mit Wildblumen 
           <img src="../img/Fotos_Hilfestellungen/H13a_2_Gartenbeet.jpg" alt="H13a_2" width="100%">
-          Beet mit Wildblumen         
+          
+          </div>        
          `,
-        }*/
+        }
       }); 
 
       
@@ -350,18 +381,28 @@ define([
         text: `13b: Markiere Flächen mit Trockenstandorten wie Kies, Sand, Ruderalflächen in der gezeigten Untersuchungsfläche.`,
         area: "trocken_area",
         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          /*textInfo: {
+          textInfo: {
           linkText: "Zusatzinfos",
           text: `
+          
+          <div class="textInfoElements">
           Beispiele von Trockenstandorten:
-          <img src="../img/Fotos_Hilfestellungen/H11a_4_Kiesflaeche.jpg" alt="H11a_4" width="100%">  
           Kiesflächen, die nicht als Parkplatz genutzt werden
-          <img src="../img/Fotos_Hilfestellungen/H13b_2_Sandflaeche.jpg" alt="H13b_2" width="100%">
+          <img src="../img/Fotos_Hilfestellungen/H11a_4_Kiesflaeche.jpg" alt="H11a_4" width="100%">  
+          </div>
+          
+          <div class="textInfoElements">
           Sandflächen ohne Sprunggrube für Sport
-          <img src="../img/Fotos_Hilfestellungen/H13b_3_Geroell.jpg" alt="H13b_3" width="100%">
+          <img src="../img/Fotos_Hilfestellungen/H13b_2_Sandflaeche.jpg" alt="H13b_2" width="100%">
+          </div>
+          
+          <div class="textInfoElements">
           Flächen mit Geröll
+          <img src="../img/Fotos_Hilfestellungen/H13b_3_Geroell.jpg" alt="H13b_3" width="100%">
+          </div>
+          
          `,
-        }*/
+        }
       }); 
       
       page_strukturelemente.addElement("dropdownInput", "trocken_arearatio", {
@@ -384,13 +425,15 @@ define([
         text: `13c: Markiere in der gezeigten Untersuchungsfläche Flächen mit Wiesen dessen Gras mindestens einmal im Jahr höher als 10 cm ist.`,
         area: "c_gras_area",
          //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          /*textInfo: {
+          textInfo: {
           linkText: "Zusatzinfos",
           text: `
-          <img src="../img/Fotos_Hilfestellungen/H11a_3_Blumenwiese.jpg" alt="H11a_3" width="100%">
+          <div class="textInfoElements">
           Blumenwiese
+          <img src="../img/Fotos_Hilfestellungen/H11a_3_Blumenwiese.jpg" alt="H11a_3" width="100%">
+          </div>
           `,
-        }*/
+        }
       }); 
 
       //Bemerkung: kann man dies nicht automatisieren (counts und ratio?)
@@ -414,15 +457,19 @@ define([
         text: `13d: Markiere in der gezeigten Untersuchungsfläche Flächen mit Sträuchern und/oder Hecken mit weitgehend heimischen Pflanzen.`,
         area: "d_hecken_area",
            //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          /*textInfo: {
+          textInfo: {
           linkText: "Zusatzinfos",
           text: `
-          <img src="../img/Fotos_Hilfestellungen/H13d_1_GruppevonStraeuchern.jpg" alt="H13d_1" width="100%">
+          <div class="textInfoElements">
           Gruppe von heimischen Sträuchern
-          <img src="../img/Fotos_Hilfestellungen/H13d_2_Hecke.jpg" alt="H13d_2" width="100%">
+          <img src="../img/Fotos_Hilfestellungen/H13d_1_GruppevonStraeuchern.jpg" alt="H13d_1" width="100%">
+          </div>
+          <div class="textInfoElements">
           Hecke mit heimischen Sträuchern
+          <img src="../img/Fotos_Hilfestellungen/H13d_2_Hecke.jpg" alt="H13d_2" width="100%">
+          </div>
           `,
-        }*/
+        }
       }); 
 
       //Bemerkung: kann man dies nicht automatisieren (counts und ratio?)
@@ -446,13 +493,15 @@ define([
         text: `13e: Markiere in der gezeigten Untersuchungsfläche Flächen mit Bäumen, Baumgruppen oder Wald mit weitgehend heimischen Pflanzen.`,
         area: "e_baeume_area",
         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          /*textInfo: {
+          textInfo: {
           linkText: "Zusatzinfos",
           text: `
+          <div class="textInfoElements">
+          Heimische Bäume in deutlich unterschiedlichen Höhen
           <img src="../img/Fotos_Hilfestellungen/H11a_1_Baeume.jpg" alt="H11a_1" width="100%">
-          heimische Bäume in deutlich unterschiedlichen Höhen"
+          </div>
           `,
-        }*/
+        }
       }); 
 
       //Bemerkung: kann man dies nicht automatisieren (counts und ratio?)
@@ -478,15 +527,19 @@ define([
         text: `13f: Markiere Wasserflächen in der gezeigten Untersuchungsfläche.`,
         area: "f_wasser_area",
          //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          /*textInfo: {
+          textInfo: {
           linkText: "Zusatzinfos",
           text: `
-          <img src="../img/Fotos_Hilfestellungen/H11a_5_Tuempel.jpg" alt="H11a_5" width="100%">
+          <div class="textInfoElements">
           Tümpel
+          <img src="../img/Fotos_Hilfestellungen/H11a_5_Tuempel.jpg" alt="H11a_5" width="100%">
+          </div>
+          <div class="textInfoElements">
+          Kleines Bächlein
           <img src="../img/Fotos_Hilfestellungen/H13f_2_kleinesBaechlein.jpg" alt="H13f_2" width="100%">
-          kleines Bächlein
+          </div>
           `,
-          }*/
+          }
       }); 
    
       page_strukturelemente.addElement("dropdownInput", "f_wasser_arearatio", {
@@ -524,17 +577,23 @@ define([
           { key: "6", points: 3, label: "Bäume in deutlich unterschiedlichen Höhen vorhanden und ohne insgesamt mindestens 3 verschiedene heimische Baumarten vorhanden, aber mit mindestens zwei der Bäume mit einen Umfang von mehr als 2 Meter." },          
         ],
         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          /*textInfo: {
+          textInfo: {
           linkText: "Zusatzinfos",
           text: `
+          <div class="textInfoElements">
           Es zählen nur Bäume, die höher sind als drei erwachsene Menschen, die einander auf den Schultern stehen:
+          Hoher Baum
           [Bild H14_1] Bild fehlt!
-          hoher Baum
+          
           Hohe Bäume bieten Nahrung und Unterschlupf für eine Vielzahl von Lebewesen.
+          </div>
+          <div class="textInfoElements">
+          Heimische Bäume in deutlich unterschiedlichen Höhen
           <img src="../img/Fotos_Hilfestellungen/H11a_1_Baeume.jpg" alt="H11a_1" width="100%">
           heimische Bäume in deutlich unterschiedlichen Höhen
+          </div>
           `,
-          }*/        
+          }       
       });
 
       //TEXTINFO
@@ -556,14 +615,17 @@ define([
           { key: "5", points: 5, label: "Mehr als 3 Gruppen aus mindestens 5 Sträuchern vorhanden. Die meisten dieser Sträucher sind heimisch. Insgesamt mehr als 5 verschiedene heimische Straucharten." },
         ],
            //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          /*textInfo: {
+          textInfo: {
           linkText: "Zusatzinfos",
           text: `
+          <div class="textInfoElements">
           Vögel bauen ihre Nester gerne in Gruppierungen von heimischen Sträuchern. Auch kleine Säugetiere wie Mäuse, Schläfer oder Wiesel finden in Strauchgruppen Versteck und Nahrung.
-          <img src="../img/Fotos_Hilfestellungen/H13d_1_GruppevonStraeuchern.jpg" alt="H13d_1" width="100%">
           Gruppe von heimischen Sträuchern
+          <img src="../img/Fotos_Hilfestellungen/H13d_1_GruppevonStraeuchern.jpg" alt="H13d_1" width="100%">
+          
+          </div>
           `,
-          }*/ 
+          }
       });
 
       //TEXTINFO
@@ -591,16 +653,22 @@ define([
           { key: "11", points: 5, label: "Mehr als eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch. In der Hecke sind  insgesamt mehr als 5 verschiedene heimische Straucharten vorhanden. Eine Hecke ist mindestens 2 Meter breit und 10 Meter lang." },
         ],
            //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          /*textInfo: {
+          textInfo: {
           linkText: "Zusatzinfos",
           text: `
-          <img src="../img/Fotos_Hilfestellungen/H13d_2_Hecke.jpg" alt="H13d_2" width="100%">
+          <div class="textInfoElements">
           Hecke mit heimischen Sträuchern bieten Tieren nicht nur ein Versteck, sondern auch Nahrung: Necktar und Pollen für Insekten, Früchte für Vögel und kleine Säugetiere.
           Im Unterschied dazu bieten Hecken aus gebietsfremden Pflanzen kaum Nahrung.
-          <img src="../img/Fotos_Hilfestellungen/H16_1_Kirschlorbeer.jpg" alt="H16_1" width="100%">
+          <img src="../img/Fotos_Hilfestellungen/H13d_2_Hecke.jpg" alt="H13d_2" width="100%">
+          
+          </div>
+          <div class="textInfoElements">
           Hecke aus Kirschlorbeer, ein schädlicher gebietsfremder Strauch
+          <img src="../img/Fotos_Hilfestellungen/H16_1_Kirschlorbeer.jpg" alt="H16_1" width="100%">
+          
+          </div>
           `,
-          }*/ 
+          }
       });
 
        //TEXTINFO
@@ -615,26 +683,37 @@ define([
         points: "vielfalt_points",
         options: [
           { key: "0", points: 0, label: "Bäume, Sträucher und heimische Kräuter, Blumen oder Gräser sind nirgends zusammen anzutreffen." },
-          { key: "1", points: 1, label: "Zwei der drei Elemente (1. Bäume, 2. Sträucher und 3. heimische Kräuter, Blumen oder Gräser) kommen zusam-men vor. Alle drei Elemente kommen jedoch nirgends alle zusammen vor." },
+          { key: "1", points: 1, label: "Zwei der drei Elemente (1. Bäume, 2. Sträucher und 3. heimische Kräuter, Blumen oder Gräser) kommen zusammen vor. Alle drei Elemente kommen jedoch nirgends alle zusammen vor." },
           { key: "2", points: 2, label: "Bäume, Sträucher und heimische Kräuter, Blumen oder Gräser kommen alle zusammen an einer Stelle vor." },
           { key: "3", points: 4, label: "Bäume, Sträucher und heimische Kräuter, Blumen oder Gräser kommen alle zusammen an mehr als einer Stelle vor." },
         ],
           //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          /*textInfo: {
+          textInfo: {
           linkText: "Zusatzinfos",
           text: `
+          <div class="textInfoElements">
           Kommen unterschiedliche Elemente wie Bäume, Sträucher sowie Kräuter, Gräser und Blumen alle an der gleichen Stelle vor, so finden auch mehr Lebewesen
           einen Lebensraum mit Nahrung und Versteck. Deshalb ist es wichtig, dass Bäume, Sträucher und Kräuter an manchen Stellen zusammen vorkommen:
+          Kräuter, Gräser und Blumen unter Bäumen
             <br>[Bild H17_1] Bild fehlt!<br>
-            Kräuter, Gräser und Blumen unter Bäumen
-            <br>[Bild H17_2] Bild fehlt!<br>
+            
+            </div>
+            <div class="textInfoElements">
             Krautsaum unter Sträuchern
-            <img src="../img/Fotos_Hilfestellungen/H17_3_StrauchschichtBaumschichtjpg" alt="H17_3" width="100%">
+            <br>[Bild H17_2] Bild fehlt!<br>
+            
+            </div>
+            <div class="textInfoElements">
             Sträucher zusammen mit Bäumen
-            <br> [Bild H17_4] Bild fehlt!<br>
+            <img src="../img/Fotos_Hilfestellungen/H17_3_StrauchschichtBaumschicht.jpg" alt="H17_3" width="100%">
+            
+            </div>
+            <div class="textInfoElements">
             alle drei Elemente (Bäume, Sträucher und heimische Kräuter, Blumen oder Gräser) an derselben Stelle
+            <br> [Bild H17_4] Bild fehlt!<br>
+            </div>
           `,
-          }*/ 
+          }
       });
 
       //TEXTINFO

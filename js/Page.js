@@ -71,15 +71,36 @@ define([
       return elem;
     }
 
+    addTextInfo(args) {
+      let textInfo = domCtr.create("div", { id: "textInfo_" + args.title, className: "element"}, this.page);
+      if (args.title) {
+        domCtr.create("div", { className: "elementTitle", innerHTML: args.title}, textInfo);
 
-    addWarning() {
+      }
+      if (args.text) {
+        domCtr.create("div", { className: "labelText", innerHTML: args.text, style: "width: 100%"}, textInfo);
+      }
+
+      if (args.textInfo) {
+        //this.label.innerHTML = this.label.innerHTML + "<br><br> <a onclick=expand()>sdsdd</a>" + args.linkText;
+        let link = domCtr.create("div", { className: "labelText linkText", innerHTML: args.textInfo.linkText}, textInfo);
+        let expandable = domCtr.create("div", { className: "expandable", innerHTML: args.textInfo.text, },textInfo);
+
+        on(link, "click", function (evt) {
+          expandable.style.display = expandable.style.display=="" ? "flex" : "";
+        }.bind(this));
+      }
+
+    }
+
+    addWarning(text) {
       if (document.getElementById("warning") == null) {
         this.element = domCtr.create(
           "div",
           {
             id: "warning",
             className: "warning",
-            innerHTML: "Please fill in all the elements first!",
+            innerHTML: text,
           },
           this.page
         );
