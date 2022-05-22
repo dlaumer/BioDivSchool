@@ -12,6 +12,10 @@
 }
 */
 
+input[type='radio'], input[type='checkbox'] {
+  width: unset;
+
+}
 :root {
   --gray: #bebebe;
   --very_gray: #f5f3f3;
@@ -142,7 +146,7 @@ body {
 
 .groupResult {
   width: 100%;
-  background-color: var(--very_gray);
+  background-color: var(--gray);
   padding: 10px;
 }
 

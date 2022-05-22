@@ -120,7 +120,13 @@ define([
         }.bind(this));
 
         this.setterUI = function (value) {
-          this.input.value = value
+          if (that.mode == "results") {
+            this.setterUINonEdit(this.input, value)
+          }
+          else {
+            this.input.value = value
+          }
+          
         }
       }
 
@@ -133,7 +139,12 @@ define([
         }.bind(this));
 
         this.setterUI = function (value) {
-          this.input.value = new Date(value).toISOString().split("T")[0]
+          if (that.mode == "results") {
+            this.setterUINonEdit(this.input, value)
+          }
+          else {
+            this.input.value = new Date(value).toISOString().split("T")[0]
+          }
         }
       }
 
@@ -171,7 +182,12 @@ define([
         }.bind(this));
         
         this.setterUI = function (value) {
-          this.input.value = this.pointsDict[value].key
+          if (that.mode == "results") {
+            this.setterUINonEdit(this.input, value)
+          }
+          else {
+            this.input.value = this.pointsDict[value].key
+          }
         }
       }
 
@@ -202,7 +218,12 @@ define([
         }.bind(this));
         
         this.setterUI = function (value) {
-          document.getElementById( this.pointsDict[value].key).checked = true;
+          if (that.mode == "results") {
+            this.setterUINonEdit(this.input, value)
+          }
+          else {
+            document.getElementById( this.pointsDict[value].key).checked = true;
+          }
         }
       }
 
@@ -248,8 +269,14 @@ define([
         }.bind(this));
 
         this.setterUI = function (value) {
-          this.input.value = value
+          if (that.mode == "results") {
+            this.setterUINonEdit(this.input, value)
+          }
+          else {
+            this.input.value = value
           this.bubble.innerHTML = value;
+          }
+          
         }
       }
 
@@ -283,7 +310,9 @@ define([
         }
 
         this.setterUI = function (value) {
-          
+          if (that.mode == "results") {
+            this.setterUINonEdit(this.input, value)
+          }
         }
       }
 
@@ -349,6 +378,19 @@ define([
           console.log(args.func)
           args.func();
         }.bind(this));
+      }
+
+      setterUINonEdit(container, value) {
+
+        container.innerHTML = '';
+        if (this.type == "mapInput") {
+          let geometryTemp = that.arcgis.addMap(container, null, null);   
+          geometryTemp.geometry.definitionExpression = "objectid in (" + value.substring(1,value.length-1) + ")";
+        }
+        else {
+
+          domCtr.create("div", { className: "groupResult", innerHTML: value},  container)
+        }
       }
         
   
@@ -428,19 +470,9 @@ define([
         
           for (let i in values) {
             if (this.groupDivs[i] && values[i] != null) {
-              if (this.type == "mapInput") {
-                let geometryTemp = that.arcgis.addMap(this.groupDivs[i], null, null);   
-                geometryTemp.geometry.definitionExpression = "objectid in (" + values[i].substring(1,values[i].length-1) + ")";
-              }
-              else {
+              this.setterUINonEdit(this.groupDivs[i], values[i])
 
-                domCtr.create("div", { className: "groupResult", innerHTML: values[i]},  this.groupDivs[i])
-              }
-
-               
-                  
-              
-
+                            
             }
           }
 

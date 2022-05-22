@@ -67,7 +67,7 @@ define([
         - linkText
         - text
 
-    dropdownInput
+    radioButtonInput
     --------------
     - text
     - placeholder
@@ -163,7 +163,7 @@ define([
 
 
       //09_arten
-      page_regionalitaet.addElement("dropdownInput", "arten", {
+      page_regionalitaet.addElement("radioButtonInput", "arten", {
         text: "09: Wie viele verschiedene Arten von Wildpflanzen wachsen auf der gesamten Untersuchungsfläche?",
         placeholder: "Auswählen",
         points: "arten_points",
@@ -188,7 +188,7 @@ define([
 
   
       //10_neophyten
-      page_regionalitaet.addElement("dropdownInput", "neophyten", {
+      page_regionalitaet.addElement("radioButtonInput", "neophyten", {
         title: "Schädliche gebietsfremde Pflanzen (invasive Neophyten)  (10, 10a, 10b)",
         text: "10: Gibt es im Untersuchungsgebiet schädliche gebietsfremde Pflanzen?",
         placeholder: "Auswählen",
@@ -216,7 +216,7 @@ define([
 
 
       //10a_neophytenmenge
-      page_regionalitaet.addElement("dropdownInput", "neophytenmenge", {
+      page_regionalitaet.addElement("radioButtonInput", "neophytenmenge", {
         text: "10a: Wie gross ist die Fläche, die insgesamt durch alle schädlichen gebietsfremden Pflanzen bedeckt wird?",
         placeholder: "Auswählen",
         points: "neophytenmenge_points",
@@ -361,7 +361,7 @@ define([
       }); 
 
       
-      page_strukturelemente.addElement("dropdownInput", "wild_arearatio", {
+      page_strukturelemente.addElement("radioButtonInput", "wild_arearatio", {
         text: " ",
         placeholder: "Auswählen",
         points: "wild_points",
@@ -405,7 +405,7 @@ define([
         }
       }); 
       
-      page_strukturelemente.addElement("dropdownInput", "trocken_arearatio", {
+      page_strukturelemente.addElement("radioButtonInput", "trocken_arearatio", {
         text: " ",
         placeholder: "Auswählen",
         points: "trocken_points",
@@ -437,7 +437,7 @@ define([
       }); 
 
       //Bemerkung: kann man dies nicht automatisieren (counts und ratio?)
-      page_strukturelemente.addElement("dropdownInput", "c_gras_arearatio", {
+      page_strukturelemente.addElement("radioButtonInput", "c_gras_arearatio", {
         text: " ",
         placeholder: "Auswählen",
         points: "c_gras_points",
@@ -473,7 +473,7 @@ define([
       }); 
 
       //Bemerkung: kann man dies nicht automatisieren (counts und ratio?)
-      page_strukturelemente.addElement("dropdownInput", "d_hecken_arearatio", {
+      page_strukturelemente.addElement("radioButtonInput", "d_hecken_arearatio", {
         text: "",
         placeholder: "Auswählen",
         points: "d_hecken_points",
@@ -505,7 +505,7 @@ define([
       }); 
 
       //Bemerkung: kann man dies nicht automatisieren (counts und ratio?)
-      page_strukturelemente.addElement("dropdownInput", "e_baeume_arearatio", {
+      page_strukturelemente.addElement("radioButtonInput", "e_baeume_arearatio", {
         text: " ",
         placeholder: "Auswählen",
         points: "e_baeume_points",
@@ -542,7 +542,7 @@ define([
           }
       }); 
    
-      page_strukturelemente.addElement("dropdownInput", "f_wasser_arearatio", {
+      page_strukturelemente.addElement("radioButtonInput", "f_wasser_arearatio", {
         text: " ",
         placeholder: "Auswählen",
         points: "f_wasser_points",
@@ -563,7 +563,7 @@ define([
       */
 
       //14_baeume
-      page_strukturelemente.addElement("dropdownInput", "baeume", {      
+      page_strukturelemente.addElement("radioButtonInput", "baeume", {      
         text: "14: Gibt es auf der Untersuchungsfläche Bäume?",
         placeholder: "Auswählen",
         points: "baeume_points",
@@ -602,7 +602,7 @@ define([
       */   
 
       //15_straeucher
-      page_strukturelemente.addElement("dropdownInput", "straeucher", {
+      page_strukturelemente.addElement("radioButtonInput", "straeucher", {
         text: "15: Gibt es auf der Untersuchungsfläche Gruppen aus mindestens 5 Sträuchern?",
         placeholder: "Auswählen",
         points: "straeucher_points",
@@ -634,7 +634,7 @@ define([
       */ 
 
       //16_hecken
-      page_strukturelemente.addElement("dropdownInput", "hecken", {
+      page_strukturelemente.addElement("radioButtonInput", "hecken", {
         text: "16: Gibt es auf der Untersuchungsfläche Gruppen aus mindestens 5 Sträuchern?",
         placeholder: "Auswählen",
         points: "hecken_points",
@@ -677,7 +677,7 @@ define([
       */ 
 
       //17_vielfalt
-      page_strukturelemente.addElement("dropdownInput", "vielfalt", {
+      page_strukturelemente.addElement("radioButtonInput", "vielfalt", {
         text: "17: Sind Bäume, Sträucher und heimische Kräuter, Blumen oder Gräser zusammen an einem Ort anzutreffen?",
         placeholder: "Auswählen",
         points: "vielfalt_points",
@@ -722,7 +722,7 @@ define([
       */ 
 
       //18_ruderal
-      page_strukturelemente.addElement("dropdownInput", "ruderal", {
+      page_strukturelemente.addElement("radioButtonInput", "ruderal", {
         text: "18: Gibt es auf der Untersuchungsfläche Ruderalflächen mit passenden heimischen Pflanzen?",
         placeholder: "Auswählen",
         points: "ruderal_points",
@@ -756,7 +756,7 @@ define([
       */ 
 
       //19_mauern
-      page_strukturelemente.addElement("dropdownInput", "mauern", {
+      page_strukturelemente.addElement("radioButtonInput", "mauern", {
         text: "19: Gibt es auf der Untersuchungsfläche Trockenmauern oder Steinhaufen?",
         placeholder: "Auswählen",
         points: "mauern_points",
@@ -785,7 +785,7 @@ define([
       */ 
 
       //20_totholz
-      page_strukturelemente.addElement("dropdownInput", "totholz", {
+      page_strukturelemente.addElement("radioButtonInput", "totholz", {
         text: "20: Gibt es auf der Untersuchungsfläche Asthaufen, abgestorbene Bäume oder Totholz?",
         placeholder: "Auswählen",
         points: "totholz_points",
@@ -815,7 +815,7 @@ define([
       */ 
 
       //21_insekten
-      page_strukturelemente.addElement("dropdownInput", "insekten", {
+      page_strukturelemente.addElement("radioButtonInput", "insekten", {
         text: "21: Gibt es auf der Untersuchungsfläche künstliche Nisthilfen für Insekten?",
         placeholder: "Auswählen",
         points: "insekten_points",
@@ -839,7 +839,7 @@ define([
       });
   
       //22_voegel
-      page_strukturelemente.addElement("dropdownInput", "voegel", {
+      page_strukturelemente.addElement("radioButtonInput", "voegel", {
         text: "22: Gibt es auf der Untersuchungsfläche künstliche Nisthilfen für Vögel?",
         placeholder: "Auswählen",
         points: "voegel_points",
@@ -862,7 +862,7 @@ define([
       });
 
       //23_saeuger
-      page_strukturelemente.addElement("dropdownInput", "saeuger", {
+      page_strukturelemente.addElement("radioButtonInput", "saeuger", {
         text: "23: Gibt es auf der Untersuchungsfläche künstliche Nisthilfen für kleine Säugetiere?",
         placeholder: "Auswählen",
         points: "saeuger_points",
@@ -892,7 +892,7 @@ define([
       */ 
 
       //24_feuchtfl
-      page_strukturelemente.addElement("dropdownInput", "feuchtfl", {
+      page_strukturelemente.addElement("radioButtonInput", "feuchtfl", {
         text: "24: Gibt es Feuchtflächen auf der Untersuchungsfläche?",
         placeholder: "Auswählen",
         points: "feuchtfl_points",
@@ -915,7 +915,7 @@ define([
       });
 
       //25_stehgew
-      page_strukturelemente.addElement("dropdownInput", "stehgew", {
+      page_strukturelemente.addElement("radioButtonInput", "stehgew", {
         text: "Gibt es stehende Gewässer auf der Untersuchungsfläche?",
         placeholder: "Auswählen",
         points: "stehgew_points",
@@ -938,7 +938,7 @@ define([
       });
 
       //26_fliessgew
-      page_strukturelemente.addElement("dropdownInput", "fliessgew", {
+      page_strukturelemente.addElement("radioButtonInput", "fliessgew", {
         text: "Gibt es Fliessgewässer auf der Untersuchungsfläche?",
         placeholder: "Auswählen",
         points: "fliessgew_points",
@@ -963,7 +963,7 @@ define([
       */ 
 
       //27_umgebung
-      page_strukturelemente.addElement("dropdownInput", "umgebung", {
+      page_strukturelemente.addElement("radioButtonInput", "umgebung", {
         text: "27: Ist die Untersuchungsfläche umgeben von intensiver Landwirtschaft oder überbautem Gebiet?",
         placeholder: "Auswählen",
         points: "umgebung_points",
@@ -991,7 +991,7 @@ define([
       */ 
 
       //28_geraet
-      page_pflege.addElement("dropdownInput", "geraet", {
+      page_pflege.addElement("radioButtonInput", "geraet", {
         text: "Markiere, mit welchen Geräten der grössere Teil der Grasfläche (ohne Sportrasen) geschnitten wird.?",
         placeholder: "Auswählen",
         points: "geraet_points",
@@ -1018,7 +1018,7 @@ define([
       });
 
       //29_maehen // Achtung Mehrfachauswahl!
-      let elem29 = page_pflege.addElement("dropdownInput", "maehen", {
+      let elem29 = page_pflege.addElement("radioButtonInput", "maehen", {
         text: "Markiere alle Aussagen, die auf Mähen von Gras zutreffen:",
         placeholder: "Auswählen",
         points: "maehen_points",
@@ -1042,7 +1042,7 @@ define([
       //Sonst bitte Fragen 29a und 29b anzeigen.]"
 
       //29a_zone
-      let elem29a = page_pflege.addElement("dropdownInput", "a_zone", {
+      let elem29a = page_pflege.addElement("radioButtonInput", "a_zone", {
         text: "29a: Bestimme, in welcher landwirtschaftlichen Zone sich die Untersuchungsfläche befindet.",
         placeholder: "Auswählen",
         points: "umgebung_points",
@@ -1061,7 +1061,7 @@ define([
 
 
       //29b_schnitt
-      let elem29b = page_pflege.addElement("dropdownInput", "b_schnitt", {
+      let elem29b = page_pflege.addElement("radioButtonInput", "b_schnitt", {
         text: "29b: Trifft die folgende Aussage zu?",
         placeholder: "Auswählen",
         points: "b_schnitt_points",
@@ -1143,7 +1143,7 @@ define([
       */
 
       //32_unkraut
-      page_pflege.addElement("dropdownInput", "unkraut", {
+      page_pflege.addElement("radioButtonInput", "unkraut", {
         text: "32: Wie werden Unkräuter oder unerwünschte Pflanzen zur Hauptsache bekämpft?",
         placeholder: "Auswählen",
         points: "unkraut_points",
@@ -1174,7 +1174,7 @@ define([
       */
 
       //33_duengen
-      page_pflege.addElement("dropdownInput", "duengen", {
+      page_pflege.addElement("radioButtonInput", "duengen", {
         text: "33: Wie werden Grasflächen (Wiesen, Rasen inklusive Sportrasen) gedüngt?",
         placeholder: "Auswählen",
         points: "duengen_points",
@@ -1200,7 +1200,7 @@ define([
       */
 
       //34_mitteln
-      page_pflege.addElement("dropdownInput", "mitteln", {
+      page_pflege.addElement("radioButtonInput", "mitteln", {
         text: "34: Mit welchen Mitteln werden Grasflächen (Wiesen, Rasen inklusive Sportrasen) zur Hauptsache gedüngt?",
         placeholder: "Auswählen",
         points: "mitteln_points",
@@ -1226,7 +1226,7 @@ define([
       */
 
       //35_laub
-      page_pflege.addElement("dropdownInput", "laub", {
+      page_pflege.addElement("radioButtonInput", "laub", {
         text: "35: Was passiert im Herbst mit dem Laub?",
         placeholder: "Auswählen",
         points: "laub_points",
@@ -1254,7 +1254,7 @@ define([
       */
 
       //36_samen
-      page_pflege.addElement("dropdownInput", "samen", {
+      page_pflege.addElement("radioButtonInput", "samen", {
         text: "36: Was passiert im Herbst mit alten Samenständen von Gras, Blumen und Sträucher?",
         placeholder: "Auswählen",
         points: "samen_points",
@@ -1283,7 +1283,7 @@ define([
       */
 
       //37_fldacher
-      page_baumassnahmen.addElement("dropdownInput", "fldacher", {
+      page_baumassnahmen.addElement("radioButtonInput", "fldacher", {
         text: "37: Gibt es auf Flachdächern eine Begrünung?",
         placeholder: "Auswählen",
         points: "fldacher_points",
@@ -1305,7 +1305,7 @@ define([
 
     
       //38_fassaden
-      page_baumassnahmen.addElement("dropdownInput", "fassaden", {
+      page_baumassnahmen.addElement("radioButtonInput", "fassaden", {
         text: "38: Gibt es Fassaden mit einer Begrünung?",
         placeholder: "Auswählen",
         points: "fassaden_points",
@@ -1329,7 +1329,7 @@ define([
       */
      
       //39_kraeuter
-      page_baumassnahmen.addElement("dropdownInput", "kraeuter", {
+      page_baumassnahmen.addElement("radioButtonInput", "kraeuter", {
         title: "",
         text: "Gibt es auf der Untersuchungsfläche einen biologisch bearbeiteten Kräuter- oder Gemüsegarten?",
         placeholder: "Auswählen",
@@ -1353,7 +1353,7 @@ define([
       */
       
       //40a_glas
-      page_baumassnahmen.addElement("dropdownInput", "a_glas", {
+      page_baumassnahmen.addElement("radioButtonInput", "a_glas", {
         title: "",
         text: "40a: Gibt es an den Gebäuden grosse Glasflächen?",
         placeholder: "Auswählen",
@@ -1378,7 +1378,7 @@ define([
       });
 
       //40b_glasschutz
-      page_baumassnahmen.addElement("dropdownInput", "b_glasschutz", {
+      page_baumassnahmen.addElement("radioButtonInput", "b_glasschutz", {
         text: "40b: Wie werden die Vögel vor diesen Glasscheiben geschützt?",
         placeholder: "Auswählen",
         points: "b_glasschutz_points",
@@ -1390,7 +1390,7 @@ define([
       });
 
       //41a_licht
-      page_baumassnahmen.addElement("dropdownInput", "a_licht", {
+      page_baumassnahmen.addElement("radioButtonInput", "a_licht", {
         text: "41a: Gibt es auf dem Untersuchungsgebiet Lichtquellen, die jeden Tag bis spät in die Nacht leuchten?",
         placeholder: "Auswählen",
         points: "a_licht_points",
@@ -1413,7 +1413,7 @@ define([
       });
 
       //41b_lichtart
-      page_baumassnahmen.addElement("dropdownInput", "b_lichtart", {
+      page_baumassnahmen.addElement("radioButtonInput", "b_lichtart", {
         text: "41: bWie leuchten diesen Lichtquellen?",
         placeholder: "Auswählen",
         points: "b_lichtart_points",
@@ -1424,7 +1424,7 @@ define([
       });
 
       //42_schaechte
-      page_baumassnahmen.addElement("dropdownInput", "schaechte", {
+      page_baumassnahmen.addElement("radioButtonInput", "schaechte", {
         text: "42: Gibt es auf dem Untersuchungsgebiet Wasserschächte oder Lichtschächte, in denen Tiere gefangen bleiben?",
         placeholder: "Auswählen",
         points: "schaechte_points",
@@ -1471,7 +1471,7 @@ define([
         placeholder: "Organisation/Schule",
       });
       page0.addElement("dateTimeInput", "datum", { text: "Datum und Uhrzeit" });
-      page0.addElement("dropdownInput", "dropdownTest", {
+      page0.addElement("radioButtonInput", "dropdownTest", {
         text: "Dropdown",
         placeholder: "Test",
         points: "dropdownTestPoints",

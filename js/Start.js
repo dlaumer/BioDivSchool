@@ -150,7 +150,10 @@ define([
           this.btn_results,
           "click",
           function (evt) {
-            
+            window.open(
+              window. location. href + '/indexResults.html',
+              '_blank' // <- This is what makes it open in a new window.
+            );
         }.bind(this)
       );
     }

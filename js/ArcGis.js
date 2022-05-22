@@ -622,7 +622,7 @@ define([
           
       // TODO: Add Filter for group ID
       let map = new Map({
-        basemap: "topo",
+        basemap: "topo-vector",
       });
       map.add(projectArea);
 
