@@ -7,7 +7,7 @@
 
   <!-- ArcGIS JavaScript API 4.21 stylesheet -->
 
-  <link rel="stylesheet" href="../arcgis_js_v422_api/arcgis_js_api/javascript/4.23/esri/css/main.css">
+  <link rel="stylesheet" href="../arcgis_js_v422_api/arcgis_js_api/javascript/4.22/esri/css/main.css">
   <link rel="stylesheet" href="../claro.css" />
 
   
@@ -30,7 +30,7 @@
         },
         {
         name: "esri",
-        location: "arcgis_js_v422_api/arcgis_js_api/javascript/4.23/esri/"
+        location: "arcgis_js_v422_api/arcgis_js_api/javascript/4.22/esri/"
         }], 
         parseOnLoad: false,
         async: true
@@ -41,9 +41,9 @@
   
   <!-- load app.js -->
   <script>
-  require(["biodivschool/Login"],function(Login){
-    var login = new Login("webapp");
-    login.init(false);    
+  require(["biodivschool/Start",  "dojo/domReady!"],function(Start){
+    var start = new Start();
+    start.init(false);    
   });
   </script>
 

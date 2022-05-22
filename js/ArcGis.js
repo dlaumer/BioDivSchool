@@ -252,9 +252,9 @@ define([
     }
 
     // function to read all rows of the tables
-    readFeatures() {
+    readFeatures(featureClassName) {
       let featureClass = this.table;
-      if (that.mode == "project") {
+      if (featureClassName == "project") {
         featureClass = this.project;
       }
       return new Promise((resolve, reject) => {
@@ -644,6 +644,21 @@ define([
       });
       view.ui.add(basemapToggle, "top-right");
 
+
+      const homeButton = new Home({
+        view: view,
+        
+      });
+      
+      homeButton.goToOverride = function(view) {
+        return view.goTo({
+          center: [8.222167506135465, 46.82443911582187],
+          zoom: 8
+        });
+      };
+
+      view.ui.add(homeButton, "top-left")
+      
       view.when(function() {
         // MapView is now ready for display and can be used. Here we will
         // use goTo to view a particular location at a given zoom level and center
@@ -652,7 +667,7 @@ define([
           zoom: 8
         });
       })
-
+      return view;
     }
   };
 });

@@ -372,20 +372,22 @@ define([
       addFinalButton(args) {
         this.element = domCtr.create("div", { id: this.name, className: "element final"}, this.container);  
         this.label = domCtr.create("div", { className: "labelText labelFinal", innerHTML: args.text}, this.element);      
-        this.final = domCtr.create("div", { id: "btn_final", className: "btn1", innerHTML: "Final" }, this.element);
+        this.final = domCtr.create("div", { id: "btn_final", className: "btn1", innerHTML: "Resultate" }, this.element);
 
         on(this.final, "click", function (evt) {
-          console.log(args.func)
           args.func();
         }.bind(this));
+
+        
       }
 
       setterUINonEdit(container, value) {
 
         container.innerHTML = '';
         if (this.type == "mapInput") {
-          let geometryTemp = that.arcgis.addMap(container, null, null);   
-          geometryTemp.geometry.definitionExpression = "objectid in (" + value.substring(1,value.length-1) + ")";
+          this.editorContainer.style = "display:none";
+          this.input.style = "width:100%";
+          this.geometry.definitionExpression = "objectid in (" + value.substring(1,value.length-1) + ")";
         }
         else {
 

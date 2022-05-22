@@ -33,6 +33,7 @@ define([
         this.content = new Content(that);
         that.content = this.content;
 
+        this.projectSelected = null;
         this.createUI();
         this.clickHandler();
        
@@ -83,34 +84,61 @@ define([
 
       this.mapOverview = domCtr.create("div", {id: "mapOverview", className: "mapOverview"}, this.background);
       
-      that.arcgis.addMapOverview("mapOverview");
-      this.footerTop = domCtr.create("div", { id: "fotterTop", className: "footer", style: "position:relative"}, this.background);
-      this.footerBottom = domCtr.create("div", {id: "fotterTop",  className: "footer"}, this.background);
+      this.mapOverviewProject = domCtr.create("div", {id: "mapOverviewProjects", className: "mapOverviewProjects"}, this.mapOverview);
+      this.mapOverviewMap = domCtr.create("div", {id: "mapOverviewMap", className: "mapOverviewMap"}, this.mapOverview);
 
-      this.footerTopLeft = domCtr.create("div", { className: "footerLeft", innerHTML: "Bestehendes Projekt:"}, this.footerTop);
-      this.footerTopRight = domCtr.create("div", { className: "footerRight", innerHTML: "Neues Projekt:"}, this.footerTop);
+      if (!that.offline) {
+        this.viewOverview = that.arcgis.addMapOverview("mapOverviewMap");
+        that.arcgis.readFeatures("project").then((results) => {
+          console.log(results)
+          for (let i in results) {
+            let item = domCtr.create("div", {className: "projects"}, this.mapOverviewProject);
+            domCtr.create("div", {className: "projectElem",innerHTML: results[i].attributes.projectid, style: "width:15%"}, item);
+            domCtr.create("div", {className: "projectElem", innerHTML: results[i].attributes.name, style: "width:30%"}, item);
+            domCtr.create("div", {className: "projectElem", innerHTML: results[i].attributes.school, style: "width:45%"}, item);
+            item.addEventListener("click", () => {
+              this.viewOverview.goTo(results[i].geometry);
+              this.selectProject(results[i].attributes.projectid, results[i].attributes.name)
+              if (this.projectSelected !== null) {
+                this.projectSelected.className = "projects";
+              }
+              this.projectSelected = item;
+              item.className = "projects projects_active";
+
+            })
+          }
+        })
+      }
+      
+
+      this.footerTop = domCtr.create("div", { id: "footerTop", className: "footer", style: "position:relative"}, this.background);
+      this.footerBottom = domCtr.create("div", {id: "footerBottom",  className: "footer", style: "position:relative"}, this.background);
+
+      this.footerTopLeft = domCtr.create("div", { className: "footerLeft", innerHTML: "Neues Projekt:"}, this.footerTop);
+      this.footerTopRight = domCtr.create("div", { className: "footerRight"}, this.footerTop);
 
       this.footerBottomLeft = domCtr.create("div", { className: "footerLeft"}, this.footerBottom);
-      this.footerBottomRight = domCtr.create("div", { className: "footerRight", style: "width: 50%"}, this.footerBottom);
+      this.footerBottomRight = domCtr.create("div", { className: "footerRight", style: "display: none"}, this.footerBottom);
+      
 
       this.btn_collection = domCtr.create(
         "div",
         { id: "btn_collection", className: "btn1", innerHTML: "Erfassung" , style: "min-width: 10vw;"},
-        this.footerBottomLeft
+        this.footerBottomRight
       );
       this.btn_consolidation = domCtr.create(
         "div",
         { id: "btn_consolidation", className: "btn1", innerHTML: "Konsolidierung" , style: "min-width: 10vw;" },
-        this.footerBottomLeft
+        this.footerBottomRight
       );
       this.btn_results = domCtr.create(
         "div",
         { id: "btn_results", className: "btn1", innerHTML: "Resultate" , style: "min-width: 10vw;" },
-        this.footerBottomLeft
+        this.footerBottomRight
       );
 
 
-      this.footerRight = domCtr.create("div", { className: "footerElements", style: "width: 50%"}, this.footerBottomRight);
+      this.footerRight = domCtr.create("div", { className: "footerElements", style: "width: 50%"}, this.footerBottomLeft);
 
 
 
@@ -121,26 +149,47 @@ define([
       );
     }
 
+    selectProject(projectId, name) {
+      this.footerTopRight.innerHTML = "Ausgewähltes Projekt: " + projectId + ", " + name;
+      this.footerBottomRight.style.display = "flex";
+      this.attributes = "?project=" + projectId;
+    }
+
     // Handle all the interactions
     clickHandler() {
-
+      let this2 = this;
       on(
         this.btn_collection,
         "click",
         function (evt) {
           window.open(
-            window. location. href + '/indexCollection.html',
+            that.offline? window.location.href.split("/").slice(0, -1).join("/") + '/indexCollectionOffline.html': window.location.href.split("/").slice(0, -1).join("/") + '/indexCollection.html' + this.attributes,
             '_blank' // <- This is what makes it open in a new window.
           );
         }.bind(this)
       );
+
+      on(this.mapOverviewProject,
+        'click', function(e) {
+        if (e.target === this) {
+          this2.footerTopRight.innerHTML = "";
+          this2.footerBottomRight.style.display = "none";
+          this2.attributes = "";
+          this2.projectSelected.className = "projects";
+          this2.projectSelected = null;
+          this2.viewOverview.goTo({
+            center: [8.222167506135465, 46.82443911582187],
+            zoom: 8
+          })
+        }
+      });
 
       on(
         this.btn_consolidation,
         "click",
         function (evt) {
           window.open(
-            window. location. href + '/indexConsolidation.html',
+            that.offline? window.location.href.split("/").slice(0, -1).join("/") + '/indexConsolidationOffline.html': window.location.href.split("/").slice(0, -1).join("/") + '/indexConsolidation.html' + this.attributes,
             '_blank' // <- This is what makes it open in a new window.
           );
         }.bind(this)
@@ -151,11 +200,24 @@ define([
           "click",
           function (evt) {
             window.open(
-              window. location. href + '/indexResults.html',
+            that.offline? window.location.href.split("/").slice(0, -1).join("/") + '/indexResultsOffline.html' : window.location.href.split("/").slice(0, -1).join("/") + '/indexResults.html' + this.attributes,
               '_blank' // <- This is what makes it open in a new window.
             );
         }.bind(this)
       );
+
+      on(
+        this.btn_project,
+        "click",
+        function (evt) {
+          window.open(
+            that.offline?  window.location.href.split("/").slice(0, -1).join("/") + '/indexProjectOffline.html': window.location.href.split("/").slice(0, -1).join("/") + '/indexProject.html' + this.attributes,
+            '_blank' // <- This is what makes it open in a new window.
+          );
+      }.bind(this)
+    );
     }
+
+    
   };
 });

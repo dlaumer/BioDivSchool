@@ -34,7 +34,7 @@ define([
         that.content = this.content;
 
         this.createUI();
-        this.clickHandler();
+
         if (this.offline) {
           if (this.mode == "consolidation") {
             that.initConsolidation("1");
@@ -45,8 +45,35 @@ define([
           else {
             that.init("1", "a");
           }
-          
         }
+
+        let urlData = this.getJsonFromUrl();
+
+        if (this.mode == "consolidation") {
+          if ( Object.keys(urlData).indexOf("project")  > -1) {
+            that.initConsolidation(urlData["project"]);
+          }
+        }
+        else if (this.mode == "project") {
+          if ( Object.keys(urlData).indexOf("project")  > -1) {
+            that.initProject(urlData["project"]);
+          }
+        }
+        else {
+          
+          if (Object.keys(urlData).indexOf("group") > -1 && Object.keys(urlData).indexOf("project")  > -1) {
+            that.init(urlData["project"], urlData["group"]);
+          }
+          else {
+            if (Object.keys(urlData).indexOf("project")  > -1) {
+              this.inputProjectId.value = urlData["project"]
+              this.inputGroupId.style.display = "block";
+            }
+            this.clickHandler();
+          }
+        }
+
+
       });
     }
 
@@ -166,5 +193,16 @@ define([
         }.bind(this)
       );
     }
+
+    // Read the current url!
+  getJsonFromUrl() {
+  var query = location.search.substr(1);
+  var result = {};
+  query.split("&").forEach(function (part) {
+      var item = part.split("=");
+      result[item[0]] = decodeURIComponent(item[1]);
+  });
+  return result;
+}
   };
 });

@@ -48,9 +48,13 @@ define([
     }
 
     init(projectId, groupId) {
+
       document.getElementById("btn_login").innerHTML = "Loading...";
       this.projectId = projectId;
       this.groupId = groupId;
+
+      var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?project=' + this.projectId + "&group=" + this.groupId;
+      window.history.pushState({ path: newurl }, '', newurl);
 
       // Add a new element in the database
       let that = this;
@@ -84,8 +88,12 @@ define([
     }
 
     initProject(projectId) {
+
       document.getElementById("btn_login").innerHTML = "Loading...";
       this.projectId = projectId;
+      
+      var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?project=' + this.projectId;
+      window.history.pushState({ path: newurl }, '', newurl);
 
       // Add a new element in the database
       let that = this;
@@ -116,6 +124,9 @@ define([
       this.projectId = projectId;
       this.groupId = "all";
 
+      var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?project=' + this.projectId;
+      window.history.pushState({ path: newurl }, '', newurl);
+      
       let that = this;
 
       if (!this.offline) {
@@ -466,6 +477,9 @@ define([
     finalize() {
       that.saveData(() => {
         that.lastPage.addWarning("The data was saved successfully!");
+        window.open(
+          that.offline? window.location.href.split("/").slice(0, -1).join("/")+ "/" + '/indexResultsOffline.html?project=' + that.projectId + '&group=' + that.groupId: window.location.href.split("/").slice(0, -1).join("/") + "/" + '/indexResults.html?project=' + that.projectId + '&group=' + that.groupId   ,  
+        );
       })
     }
 
