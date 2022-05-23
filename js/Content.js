@@ -130,7 +130,7 @@ define([
       page_regionalitaet.addTextInfo({
         title: "Heimische Wildpflanzen (08, 09)",
         text: `Alle Arten einer Region bilden zusammen ein Nahrungsnetz.
-        [Bild H01_1]
+        <img src="img/Fotos_Hilfestellungen/H08_1_heimische_Blumenstraeucher.jpg" alt="H08_1" width="100%">
         Heimische Pflanzen sind die Grundlage von Nahrungsnetzen. Deshalb sollte es möglichst viele Flächen mit heimischen Wildpflanzen geben.
         `
       })
@@ -149,12 +149,12 @@ define([
         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
         textInfo: {
           linkText: "Zusatzinfos",
-          text: `<div class="textInfoElements"><img src="../img/Fotos_Hilfestellungen/H08_1_heimische_Blumenstraeucher.jpg" alt="H08_1" width="100%">
+          text: `<div class="textInfoElements"><img src="img/Fotos_Hilfestellungen/H08_1_heimische_Blumenstraeucher.jpg" alt="H08_1" width="100%">
           Zu heimischen Wildpflanzen gehören Blumen, Sträucher und Bäume, die natürlich hier wachsen.
           </div>
           <div class="textInfoElements">
           Nicht dazu gehören:
-          <img src="../img/Fotos_Hilfestellungen/H08_2_Sportrasen.jpg" alt="H08_2" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H08_2_Sportrasen.jpg" alt="H08_2" width="100%">
           Sportrasen und Wiesen mit Gras, das immer kürzer ist als 10 cm. Solche Flächen werden nicht zu Flächen mit heimischen Wildpflanzen gezählt.
           </div>
           `,
@@ -186,10 +186,13 @@ define([
         }
       });
 
+      page_regionalitaet.addTextInfo({
+        title: "Schädliche gebietsfremde Pflanzen (invasive Neophyten)  (10, 10a, 10b)",
+      })
+
   
       //10_neophyten
       page_regionalitaet.addElement("radioButtonInput", "neophyten", {
-        title: "Schädliche gebietsfremde Pflanzen (invasive Neophyten)  (10, 10a, 10b)",
         text: "10: Gibt es im Untersuchungsgebiet schädliche gebietsfremde Pflanzen?",
         placeholder: "Auswählen",
         points: "neophyten_points",
@@ -255,11 +258,11 @@ define([
           Überall, wo Gebäude stehen:
 
           Asphalt, Teer
-          <img src="../img/Fotos_Hilfestellungen/H11_1_Asphalt.jpg" alt="H11_1" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H11_1_Asphalt.jpg" alt="H11_1" width="100%">
           </div>
           <div class= textInfoElements>
           Sportbelag
-          <img src="../img/Fotos_Hilfestellungen/H11_2_Sportbelag.jpg" alt="H11_2 width="100%">
+          <img src="img/Fotos_Hilfestellungen/H11_2_Sportbelag.jpg" alt="H11_2 width="100%">
           </div>
           `
         }
@@ -282,23 +285,23 @@ define([
           <div class="textInfoElements">
           Strukturelemente sind einzelne Teile eines Lebensraums wie beispielsweise:
           Bäume
-          <img src="../img/Fotos_Hilfestellungen/H11a_1_Baeume.jpg" alt="H11a_1" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H11a_1_Baeume.jpg" alt="H11a_1" width="100%">
           </div>
           <div class="textInfoElements">
           Sträucher
-          <img src="../img/Fotos_Hilfestellungen/H11a_2_Straeucher.jpg" alt="H11a_2" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H11a_2_Straeucher.jpg" alt="H11a_2" width="100%">
           </div>
           <div class="textInfoElements">
           Blumenwiesen
-          <img src="../img/Fotos_Hilfestellungen/H11a_3_Blumenwiese.jpg" alt="H11a_3" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H11a_3_Blumenwiese.jpg" alt="H11a_3" width="100%">
           </div>
           <div class="textInfoElements">
           Kiesflächen
-          <img src="../img/Fotos_Hilfestellungen/H11a_4_Kiesflaeche.jpg" alt="H11a_4" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H11a_4_Kiesflaeche.jpg" alt="H11a_4" width="100%">
           </div>
           <div class="textInfoElements">     
           Tümpel
-          <img src="../img/Fotos_Hilfestellungen/H11a_5_Tuempel.jpg" alt="H11a_5" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H11a_5_Tuempel.jpg" alt="H11a_5" width="100%">
           </div>
           
           
@@ -308,10 +311,9 @@ define([
 
       }); 
 
-       //TEXTINFO
-      /*
-      Titel: Rasenflächen  (12)   
-      */
+      page_strukturelemente.addTextInfo({
+        title: "Rasenflächen  (12)",
+      })
 
       //12_rasen_geomoid
       page_strukturelemente.addElement("mapInput", "rasen_geomoid", {      
@@ -325,7 +327,7 @@ define([
         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
-          text: `<div class="textInfoElements"><img src="../img/Fotos_Hilfestellungen/H08_2_Sportrasen.jpg" alt="H08_2" width="100%">
+          text: `<div class="textInfoElements"><img src="img/Fotos_Hilfestellungen/H08_2_Sportrasen.jpg" alt="H08_2" width="100%">
            Sportrasen und Wiesen mit Gras, das immer kürzer ist als 10 cm. Solche Rasenflächen sind sehr arm an verschiedenen Lebewesen."
          </div>
            `,
@@ -348,12 +350,12 @@ define([
           text: `
           <div class="textInfoElements">
           Gemüsebeet
-          <img src="../img/Fotos_Hilfestellungen/H13a_1_Gemuesebeet.jpg" alt="H13a_1" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H13a_1_Gemuesebeet.jpg" alt="H13a_1" width="100%">
           </div>
           
           <div class="textInfoElements">
           Beet mit Wildblumen 
-          <img src="../img/Fotos_Hilfestellungen/H13a_2_Gartenbeet.jpg" alt="H13a_2" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H13a_2_Gartenbeet.jpg" alt="H13a_2" width="100%">
           
           </div>        
          `,
@@ -388,17 +390,17 @@ define([
           <div class="textInfoElements">
           Beispiele von Trockenstandorten:
           Kiesflächen, die nicht als Parkplatz genutzt werden
-          <img src="../img/Fotos_Hilfestellungen/H11a_4_Kiesflaeche.jpg" alt="H11a_4" width="100%">  
+          <img src="img/Fotos_Hilfestellungen/H11a_4_Kiesflaeche.jpg" alt="H11a_4" width="100%">  
           </div>
           
           <div class="textInfoElements">
           Sandflächen ohne Sprunggrube für Sport
-          <img src="../img/Fotos_Hilfestellungen/H13b_2_Sandflaeche.jpg" alt="H13b_2" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H13b_2_Sandflaeche.jpg" alt="H13b_2" width="100%">
           </div>
           
           <div class="textInfoElements">
           Flächen mit Geröll
-          <img src="../img/Fotos_Hilfestellungen/H13b_3_Geroell.jpg" alt="H13b_3" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H13b_3_Geroell.jpg" alt="H13b_3" width="100%">
           </div>
           
          `,
@@ -430,7 +432,7 @@ define([
           text: `
           <div class="textInfoElements">
           Blumenwiese
-          <img src="../img/Fotos_Hilfestellungen/H11a_3_Blumenwiese.jpg" alt="H11a_3" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H11a_3_Blumenwiese.jpg" alt="H11a_3" width="100%">
           </div>
           `,
         }
@@ -462,11 +464,11 @@ define([
           text: `
           <div class="textInfoElements">
           Gruppe von heimischen Sträuchern
-          <img src="../img/Fotos_Hilfestellungen/H13d_1_GruppevonStraeuchern.jpg" alt="H13d_1" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H13d_1_GruppevonStraeuchern.jpg" alt="H13d_1" width="100%">
           </div>
           <div class="textInfoElements">
           Hecke mit heimischen Sträuchern
-          <img src="../img/Fotos_Hilfestellungen/H13d_2_Hecke.jpg" alt="H13d_2" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H13d_2_Hecke.jpg" alt="H13d_2" width="100%">
           </div>
           `,
         }
@@ -498,7 +500,7 @@ define([
           text: `
           <div class="textInfoElements">
           Heimische Bäume in deutlich unterschiedlichen Höhen
-          <img src="../img/Fotos_Hilfestellungen/H11a_1_Baeume.jpg" alt="H11a_1" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H11a_1_Baeume.jpg" alt="H11a_1" width="100%">
           </div>
           `,
         }
@@ -532,11 +534,11 @@ define([
           text: `
           <div class="textInfoElements">
           Tümpel
-          <img src="../img/Fotos_Hilfestellungen/H11a_5_Tuempel.jpg" alt="H11a_5" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H11a_5_Tuempel.jpg" alt="H11a_5" width="100%">
           </div>
           <div class="textInfoElements">
           Kleines Bächlein
-          <img src="../img/Fotos_Hilfestellungen/H13f_2_kleinesBaechlein.jpg" alt="H13f_2" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H13f_2_kleinesBaechlein.jpg" alt="H13f_2" width="100%">
           </div>
           `,
           }
@@ -557,11 +559,11 @@ define([
         ],
       });
 
-      //TEXTINFO
-      /*
-      Titel: Baumschicht (14) 
-      */
-
+   
+      page_strukturelemente.addTextInfo({
+        title: "Baumschicht (14)", 
+      })
+    
       //14_baeume
       page_strukturelemente.addElement("radioButtonInput", "baeume", {      
         text: "14: Gibt es auf der Untersuchungsfläche Bäume?",
@@ -582,24 +584,23 @@ define([
           text: `
           <div class="textInfoElements">
           Es zählen nur Bäume, die höher sind als drei erwachsene Menschen, die einander auf den Schultern stehen:
+          <br>
+          <br>[Bild H14_1] Bild fehlt!<br>
           Hoher Baum
-          [Bild H14_1] Bild fehlt!
-          
           Hohe Bäume bieten Nahrung und Unterschlupf für eine Vielzahl von Lebewesen.
           </div>
           <div class="textInfoElements">
-          Heimische Bäume in deutlich unterschiedlichen Höhen
-          <img src="../img/Fotos_Hilfestellungen/H11a_1_Baeume.jpg" alt="H11a_1" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H11a_1_Baeume.jpg" alt="H11a_1" width="100%">
           heimische Bäume in deutlich unterschiedlichen Höhen
           </div>
           `,
           }       
       });
 
-      //TEXTINFO
-      /*
-      Titel: Sträucher ohne Hecken (15) 
-      */   
+      page_strukturelemente.addTextInfo({
+        title: "Sträucher ohne Hecken (15)", 
+      })
+      
 
       //15_straeucher
       page_strukturelemente.addElement("radioButtonInput", "straeucher", {
@@ -621,17 +622,17 @@ define([
           <div class="textInfoElements">
           Vögel bauen ihre Nester gerne in Gruppierungen von heimischen Sträuchern. Auch kleine Säugetiere wie Mäuse, Schläfer oder Wiesel finden in Strauchgruppen Versteck und Nahrung.
           Gruppe von heimischen Sträuchern
-          <img src="../img/Fotos_Hilfestellungen/H13d_1_GruppevonStraeuchern.jpg" alt="H13d_1" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H13d_1_GruppevonStraeuchern.jpg" alt="H13d_1" width="100%">
           
           </div>
           `,
           }
       });
 
-      //TEXTINFO
-      /*
-      Titel: Hecken (16) 
-      */ 
+     
+      page_strukturelemente.addTextInfo({
+        title: "Hecken (16)", 
+      })       
 
       //16_hecken
       page_strukturelemente.addElement("radioButtonInput", "hecken", {
@@ -659,22 +660,21 @@ define([
           <div class="textInfoElements">
           Hecke mit heimischen Sträuchern bieten Tieren nicht nur ein Versteck, sondern auch Nahrung: Necktar und Pollen für Insekten, Früchte für Vögel und kleine Säugetiere.
           Im Unterschied dazu bieten Hecken aus gebietsfremden Pflanzen kaum Nahrung.
-          <img src="../img/Fotos_Hilfestellungen/H13d_2_Hecke.jpg" alt="H13d_2" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H13d_2_Hecke.jpg" alt="H13d_2" width="100%">
           
           </div>
           <div class="textInfoElements">
           Hecke aus Kirschlorbeer, ein schädlicher gebietsfremder Strauch
-          <img src="../img/Fotos_Hilfestellungen/H16_1_Kirschlorbeer.jpg" alt="H16_1" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H16_1_Kirschlorbeer.jpg" alt="H16_1" width="100%">
           
           </div>
           `,
           }
       });
 
-       //TEXTINFO
-      /*
-      Titel: Vielfalt an einem Ort (17) 
-      */ 
+      page_strukturelemente.addTextInfo({
+        title: "Vielfalt an einem Ort (17)", 
+      })  
 
       //17_vielfalt
       page_strukturelemente.addElement("radioButtonInput", "vielfalt", {
@@ -705,7 +705,7 @@ define([
             </div>
             <div class="textInfoElements">
             Sträucher zusammen mit Bäumen
-            <img src="../img/Fotos_Hilfestellungen/H17_3_StrauchschichtBaumschicht.jpg" alt="H17_3" width="100%">
+            <img src="img/Fotos_Hilfestellungen/H17_3_StrauchschichtBaumschicht.jpg" alt="H17_3" width="100%">
             
             </div>
             <div class="textInfoElements">
@@ -716,10 +716,10 @@ define([
           }
       });
 
-      //TEXTINFO
-      /*
-      Titel: Ruderalflächen (18) 
-      */ 
+    
+      page_strukturelemente.addTextInfo({
+        title: "Ruderalflächen (18)", 
+      }) 
 
       //18_ruderal
       page_strukturelemente.addElement("radioButtonInput", "ruderal", {
@@ -739,21 +739,21 @@ define([
           text: `
           Ruderalflächen sind offene Bodenflächen auf denen keine Pflanzen angepflanzt wurden. 
           Beispiele von Ruderalflächen:
-          <img src="../img/Fotos_Hilfestellungen/H13b_3_Geroell.jpg" alt="H13b_3" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H13b_3_Geroell.jpg" alt="H13b_3" width="100%">
           Flächen mit Geröll
           <br>[Bild H13b_1] Bild fehlt!<br>
           Kiesflächen, die nicht als Parkplatz genutzt werden
-          <img src="../img/Fotos_Hilfestellungen/H13b_2_Sandflaeche.jpg" alt="H13b_2" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H13b_2_Sandflaeche.jpg" alt="H13b_2" width="100%">
           Sandflächen ohne Sprunggrube für Sport
           Ruderalflächen bieten ein Zuhause für ganz spezielle Pflanzen und Tiere.
           `,
           }*/ 
       });
 
-      //TEXTINFO
-      /*
-      Titel: Trockenmauern, Steinhaufen (19) 
-      */ 
+       
+      page_strukturelemente.addTextInfo({
+        title: "Trockenmauern, Steinhaufen (19)", 
+      }) 
 
       //19_mauern
       page_strukturelemente.addElement("radioButtonInput", "mauern", {
@@ -771,18 +771,18 @@ define([
           linkText: "Zusatzinfos",
           text: `
           Trockenmauern und Steinhaufen bieten ein sicheres Versteck für Frösche, Kröten, Eidechsen und Schlangen aber auch für Wiesel, Schläfer und Mausarten. Viele dieser Tiere überwitntern auch in Trockenmauern oder Steinhaufen.
-          <img src="../img/Fotos_Hilfestellungen/H19_1_Steinhaufen.jpg" alt="H19_1" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H19_1_Steinhaufen.jpg" alt="H19_1" width="100%">
           Steinhaufen
-          <img src="../img/Fotos_Hilfestellungen/H19_2_Trockenmauer.jpg" alt="H19_2" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H19_2_Trockenmauer.jpg" alt="H19_2" width="100%">
           Trockenmauer
           `,
           }*/ 
       });
 
-       //TEXTINFO
-      /*
-      Titel: Asthaufen, Totholz (20) 
-      */ 
+     
+      page_strukturelemente.addTextInfo({
+        title: "Asthaufen, Totholz (20)", 
+      }) 
 
       //20_totholz
       page_strukturelemente.addElement("radioButtonInput", "totholz", {
@@ -800,19 +800,18 @@ define([
           linkText: "Zusatzinfos",
           text: `
           Asthaufen bieten ein Versteck für Igel, Mäuse aber auch für Blindschleichen sowie Kröten, Frösche und Molche.
-          <img src="../img/Fotos_Hilfestellungen/H20_1_Asthaufen.jpg" alt="H20_1" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H20_1_Asthaufen.jpg" alt="H20_1" width="100%">
           Asthaufen<br>
           Totholz und abgestorbene Bäume sind der Lebensraum für zahlreiche Insekten, Pilze und Moose.
-          <img src="../img/Fotos_Hilfestellungen/H20_2_Totholz.jpg" alt="H20_2" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H20_2_Totholz.jpg" alt="H20_2" width="100%">
           Totholz
           `,
           }*/ 
       });
 
-      //TEXTINFO
-      /*
-      Titel: Künstliche Nisthilfen (21, 22, 23) 
-      */ 
+      page_strukturelemente.addTextInfo({
+        title: "Künstliche Nisthilfen (21, 22, 23)", 
+      }) 
 
       //21_insekten
       page_strukturelemente.addElement("radioButtonInput", "insekten", {
@@ -830,9 +829,9 @@ define([
           text: `
           Insekten spielen eine ganz wichtige Rolle in Nahrungsnetzen:
           Insekten sind wichtig für die Bestäubung von vielen Pflanzen. Insekten sind auch Nahrung für viele Tiere.
-          <img src="../img/Fotos_Hilfestellungen/H21_1_Insektenhotel.jpg" alt="H21_1" width="100%">[Bild ]
+          <img src="img/Fotos_Hilfestellungen/H21_1_Insektenhotel.jpg" alt="H21_1" width="100%">[Bild ]
           Insektenhotel
-          <img src="../img/Fotos_Hilfestellungen/H22_1_NistkastenHoehlenbrueter.jpg" alt="H21_2" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H22_1_NistkastenHoehlenbrueter.jpg" alt="H21_2" width="100%">
           Lebensturm
           `,
           }*/ 
@@ -855,7 +854,7 @@ define([
           Viele Vögel finden keine guten Möglichkeiten, um ihr Nest zu bauen. Nistkästen können hier Abhilfe schaffen:
           <br>[Bild H22_1] Bild fehlt! <br>
           Nistkasten für Höhlenbrüter
-          <img src="../img/Fotos_Hilfestellungen/H22_2_NisthilfeSchwalben.jpg" alt="H22_2" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H22_2_NisthilfeSchwalben.jpg" alt="H22_2" width="100%">
           Nisthilfe für Mehlschwalben
           `,
           }*/ 
@@ -876,7 +875,7 @@ define([
           linkText: "Zusatzinfos",
           text: `
           Kleine Säugetiere wie Igel, Fledermäuse, Siebenschläfer und Mausarten brauchen Verstecke. Auch brauchen diese Tiere Plätze, wo sie ihre Jungen zur Welt bringen können.
-          <img src="../img/Fotos_Hilfestellungen/H23_1_Fledermauskasten.jpg" alt="H08_2" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H23_1_Fledermauskasten.jpg" alt="H08_2" width="100%">
           Fledermauskasten
           <br>[Bild H23_2] Bild fehlt! <br>
           Schlafplatz für Igel
@@ -886,10 +885,10 @@ define([
           }*/ 
       });
      
-      //TEXTINFO
-      /*
-      Titel: Gewässer und Feuchtflächen (24, 25, 26) 
-      */ 
+  
+      page_strukturelemente.addTextInfo({
+        title: "Gewässer und Feuchtflächen (24, 25, 26)", 
+      }) 
 
       //24_feuchtfl
       page_strukturelemente.addElement("radioButtonInput", "feuchtfl", {
@@ -906,9 +905,9 @@ define([
           linkText: "Zusatzinfos",
           text: `
           Feuchte Flächen bieten spezialisierten Tieren und Pflanzen ein Zuhause:
-          <img src="../img/Fotos_Hilfestellungen/H24_1_Sumpfstreifen.jpg" alt="H24_1" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H24_1_Sumpfstreifen.jpg" alt="H24_1" width="100%">
           Sumpfstreifen
-          <img src="../img/Fotos_Hilfestellungen/H24_2_Moorwiese.jpg" alt="H24_2" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H24_2_Moorwiese.jpg" alt="H24_2" width="100%">
           Moorwiese
           `,
           }*/ 
@@ -931,7 +930,7 @@ define([
           text: `
           Zahlreiche Lebewesen sind auf das Leben in Wasser spezialisiert.
           Bestimmte Insekten und Amphibien brauchen beispielsweise zur Fortpflanzung stehende Gewässer.
-          <img src="../img/Fotos_Hilfestellungen/H11a_5_Tuempel.jpg" alt="H11a_5" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H11a_5_Tuempel.jpg" alt="H11a_5" width="100%">
           Tümpel
           `,
           }*/ 
@@ -957,10 +956,10 @@ define([
           }*/ 
       });
 
-       //TEXTINFO
-      /*
-      Titel: Umgebung (27) 
-      */ 
+     
+      page_strukturelemente.addTextInfo({
+        title: "Umgebung (27)", 
+      }) 
 
       //27_umgebung
       page_strukturelemente.addElement("radioButtonInput", "umgebung", {
@@ -985,10 +984,10 @@ define([
       /*Pflege*/
       let page_pflege = this.app.addPage("Pflege");
 
-      //TEXTINFO
-      /*
-      Titel: Mähen von Rasen und Wiesen OHNE Sportrasen (28, 29, 29a, 29b) 
-      */ 
+  
+      page_pflege.addTextInfo({
+        title: "Mähen von Rasen und Wiesen OHNE Sportrasen (28, 29, 29a, 29b)", 
+      }) 
 
       //28_geraet
       page_pflege.addElement("radioButtonInput", "geraet", {
@@ -1003,15 +1002,15 @@ define([
           /*textInfo: {
           linkText: "Zusatzinfos",
           text: `
-          <img src="../img/Fotos_Hilfestellungen/H28_1_Rasentraktor.jpg" alt="H28_1" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H28_1_Rasentraktor.jpg" alt="H28_1" width="100%">
           Rasentraktor, Ride-on Mäher
-          <img src="../img/Fotos_Hilfestellungen/H28_2_Rasenmaeher.jpg" alt="H28_2" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H28_2_Rasenmaeher.jpg" alt="H28_2" width="100%">
           Rasenmäher
-          <img src="../img/Fotos_Hilfestellungen/H28_3_Fadenmaeher.jpg" alt="H28_3" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H28_3_Fadenmaeher.jpg" alt="H28_3" width="100%">
           Fadenmäher, Motorsense
-          <img src="../img/Fotos_Hilfestellungen/H28_4_Sense.jpg" alt="H28_4" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H28_4_Sense.jpg" alt="H28_4" width="100%">
           Sense
-          <img src="../img/Fotos_Hilfestellungen/H28_5_Balkenmaeher.jpg" alt="H28_5" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H28_5_Balkenmaeher.jpg" alt="H28_5" width="100%">
           Balkenmäher
           `,
           }*/ 
@@ -1088,11 +1087,10 @@ define([
           "Ein Teil der Grasfläche wird jedes Jahr gar nicht geschnitten. Das kann jedes Jahr ein anderer Teil sein." ], 
         elements: [elem29a, elem29b]
       }]
-      
-      //TEXTINFO
-      /*
-      Titel: Schädlingsregulierung (30, 31) 
-      */ 
+    
+      page_pflege.addTextInfo({
+        title: "Schädlingsregulierung (30, 31)", 
+      }) 
       
       //30_pestizide
       page_pflege.addElement("sliderInput", "pestizide", {
@@ -1137,10 +1135,11 @@ define([
       //ökologische Schädlingsbekämpfung auf der gesamten unbebauten Fläche >75%	0
       //points: "bekaempfung_points",
 
-      //TEXTINFO
-      /*
-      Titel: Unkrautregulierung (32) 
-      */
+
+      page_pflege.addTextInfo({
+        title: "Unkrautregulierung (32)", 
+      }) 
+      
 
       //32_unkraut
       page_pflege.addElement("radioButtonInput", "unkraut", {
@@ -1168,10 +1167,11 @@ define([
           }*/
       });
 
-       //TEXTINFO
-      /*
-      Titel: Düngen (33) 
-      */
+    
+      page_pflege.addTextInfo({
+        title: "Düngen (33)", 
+      }) 
+      
 
       //33_duengen
       page_pflege.addElement("radioButtonInput", "duengen", {
@@ -1194,10 +1194,10 @@ define([
           }*/
       });
 
-      //TEXTINFO
-      /*
-      Titel: Düngemittel (34) 
-      */
+      page_pflege.addTextInfo({
+        title: "Düngemittel (34)", 
+      }) 
+      
 
       //34_mitteln
       page_pflege.addElement("radioButtonInput", "mitteln", {
@@ -1220,11 +1220,10 @@ define([
           }*/
       });
 
-      //TEXTINFO
-      /*
-      Titel: Laub (35) 
-      */
-
+      page_pflege.addTextInfo({
+        title: "Laub (35)", 
+      }) 
+      
       //35_laub
       page_pflege.addElement("radioButtonInput", "laub", {
         text: "35: Was passiert im Herbst mit dem Laub?",
@@ -1248,10 +1247,10 @@ define([
         
       });
 
-       //TEXTINFO
-      /*
-      Titel: Alte Samenstände (36) 
-      */
+ 
+      page_pflege.addTextInfo({
+        title: "Alte Samenstände (36)", 
+      }) 
 
       //36_samen
       page_pflege.addElement("radioButtonInput", "samen", {
@@ -1277,10 +1276,9 @@ define([
       /*Bauliche Massnahmen*/
        let page_baumassnahmen = this.app.addPage("Bauliche Massnahmen");
 
-      //TEXTINFO
-      /*
-      Titel: Begrünung von Dach oder Fassaden (37, 38) 
-      */
+      page_baumassnahmen.addTextInfo({
+        title: "Begrünung von Dach oder Fassaden (37, 38)", 
+      }) 
 
       //37_fldacher
       page_baumassnahmen.addElement("radioButtonInput", "fldacher", {
@@ -1297,7 +1295,7 @@ define([
           linkText: "Zusatzinfos",
           text: `
           Flachdächer können ebenfalls eine Vieflat kleiner Lebensräume bieten: Niedrige Kräuter und Blumen können dort wachsen. Zahlreiche Krabbeltiere können in Kies- und Sandflächen oder kleinen Haufen von Totholz leben.
-          <img src="../img/Fotos_Hilfestellungen/H37_1_Flachdach.jpg" alt="H37_1" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H37_1_Flachdach.jpg" alt="H37_1" width="100%">
           Begrüntes Flachdach mit Totholz
           `,
           }*/
@@ -1318,15 +1316,14 @@ define([
           linkText: "Zusatzinfos",
           text: `
           Begrünte Fassaden bieten Lebensraum für Krabbeltiere und Vögel. Begrünte Fassaden schützen auch vor Kälte und Hitze.
-          <img src="../img/Fotos_Hilfestellungen/H38 1 alte Samenstaende.jpg" alt="H38_1" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H38 1 alte Samenstaende.jpg" alt="H38_1" width="100%">
           `,
           }*/
       });
 
-       //TEXTINFO
-      /*
-      Titel: Kräuter- oder Gemüsegarten (39) 
-      */
+      page_baumassnahmen.addTextInfo({
+        title: "Kräuter- oder Gemüsegarten (39)", 
+      }) 
      
       //39_kraeuter
       page_baumassnahmen.addElement("radioButtonInput", "kraeuter", {
@@ -1347,10 +1344,9 @@ define([
           }*/
       });
 
-       //TEXTINFO
-      /*
-      Titel: Fallen für Tiere (40a, 40b, 41a, 41b, 42) 
-      */
+      page_baumassnahmen.addTextInfo({
+        title: "Fallen für Tiere (40a, 40b, 41a, 41b, 42)", 
+      }) 
       
       //40a_glas
       page_baumassnahmen.addElement("radioButtonInput", "a_glas", {
@@ -1368,10 +1364,10 @@ define([
           text: `
           Grosse Glasflächen können tödlich für Vögel sein. 
           Aufgeklebte Umrisse von Vögel schützen leider nur wenig.
-          <img src="../img/Fotos_Hilfestellungen/H40_1_Greifvogel_Umrisse.jpg" alt="H40_1" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H40_1_Greifvogel_Umrisse.jpg" alt="H40_1" width="100%">
           unwirksame Greifvogel-Umrisse<br>
           Wirksamer hingegen sind Streifenmuster:
-          <img src="../img/Fotos_Hilfestellungen/H40_2_Vogelschutzstreifen.jpg" alt="H40_2" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H40_2_Vogelschutzstreifen.jpg" alt="H40_2" width="100%">
           Glasfläche mit aufgeklebten Vogelschutzstreifen
            `,
           }*/
@@ -1437,7 +1433,7 @@ define([
           linkText: "Zusatzinfos",
           text: `
           Wasserschächte und Lichtschächte können Fallen für Amphibien und andere Kleintiere sein. Denn diese Tiere kommen kaum selbständig wieder aus solchen Schächten heraus.
-          <img src="../img/Fotos_Hilfestellungen/H42_1_AbdeckungenGitter.jpg" alt="H42_1" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H42_1_AbdeckungenGitter.jpg" alt="H42_1" width="100%">
           Abdeckungen mit feinmaschigem Gitter verhindern, dass Kleintiere in Lichtschächte fallen.
           <br>[Bild H42_2] Bild fehlt! <br>
           Ausstiegshilfen ermöglichen runtergefallenen
