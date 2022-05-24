@@ -636,7 +636,7 @@ define([
 
       //16_hecken
       page_strukturelemente.addElement("radioButtonInput", "hecken", {
-        text: "16: Gibt es auf der Untersuchungsfläche Gruppen aus mindestens 5 Sträuchern?",
+        text: "16: Gibt es auf der Untersuchungsfläche Hecken?",
         placeholder: "Auswählen",
         points: "hecken_points",
         options: [
@@ -695,23 +695,20 @@ define([
           Kommen unterschiedliche Elemente wie Bäume, Sträucher sowie Kräuter, Gräser und Blumen alle an der gleichen Stelle vor, so finden auch mehr Lebewesen
           einen Lebensraum mit Nahrung und Versteck. Deshalb ist es wichtig, dass Bäume, Sträucher und Kräuter an manchen Stellen zusammen vorkommen:
           Kräuter, Gräser und Blumen unter Bäumen
-            <br>[Bild H17_1] Bild fehlt!<br>
-            
-            </div>
-            <div class="textInfoElements">
-            Krautsaum unter Sträuchern
-            <br>[Bild H17_2] Bild fehlt!<br>
-            
-            </div>
-            <div class="textInfoElements">
-            Sträucher zusammen mit Bäumen
-            <img src="img/Fotos_Hilfestellungen/H17_3_StrauchschichtBaumschicht.jpg" alt="H17_3" width="100%">
-            
-            </div>
-            <div class="textInfoElements">
-            alle drei Elemente (Bäume, Sträucher und heimische Kräuter, Blumen oder Gräser) an derselben Stelle
-            <br> [Bild H17_4] Bild fehlt!<br>
-            </div>
+          <br>[Bild H17_1] Bild fehlt!<br>
+          </div>
+          <div class="textInfoElements">
+          Krautsaum unter Sträuchern
+          <br>[Bild H17_2] Bild fehlt!<br>
+          </div>
+          <div class="textInfoElements">
+          Sträucher zusammen mit Bäumen
+          <img src="img/Fotos_Hilfestellungen/H17_3_StrauchschichtBaumschicht.jpg" alt="H17_3" width="100%"> 
+          </div>
+          <div class="textInfoElements">
+          alle drei Elemente (Bäume, Sträucher und heimische Kräuter, Blumen oder Gräser) an derselben Stelle
+          <br> [Bild H17_4] Bild fehlt!<br>
+          </div>
           `,
           }
       });
@@ -734,20 +731,27 @@ define([
           { key: "4", points: 3, label: "Ruderalfläche ist insgesamt grösser als vier Autoparkplätze." },
         ],
          //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          /*textInfo: {
+          textInfo: {
           linkText: "Zusatzinfos",
           text: `
-          Ruderalflächen sind offene Bodenflächen auf denen keine Pflanzen angepflanzt wurden. 
+          <div class="textInfoElements">
+          Ruderalflächen sind offene Bodenflächen auf denen keine Pflanzen angepflanzt wurden.
           Beispiele von Ruderalflächen:
-          <img src="img/Fotos_Hilfestellungen/H13b_3_Geroell.jpg" alt="H13b_3" width="100%">
+          </div>
+          <div class="textInfoElements">
           Flächen mit Geröll
-          <br>[Bild H13b_1] Bild fehlt!<br>
-          Kiesflächen, die nicht als Parkplatz genutzt werden
+          <img src="img/Fotos_Hilfestellungen/H13b_3_Geroell.jpg" alt="H13b_3" width="100%">
+          </div>
+          <div class="textInfoElements"> 
+          Kiesflächen, die nicht als Parkplatz genutzt werden    
+          <br>[Bild H13b_1] Bild fehlt!<br>          
+          <div class="textInfoElements">
+          Sandflächen ohne Sprunggrube für Sport          
           <img src="img/Fotos_Hilfestellungen/H13b_2_Sandflaeche.jpg" alt="H13b_2" width="100%">
-          Sandflächen ohne Sprunggrube für Sport
           Ruderalflächen bieten ein Zuhause für ganz spezielle Pflanzen und Tiere.
+          </div>
           `,
-          }*/ 
+          } 
       });
 
        
@@ -767,16 +771,20 @@ define([
           { key: "3", points: 4, label: "Mehr als 2 Trockenmauern oder Steinhaufen vorhanden." },
         ],
          //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          /*textInfo: {
+          textInfo: {
           linkText: "Zusatzinfos",
           text: `
+          <div class="textInfoElements">
           Trockenmauern und Steinhaufen bieten ein sicheres Versteck für Frösche, Kröten, Eidechsen und Schlangen aber auch für Wiesel, Schläfer und Mausarten. Viele dieser Tiere überwitntern auch in Trockenmauern oder Steinhaufen.
-          <img src="img/Fotos_Hilfestellungen/H19_1_Steinhaufen.jpg" alt="H19_1" width="100%">
+          </div>
           Steinhaufen
-          <img src="img/Fotos_Hilfestellungen/H19_2_Trockenmauer.jpg" alt="H19_2" width="100%">
+          <img src="img/Fotos_Hilfestellungen/H19_1_Steinhaufen.jpg" alt="H19_1" width="100%">
+          <div class="textInfoElements">
           Trockenmauer
+          <img src="img/Fotos_Hilfestellungen/H19_2_Trockenmauer.jpg" alt="H19_2" width="100%">
+          </div>
           `,
-          }*/ 
+          } 
       });
 
      
@@ -796,17 +804,20 @@ define([
           { key: "3", points: 4, label: "Mehr als 2 Asthaufen, abgestorbene Bäume oder Totholzelemente vorhanden." },
         ],
          //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          /*textInfo: {
+          textInfo: {
           linkText: "Zusatzinfos",
           text: `
-          Asthaufen bieten ein Versteck für Igel, Mäuse aber auch für Blindschleichen sowie Kröten, Frösche und Molche.
+          <div class="textInfoElements">
+          Asthaufen bieten ein Versteck für Igel, Mäuse aber auch für Blindschleichen sowie Kröten, Frösche und Molche.          
           <img src="img/Fotos_Hilfestellungen/H20_1_Asthaufen.jpg" alt="H20_1" width="100%">
           Asthaufen<br>
+          <div class="textInfoElements">
           Totholz und abgestorbene Bäume sind der Lebensraum für zahlreiche Insekten, Pilze und Moose.
           <img src="img/Fotos_Hilfestellungen/H20_2_Totholz.jpg" alt="H20_2" width="100%">
-          Totholz
+          Totholz          
+          </div>
           `,
-          }*/ 
+          }
       });
 
       page_strukturelemente.addTextInfo({
@@ -824,17 +835,23 @@ define([
           { key: "2", points: 2, label: "Mehr als 3 künstliche Nisthilfen für Insekten vorhanden." },
         ],
           //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          /*textInfo: {
+          textInfo: {
           linkText: "Zusatzinfos",
           text: `
+          <div class="textInfoElements">
           Insekten spielen eine ganz wichtige Rolle in Nahrungsnetzen:
           Insekten sind wichtig für die Bestäubung von vielen Pflanzen. Insekten sind auch Nahrung für viele Tiere.
+          </div>
+          <div class="textInfoElements">
           <img src="img/Fotos_Hilfestellungen/H21_1_Insektenhotel.jpg" alt="H21_1" width="100%">[Bild ]
           Insektenhotel
+          </div>
+          <div class="textInfoElements">
           <img src="img/Fotos_Hilfestellungen/H22_1_NistkastenHoehlenbrueter.jpg" alt="H21_2" width="100%">
           Lebensturm
+          </div>
           `,
-          }*/ 
+          }
       });
   
       //22_voegel
@@ -848,16 +865,23 @@ define([
           { key: "2", points: 2, label: "Mehr als 3 künstliche Nisthilfen für Vögel vorhanden." },
         ],
           //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          /*textInfo: {
+          textInfo: {
           linkText: "Zusatzinfos",
           text: `
+          <div class="textInfoElements">
           Viele Vögel finden keine guten Möglichkeiten, um ihr Nest zu bauen. Nistkästen können hier Abhilfe schaffen:
-          <br>[Bild H22_1] Bild fehlt! <br>
+          </div>
+          <div class="textInfoElements">
+          <br>[Bild H22_1] Bild fehlt!
+          <br>
           Nistkasten für Höhlenbrüter
+          </div>
+          <div class="textInfoElements">
           <img src="img/Fotos_Hilfestellungen/H22_2_NisthilfeSchwalben.jpg" alt="H22_2" width="100%">
           Nisthilfe für Mehlschwalben
+          </div>
           `,
-          }*/ 
+          }
       });
 
       //23_saeuger
@@ -871,18 +895,26 @@ define([
           { key: "2", points: 2, label: "Mehr als 3 künstliche Nisthilfen für kleine Säugetiere vorhanden." },
         ],
            //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          /*textInfo: {
+          textInfo: {
           linkText: "Zusatzinfos",
           text: `
+          <div class="textInfoElements">
           Kleine Säugetiere wie Igel, Fledermäuse, Siebenschläfer und Mausarten brauchen Verstecke. Auch brauchen diese Tiere Plätze, wo sie ihre Jungen zur Welt bringen können.
+          </div>
+          <div class="textInfoElements">
           <img src="img/Fotos_Hilfestellungen/H23_1_Fledermauskasten.jpg" alt="H08_2" width="100%">
           Fledermauskasten
+          </div>
+          <div class="textInfoElements">
           <br>[Bild H23_2] Bild fehlt! <br>
           Schlafplatz für Igel
+          </div>
+          <div class="textInfoElements">
           <br>[Bild H23_3] Bild fehlt! <br>
           Versteck für Siebenschläfer
+          </div>
           `,
-          }*/ 
+          }
       });
      
   
@@ -901,16 +933,22 @@ define([
           { key: "2",points: 4, label: "Feuchtflächen insgesamt grösser als ein Autoparkplatz." },
         ],
           //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          /*textInfo: {
+          textInfo: {
           linkText: "Zusatzinfos",
           text: `
+          <div class="textInfoElements">
           Feuchte Flächen bieten spezialisierten Tieren und Pflanzen ein Zuhause:
+          </div>
+          <div class="textInfoElements">
           <img src="img/Fotos_Hilfestellungen/H24_1_Sumpfstreifen.jpg" alt="H24_1" width="100%">
           Sumpfstreifen
+          </div>
+          <div class="textInfoElements">
           <img src="img/Fotos_Hilfestellungen/H24_2_Moorwiese.jpg" alt="H24_2" width="100%">
           Moorwiese
+          </div>
           `,
-          }*/ 
+          }
       });
 
       //25_stehgew
@@ -925,15 +963,19 @@ define([
           { key: "4", points: 4, label: "Fläche mit stehenden Gewässern  insgesamt grösser als 2 Autoparkplätze." },
         ],
           //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          /*textInfo: {
+          textInfo: {
           linkText: "Zusatzinfos",
           text: `
+          <div class="textInfoElements">
           Zahlreiche Lebewesen sind auf das Leben in Wasser spezialisiert.
           Bestimmte Insekten und Amphibien brauchen beispielsweise zur Fortpflanzung stehende Gewässer.
+          </div>
+          <div class="textInfoElements">
           <img src="img/Fotos_Hilfestellungen/H11a_5_Tuempel.jpg" alt="H11a_5" width="100%">
           Tümpel
+          </div>
           `,
-          }*/ 
+          }
       });
 
       //26_fliessgew
@@ -946,14 +988,18 @@ define([
           { key: "1" ,points: 6, label: "Ein oder mehrere Fliessgewässer von insgesamt mehr als 3 Meter Länge vorhanden." },
         ],
           //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          /*textInfo: {
+          textInfo: {
           linkText: "Zusatzinfos",
           text: `
+          <div class="textInfoElements">
           Zahlreiche fliegende Insekten verbringen einen Teil ihrer Entwicklung in fliessenden Gewässer.
+          </div>
+          <div class="textInfoElements">
           <br>[Bild H26_1] Bild fehlt! <br>
           kleines Bächlein
+          </div>
           `,
-          }*/ 
+          }
       });
 
      
@@ -972,13 +1018,15 @@ define([
           { key: "2",points: 4, label: "Die Untersuchungsfläche ist zu weniger als einem Viertel umgeben von intensiver Landwirtschaft oder überbautem Gebiet." },
         ],
          //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          /*textInfo: {
+          textInfo: {
           linkText: "Zusatzinfos",
           text: `
+          <div class="textInfoElements">
           Chemische Mittel der intensiven Landwirtschaft töten nicht nur so genannte Schädlinge, sondern auch sehr viele andere Lebewesen. Düngemittel sorgen zudem dafür, dass nur einige wenige Pflanzen sehr stark wachsen. Alle diese Mittel gelangen über die Luft und das Wasser auch in die Umgebung.
           Zahlreiche Lebewesen können in überbauten Gebieten nicht überleben.
+          </div>
           `,
-          }*/ 
+          }
       });
 
       /*Pflege*/
@@ -991,7 +1039,7 @@ define([
 
       //28_geraet
       page_pflege.addElement("radioButtonInput", "geraet", {
-        text: "Markiere, mit welchen Geräten der grössere Teil der Grasfläche (ohne Sportrasen) geschnitten wird.?",
+        text: "28: Markiere, mit welchen Geräten der grössere Teil der Grasfläche (ohne Sportrasen) geschnitten wird.?",
         placeholder: "Auswählen",
         points: "geraet_points",
         options: [
@@ -999,26 +1047,36 @@ define([
           { key: "1", points: 3, label: "Sense oder Balkenmäher." },
         ],
          //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          /*textInfo: {
+          textInfo: {
           linkText: "Zusatzinfos",
           text: `
+          <div class="textInfoElements">
           <img src="img/Fotos_Hilfestellungen/H28_1_Rasentraktor.jpg" alt="H28_1" width="100%">
           Rasentraktor, Ride-on Mäher
+          </div>
+          <div class="textInfoElements">
           <img src="img/Fotos_Hilfestellungen/H28_2_Rasenmaeher.jpg" alt="H28_2" width="100%">
           Rasenmäher
+          </div>
+          <div class="textInfoElements">
           <img src="img/Fotos_Hilfestellungen/H28_3_Fadenmaeher.jpg" alt="H28_3" width="100%">
           Fadenmäher, Motorsense
+          </div>
+          <div class="textInfoElements">
           <img src="img/Fotos_Hilfestellungen/H28_4_Sense.jpg" alt="H28_4" width="100%">
           Sense
+          </div>
+          <div class="textInfoElements">
           <img src="img/Fotos_Hilfestellungen/H28_5_Balkenmaeher.jpg" alt="H28_5" width="100%">
           Balkenmäher
+          </div>
           `,
-          }*/ 
+          }
       });
 
       //29_maehen // Achtung Mehrfachauswahl!
       let elem29 = page_pflege.addElement("radioButtonInput", "maehen", {
-        text: "Markiere alle Aussagen, die auf Mähen von Gras zutreffen:",
+        text: "29: Markiere alle Aussagen, die auf Mähen von Gras zutreffen:",
         placeholder: "Auswählen",
         points: "maehen_points",
         options: [
@@ -1028,12 +1086,14 @@ define([
           { key: "3", points: 1, label: "Ein Teil der Grasfläche wird jedes Jahr gar nicht geschnitten. Das kann jedes Jahr ein anderer Teil sein." },
         ],
           //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          /*textInfo: {
+          textInfo: {
           linkText: "Zusatzinfos",
           text: `
+          <div class="textInfoElements">
           Je weniger das Gras gemäht wird, desto besser können sich Pflanzen durch Samen fortpflanzen. Häufiges Mähen stört oder tötet zahlreiche Kleintiere wie Insekten und kleine Säugetiere.
+          </div>
           `,
-          }*/ 
+          }
       });
 
       //"[Falls bei Frage 29 eine oder beide der Optionen “Gras wird zwischen April und Oktober … ge-schnitten» angekreuzt wurde, dann direkt weiter mit Frage 30.
@@ -1052,9 +1112,14 @@ define([
         ],
         textInfo: {
           linkText: "Karte zur Bestimmung der landwirtschaftlichen Zone",
-          text: `Link oder iFrame?<br>
+          text: `Legende<br>
+          <div class="textInfoElements">
+          <img src="https://api.geo.admin.ch/static/images/legends/ch.blw.landwirtschaftliche-zonengrenzen_de.png" alt="legend" width="100%">
+          </div>
+          <div class="textInfoElements">
           <iframe src='https://map.geo.admin.ch/embed.html?topic=blw&lang=de&bgLayer=ch.swisstopo.pixelkarte-farbe&catalogNodes=887,947&layers=ch.kantone.cadastralwebmap-farbe,ch.swisstopo.swissboundaries3d-gemeinde-flaeche.fill,ch.swisstopo.swissboundaries3d-kanton-flaeche.fill,ch.blw.landwirtschaftliche-zonengrenzen&layers_opacity=0.15,1,1,0.75&layers_visibility=false,false,false,true&E=2759000.00&N=1222000.00&zoom=1' width='100%' height='250' frameborder='0' style='border:0' allow='geolocation'></iframe>
-           <br>tbd`,
+          </div>
+          `,
       }
       });
 
@@ -1071,9 +1136,14 @@ define([
         ],
         textInfo: {
           linkText: "Karte zur Bestimmung der landwirtschaftlichen Zone",
-          text: `Link oder iFrame?<br>
+          text: `Legende<br>
+          <div class="textInfoElements">
+          <img src="https://api.geo.admin.ch/static/images/legends/ch.blw.landwirtschaftliche-zonengrenzen_de.png" alt="legend" width="100%">
+          </div>
+          <div class="textInfoElements">
           <iframe src='https://map.geo.admin.ch/embed.html?topic=blw&lang=de&bgLayer=ch.swisstopo.pixelkarte-farbe&catalogNodes=887,947&layers=ch.kantone.cadastralwebmap-farbe,ch.swisstopo.swissboundaries3d-gemeinde-flaeche.fill,ch.swisstopo.swissboundaries3d-kanton-flaeche.fill,ch.blw.landwirtschaftliche-zonengrenzen&layers_opacity=0.15,1,1,0.75&layers_visibility=false,false,false,true&E=2759000.00&N=1222000.00&zoom=1' width='100%' height='250' frameborder='0' style='border:0' allow='geolocation'></iframe>
-           <br>tbd`,
+          </div>
+          `,
       }
       });
 
@@ -1101,12 +1171,14 @@ define([
         stops: [{points: "2", value: 5},{points:"1", value:66},{points:"0", value:100}],
         points: "pestizide_points",
          //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          /*textInfo: {
+          textInfo: {
           linkText: "Zusatzinfos",
           text: `
+          <div class="textInfoElements">
           Chemische Pestizide sind Mittel, die oft nicht nur so genannte Schädlinge töten, sondern oft auch zahlreiche harmlose oder sogar nützliche Lebewesen. Oft bleiben Pestizide lange im Boden. Auch gelangen Pestizide mit Regenwasser in Gewässer.
+          </div>
           `,
-          }*/
+          }
       });
       //Chemische Pestizide werden kaum eingesetzt. <5%	2
       //5.1-66%	1
@@ -1122,12 +1194,14 @@ define([
         stops: [{points:"2",value:5},{points:"1", value:75},{points:"0",value:100}],
         points: "bekaempfung_points",
          //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          /*textInfo: {
+          textInfo: {
           linkText: "Zusatzinfos",
           text: `
+          <div class="textInfoElements">
           Ökologische Mittel bestehen aus Stoffen, die ähnlich so auch in der Natur vorkommen. Andere ökologische Mittel bekämpfen Schädlinge durch natürliche Gegenspieler. Beispielsweise gibt es Schlupfwespen, die gefrässige Raupen abtöten.
+          </div>
           `,
-          }*/
+          }
       });
       //kaum ökologische Schädlingsbekämpfung <5%	3
       //5.1-50%	2
@@ -1153,18 +1227,22 @@ define([
           { key: "3", points: 4, label: "Handarbeit." },
         ],
          //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          /*textInfo: {
+          textInfo: {
           linkText: "Zusatzinfos",
           text: `
+          <div class="textInfoElements">
           Unerwünschte Pflanzen lassen sich ganz unterschiedlich bekämpfen:
           Chemische Herbizide schaden oft auch erwünschten Pflanzen. Solche Herbizide bleiben manchmal lange im Boden. Auch gelangen Herbizide mit Regenwasser in Gewässer.
-          Abflammen und Hitze erzeugende Geräte schaden oft auch Lebewesen in den oberen Bodenschichten . 
+          Abflammen und Hitze erzeugende Geräte schaden oft auch Lebewesen in den oberen Bodenschichten.
+          </div>
           <br>[Bild H32_1] Bild fehlt!<br>
           Abflammen
+          </div>
           <br>[Bild H32_2] Bild fehlt! <br>
           Hitze erzeugende Geräte
+          </div>
           `,
-          }*/
+          }
       });
 
     
