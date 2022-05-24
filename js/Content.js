@@ -120,7 +120,7 @@ define([
 
 
 
-      // Christian: Weitere Elemente hinzufuegen
+      
 
       this.app.addStartPage("BioDivSchool");
       /*Regionalität der Pflanzen*/
@@ -302,9 +302,7 @@ define([
           <div class="textInfoElements">     
           Tümpel
           <img src="img/Fotos_Hilfestellungen/H11a_5_Tuempel.jpg" alt="H11a_5" width="100%">
-          </div>
-          
-          
+          </div>        
           Verschiedene Strukturelemente bieten verschiedenen Lebewesen Lebensraum und Nahrung. Je mehr verschiedene Strukturelemente, desto mehr verschiedene Arten gibt es auf einer Fläche."
           `,
         }
@@ -327,9 +325,11 @@ define([
         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
-          text: `<div class="textInfoElements"><img src="img/Fotos_Hilfestellungen/H08_2_Sportrasen.jpg" alt="H08_2" width="100%">
-           Sportrasen und Wiesen mit Gras, das immer kürzer ist als 10 cm. Solche Rasenflächen sind sehr arm an verschiedenen Lebewesen."
-         </div>
+          text: `
+          <div class="textInfoElements">
+          <img src="img/Fotos_Hilfestellungen/H08_2_Sportrasen.jpg" alt="H08_2" width="100%">
+          Sportrasen und Wiesen mit Gras, das immer kürzer ist als 10 cm. Solche Rasenflächen sind sehr arm an verschiedenen Lebewesen."
+          </div>
            `,
         }
 
@@ -565,18 +565,15 @@ define([
       })
     
       //14_baeume
-      page_strukturelemente.addElement("radioButtonInput", "baeume", {      
+      let elem14 = page_strukturelemente.addElement("radioButtonInput", "baeume", {      
         text: "14: Gibt es auf der Untersuchungsfläche Bäume?",
         placeholder: "Auswählen",
         points: "baeume_points",
         options: [
           { key: "0", points: 0, label: "Keine Bäume vorhanden, die höher als 4 - 5 Meter sind." },
-          { key: "1", points: 1, label: "Keine Bäume vorhanden, die höher als 4 - 5 Meter sind." },
-          { key: "2", points: 2, label: "Nur 1 Baum vorhanden oder alle Bäume etwa gleich hoch." },
-          { key: "3", points: 3, label: "Bäume in deutlich unterschiedlichen Höhen vorhanden und mit insgesamt mindestens 3 verschiedene heimische Baumarten vorhanden, aber ohne mindestens zwei der Bäume mit einen Umfang von mehr als 2 Meter." },
-          { key: "4", points: 4, label: "Bäume in deutlich unterschiedlichen Höhen vorhanden und mit insgesamt mindestens 3 verschiedene heimische Baumarten vorhanden und mit mindestens zwei der Bäume mit einen Umfang von mehr als 2 Meter." },
-          { key: "5", points: 2, label: "Bäume in deutlich unterschiedlichen Höhen vorhanden und ohne insgesamt mindestens 3 verschiedene heimische Baumarten vorhanden und ohne mindestens zwei der Bäume mit einen Umfang von mehr als 2 Meter." },
-          { key: "6", points: 3, label: "Bäume in deutlich unterschiedlichen Höhen vorhanden und ohne insgesamt mindestens 3 verschiedene heimische Baumarten vorhanden, aber mit mindestens zwei der Bäume mit einen Umfang von mehr als 2 Meter." },          
+          { key: "1", points: 1, label: "Nur 1 Baum vorhanden oder alle Bäume etwa gleich hoch." },
+          { key: "2", points: 2, label: "Bäume in deutlich unterschiedlichen Höhen vorhanden." },
+          { key: "3", points: 3, label: "Bäume in drei deutlich unterschiedlichen Höhen vorhanden." },
         ],
         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
@@ -597,13 +594,48 @@ define([
           }       
       });
 
+      //[Falls bei 14 eine der beiden Optionen mit mehr als einem Baum angekreuzt wird, dann Fragen 14a und 14b einblenden:] gelöst durch mehrere Schnittmengen
+
+      //14a_baeume
+      let elem14a = page_strukturelemente.addElement("radioButtonInput", "14a_baeume", {
+        text: "14a: Sind insgesamt mindestens 3 verschiedene heimische Baumarten vorhanden?",
+        placeholder: "Auswählen",
+        points: "a_baeume_points",
+        options: [
+          { key: "0", points: 1, label: "Ja" },
+          { key: "1", points: 0, label: "Nein" },
+        ],
+      });
+
+       //14b_baeume
+       let elem14b = page_strukturelemente.addElement("radioButtonInput", "14b_baeume", {
+        text: "14b: Haben mindestens zwei der Bäume einen Umfang von mehr als 2 Metern?",
+        placeholder: "Auswählen",
+        points: "b_baeume_points",
+        options: [
+          { key: "0", points: 2, label: "Ja" },
+          { key: "1", points: 0, label: "Nein" },
+        ],
+      });
+
+      // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
+      elem14a.element.style.display = "none";
+      elem14b.element.style.display = "none";
+      // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
+      elem14.rules = [{
+        values: [
+          "Bäume in deutlich unterschiedlichen Höhen vorhanden.",
+          "Bäume in drei deutlich unterschiedlichen Höhen vorhanden." ], 
+        elements: [elem14a, elem14b]
+      }]
+
+
       page_strukturelemente.addTextInfo({
         title: "Sträucher ohne Hecken (15)", 
       })
       
-
       //15_straeucher
-      page_strukturelemente.addElement("radioButtonInput", "straeucher", {
+      let elem15 = page_strukturelemente.addElement("radioButtonInput", "straeucher", {
         text: "15: Gibt es auf der Untersuchungsfläche Gruppen aus mindestens 5 Sträuchern?",
         placeholder: "Auswählen",
         points: "straeucher_points",
@@ -611,9 +643,7 @@ define([
           { key: "0", points: 0, label: "Keine Sträucher oder nur vereinzelte Sträucher vorhanden." },
           { key: "1", points: 0, label: "Überwiegend nicht-heimische Sträucher vorhanden. " },
           { key: "2", points: 1, label: "1-3 Gruppen aus mindestens 5 Sträuchern vorhanden. Die meisten dieser Sträucher sind heimisch." },
-          { key: "3", points: 3, label: "1-3 Gruppen aus mindestens 5 Sträuchern vorhanden. Die meisten dieser Sträucher sind heimisch. Insgesamt mehr als 5 verschiedene heimische Straucharten." },
-          { key: "4", points: 3, label: "Mehr als 3 Gruppen aus mindestens 5 Sträuchern vorhanden. Die meisten dieser Sträucher sind heimisch." },
-          { key: "5", points: 5, label: "Mehr als 3 Gruppen aus mindestens 5 Sträuchern vorhanden. Die meisten dieser Sträucher sind heimisch. Insgesamt mehr als 5 verschiedene heimische Straucharten." },
+          { key: "3", points: 3, label: "Mehr als 3 Gruppen aus mindestens 5 Sträuchern vorhanden. Die meisten dieser Sträucher sind heimisch." },
         ],
            //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
@@ -629,13 +659,37 @@ define([
           }
       });
 
+      //[Falls bei 15 eine der beiden Optionen mit Gruppen von Sträuchern angekreuzt wird, dann Fragen 15a einblenden:]
+
+       //15a_straeucher
+       let elem15a = page_strukturelemente.addElement("radioButtonInput", "15a_straeucher", {
+        text: "15a: Insgesamt mehr als 5 verschiedene heimische Straucharten.",
+        placeholder: "Auswählen",
+        points: "15a_straeucher_points",
+        options: [
+          { key: "0", points: 2, label: "Ja" },
+          { key: "1", points: 0, label: "Nein" },
+        ],
+      });
+
+      // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
+      elem15a.element.style.display = "none";
+      // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
+      elem15.rules = [{
+        values: [
+          "1-3 Gruppen aus mindestens 5 Sträuchern vorhanden. Die meisten dieser Sträucher sind heimisch.",
+          "Mehr als 3 Gruppen aus mindestens 5 Sträuchern vorhanden. Die meisten dieser Sträucher sind heimisch." ], 
+        elements: [elem15a]
+      }]
+
+
      
       page_strukturelemente.addTextInfo({
         title: "Hecken (16)", 
       })       
 
       //16_hecken
-      page_strukturelemente.addElement("radioButtonInput", "hecken", {
+      let elem16 = page_strukturelemente.addElement("radioButtonInput", "hecken", {
         text: "16: Gibt es auf der Untersuchungsfläche Hecken?",
         placeholder: "Auswählen",
         points: "hecken_points",
@@ -643,16 +697,8 @@ define([
           { key: "0", points: 0, label: "Keine Hecke vorhanden." },
           { key: "1", points: 0, label: "Hecken vorhanden. Die Hecken bestehen aber überwiegend aus nicht-heimische Sträuchern." },
           { key: "2", points: 1, label: "Eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch." },
-          { key: "3", points: 1, label: "Eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch. In der Hecke sind nicht insgesamt mehr als 5 verschiedene heimische Straucharten vorhanden. Keine Hecke ist mindestens 2 Meter breit und 10 Meter lang." },
-          { key: "4", points: 2, label: "Eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch. In der Hecke sind insgesamt mehr als 5 verschiedene heimische Straucharten vorhanden. Keine Hecke ist mindestens 2 Meter breit und 10 Meter lang." },
-          { key: "5", points: 2, label: "Eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch. In der Hecke sind nicht insgesamt mehr als 5 verschiedene heimische Straucharten vorhanden. Eine Hecke ist mindestens 2 Meter breit und 10 Meter lang." },
-          { key: "6", points: 3, label: "Eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch. In der Hecke sind  insgesamt mehr als 5 verschiedene heimische Straucharten vorhanden. Eine Hecke ist mindestens 2 Meter breit und 10 Meter lang." },
-          { key: "7", points: 3, label: "Mehr als eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch." },
-          { key: "8", points: 3, label: "Mehr als eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch. In der Hecke sind nicht insgesamt mehr als 5 verschiedene heimische Straucharten vorhanden. Keine Hecke ist mindestens 2 Meter breit und 10 Meter lang." },
-          { key: "9", points: 4, label: "Mehr als eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch. In der Hecke sind insgesamt mehr als 5 verschiedene heimische Straucharten vorhanden. Keine Hecke ist mindestens 2 Meter breit und 10 Meter lang." },
-          { key: "11", points: 4, label: "Mehr als eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch. In der Hecke sind nicht insgesamt mehr als 5 verschiedene heimische Straucharten vorhanden. Eine Hecke ist mindestens 2 Meter breit und 10 Meter lang." },
-          { key: "11", points: 5, label: "Mehr als eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch. In der Hecke sind  insgesamt mehr als 5 verschiedene heimische Straucharten vorhanden. Eine Hecke ist mindestens 2 Meter breit und 10 Meter lang." },
-        ],
+            { key: "7", points: 3, label: "Mehr als eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch." },
+       ],
            //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
@@ -661,16 +707,38 @@ define([
           Hecke mit heimischen Sträuchern bieten Tieren nicht nur ein Versteck, sondern auch Nahrung: Necktar und Pollen für Insekten, Früchte für Vögel und kleine Säugetiere.
           Im Unterschied dazu bieten Hecken aus gebietsfremden Pflanzen kaum Nahrung.
           <img src="img/Fotos_Hilfestellungen/H13d_2_Hecke.jpg" alt="H13d_2" width="100%">
-          
           </div>
           <div class="textInfoElements">
           Hecke aus Kirschlorbeer, ein schädlicher gebietsfremder Strauch
-          <img src="img/Fotos_Hilfestellungen/H16_1_Kirschlorbeer.jpg" alt="H16_1" width="100%">
-          
+          <img src="img/Fotos_Hilfestellungen/H16_1_Kirschlorbeer.jpg" alt="H16_1" width="100%">          
           </div>
           `,
           }
       });
+
+      //[Falls bei 16 eine der beiden Optionen mit Hecken mit heimischen Sträuchern angekreuzt wird, dann Fragen 16a einblenden:]
+      //16a_hecken
+      let elem16a = page_strukturelemente.addElement("radioButtonInput", "16a_hecken", {
+        text: "16a: Heckendetails",
+        placeholder: "Auswählen",
+        points: "16a_hecken_points",
+        options: [
+          { key: "0", points: 2, label: "In der Hecke sind nicht insgesamt mehr als 5 verschiedene heimische Straucharten vorhanden." },
+          { key: "1", points: 1, label: "Eine Hecke ist mindestens 2 Meter breit und 10 Meter lang." },
+        ],
+      });
+
+      // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
+      elem16a.element.style.display = "none";
+      // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
+      elem16.rules = [{
+        values: [
+          "Eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch.",
+          "Mehr als eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch."
+        ], 
+        elements: [elem16a]
+      }]
+
 
       page_strukturelemente.addTextInfo({
         title: "Vielfalt an einem Ort (17)", 
@@ -744,7 +812,8 @@ define([
           </div>
           <div class="textInfoElements"> 
           Kiesflächen, die nicht als Parkplatz genutzt werden    
-          <br>[Bild H13b_1] Bild fehlt!<br>          
+          <br>[Bild H13b_1] Bild fehlt!<br>
+          </div>        
           <div class="textInfoElements">
           Sandflächen ohne Sprunggrube für Sport          
           <img src="img/Fotos_Hilfestellungen/H13b_2_Sandflaeche.jpg" alt="H13b_2" width="100%">
@@ -808,13 +877,15 @@ define([
           linkText: "Zusatzinfos",
           text: `
           <div class="textInfoElements">
-          Asthaufen bieten ein Versteck für Igel, Mäuse aber auch für Blindschleichen sowie Kröten, Frösche und Molche.          
+          
+          Asthaufen         
           <img src="img/Fotos_Hilfestellungen/H20_1_Asthaufen.jpg" alt="H20_1" width="100%">
-          Asthaufen<br>
-          <div class="textInfoElements">
-          Totholz und abgestorbene Bäume sind der Lebensraum für zahlreiche Insekten, Pilze und Moose.
+          Asthaufen bieten ein Versteck für Igel, Mäuse aber auch für Blindschleichen sowie Kröten, Frösche und Molche.
+          <br>
+          <div class="textInfoElements">          
+          Totholz
           <img src="img/Fotos_Hilfestellungen/H20_2_Totholz.jpg" alt="H20_2" width="100%">
-          Totholz          
+          Totholz und abgestorbene Bäume sind der Lebensraum für zahlreiche Insekten, Pilze und Moose.                    
           </div>
           `,
           }
@@ -843,12 +914,14 @@ define([
           Insekten sind wichtig für die Bestäubung von vielen Pflanzen. Insekten sind auch Nahrung für viele Tiere.
           </div>
           <div class="textInfoElements">
-          <img src="img/Fotos_Hilfestellungen/H21_1_Insektenhotel.jpg" alt="H21_1" width="100%">[Bild ]
           Insektenhotel
+          <img src="img/Fotos_Hilfestellungen/H21_1_Insektenhotel.jpg" alt="H21_1" width="100%">[Bild ]
+          
           </div>
           <div class="textInfoElements">
-          <img src="img/Fotos_Hilfestellungen/H22_1_NistkastenHoehlenbrueter.jpg" alt="H21_2" width="100%">
           Lebensturm
+          <img src="img/Fotos_Hilfestellungen/H22_1_NistkastenHoehlenbrueter.jpg" alt="H21_2" width="100%">
+          
           </div>
           `,
           }
@@ -872,13 +945,14 @@ define([
           Viele Vögel finden keine guten Möglichkeiten, um ihr Nest zu bauen. Nistkästen können hier Abhilfe schaffen:
           </div>
           <div class="textInfoElements">
-          <br>[Bild H22_1] Bild fehlt!
-          <br>
           Nistkasten für Höhlenbrüter
+          <br>[Bild H22_1] Bild fehlt!<br>
+         
           </div>
           <div class="textInfoElements">
-          <img src="img/Fotos_Hilfestellungen/H22_2_NisthilfeSchwalben.jpg" alt="H22_2" width="100%">
           Nisthilfe für Mehlschwalben
+          <img src="img/Fotos_Hilfestellungen/H22_2_NisthilfeSchwalben.jpg" alt="H22_2" width="100%">
+          
           </div>
           `,
           }
@@ -902,16 +976,19 @@ define([
           Kleine Säugetiere wie Igel, Fledermäuse, Siebenschläfer und Mausarten brauchen Verstecke. Auch brauchen diese Tiere Plätze, wo sie ihre Jungen zur Welt bringen können.
           </div>
           <div class="textInfoElements">
-          <img src="img/Fotos_Hilfestellungen/H23_1_Fledermauskasten.jpg" alt="H08_2" width="100%">
           Fledermauskasten
+          <img src="img/Fotos_Hilfestellungen/H23_1_Fledermauskasten.jpg" alt="H08_2" width="100%">
+          
           </div>
           <div class="textInfoElements">
-          <br>[Bild H23_2] Bild fehlt! <br>
           Schlafplatz für Igel
+          <br>[Bild H23_2] Bild fehlt! <br>
+          
           </div>
           <div class="textInfoElements">
-          <br>[Bild H23_3] Bild fehlt! <br>
           Versteck für Siebenschläfer
+          <br>[Bild H23_3] Bild fehlt! <br>
+          
           </div>
           `,
           }
@@ -940,12 +1017,14 @@ define([
           Feuchte Flächen bieten spezialisierten Tieren und Pflanzen ein Zuhause:
           </div>
           <div class="textInfoElements">
-          <img src="img/Fotos_Hilfestellungen/H24_1_Sumpfstreifen.jpg" alt="H24_1" width="100%">
           Sumpfstreifen
+          <img src="img/Fotos_Hilfestellungen/H24_1_Sumpfstreifen.jpg" alt="H24_1" width="100%">
+          
           </div>
           <div class="textInfoElements">
-          <img src="img/Fotos_Hilfestellungen/H24_2_Moorwiese.jpg" alt="H24_2" width="100%">
           Moorwiese
+          <img src="img/Fotos_Hilfestellungen/H24_2_Moorwiese.jpg" alt="H24_2" width="100%">
+          
           </div>
           `,
           }
@@ -971,8 +1050,9 @@ define([
           Bestimmte Insekten und Amphibien brauchen beispielsweise zur Fortpflanzung stehende Gewässer.
           </div>
           <div class="textInfoElements">
-          <img src="img/Fotos_Hilfestellungen/H11a_5_Tuempel.jpg" alt="H11a_5" width="100%">
           Tümpel
+          <img src="img/Fotos_Hilfestellungen/H11a_5_Tuempel.jpg" alt="H11a_5" width="100%">
+          
           </div>
           `,
           }
@@ -995,8 +1075,9 @@ define([
           Zahlreiche fliegende Insekten verbringen einen Teil ihrer Entwicklung in fliessenden Gewässer.
           </div>
           <div class="textInfoElements">
-          <br>[Bild H26_1] Bild fehlt! <br>
           kleines Bächlein
+          <br>[Bild H26_1] Bild fehlt! <br>
+          
           </div>
           `,
           }
@@ -1051,24 +1132,29 @@ define([
           linkText: "Zusatzinfos",
           text: `
           <div class="textInfoElements">
-          <img src="img/Fotos_Hilfestellungen/H28_1_Rasentraktor.jpg" alt="H28_1" width="100%">
           Rasentraktor, Ride-on Mäher
+          <img src="img/Fotos_Hilfestellungen/H28_1_Rasentraktor.jpg" alt="H28_1" width="100%">
+          
           </div>
           <div class="textInfoElements">
-          <img src="img/Fotos_Hilfestellungen/H28_2_Rasenmaeher.jpg" alt="H28_2" width="100%">
           Rasenmäher
+          <img src="img/Fotos_Hilfestellungen/H28_2_Rasenmaeher.jpg" alt="H28_2" width="100%">
+          
           </div>
           <div class="textInfoElements">
-          <img src="img/Fotos_Hilfestellungen/H28_3_Fadenmaeher.jpg" alt="H28_3" width="100%">
           Fadenmäher, Motorsense
+          <img src="img/Fotos_Hilfestellungen/H28_3_Fadenmaeher.jpg" alt="H28_3" width="100%">
+          
           </div>
           <div class="textInfoElements">
-          <img src="img/Fotos_Hilfestellungen/H28_4_Sense.jpg" alt="H28_4" width="100%">
           Sense
+          <img src="img/Fotos_Hilfestellungen/H28_4_Sense.jpg" alt="H28_4" width="100%">
+          
           </div>
           <div class="textInfoElements">
-          <img src="img/Fotos_Hilfestellungen/H28_5_Balkenmaeher.jpg" alt="H28_5" width="100%">
           Balkenmäher
+          <img src="img/Fotos_Hilfestellungen/H28_5_Balkenmaeher.jpg" alt="H28_5" width="100%">
+          
           </div>
           `,
           }
@@ -1235,11 +1321,13 @@ define([
           Chemische Herbizide schaden oft auch erwünschten Pflanzen. Solche Herbizide bleiben manchmal lange im Boden. Auch gelangen Herbizide mit Regenwasser in Gewässer.
           Abflammen und Hitze erzeugende Geräte schaden oft auch Lebewesen in den oberen Bodenschichten.
           </div>
-          <br>[Bild H32_1] Bild fehlt!<br>
+          <div class="textInfoElements">
           Abflammen
+          <br>[Bild H32_1] Bild fehlt!<br>
           </div>
-          <br>[Bild H32_2] Bild fehlt! <br>
+          <div class="textInfoElements">
           Hitze erzeugende Geräte
+          <br>[Bild H32_2] Bild fehlt! <br>
           </div>
           `,
           }
@@ -1264,12 +1352,14 @@ define([
           { key: "4",points: 4, label: "Es wird nicht gedüngt, weder Rasen noch Wiesen." },
         ],
           //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          /*textInfo: {
+          textInfo: {
           linkText: "Zusatzinfos",
           text: `
+          <div class="textInfoElements">
           In Böden mit wenig Nährstoffen ist die Artenvielfalt erstaunlicher Weise viel höher als in nährstoffreichen Böden. Düngemittel sind nichts Anderes als Nährstoffe für Pflanzen. Deshalb fördern Düngemittel oft das Wachstum von nur einigen wenigen Pflanzenarten.
+          </div>
           `,
-          }*/
+          }
       });
 
       page_pflege.addTextInfo({
@@ -1290,12 +1380,14 @@ define([
           { key: "4", points: 0, label: "Kein Dünger." },
         ],
            //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          /*textInfo: {
+          textInfo: {
           linkText: "Zusatzinfos",
           text: `
+          <div class="textInfoElements">
           Mineralische Düngemittel helfen zwar den Pflanzen, vernachlässigen aber Bodenlebewesen. Auch kann Mineraldünger zu einem chemischen Ungleichgewicht von Nährstoffen im Boden führen. Überschüssiger Mineraldünger wird zudem mit dem Regenwasser in Gewässer geschwemmt. In Gewässer kann Mineraldünger zu übermässigem Algenwachstum führen.
+          </div>
           `,
-          }*/
+          }
       });
 
       page_pflege.addTextInfo({
@@ -1313,15 +1405,19 @@ define([
           { key: "2", points: 2, label: "Es werden bewusst zahlreiche Laubhaufen erstellt." },
         ],
           //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          /*textInfo: {
+          textInfo: {
           linkText: "Zusatzinfos",
           text: `
+          <div class="textInfoElements">
           Laub ist Nahrung für zahlreiche kleine Krabbeltiere aber auch für Pflanzen. Laub spielt deshalb eine wichtige Rolle im Kreislauf der Natur.
           Laubhaufen bieten zudem vielen Tieren Lebensraum, Versteck und Schutz vor Kälte. Tiere wie Igel, Blindschleichen, Frösche, kleine Mausarten usw. überwintern gerne in Laubhaufen.
+          </div>
+          <div class="textInfoElements">
+          Laubhaufen
           <br>[Bild H35_1] Bild fehlt! <br>
-          Laubhaufen"
+          </div>
           `,
-          }*/
+          }
         
       });
 
@@ -1341,14 +1437,19 @@ define([
           { key: "2", points: 2, label: "Die meisten Samenstände werden bewusst belassen." },
         ],
         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          /*textInfo: {
+          textInfo: {
           linkText: "Zusatzinfos",
           text: `
+          <div class="textInfoElements">
           Alte Samenstände können Vögel als Nahrung dienen. Weiter nutzen viele nützlichen Insekten alte Pflanzenstengel zum Überwintern. Viele Insekten legen auch ihre Eier in alte Pflanzenstengel ab.
-          <br>[Bild H36_1] Bild fehlt! <br>
+          </div>
+          <div class="textInfoElements">
           alte Samenstände
+          <br>[Bild H36_1] Bild fehlt! <br>
+          
+          </div>
           `,
-          }*/
+          }
       });
 
       /*Bauliche Massnahmen*/
@@ -1369,14 +1470,19 @@ define([
           { key: "2", points: 2, label: "Mehr als die Hälfte der Flachdächer ist begrünt und enthält auch Sandflächen und Totholz." },
         ],
           //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          /*textInfo: {
+          textInfo: {
           linkText: "Zusatzinfos",
           text: `
+          <div class="textInfoElements">
           Flachdächer können ebenfalls eine Vieflat kleiner Lebensräume bieten: Niedrige Kräuter und Blumen können dort wachsen. Zahlreiche Krabbeltiere können in Kies- und Sandflächen oder kleinen Haufen von Totholz leben.
-          <img src="img/Fotos_Hilfestellungen/H37_1_Flachdach.jpg" alt="H37_1" width="100%">
+          </div>
+          <div class="textInfoElements">
           Begrüntes Flachdach mit Totholz
+          <img src="img/Fotos_Hilfestellungen/H37_1_Flachdach.jpg" alt="H37_1" width="100%">
+          
+          </div>
           `,
-          }*/
+          }
       });
 
     
@@ -1390,13 +1496,15 @@ define([
           { key: "1", points: 1, label: "Fassaden von einer Fläche von insgesamt mindestens zwei Autoparkplätzen ist begrünt." },
         ],
         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          /*textInfo: {
+          textInfo: {
           linkText: "Zusatzinfos",
           text: `
+          <div class="textInfoElements">
           Begrünte Fassaden bieten Lebensraum für Krabbeltiere und Vögel. Begrünte Fassaden schützen auch vor Kälte und Hitze.
           <img src="img/Fotos_Hilfestellungen/H38 1 alte Samenstaende.jpg" alt="H38_1" width="100%">
+          </div>
           `,
-          }*/
+          }
       });
 
       page_baumassnahmen.addTextInfo({
@@ -1414,12 +1522,14 @@ define([
           { key: "1",points: 1, label: "Ja" },
         ],
           //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          /*textInfo: {
+          textInfo: {
           linkText: "Zusatzinfos",
           text: `
+          <div class="textInfoElements">
           Ein Kräuter- oder Gemüsegarten sorgt nur dann für mehr Artenvielfalt, wenn er biologisch bearbeitet wird. Bei Einsatz von chemischen Pestiziden, Herbiziden und Mineraldünger schadet dies der Artenvielfalt hingegen.
+          </div>
           `,
-          }*/
+          }
       });
 
       page_baumassnahmen.addTextInfo({
@@ -1427,7 +1537,7 @@ define([
       }) 
       
       //40a_glas
-      page_baumassnahmen.addElement("radioButtonInput", "a_glas", {
+      let elem40a = page_baumassnahmen.addElement("radioButtonInput", "a_glas", {
         title: "",
         text: "40a: Gibt es an den Gebäuden grosse Glasflächen?",
         placeholder: "Auswählen",
@@ -1437,22 +1547,28 @@ define([
           { key: "1",points: 0, label: "Ja" },
         ],
          //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          /*textInfo: {
+          textInfo: {
           linkText: "Zusatzinfos",
           text: `
+          <div class="textInfoElements">
           Grosse Glasflächen können tödlich für Vögel sein. 
           Aufgeklebte Umrisse von Vögel schützen leider nur wenig.
           <img src="img/Fotos_Hilfestellungen/H40_1_Greifvogel_Umrisse.jpg" alt="H40_1" width="100%">
           unwirksame Greifvogel-Umrisse<br>
+          </div>
+          <div class="textInfoElements">
           Wirksamer hingegen sind Streifenmuster:
           <img src="img/Fotos_Hilfestellungen/H40_2_Vogelschutzstreifen.jpg" alt="H40_2" width="100%">
           Glasfläche mit aufgeklebten Vogelschutzstreifen
+          </div>
            `,
-          }*/
+          }
       });
 
+      //Item 40b sollte nur eingeblendet werden, wenn zuvor Item 40a mit Ja beantwortet wurde.
+
       //40b_glasschutz
-      page_baumassnahmen.addElement("radioButtonInput", "b_glasschutz", {
+      let elem40b = page_baumassnahmen.addElement("radioButtonInput", "b_glasschutz", {
         text: "40b: Wie werden die Vögel vor diesen Glasscheiben geschützt?",
         placeholder: "Auswählen",
         points: "b_glasschutz_points",
@@ -1463,8 +1579,17 @@ define([
         ],
       });
 
+      // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
+      elem40b.element.style.display = "none";
+      // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
+      elem40a.rules = [{
+        values: ["Ja."], 
+        elements: [elem40b]
+      }]
+
+   
       //41a_licht
-      page_baumassnahmen.addElement("radioButtonInput", "a_licht", {
+      let elem41a = page_baumassnahmen.addElement("radioButtonInput", "a_licht", {
         text: "41a: Gibt es auf dem Untersuchungsgebiet Lichtquellen, die jeden Tag bis spät in die Nacht leuchten?",
         placeholder: "Auswählen",
         points: "a_licht_points",
@@ -1473,21 +1598,28 @@ define([
           { key: "1",points: 0, label: "Ja" },
         ],
         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          /*textInfo: {
+          textInfo: {
           linkText: "Zusatzinfos",
           text: `
+          <div class="textInfoElements">
           Zahlreiche Lebewesen sind aktiv in der Nacht. Viele von diesen Lebewesen kreisen um künstliche Lichtquellen und sterben schliesslich. Lichtquellen sollten deshalb nicht nach oben abstrahlen:
           <br>[Bild H41_1] Bild fehlt! <br>
           Schädliche Ausrichtung von Lichtquellen
+          </div> 
+          <div class="textInfoElements">
+                   
           Auch ist gelbliches bis warm-weisses Licht von LED-Lampen weniger schädlich, als bläuliches Licht.
           <br> [Bild H41_2] Bild fehlt! <br>
           Schädlichkeit verschiedener Lichtquellen
+          </div>
            `,
-          }*/
+          }
       });
 
+      //Item 41b sollte nur eingeblendet werden, wenn zuvor Item 41a mit Ja beantwortet wurde.
+
       //41b_lichtart
-      page_baumassnahmen.addElement("radioButtonInput", "b_lichtart", {
+      let elem41b = page_baumassnahmen.addElement("radioButtonInput", "b_lichtart", {
         text: "41: bWie leuchten diesen Lichtquellen?",
         placeholder: "Auswählen",
         points: "b_lichtart_points",
@@ -1496,6 +1628,16 @@ define([
           { key: "1",points: 1, label: "Gelbliche Lichtquellen, die fast nur nach unten strahlen, beispielsweise Wegbeleuchtung." },
         ],
       });
+
+       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
+       elem41b.element.style.display = "none";
+       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
+       elem41a.rules = [{
+         values: ["Ja."], 
+         elements: [elem41b]
+       }]
+
+       
 
       //42_schaechte
       page_baumassnahmen.addElement("radioButtonInput", "schaechte", {
@@ -1507,17 +1649,23 @@ define([
           { key: "1", points: 0, label: "Ja" },
         ],
          //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          /*textInfo: {
+          textInfo: {
           linkText: "Zusatzinfos",
           text: `
+          <div class="textInfoElements">
           Wasserschächte und Lichtschächte können Fallen für Amphibien und andere Kleintiere sein. Denn diese Tiere kommen kaum selbständig wieder aus solchen Schächten heraus.
+          </div>
+          <div class="textInfoElements">
           <img src="img/Fotos_Hilfestellungen/H42_1_AbdeckungenGitter.jpg" alt="H42_1" width="100%">
           Abdeckungen mit feinmaschigem Gitter verhindern, dass Kleintiere in Lichtschächte fallen.
+         
+          </div>
+          <div class="textInfoElements">
           <br>[Bild H42_2] Bild fehlt! <br>
-          Ausstiegshilfen ermöglichen runtergefallenen
-          Tieren, sich wieder aus dem Schacht zu befreien.
+          Ausstiegshilfen ermöglichen runtergefallenen Tieren, sich wieder aus dem Schacht zu befreien.
+          </div>
            `,
-          }*/
+          }
       });      
 
       this.app.addFinalPage("Ende");     
