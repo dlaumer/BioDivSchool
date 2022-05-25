@@ -1115,7 +1115,7 @@ define([
 
   
       page_pflege.addTextInfo({
-        title: "Mähen von Rasen und Wiesen OHNE Sportrasen (28, 29, 29a, 29b)", 
+        title: "Mähen von Rasen und Wiesen OHNE Sportrasen (28, 29)", 
       }) 
 
       //28_geraet
@@ -1160,37 +1160,54 @@ define([
           }
       });
 
-      //29_maehen // Achtung Mehrfachauswahl!
-      let elem29 = page_pflege.addElement("radioButtonInput", "maehen", {
-        text: "29: Markiere alle Aussagen, die auf Mähen von Gras zutreffen:",
+      //Info
+
+      page_pflege.addTextInfo({
+        text: `
+        <div class="textInfoElements">
+        Je weniger das Gras gemäht wird, desto besser können sich Pflanzen durch Samen fortpflanzen. Häufiges Mähen stört oder tötet zahlreiche Kleintiere wie Insekten und kleine Säugetiere.
+        </div>
+        `
+      }) 
+
+      //29a_maehen
+      let elem29a = page_pflege.addElement("radioButtonInput", "a_maehen", {
+        text: "29a: Es wird jeweils nicht die ganze Grasfläche zum gleichen Zeitpunkt geschnitten. Verschiedene Grasflächen werden zu unterschiedlichen Zeitpunkten geschnitten.",
         placeholder: "Auswählen",
-        points: "maehen_points",
+        points: "a_maehen_points",
         options: [
-          { key: "0", points: -2, label: "Das Gras wird zwischen April und Oktober im Durchschnitt zweimal oder öfter pro Monat geschnitten." },
-          { key: "1", points: 1, label: "Das Gras wird zwischen April und Oktober im Durchschnitt höchstens einmal pro Monat geschnitten." },
-          { key: "2", points: 1, label: "Es wird jeweils nicht die ganze Grasfläche zum gleichen Zeitpunkt geschnitten. Verschiedene Grasflächen werden zu unterschiedlichen Zeitpunkten geschnitten." },
-          { key: "3", points: 1, label: "Ein Teil der Grasfläche wird jedes Jahr gar nicht geschnitten. Das kann jedes Jahr ein anderer Teil sein." },
+          { key: "0", points: 1, label: "Ja" },
+          { key: "1", points: 0, label: "Nein" },
         ],
-          //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          textInfo: {
-          linkText: "Zusatzinfos",
-          text: `
-          <div class="textInfoElements">
-          Je weniger das Gras gemäht wird, desto besser können sich Pflanzen durch Samen fortpflanzen. Häufiges Mähen stört oder tötet zahlreiche Kleintiere wie Insekten und kleine Säugetiere.
-          </div>
-          `,
-          }
       });
 
-      //"[Falls bei Frage 29 eine oder beide der Optionen “Gras wird zwischen April und Oktober … ge-schnitten» angekreuzt wurde, dann direkt weiter mit Frage 30.
-      //Und sollte das Folgende unverhältnismässig aufwendig sein, dann einfach bei Frage 29 eine wei-tere Auswahl anhängen: Es gibt Grasflächen (grösser als zwei Autoparkplätze), die erst nach dem 15. Juni geschnitten werden [1 P.]
-      //Sonst bitte Fragen 29a und 29b anzeigen.]"
-
-      //29a_zone
-      let elem29a = page_pflege.addElement("radioButtonInput", "a_zone", {
-        text: "29a: Bestimme, in welcher landwirtschaftlichen Zone sich die Untersuchungsfläche befindet.",
+       //29b_maehen
+       page_pflege.addElement("radioButtonInput", "b_maehen", {
+        text: "29b: Wie oft wird ein grosser Teil des Grases zwischen April und Oktober im Durchschnitt pro Monat geschnitten?",
         placeholder: "Auswählen",
-        points: "umgebung_points",
+        points: "b_maehen_points",
+        options: [
+          { key: "0", points: 1, label: "Ja" },
+          { key: "1", points: 0, label: "Nein" },
+        ],
+      });
+
+       //29c_maehen
+       page_pflege.addElement("radioButtonInput", "c_maehen", {
+        text: "29a: Es wird jeweils nicht die ganze Grasfläche zum gleichen Zeitpunkt geschnitten. Verschiedene Grasflächen werden zu unterschiedlichen Zeitpunkten geschnitten.",
+        placeholder: "Auswählen",
+        points: "c_maehen_points",
+        options: [
+          { key: "0", points: 1, label: "Ja" },
+          { key: "1", points: 0, label: "Nein" },
+        ],
+      });
+    
+
+      //29d_zone
+      let elem29d = page_pflege.addElement("radioButtonInput", "d_zone", {
+        text: "29d: Bestimme, in welcher landwirtschaftlichen Zone sich die Untersuchungsfläche befindet.",
+        placeholder: "Auswählen",
         options: [
           { key: "0", points: 0, label: "Talzone oder Hügelzone." },
           { key: "1", points: 0, label: "Bergzonen I oder II." },
@@ -1206,42 +1223,55 @@ define([
           <iframe src='https://map.geo.admin.ch/embed.html?topic=blw&lang=de&bgLayer=ch.swisstopo.pixelkarte-farbe&catalogNodes=887,947&layers=ch.kantone.cadastralwebmap-farbe,ch.swisstopo.swissboundaries3d-gemeinde-flaeche.fill,ch.swisstopo.swissboundaries3d-kanton-flaeche.fill,ch.blw.landwirtschaftliche-zonengrenzen&layers_opacity=0.15,1,1,0.75&layers_visibility=false,false,false,true&E=2759000.00&N=1222000.00&zoom=1' width='100%' height='250' frameborder='0' style='border:0' allow='geolocation'></iframe>
           </div>
           `,
-      }
+        }
       });
 
+      //[Je nach gewählter Zone wird in 29e nur die entsprechende Frage zum Anklicken angezeigt:]
 
-      //29b_schnitt
-      let elem29b = page_pflege.addElement("radioButtonInput", "b_schnitt", {
-        text: "29b: Trifft die folgende Aussage zu?",
+      //29etal
+      let elem29etal = page_pflege.addElement("radioButtonInput", "b_schnitt", {
+        text: "29e: [Tal- und Hügelzone] Gibt es Grasflächen (grösser als vier Autoparkplätze), die erst nach dem 15. Juni geschnitten werden?",
         placeholder: "Auswählen",
-        points: "b_schnitt_points",
+        points: "e_schnitt_points",
         options: [
-          { key: "0", points: 2, label: "Es gibt Grasflächen (grösser als vier Autoparkplätze), die erst nach dem 15. Juni geschnitten werden." },
-          { key: "1", points: 2, label: "Es gibt Grasflächen (grösser als vier Autoparkplätze), die erst nach dem 1. Juli geschnitten werden." },
-          { key: "2", points: 2, label: "Es gibt Grasflächen (grösser als vier Autoparkplätze), die erst nach dem 15. Juli geschnitten werden." },
+          { key: "0", points: 2, label: "Ja" },
+          { key: "1", points: 0, label: "Nein" },
         ],
-        textInfo: {
-          linkText: "Karte zur Bestimmung der landwirtschaftlichen Zone",
-          text: `Legende<br>
-          <div class="textInfoElements">
-          <img src="https://api.geo.admin.ch/static/images/legends/ch.blw.landwirtschaftliche-zonengrenzen_de.png" alt="legend" width="100%">
-          </div>
-          <div class="textInfoElements">
-          <iframe src='https://map.geo.admin.ch/embed.html?topic=blw&lang=de&bgLayer=ch.swisstopo.pixelkarte-farbe&catalogNodes=887,947&layers=ch.kantone.cadastralwebmap-farbe,ch.swisstopo.swissboundaries3d-gemeinde-flaeche.fill,ch.swisstopo.swissboundaries3d-kanton-flaeche.fill,ch.blw.landwirtschaftliche-zonengrenzen&layers_opacity=0.15,1,1,0.75&layers_visibility=false,false,false,true&E=2759000.00&N=1222000.00&zoom=1' width='100%' height='250' frameborder='0' style='border:0' allow='geolocation'></iframe>
-          </div>
-          `,
-      }
+      });
+
+       //29eberg1
+       let elem29eberg1 = page_pflege.addElement("radioButtonInput", "e_berg1_schnitt", {
+        text: "29e: [Bergzonen I und II] Gibt es Grasflächen (grösser als vier Autoparkplätze), die erst nach dem 1. Juli geschnitten werden?",
+        placeholder: "Auswählen",
+        points: "e_schnitt_points",
+        options: [
+          { key: "0", points: 2, label: "Ja" },
+          { key: "1", points: 0, label: "Nein" },
+        ],
+      });
+
+       //29eberg2
+       let elem29eberg2 = page_pflege.addElement("radioButtonInput", "e_berg2_schnitt", {
+        text: "29e: [Bergzonen III und IV] Gibt es Grasflächen (grösser als vier Autoparkplätze), die erst nach dem 15. Juli geschnitten werden?",
+        placeholder: "Auswählen",
+        points: "e_schnitt_points",
+        options: [
+          { key: "0", points: 2, label: "Ja" },
+          { key: "1", points: 0, label: "Nein" },
+        ],
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
-      elem29a.element.style.display = "none";
-      elem29b.element.style.display = "none";
+      elem29d.element.style.display = "none";
+      elem29etal.element.style.display = "none";
+      elem29eberg1.element.style.display = "none";
+      elem29eberg2.element.style.display = "none";
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
-      elem29.rules = [{
+      elem29a.rules = [{
         values: [
-          "Es wird jeweils nicht die ganze Grasfläche zum gleichen Zeitpunkt geschnitten. Verschiedene Grasflächen werden zu unterschiedlichen Zeitpunkten geschnitten.",
-          "Ein Teil der Grasfläche wird jedes Jahr gar nicht geschnitten. Das kann jedes Jahr ein anderer Teil sein." ], 
-        elements: [elem29a, elem29b]
+          "Ja",
+          ], 
+        elements: [elem29d, elem29etal, elem29eberg1, elem29eberg2]
       }]
     
       page_pflege.addTextInfo({
