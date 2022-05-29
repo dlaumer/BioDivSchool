@@ -164,8 +164,10 @@ define([
           this.pointsInfo = domCtr.create("div", {id: this.name + "_pointsInfo", className: "pointsInfo"}, this.label);
 
           this.pointsDict = {}
+          this.data = {}
           for (const i in args.options) {
             this.pointsDict[args.options[i].label] = {"points": args.options[i].points, "key": args.options[i].key};
+            this.data[args.options[i].key] = {"points": args.options[i].points, "label": args.options[i].label};
           }
         }
 
@@ -208,12 +210,14 @@ define([
 
         }
         this.pointsDict = {}
+        this.data = {}
         for (const i in args.options) {
           this.pointsDict[args.options[i].label] = {"points": args.options[i].points, "key": args.options[i].key};
+          this.data[args.options[i].key] = {"points": args.options[i].points, "label": args.options[i].label};
         }
 
         on(this.input, "change", function (evt) {
-          this.setter(evt.target.labels[0].innerHTML)
+          this.setter(this.data[evt.target.id].label)
           
         }.bind(this));
         
