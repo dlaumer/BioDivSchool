@@ -763,11 +763,11 @@ define([
           Kommen unterschiedliche Elemente wie Bäume, Sträucher sowie Kräuter, Gräser und Blumen alle an der gleichen Stelle vor, so finden auch mehr Lebewesen
           einen Lebensraum mit Nahrung und Versteck. Deshalb ist es wichtig, dass Bäume, Sträucher und Kräuter an manchen Stellen zusammen vorkommen:
           Kräuter, Gräser und Blumen unter Bäumen
-          <br>[Bild H17_1] Bild fehlt!<br>
+          <img src="img/Fotos_Hilfestellungen/H17_1_KrautschichtBaumschicht.jpg" alt="H17_1" width="100%">
           </div>
           <div class="textInfoElements">
           Krautsaum unter Sträuchern
-          <br>[Bild H17_2] Bild fehlt!<br>
+          <img src="img/Fotos_Hilfestellungen/H17_2_KrautschichtStrauchschicht.jpg" alt="H17_2" width="100%">
           </div>
           <div class="textInfoElements">
           Sträucher zusammen mit Bäumen
@@ -775,7 +775,7 @@ define([
           </div>
           <div class="textInfoElements">
           alle drei Elemente (Bäume, Sträucher und heimische Kräuter, Blumen oder Gräser) an derselben Stelle
-          <br> [Bild H17_4] Bild fehlt!<br>
+          <img src="img/Fotos_Hilfestellungen/H17_4_alle3Schichten.jpg" alt="H17_4" width="100%"> 
           </div>
           `,
           }
@@ -946,13 +946,11 @@ define([
           </div>
           <div class="textInfoElements">
           Nistkasten für Höhlenbrüter
-          <br>[Bild H22_1] Bild fehlt!<br>
-         
+          <img src="img/Fotos_Hilfestellungen/H22_1_NistkastenHoehlenbrueter.jpg" alt="H22_1" width="100%">         
           </div>
           <div class="textInfoElements">
           Nisthilfe für Mehlschwalben
-          <img src="img/Fotos_Hilfestellungen/H22_2_NisthilfeSchwalben.jpg" alt="H22_2" width="100%">
-          
+          <img src="img/Fotos_Hilfestellungen/H22_2_NisthilfeSchwalben.jpg" alt="H22_2" width="100%">          
           </div>
           `,
           }
@@ -977,18 +975,15 @@ define([
           </div>
           <div class="textInfoElements">
           Fledermauskasten
-          <img src="img/Fotos_Hilfestellungen/H23_1_Fledermauskasten.jpg" alt="H08_2" width="100%">
-          
+          <img src="img/Fotos_Hilfestellungen/H23_1_Fledermauskasten.jpg" alt="H08_2" width="100%">          
           </div>
           <div class="textInfoElements">
           Schlafplatz für Igel
-          <br>[Bild H23_2] Bild fehlt! <br>
-          
+          <img src="img/Fotos_Hilfestellungen/H23_2_SchlafplatzIgel.jpg" alt="H23_2" width="100%">          
           </div>
           <div class="textInfoElements">
           Versteck für Siebenschläfer
-          <br>[Bild H23_3] Bild fehlt! <br>
-          
+          <img src="img/Fotos_Hilfestellungen/H23_3_VersteckSiebenschlaefer.jpg" alt="H23_3" width="100%">          
           </div>
           `,
           }
@@ -1076,8 +1071,7 @@ define([
           </div>
           <div class="textInfoElements">
           kleines Bächlein
-          <br>[Bild H26_1] Bild fehlt! <br>
-          
+          <br>[Bild H26_1] Bild fehlt! <br>          
           </div>
           `,
           }
@@ -1134,27 +1128,22 @@ define([
           <div class="textInfoElements">
           Rasentraktor, Ride-on Mäher
           <img src="img/Fotos_Hilfestellungen/H28_1_Rasentraktor.jpg" alt="H28_1" width="100%">
-          
           </div>
           <div class="textInfoElements">
           Rasenmäher
           <img src="img/Fotos_Hilfestellungen/H28_2_Rasenmaeher.jpg" alt="H28_2" width="100%">
-          
           </div>
           <div class="textInfoElements">
           Fadenmäher, Motorsense
           <img src="img/Fotos_Hilfestellungen/H28_3_Fadenmaeher.jpg" alt="H28_3" width="100%">
-          
           </div>
           <div class="textInfoElements">
           Sense
           <img src="img/Fotos_Hilfestellungen/H28_4_Sense.jpg" alt="H28_4" width="100%">
-          
           </div>
           <div class="textInfoElements">
           Balkenmäher
-          <img src="img/Fotos_Hilfestellungen/H28_5_Balkenmaeher.jpg" alt="H28_5" width="100%">
-          
+          <img src="img/Fotos_Hilfestellungen/H28_5_Balkenmaeher.jpg" alt="H28_5" width="100%">          
           </div>
           `,
           }
@@ -1353,11 +1342,11 @@ define([
           </div>
           <div class="textInfoElements">
           Abflammen
-          <br>[Bild H32_1] Bild fehlt!<br>
+          <img src="img/Fotos_Hilfestellungen/H32_1_Abflammen.jpg" alt="H32_1" width="100%">
           </div>
           <div class="textInfoElements">
           Hitze erzeugende Geräte
-          <br>[Bild H32_2] Bild fehlt! <br>
+          <img src="img/Fotos_Hilfestellungen/H32_2_HitzeGeraete.jpg" alt="H32_2" width="100%">
           </div>
           `,
           }
@@ -1444,7 +1433,7 @@ define([
           </div>
           <div class="textInfoElements">
           Laubhaufen
-          <br>[Bild H35_1] Bild fehlt! <br>
+          <img src="img/Fotos_Hilfestellungen/H35_1 Laubhaufen.jpg" alt="H35_1" width="100%">
           </div>
           `,
           }
@@ -1475,8 +1464,7 @@ define([
           </div>
           <div class="textInfoElements">
           alte Samenstände
-          <br>[Bild H36_1] Bild fehlt! <br>
-          
+          <img src="img/Fotos_Hilfestellungen/H35_1 H36_1 alte Samenstaende.jpg" alt="H36_1" width="100%">          
           </div>
           `,
           }
@@ -1508,8 +1496,7 @@ define([
           </div>
           <div class="textInfoElements">
           Begrüntes Flachdach mit Totholz
-          <img src="img/Fotos_Hilfestellungen/H37_1_Flachdach.jpg" alt="H37_1" width="100%">
-          
+          <img src="img/Fotos_Hilfestellungen/H37_1_Flachdach.jpg" alt="H37_1" width="100%">          
           </div>
           `,
           }
@@ -1633,13 +1620,12 @@ define([
           text: `
           <div class="textInfoElements">
           Zahlreiche Lebewesen sind aktiv in der Nacht. Viele von diesen Lebewesen kreisen um künstliche Lichtquellen und sterben schliesslich. Lichtquellen sollten deshalb nicht nach oben abstrahlen:
-          <br>[Bild H41_1] Bild fehlt! <br>
+          <img src="img/Fotos_Hilfestellungen/H41_1.png" alt="H41_1" width="100%">
           Schädliche Ausrichtung von Lichtquellen
           </div> 
-          <div class="textInfoElements">
-                   
+          <div class="textInfoElements">                   
           Auch ist gelbliches bis warm-weisses Licht von LED-Lampen weniger schädlich, als bläuliches Licht.
-          <br> [Bild H41_2] Bild fehlt! <br>
+          <img src="img/Fotos_Hilfestellungen/H41_2.png" alt="H41_2" width="100%">
           Schädlichkeit verschiedener Lichtquellen
           </div>
            `,
@@ -1691,7 +1677,7 @@ define([
          
           </div>
           <div class="textInfoElements">
-          <br>[Bild H42_2] Bild fehlt! <br>
+          <img src="img/Fotos_Hilfestellungen/H42_2_Ausstiegshilfen.jpg" alt="H42_2" width="100%">
           Ausstiegshilfen ermöglichen runtergefallenen Tieren, sich wieder aus dem Schacht zu befreien.
           </div>
            `,
