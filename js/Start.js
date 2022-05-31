@@ -33,6 +33,7 @@ define([
         this.content = new Content(that);
         that.content = this.content;
 
+        this.attributes = ""
         this.projectSelected = null;
         this.createUI();
         this.clickHandler();

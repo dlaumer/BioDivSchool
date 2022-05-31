@@ -53,10 +53,16 @@ define([
           if ( Object.keys(urlData).indexOf("project")  > -1) {
             that.initConsolidation(urlData["project"]);
           }
+          else {
+            this.clickHandler();
+          }
         }
         else if (this.mode == "project") {
           if ( Object.keys(urlData).indexOf("project")  > -1) {
             that.initProject(urlData["project"]);
+          }
+          else {
+            this.clickHandler();
           }
         }
         else {
