@@ -130,7 +130,7 @@ define([
       page_regionalitaet.addTextInfo({
         title: "Heimische Wildpflanzen (08, 09)",
         text: `Alle Arten einer Region bilden zusammen ein Nahrungsnetz.
-        <img src="img/Fotos_Hilfestellungen/H08_1_heimische_Blumenstraeucher.jpg" alt="H08_1" width="100%">
+        <img src="img/Fotos_Hilfestellungen/H01_1.png" alt="H01_1" width="100%">
         Heimische Pflanzen sind die Grundlage von Nahrungsnetzen. Deshalb sollte es möglichst viele Flächen mit heimischen Wildpflanzen geben.
         `
       })
@@ -244,6 +244,33 @@ define([
       /*Strukturelemente*/      
       let page_strukturelemente = this.app.addPage("Strukturelemente");
 
+      page_strukturelemente.addTextInfo({        
+        text: `
+        <div class="textInfoElements">
+        Strukturelemente sind einzelne Teile eines Lebensraums wie beispielsweise:
+        Bäume
+        <img src="img/Fotos_Hilfestellungen/H11a_1_Baeume.jpg" alt="H11a_1" width="100%">
+        </div>
+        <div class="textInfoElements">
+        Sträucher
+        <img src="img/Fotos_Hilfestellungen/H11a_2_Straeucher.jpg" alt="H11a_2" width="100%">
+        </div>
+        <div class="textInfoElements">
+        Blumenwiesen
+        <img src="img/Fotos_Hilfestellungen/H11a_3_Blumenwiese.jpg" alt="H11a_3" width="100%">
+        </div>
+        <div class="textInfoElements">
+        Kiesflächen
+        <img src="img/Fotos_Hilfestellungen/H11a_4_Kiesflaeche.jpg" alt="H11a_4" width="100%">
+        </div>
+        <div class="textInfoElements">     
+        Tümpel
+        <img src="img/Fotos_Hilfestellungen/H11a_5_Tuempel.jpg" alt="H11a_5" width="100%">
+        </div>        
+        Verschiedene Strukturelemente bieten verschiedenen Lebewesen Lebensraum und Nahrung. Je mehr verschiedene Strukturelemente, desto mehr verschiedene Arten gibt es auf einer Fläche."
+        `,
+      })
+
       page_strukturelemente.addTextInfo({
         title: "Versiegelte Flächen (11)",
         text: `Auf einer versiegelten Fläche wachsen keine Pflanzen. Der Boden einer versiegelten Fläche ist ziemlich wasserdicht und luftdicht zugedeckt.
@@ -256,7 +283,6 @@ define([
         `
         <div class= textInfoElements>
           Überall, wo Gebäude stehen:
-
           Asphalt, Teer
           <img src="img/Fotos_Hilfestellungen/H11_1_Asphalt.jpg" alt="H11_1" width="100%">
           </div>
@@ -282,28 +308,7 @@ define([
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
-          <div class="textInfoElements">
-          Strukturelemente sind einzelne Teile eines Lebensraums wie beispielsweise:
-          Bäume
-          <img src="img/Fotos_Hilfestellungen/H11a_1_Baeume.jpg" alt="H11a_1" width="100%">
-          </div>
-          <div class="textInfoElements">
-          Sträucher
-          <img src="img/Fotos_Hilfestellungen/H11a_2_Straeucher.jpg" alt="H11a_2" width="100%">
-          </div>
-          <div class="textInfoElements">
-          Blumenwiesen
-          <img src="img/Fotos_Hilfestellungen/H11a_3_Blumenwiese.jpg" alt="H11a_3" width="100%">
-          </div>
-          <div class="textInfoElements">
-          Kiesflächen
-          <img src="img/Fotos_Hilfestellungen/H11a_4_Kiesflaeche.jpg" alt="H11a_4" width="100%">
-          </div>
-          <div class="textInfoElements">     
-          Tümpel
-          <img src="img/Fotos_Hilfestellungen/H11a_5_Tuempel.jpg" alt="H11a_5" width="100%">
-          </div>        
-          Verschiedene Strukturelemente bieten verschiedenen Lebewesen Lebensraum und Nahrung. Je mehr verschiedene Strukturelemente, desto mehr verschiedene Arten gibt es auf einer Fläche."
+          -
           `,
         }
 
@@ -723,7 +728,7 @@ define([
         placeholder: "Auswählen",
         points: "16a_hecken_points",
         options: [
-          { key: "0", points: 2, label: "In der Hecke sind nicht insgesamt mehr als 5 verschiedene heimische Straucharten vorhanden." },
+          { key: "0", points: 2, label: "In der Hecke sind insgesamt mehr als 5 verschiedene heimische Straucharten vorhanden." },
           { key: "1", points: 1, label: "Eine Hecke ist mindestens 2 Meter breit und 10 Meter lang." },
         ],
       });
@@ -1176,14 +1181,14 @@ define([
         placeholder: "Auswählen",
         points: "b_maehen_points",
         options: [
-          { key: "0", points: 1, label: "Ja" },
-          { key: "1", points: 0, label: "Nein" },
+          { key: "0", points: 1, label: "einmal oder weniger" },
+          { key: "1", points: 0, label: "zweimal oder öfter" },
         ],
       });
 
        //29c_maehen
        page_pflege.addElement("radioButtonInput", "c_maehen", {
-        text: "29a: Es wird jeweils nicht die ganze Grasfläche zum gleichen Zeitpunkt geschnitten. Verschiedene Grasflächen werden zu unterschiedlichen Zeitpunkten geschnitten.",
+        text: "29c: Es wird jeweils nicht die ganze Grasfläche zum gleichen Zeitpunkt geschnitten. Verschiedene Grasflächen werden zu unterschiedlichen Zeitpunkten geschnitten.",
         placeholder: "Auswählen",
         points: "c_maehen_points",
         options: [
@@ -1518,7 +1523,6 @@ define([
           text: `
           <div class="textInfoElements">
           Begrünte Fassaden bieten Lebensraum für Krabbeltiere und Vögel. Begrünte Fassaden schützen auch vor Kälte und Hitze.
-          <img src="img/Fotos_Hilfestellungen/H38 1 alte Samenstaende.jpg" alt="H38_1" width="100%">
           </div>
           `,
           }
