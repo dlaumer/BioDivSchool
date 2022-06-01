@@ -816,8 +816,8 @@ define([
           <img src="img/Fotos_Hilfestellungen/H13b_3_Geroell.jpg" alt="H13b_3" width="100%">
           </div>
           <div class="textInfoElements"> 
-          Kiesflächen, die nicht als Parkplatz genutzt werden    
-          <br>[Bild H13b_1] Bild fehlt!<br>
+          Kiesflächen, die nicht als Parkplatz genutzt werden
+          <img src="img/Fotos_Hilfestellungen/H11a_4_Kiesflaeche.jpg" alt="H11a_4" width="100%">      
           </div>        
           <div class="textInfoElements">
           Sandflächen ohne Sprunggrube für Sport          
@@ -1076,7 +1076,7 @@ define([
           </div>
           <div class="textInfoElements">
           kleines Bächlein
-          <br>[Bild H26_1] Bild fehlt! <br>          
+          <img src="img/Fotos_Hilfestellungen/H13f_2_kleinesBaechlein.jpg" alt="H13f_2" width="100%">       
           </div>
           `,
           }
