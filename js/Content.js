@@ -1469,7 +1469,7 @@ define([
           </div>
           <div class="textInfoElements">
           alte Samenstände
-          <img src="img/Fotos_Hilfestellungen/H35_1 H36_1 alte Samenstaende.jpg" alt="H36_1" width="100%">          
+          <img src="img/Fotos_Hilfestellungen/H36_1 alte Samenstaende.jpg" alt="H36_1" width="100%">          
           </div>
           `,
           }
