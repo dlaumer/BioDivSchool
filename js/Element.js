@@ -18,7 +18,7 @@ let style = document.createElement('style')
     
       .mapContainer {
         flex-direction: column !important;
-        height: 400px !important;
+        height: 600px !important;
       }
     
       .map  {
@@ -28,7 +28,7 @@ let style = document.createElement('style')
     
       .editor {
         width: 100% !important;
-        height: 40% !important;
+        height: 60% !important;
       }`;
 
 define([
