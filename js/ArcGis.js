@@ -585,88 +585,116 @@ define([
     addMapOverview(containerMap) {
       esriConfig.portalUrl = "https://swissparks.maps.arcgis.com/";
 
-      let  labelClass = {
+      let labelClass = {
         // autocasts as new LabelClass()
         symbol: {
           type: "text", // autocasts as new TextSymbol()
-          color: "green",
+          color: "black",
           font: {
             // autocast as new Font()
-            family: "Playfair Display",
-            size: 12,
+            size: 8,
             weight: "bold"
-          }
+          },
+      
+          yoffset: 10,
+          xoffset: 10
         },
-        labelPlacement: "above-center",
         labelExpressionInfo: {
           expression: "$feature.name"
         }
       };
-
-      let projectArea = new FeatureLayer({
+      
+      let pointSymbol = {
+        type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
+        style: "circle",
+        color: [75, 160, 0, 0.145],
+        size: "12px", // pixels
+        outline: {
+          // autocasts as new SimpleLineSymbol()
+          color: "black",
+          width: 1 // points
+        }
+      };
+      
+      let polygonSymbol = {
+        type: "simple-fill", // autocasts as new SimpleFillSymbol()
+        color: [75, 160, 0, 0.145]
+      };
+      
+      let projectAreaPoint = new FeatureLayer({
         portalItem: {
-          id: this.links.projectLayerId,
+          id:  this.links.projectLayerId
         },
-       
+      
         editingEnabled: false,
         labelingInfo: [labelClass],
         renderer: {
-          type: "simple", // autocasts as new SimpleRenderer()
-          symbol: {
-            type: "simple-fill", // autocasts as new SimpleFillSymbol()
-            color: [255, 0, 0, 0.145],
-          },
+          type: "simple",
+          symbol: pointSymbol
         },
+        minScale: 0,
+        maxScale: 144447
       });
-
-          
+      
+      let projectAreaPolygon = new FeatureLayer({
+        portalItem: {
+          id:  this.links.projectLayerId
+        },
+      
+        editingEnabled: false,
+        labelingInfo: [labelClass],
+        renderer: {
+          type: "simple",
+          symbol: polygonSymbol
+        },
+        minScale: 144447,
+        maxScale: 0
+      });
+      
       // TODO: Add Filter for group ID
       let map = new Map({
-        basemap: "topo-vector",
+        basemap: "topo-vector"
       });
-      map.add(projectArea);
-
-
+      map.add(projectAreaPoint);
+      map.add(projectAreaPolygon);
+      
       let view = new MapView({
         map: map,
         container: containerMap,
       });
-
+      
       let fullscreen = new Fullscreen({
-        view: view,
+        view: view
       });
       view.ui.add(fullscreen, "bottom-right");
-
-   
+      
       let basemapToggle = new BasemapToggle({
         view: view, // view that provides access to the map's 'topo-vector' basemap
-        nextBasemap: "satellite"  // allows for toggling to the 'satellite' basemap
+        nextBasemap: "satellite" // allows for toggling to the 'satellite' basemap
       });
       view.ui.add(basemapToggle, "top-right");
-
-
+      
       const homeButton = new Home({
-        view: view,
-        
+        view: view
       });
       
-      homeButton.goToOverride = function(view) {
+      homeButton.goToOverride = function (view) {
         return view.goTo({
           center: [8.222167506135465, 46.82443911582187],
           zoom: 8
         });
       };
-
-      view.ui.add(homeButton, "top-left")
       
-      view.when(function() {
+      view.ui.add(homeButton, "top-left");
+      
+      view.when(function () {
         // MapView is now ready for display and can be used. Here we will
         // use goTo to view a particular location at a given zoom level and center
         view.goTo({
           center: [8.222167506135465, 46.82443911582187],
           zoom: 8
         });
-      })
+      });
       return view;
     }
   };

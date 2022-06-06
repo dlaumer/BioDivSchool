@@ -52,6 +52,8 @@ define([
         if (this.mode == "consolidation") {
           if ( Object.keys(urlData).indexOf("project")  > -1) {
             that.initConsolidation(urlData["project"]);
+            this.inputProjectId.value = urlData["project"]
+
           }
           else {
             this.clickHandler();
@@ -60,6 +62,9 @@ define([
         else if (this.mode == "project") {
           if ( Object.keys(urlData).indexOf("project")  > -1) {
             that.initProject(urlData["project"]);
+            this.inputProjectId.value = urlData["project"]
+
+
           }
           else {
             this.clickHandler();
@@ -69,6 +74,9 @@ define([
           
           if (Object.keys(urlData).indexOf("group") > -1 && Object.keys(urlData).indexOf("project")  > -1) {
             that.init(urlData["project"], urlData["group"]);
+            this.inputProjectId.value = urlData["project"]
+            this.inputGroupId.value = urlData["group"]
+            this.inputGroupId.style.display = "block";
           }
           else {
             if (Object.keys(urlData).indexOf("project")  > -1) {
@@ -86,7 +94,7 @@ define([
     createSplashScreen() {
       this.background = domCtr.create(
         "div",
-        { id: "login", class: "background" },
+        { id: "splashScreen", class: "background" },
         win.body()
       );
       this.container = domCtr.create("div", { id: "welcome" }, this.background);

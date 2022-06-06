@@ -17,12 +17,19 @@ define([
   "biodivschool/App",
   "biodivschool/Content",
   "biodivschool/ArcGis",
-], function (dom, domCtr, win, on, App, Content, ArcGis) {
+  "biodivschool/strings/stringsApp",
+], function (dom, domCtr, win, on, App, Content, ArcGis, stringsApp) {
   return class Start {
     constructor(mode) {
       this.mode = mode;
 
       this.createSplashScreen();
+     
+      let stringsapp = new stringsApp("de")
+      stringsapp.init().then(() => {
+        console.log(stringsapp.get("loading"))
+      });
+      
     }
 
     // Start the start screen
@@ -42,12 +49,12 @@ define([
     }
 
     createSplashScreen() {
-      this.background = domCtr.create(
+      let backgroundTemp = domCtr.create(
         "div",
-        { id: "start", class: "background" },
+        { id: "splashScreen", class: "background" },
         win.body()
       );
-      this.container = domCtr.create("div", { id: "welcome" }, this.background);
+      this.container = domCtr.create("div", { id: "welcome" }, backgroundTemp);
      
 
       // Some info about the project
@@ -69,7 +76,13 @@ define([
 
     // Create the GUI of the start screen
     createUI() {
-      domCtr.destroy("welcome");
+      domCtr.destroy("splashScreen");
+
+      this.background = domCtr.create(
+        "div",
+        { class: "background" },
+        win.body()
+      );
       
       this.header = domCtr.create("div", { className: "header" }, this.background);
 

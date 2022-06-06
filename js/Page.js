@@ -72,7 +72,7 @@ define([
     }
 
     addTextInfo(args) {
-      let textInfo = domCtr.create("div", { id: "textInfo_" + args.title, className: "element"}, this.page);
+      let textInfo = domCtr.create("div", { id: "textInfo_" + args.title, className: "element titleContainer"}, this.page);
       if (args.title) {
         domCtr.create("div", { className: "elementTitle", innerHTML: args.title}, textInfo);
 

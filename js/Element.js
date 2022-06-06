@@ -199,7 +199,7 @@ define([
         this.input = domCtr.create("div", {className: "input inputRows"}, this.element);        
         for (const i in args.options) {
           let radioButtonContainer = domCtr.create("div", {className: "radioButtonContainer"}, this.input); 
-          domCtr.create("input", {type: "radio", name: this.key, id: args.options[i].key, className: "radioButton"}, radioButtonContainer);  
+          domCtr.create("input", {type: "radio", name: this.key, id: this.key + "_" + args.options[i].key, className: "radioButton"}, radioButtonContainer);  
           domCtr.create("label", {for: args.options[i].key, innerHTML: args.options[i].label }, radioButtonContainer);  
         }
 
@@ -226,7 +226,7 @@ define([
             this.setterUINonEdit(this.input, value)
           }
           else {
-            document.getElementById( this.pointsDict[value].key).checked = true;
+            document.getElementById(this.key + "_" +  this.pointsDict[value].key).checked = true;
           }
         }
       }
@@ -330,6 +330,7 @@ define([
               this.points = parseInt(Object.keys(this.ratioStops)[0]);
             }
             else {
+              console.log(this.app.projectArea);
               numRatio = this.area/this.app.projectArea;
               if (numRatio > 1) {
                 alert("Das Gebiet darf nicht grösser sein als das Projektgebiet!");
@@ -342,10 +343,12 @@ define([
                 }
               }
             }
-            this.pointsInfo.innerHTML = "(Punkte: " + this.points + ", Totale Fläche: " + this.area.toFixed(0) + " m2, Ratio  " + (numRatio*100).toFixed(2) + "%, Ratio Bereich= " + this.ratio + ")";
+
+              this.pointsInfo.innerHTML = that.showPoints ? "(Punkte: " + this.points + ", Totale Fläche: " + this.area.toFixed(0) + " m2, Ratio  " + (numRatio*100).toFixed(2) + "%, Ratio Bereich= " + this.ratio + ")":  "(Totale Fläche: " + this.area.toFixed(0) + " m2, Ratio  " + (numRatio*100).toFixed(2) + "%, Ratio Bereich= " + this.ratio + ")";
+              that.pointsTotal = that.pointsTotal - parseInt(previousPoints) + parseInt(this.points);
+              that.pointsTotalDiv.innerHTML = that.showPoints ? "Punkte total: " + that.pointsTotal.toFixed(0):"";
           
-            that.pointsTotal = that.pointsTotal - parseInt(previousPoints) + parseInt(this.points);
-            that.pointsTotalDiv.innerHTML = "Punkte total: " + that.pointsTotal.toFixed(0);
+            
         })
         .catch((error) => {
           alert("Flächenberechnung nicht erfolgreich")
@@ -414,8 +417,8 @@ define([
           if (this.hasPoints) {
             this.points = null;
             this.pointsInfo.innerHTML = "";
-          that.pointsTotal = that.pointsTotal - parseInt(previousPoints);
-          that.pointsTotalDiv.innerHTML = "Punkte total: " + that.pointsTotal.toFixed(0);
+            that.pointsTotal = that.pointsTotal - parseInt(previousPoints);
+            that.pointsTotalDiv.innerHTML = that.showPoints ? "Punkte total: " + that.pointsTotal.toFixed(0):"";
           }
           
         }
@@ -443,10 +446,12 @@ define([
               else {
                 this.points = this.pointsDict[this.value].points;
               }
-              this.pointsInfo.innerHTML = this.points==1? "(" + this.points + " Punkt)":"(" + this.points + " Punkte)"
 
-              that.pointsTotal = that.pointsTotal - parseInt(previousPoints) + parseInt(this.points);
-              that.pointsTotalDiv.innerHTML = "Punkte total: " + that.pointsTotal.toFixed(0);
+              if (that.showPoints) {
+                this.pointsInfo.innerHTML =  this.points==1? "(" + this.points + " Punkt)":"(" + this.points + " Punkte)";
+              }
+                that.pointsTotal = that.pointsTotal - parseInt(previousPoints) + parseInt(this.points);
+                that.pointsTotalDiv.innerHTML = that.showPoints ? "Punkte total: " + that.pointsTotal.toFixed(0):"";
             }
             
           }

@@ -28,6 +28,8 @@ define([
       this.arcgis = new ArcGis();
       that.consolidationWidth = null;
 
+      that.showPoints = true;
+
       if (!this.offline) {
         this.arcgis.init(() => {
           this.arcgis.initGeo(() => {
@@ -69,17 +71,18 @@ define([
             .calculateArea(this.projectAreaId, "project")
             .then((area) => {
               that.projectArea = area;
+              this.arcgis.checkData(that.projectId, that.groupId, (info) => {
+                if (info != null) {
+                  let data = info.data;
+                  that.objectId = info.objectId;
+                  if (!info.newFeature) {
+                    that.loadInputs(data.attributes);
+                  }
+                }
+                this.initUI();
+              });
             });
-          this.arcgis.checkData(that.projectId, that.groupId, (info) => {
-            if (info != null) {
-              let data = info.data;
-              that.objectId = info.objectId;
-              if (!info.newFeature) {
-                that.loadInputs(data.attributes);
-              }
-            }
-            this.initUI();
-          });
+          
         });
       } else {
         that.content.init();
@@ -166,7 +169,7 @@ define([
 
     initUI() {
       // destroy welcome page when app is started
-      domCtr.destroy("login");
+      domCtr.destroy("splashScreen");
       this.background.style.display = "block";
       this.pages[0].init(null);
       this.currentPage = 0;
@@ -209,7 +212,7 @@ define([
         "div",
         {
           className: "footerElements",
-          style: "justify-content: login;",
+          style: "justify-content: start;",
         },
         this.footer
       );
@@ -253,7 +256,7 @@ define([
         {
           id: "pointsTotalInfo",
           className: "pointsInfo",
-          innerHTML: that.mode == "project" ? "" : "Punkte total: 0",
+          innerHTML: that.mode == "project" | !that.showPoints ? "" : "Punkte total: 0",
         },
         this.footerRight
       );
