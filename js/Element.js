@@ -269,6 +269,10 @@
 
 
           on(this.input, "input", function (evt) {
+            this.setter(this.input.value, false)
+          }.bind(this));
+
+          on(this.input, "change", function (evt) {
             this.setter(this.input.value)
           }.bind(this));
 
@@ -320,7 +324,7 @@
           }
         }
 
-        calculateRatioAndPoints(previousPoints) {
+        calculateRatioAndPoints(previousPoints, callback) {
 
           that.arcgis.calculateArea(this.value, "geometry").then((area) => {
             this.area = area;
@@ -344,10 +348,10 @@
                 }
               }
 
-                this.pointsInfo.innerHTML = that.showPoints ? "(" + that.strings.get("points") + ": " + this.points + ", "+that.strings.get("areaTotal")+": " + this.area.toFixed(0) + " m2, " + that.strings.get("ratio") + ": " + (numRatio*100).toFixed(2) + "%, "+that.strings.get("ratioBin")+": " + this.ratio + ")":  "("+that.strings.get("areaTotal")+": " + this.area.toFixed(0) + " m2, " + that.strings.get("ratio") + ": " + (numRatio*100).toFixed(2) + "%, "+that.strings.get("ratioBin")+": " + this.ratio + ")"
-                that.pointsTotal = that.pointsTotal - parseInt(previousPoints) + parseInt(this.points);
-                that.pointsTotalDiv.innerHTML = that.showPoints ? that.strings.get("totalPoints") + ": " + that.pointsTotal.toFixed(0):"";
-            
+              this.pointsInfo.innerHTML = that.showPoints ? "(" + that.strings.get("points") + ": " + this.points + ", "+that.strings.get("areaTotal")+": " + this.area.toFixed(0) + " m2, " + that.strings.get("ratio") + ": " + (numRatio*100).toFixed(2) + "%, "+that.strings.get("ratioBin")+": " + this.ratio + ")":  "("+that.strings.get("areaTotal")+": " + this.area.toFixed(0) + " m2, " + that.strings.get("ratio") + ": " + (numRatio*100).toFixed(2) + "%, "+that.strings.get("ratioBin")+": " + this.ratio + ")"
+              that.pointsTotal = that.pointsTotal - parseInt(previousPoints) + parseInt(this.points);
+              that.pointsTotalDiv.innerHTML = that.showPoints ? that.strings.get("totalPoints") + ": " + that.pointsTotal.toFixed(0):"";
+            callback();
               
           })
           .catch((error) => {
@@ -404,11 +408,12 @@
           
     
         setter(value, saveData = true) {
+          new Promise((resolve, reject) => { 
 
           let previousPoints = 0;
-            if (this.points != null) {
-              previousPoints = this.points;
-            }
+          if (this.points != null) {
+            previousPoints = this.points;
+          }
     
           if (value == null) {
             this.valueSet = false;
@@ -420,19 +425,35 @@
               that.pointsTotal = that.pointsTotal - parseInt(previousPoints);
               that.pointsTotalDiv.innerHTML = that.showPoints ? that.strings.get("totalPoints")+": " + that.pointsTotal.toFixed(0):"";
             }
-            
+            resolve();
           }
           else {
             this.valueSet = true;
             this.value = value;
             
+
+            if (this.rules != null) {
+              for (let i in this.rules) {
+                for (let j in this.rules[i].elements) {
+                  this.rules[i].elements[j].element.style.display = "none";
+                }
+                for (let k in this.rules[i].values) {
+                    if (this.rules[i].values[k] == this.value) {
+                      for (let j in this.rules[i].elements) {
+                        this.rules[i].elements[j].element.style.display = "block";
+                    }
+                  }
+                }
+              }
+            }
+    
             if (this.type == "mapInput") {
               this.geometry.definitionExpression = "objectid in (" + value.substring(1,value.length-1) + ")";
             }
-    
+
             if (this.hasPoints) {
               if (this.type == "mapInput") {
-                this.calculateRatioAndPoints(previousPoints);
+                this.calculateRatioAndPoints(previousPoints, resolve);
               }
               else {
                 if (this.type == "sliderInput") {
@@ -450,28 +471,17 @@
                 if (that.showPoints) {
                   this.pointsInfo.innerHTML =  this.points==1? "(" + this.points + " " +that.strings.get("point")+")":"(" + this.points + " "+that.strings.get("point")+")";
                 }
-                  that.pointsTotal = that.pointsTotal - parseInt(previousPoints) + parseInt(this.points);
-                  that.pointsTotalDiv.innerHTML = that.showPoints ? that.strings.get("totalPoints") + ": " + that.pointsTotal.toFixed(0):"";
+                that.pointsTotal = that.pointsTotal - parseInt(previousPoints) + parseInt(this.points);
+                that.pointsTotalDiv.innerHTML = that.showPoints ? that.strings.get("totalPoints") + ": " + that.pointsTotal.toFixed(0):"";
+                resolve();
               }
               
             }
-
-            if (this.rules != null) {
-              for (let i in this.rules) {
-                for (let j in this.rules[i].elements) {
-                  this.rules[i].elements[j].element.style.display = "none";
-                }
-                for (let k in this.rules[i].values) {
-                  if (this.rules[i].values[k] == this.value) {
-                    for (let j in this.rules[i].elements) {
-                      this.rules[i].elements[j].element.style.display = "block";
-                  }
-                  }
-              }
-              
+            else {
+              resolve();
             }
           }
-          }
+        }).then(() => {
 
           if (saveData) {
             this.app.save.innerHTML = that.strings.get("saving")
@@ -492,7 +502,7 @@
 
             });
           }
-          
+        })
 
         }
 

@@ -361,6 +361,8 @@ define([
             color: [255, 0, 0, 0.145],
           },
         },
+        minScale: 0,
+        maxScale: 0
       });
 
       if (that.projectAreaId != null) {

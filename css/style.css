@@ -12,9 +12,14 @@
 }
 */
 
-input[type='radio'], input[type='checkbox'] {
-  width: unset;
-
+input[type=checkbox]
+{
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(1); /* IE */
+  -moz-transform: scale(1); /* FF */
+  -webkit-transform: scale(1); /* Safari and Chrome */
+  -o-transform: scale(1); /* Opera */
+  transform: scale(1);
 }
 :root {
   --gray: #bebebe;
@@ -370,7 +375,6 @@ diagram {
   border-color: var(--dark_gray) !important;
   opacity: 0.5 !important;
   color: var(--dark_gray) !important;
-  pointer-events: none;
 }
 
 .page {
