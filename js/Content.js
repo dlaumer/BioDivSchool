@@ -58,6 +58,7 @@ define([
     - textInfo (optional)
         - linkText
         - text
+    - version
 
 
     dateTimeInput
@@ -66,6 +67,7 @@ define([
     - textInfo (optional)
         - linkText
         - text
+    - version
 
     radioButtonInput
     --------------
@@ -78,6 +80,7 @@ define([
     - textInfo (optional)
         - linkText
         - text
+    - version
     
 
     radioButtonInput
@@ -90,6 +93,7 @@ define([
     - textInfo (optional)
         - linkText
         - text
+    - version
 
 
     sliderInput
@@ -103,6 +107,8 @@ define([
     - textInfo (optional)
         - linkText
         - text
+    - version
+
 
     mapInput
     --------
@@ -115,6 +121,7 @@ define([
       - key
       - stops
     - points (optional)
+    - version
 
     */
 
@@ -132,7 +139,13 @@ define([
         text: `Alle Arten einer Region bilden zusammen ein Nahrungsnetz.
         <img src="img/Fotos_Hilfestellungen/H01_1.png" alt="H01_1" width="100%">
         Heimische Pflanzen sind die Grundlage von Nahrungsnetzen. Deshalb sollte es möglichst viele Flächen mit heimischen Wildpflanzen geben.
-        `
+        `,
+        textInfo: {
+          linkText: "Dummy",
+          text: `Dummy
+          `
+        }, 
+        version: ["long"]
       })
 
       //08_wild_geomoid
@@ -158,7 +171,8 @@ define([
           Sportrasen und Wiesen mit Gras, das immer kürzer ist als 10 cm. Solche Flächen werden nicht zu Flächen mit heimischen Wildpflanzen gezählt.
           </div>
           `,
-        }
+        },
+        version: ["long"]
       });  
 
 

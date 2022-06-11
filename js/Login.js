@@ -17,19 +17,37 @@ define([
   "biodivschool/App",
   "biodivschool/Content",
   "biodivschool/ArcGis",
-], function (dom, domCtr, win, on, App, Content, ArcGis) {
+  "biodivschool/StringsApp",
+
+], function (dom, domCtr, win, on, App, Content, ArcGis, StringsApp) {
   return class Login {
-    constructor(mode) {
+    constructor(mode, callback) {
       this.mode = mode;
 
-      this.createSplashScreen();
+      this.urlData = this.getJsonFromUrl();
+
+      this.lang = "de"
+      if (Object.keys(this.urlData).includes("lang")) {
+        this.lang = this.urlData["lang"]
+      }
+
+      this.version = "short"
+      if (Object.keys(this.urlData).includes("version")) {
+        this.version = this.urlData["version"]
+      }
+
+      this.strings = new StringsApp(this.lang);
+      this.strings.init().then(() => {
+        this.createSplashScreen();
+        callback();
+      });
     }
 
     // Start the login screen
     init(offline) {
       // Make new app
       this.offline = offline;
-      this.app = new App(this.offline, this.mode, () => {
+      this.app = new App(this.offline, this.mode, this.strings, this.version, () => {
         this.content = new Content(that);
         that.content = this.content;
 
@@ -47,12 +65,11 @@ define([
           }
         }
 
-        let urlData = this.getJsonFromUrl();
 
         if (this.mode == "consolidation") {
-          if ( Object.keys(urlData).indexOf("project")  > -1) {
-            that.initConsolidation(urlData["project"]);
-            this.inputProjectId.value = urlData["project"]
+          if ( Object.keys(this.urlData).indexOf("project")  > -1) {
+            that.initConsolidation(this.urlData["project"]);
+            this.inputProjectId.value = this.urlData["project"]
 
           }
           else {
@@ -60,9 +77,9 @@ define([
           }
         }
         else if (this.mode == "project") {
-          if ( Object.keys(urlData).indexOf("project")  > -1) {
-            that.initProject(urlData["project"]);
-            this.inputProjectId.value = urlData["project"]
+          if ( Object.keys(this.urlData).indexOf("project")  > -1) {
+            that.initProject(this.urlData["project"]);
+            this.inputProjectId.value = this.urlData["project"]
 
 
           }
@@ -72,15 +89,15 @@ define([
         }
         else {
           
-          if (Object.keys(urlData).indexOf("group") > -1 && Object.keys(urlData).indexOf("project")  > -1) {
-            that.init(urlData["project"], urlData["group"]);
-            this.inputProjectId.value = urlData["project"]
-            this.inputGroupId.value = urlData["group"]
+          if (Object.keys(this.urlData).indexOf("group") > -1 && Object.keys(this.urlData).indexOf("project")  > -1) {
+            that.init(this.urlData["project"], this.urlData["group"]);
+            this.inputProjectId.value = this.urlData["project"]
+            this.inputGroupId.value = this.urlData["group"]
             this.inputGroupId.style.display = "block";
           }
           else {
-            if (Object.keys(urlData).indexOf("project")  > -1) {
-              this.inputProjectId.value = urlData["project"]
+            if (Object.keys(this.urlData).indexOf("project")  > -1) {
+              this.inputProjectId.value = this.urlData["project"]
               this.inputGroupId.style.display = "block";
             }
             this.clickHandler();
@@ -99,14 +116,20 @@ define([
       );
       this.container = domCtr.create("div", { id: "welcome" }, this.background);
 
-      let title = "BioDivSchool Web App";
+      let title = this.strings.get("titleCollection");
 
       switch (this.mode) {
+        case "collection":
+          title = this.strings.get("titleCollection");
+          break;
         case "consolidation":
-          title = "BioDivSchool Consolidation";
+          title = this.strings.get("titleConsolidation");
           break;
         case "project":
-          title = "BioDivSchool Project";
+          title = this.strings.get("titleProject");
+          break;
+        case "results":
+          title = this.strings.get("titleResults");
           break;
       }
 
@@ -122,7 +145,7 @@ define([
       );
       this.loading = domCtr.create(
         "div",
-        { id: "loading", innerHTML: "Loading...", style: "font-size: 2vh" },
+        { id: "loading", innerHTML: this.strings.get("loading"), style: "font-size: 2vh" },
         this.container
       );
     }
@@ -143,7 +166,7 @@ define([
 
       domCtr.create(
         "option",
-        { value: "", disabled: true, selected: true, innerHTML: "Gruppe" },
+        { value: "", disabled: true, selected: true, innerHTML: this.strings.get("group") },
         this.inputGroupId
       );
       let options = this.content.groups;
@@ -156,7 +179,7 @@ define([
       }
       this.login = domCtr.create(
         "div",
-        { id: "btn_login", className: "btn1 btn_disabled", innerHTML: "Login" },
+        { id: "btn_login", className: "btn1 btn_disabled", innerHTML: this.strings.get("login") },
         this.container
       );
     }
@@ -209,14 +232,35 @@ define([
     }
 
     // Read the current url!
-  getJsonFromUrl() {
-  var query = location.search.substr(1);
-  var result = {};
-  query.split("&").forEach(function (part) {
-      var item = part.split("=");
-      result[item[0]] = decodeURIComponent(item[1]);
-  });
-  return result;
-}
+    getJsonFromUrl() {
+      var query = location.search.substr(1);
+      var result = {};
+      query.split("&").forEach(function (part) {
+          var item = part.split("=");
+          result[item[0]] = decodeURIComponent(item[1]);
+      });
+      return result;
+    }
+    updateAttributes(key, value) {
+      let json = this.getJsonFromUrl(this.attributes.split("?")[1]);
+      delete json[""]
+      json[key] = value;
+      this.attributes = "?";
+      for (let i in json) {
+        this.attributes += i + "=" + json[i] + "&"
+      }
+      console.log(this.attributes)
+  }
+
+    removeFromAttributes(key) {
+      let json = this.getJsonFromUrl(this.attributes.split("?")[1]);
+      delete json[""]
+      delete json[key];
+      this.attributes = "?";
+      for (let i in json) {
+        this.attributes += i + "=" + json[i] + "&"
+      }
+      console.log(this.attributes)
+      }
   };
 });

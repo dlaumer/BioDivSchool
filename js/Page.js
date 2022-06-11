@@ -60,8 +60,17 @@ define([
     clickHandler() {}
 
     addElement(type, key, args) {
-      let elem = this.addElementNormal(type, key, args, this.page)
-      return elem
+        
+    let elem = this.addElementNormal(type, key, args, this.page)
+
+    if (Object.keys(args).includes("version") && !args.version.includes(that.version)) {
+      elem.element.style.display = "none"
+    }
+    return elem
+
+    
+      
+      
     }
 
     addElementNormal(type, key, args, container) {
@@ -72,25 +81,30 @@ define([
     }
 
     addTextInfo(args) {
-      let textInfo = domCtr.create("div", { id: "textInfo_" + args.title, className: "element titleContainer"}, this.page);
-      if (args.title) {
-        domCtr.create("div", { className: "elementTitle", innerHTML: args.title}, textInfo);
 
-      }
-      if (args.text) {
-        domCtr.create("div", { className: "labelText", innerHTML: args.text, style: "width: 100%"}, textInfo);
-      }
 
-      if (args.textInfo) {
-        //this.label.innerHTML = this.label.innerHTML + "<br><br> <a onclick=expand()>sdsdd</a>" + args.linkText;
-        let link = domCtr.create("div", { className: "labelText linkText", innerHTML: args.textInfo.linkText}, textInfo);
-        let expandable = domCtr.create("div", { className: "expandable", innerHTML: args.textInfo.text, },textInfo);
+        let textInfo = domCtr.create("div", { id: "textInfo_" + args.title, className: "element titleContainer"}, this.page);
+        if (args.title) {
+          domCtr.create("div", { className: "elementTitle", innerHTML: args.title}, textInfo);
 
-        on(link, "click", function (evt) {
-          expandable.style.display = expandable.style.display=="" ? "flex" : "";
-        }.bind(this));
-      }
+        }
+        if (args.text) {
+          domCtr.create("div", { className: "labelText", innerHTML: args.text, style: "width: 100%"}, textInfo);
+        }
 
+        if (args.textInfo) {
+          //this.label.innerHTML = this.label.innerHTML + "<br><br> <a onclick=expand()>sdsdd</a>" + args.linkText;
+          let link = domCtr.create("div", { className: "labelText linkText", innerHTML: args.textInfo.linkText}, textInfo);
+          let expandable = domCtr.create("div", { className: "expandable", innerHTML: args.textInfo.text, },textInfo);
+
+          on(link, "click", function (evt) {
+            expandable.style.display = expandable.style.display=="" ? "flex" : "";
+          }.bind(this));
+        }
+
+        if (Object.keys(args).includes("version") && !args.version.includes(that.version)) {
+          textInfo.style.display = "none"
+        }
     }
 
     addWarning(text) {

@@ -77,7 +77,7 @@ define([
       if (type != "mapInput") {
       let diagram = domCtr.create(
         "div",
-        { id: "diagram", className: "btn1", innerHTML: "Diagram"},
+        { id: "diagram", className: "btn1", innerHTML: that.strings.get("diagram")},
         consolidationArea
       );
 
@@ -85,15 +85,15 @@ define([
         diagram,
         "click",
         function (evt) {
-          if (evt.target.innerHTML == "Diagram") {
+          if (evt.target.innerHTML == that.strings.get("diagram")) {
             consolidation.style.display = "none";
             consolidationDiagramm.style.display = "flex";
-            evt.target.innerHTML = "Werte";
+            evt.target.innerHTML = that.strings.get("values");
           }
           else {
             consolidation.style.display = "flex";
             consolidationDiagramm.style.display = "none";
-            evt.target.innerHTML = "Diagram";
+            evt.target.innerHTML = that.strings.get("diagram");
           }
         }
       );
@@ -107,7 +107,7 @@ define([
 
     addWarning() {
       if (document.getElementById("warning") == null) {
-        this.element = domCtr.create("div", { id: "warning", className: "warning", innerHTML: "Please fill in all the elements first!"}, this.page);  
+        this.element = domCtr.create("div", { id: "warning", className: "warning", innerHTML: that.strings.get("warnFillAll")}, this.page);  
       }
      
     }

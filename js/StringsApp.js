@@ -1,13 +1,13 @@
 /*
 --------------
-stringsApp.js
+StringsApp.js
 --------------
 Used to populate the webpage with the specific input elements. Trying to seperate the logic to make the site and the actual "data" for the app
 
 */
 define([
   ], function () {
-    return class stringsApp {
+    return class StringsApp {
       constructor(language) {
         this.lang = language;
 
@@ -59,7 +59,13 @@ define([
       }
 
       get(stringID) {
+        if (Object.keys(this.data).includes(stringID)) {
           return this.data[stringID][this.lang]
+
+        }
+        else {
+          alert("There is a missing string: " + stringID)
+        }
       }
 
     }

@@ -39,8 +39,9 @@
   <!-- load app.js -->
   <script>
   require(["biodivschool/Login",  "dojo/domReady!"],function(Login){
-    var login = new Login("consolidation");
-    login.init(true);    
+    var login = new Login("consolidation", () => {
+      login.init(true); 
+    });  
   });
   </script>
 

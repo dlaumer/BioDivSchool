@@ -19,7 +19,7 @@ define([
   "biodivschool/Start",
 ], function (dom, domCtr, win, on, Page, Consolidation, ArcGis, Start) {
   return class App {
-    constructor(offline, mode, callback) {
+    constructor(offline, mode, strings, version, callback) {
       that = this;
       that.pointsTotal = 0;
       that.projectAreaId = null;
@@ -27,6 +27,8 @@ define([
       this.offline = offline;
       this.arcgis = new ArcGis();
       that.consolidationWidth = null;
+      that.strings = strings;
+      that.version = version;
 
       that.showPoints = true;
 
@@ -51,12 +53,13 @@ define([
 
     init(projectId, groupId) {
 
-      document.getElementById("btn_login").innerHTML = "Loading...";
+      document.getElementById("btn_login").innerHTML = this.strings.get("loading");
       this.projectId = projectId;
       this.groupId = groupId;
 
-      var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?project=' + this.projectId + "&group=" + this.groupId;
-      window.history.pushState({ path: newurl }, '', newurl);
+      this.updateAttributes("project", this.projectId)
+      this.updateAttributes("group", this.groupId)
+      
 
       // Add a new element in the database
       let that = this;
@@ -92,10 +95,10 @@ define([
 
     initProject(projectId) {
 
-      document.getElementById("btn_login").innerHTML = "Loading...";
+      document.getElementById("btn_login").innerHTML = this.strings.get("loading");
       this.projectId = projectId;
       
-      var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?project=' + this.projectId;
+      var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?project=' + this.projectId + "&lang=" + this.strings.lang + "&version=" + this.version;;
       window.history.pushState({ path: newurl }, '', newurl);
 
       // Add a new element in the database
@@ -123,11 +126,11 @@ define([
     }
 
     initConsolidation(projectId) {
-      document.getElementById("btn_login").innerHTML = "Loading...";
+      document.getElementById("btn_login").innerHTML = this.strings.get("loading");
       this.projectId = projectId;
       this.groupId = "all";
 
-      var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?project=' + this.projectId;
+      var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?project=' + this.projectId + "&lang=" + this .strings.lang + "&version=" + this.version;;
       window.history.pushState({ path: newurl }, '', newurl);
       
       let that = this;
@@ -176,8 +179,8 @@ define([
       // TODO Warning if did not work!
       this.userName.innerHTML =
         that.mode == "project"
-          ? "Projekt: " + this.projectId
-          : "Projekt: " + this.projectId + ", Gruppe: " + this.groupId;
+          ? this.strings.get("project") + ": " + this.projectId
+          : this.strings.get("project") + ": " + this.projectId + ", " + this.strings.get("group") + ": " + this.groupId;
       this.save.className = "btn1 btn_disabled";
       document.onkeydown = this.checkKey;
     }
@@ -191,14 +194,14 @@ define([
       this.header = domCtr.create("div", { id: "header" , className: "header"}, this.background);
       this.save = domCtr.create(
         "div",
-        { id: "save", className: "btn1 btn_disabled", innerHTML: "Save" },
+        { id: "save", className: "btn1 btn_disabled", innerHTML: this.strings.get("save")},
         this.header
       );
 
       this.userName = domCtr.create("div", { id: "userName" }, this.header);
-      this.logout = domCtr.create(
+      this.startPage = domCtr.create(
         "div",
-        { id: "logout", className: "btn1", innerHTML: "Logout" },
+        { id: "startPage", className: "btn1", innerHTML: this.strings.get("startPage") },
         this.header
       );
 
@@ -221,7 +224,7 @@ define([
         {
           id: "btn_home",
           className: "btn2",
-          innerHTML: "Home",
+          innerHTML: this.strings.get("home"),
           style: "min-width: 10vw;",
         },
         this.footerLeft
@@ -236,14 +239,14 @@ define([
         {
           id: "btn_back",
           className: "btn2",
-          innerHTML: "Back",
+          innerHTML:this.strings.get("back"),
           style: "visibility:hidden",
         },
         this.footerCenter
       );
       this.next = domCtr.create(
         "div",
-        { id: "btn_next", className: "btn1", innerHTML: "Next" },
+        { id: "btn_next", className: "btn1", innerHTML: this.strings.get("next") },
         this.footerCenter
       );
       this.footerRight = domCtr.create(
@@ -256,17 +259,17 @@ define([
         {
           id: "pointsTotalInfo",
           className: "pointsInfo",
-          innerHTML: that.mode == "project" | !that.showPoints ? "" : "Punkte total: 0",
+          innerHTML: that.mode == "project" | !that.showPoints ? "" : this.strings.get("totalPoints") + ": 0",
         },
         this.footerRight
       );
     }
 
     saveData(callback) {
-      that.save.innerHTML = "Saving...";
+      that.save.innerHTML = this.strings.get("saving");
       let elements = that.getAllElements(false);
       that.uploadData(elements).then((value) => {
-        that.save.innerHTML = "Save";
+        that.save.innerHTML = this.strings.get("save");
         that.save.className = "btn1 btn_disabled";
         callback()
       });
@@ -283,16 +286,22 @@ define([
     clickHandler() {
       on(this.save, "click", () => {
         that.saveData(() => {
-          that.save.innerHTML = "Save";
+          that.save.innerHTML = this.strings.get("save");
           that.save.className = "btn1 btn_disabled";
         })
       });
 
       on(
-        this.logout,
+        this.startPage,
         "click",
         function (evt) {
-          document.location.reload(true);
+          window.open(
+          this.offline
+              ? window.location.href.split("/").slice(0, -1).join("/") +
+                  "/indexOffline.html"
+              : window.location.href.split("/").slice(0, -1).join("/") +
+                  "/index.html"
+          )
         }.bind(this)
       );
 
@@ -346,7 +355,8 @@ define([
       return page;
     }
 
-    addPage(title) {
+    addPage(title, version) {
+      if (!version || version && version.includes(that.version)) {
       let page;
       if (that.mode == "consolidation") {
         page = new Consolidation(
@@ -373,6 +383,7 @@ define([
         });
       }
       return page;
+    }
     }
 
     addPageNormal(title, container) {
@@ -473,13 +484,13 @@ define([
         that.lastPage.removeWarning();
         that.uploadData(elements);
       } else {
-        that.lastPage.addWarning("Please fill in all the elements first!");
+        that.lastPage.addWarning(that.strings.get("warnFillAll"));
       }
     }
 
     finalize() {
       that.saveData(() => {
-        that.lastPage.addWarning("The data was saved successfully!");
+        that.lastPage.addWarning(that.strings.get("warnSaveSuccess"));
         window.open(
           that.offline? window.location.href.split("/").slice(0, -1).join("/")+ "/" + '/indexResultsOffline.html?project=' + that.projectId + '&group=' + that.groupId: window.location.href.split("/").slice(0, -1).join("/") + "/" + '/indexResults.html?project=' + that.projectId + '&group=' + that.groupId   ,  
         );
@@ -539,5 +550,38 @@ define([
         that.goToPage(that.currentPage + 1);
       }
     }
+    getJsonFromUrl() {
+      var query = location.search.substr(1);
+      var result = {};
+      query.split("&").forEach(function (part) {
+          var item = part.split("=");
+          result[item[0]] = decodeURIComponent(item[1]);
+      });
+      return result;
+    }
+    updateAttributes(key, value) {
+      let json = this.getJsonFromUrl();
+      delete json[""]
+      json[key] = value;
+      let att = "?";
+      for (let i in json) {
+        att += i + "=" + json[i] + "&"
+      }
+      var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + att;
+      window.history.pushState({ path: newurl }, '', newurl);
+  }
+
+    removeFromAttributes(key) {
+      let json = this.getJsonFromUrl();
+      delete json[""]
+      delete json[key];
+      this.attributes = "?";
+      let att = "?";
+      for (let i in json) {
+        att += i + "=" + json[i] + "&"
+      }
+      var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + att;
+      window.history.pushState({ path: newurl }, '', newurl);
+      }
   };
 });

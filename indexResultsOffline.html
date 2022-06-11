@@ -42,8 +42,9 @@
   <!-- load app.js -->
   <script>
   require(["biodivschool/Login"],function(Login){
-    var login = new Login("results");
-    login.init(false);    
+    var login = new Login("results", () => {
+      login.init(false); 
+    });  
   });
   </script>
 
