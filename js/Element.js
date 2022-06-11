@@ -403,7 +403,7 @@
         }
           
     
-        setter(value) {
+        setter(value, saveData = true) {
 
           let previousPoints = 0;
             if (this.points != null) {
@@ -472,7 +472,27 @@
             }
           }
           }
-          this.app.save.className = "btn1"
+
+          if (saveData) {
+            this.app.save.innerHTML = that.strings.get("saving")
+            this.app.save.className = "btn1"
+            let data = this.getter();
+            new Promise((resolve, reject) => {
+              that.arcgis
+                .updateFeature(that.objectId, data)
+                .then((value) => {
+                  resolve(value);
+                })
+                .catch((reason) => {
+                  reject(reason);
+                }).then(() => {
+              this.app.save.innerHTML = that.strings.get("save")
+              this.app.save.className = "btn1 btn_disabled"
+            });
+
+            });
+          }
+          
 
         }
 

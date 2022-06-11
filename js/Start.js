@@ -30,6 +30,12 @@ define([
       }
       this.updateAttributes("lang", this.lang);
 
+      this.version = "short"
+      if (Object.keys(urlData).includes("version")) {
+        this.version = urlData["version"]
+      }
+      this.updateAttributes("version", this.version);
+
       this.strings = new StringsApp(this.lang);
       this.strings.init().then(() => {
         this.createSplashScreen();
@@ -90,6 +96,13 @@ define([
         this.background
       );
 
+
+      this.settings = domCtr.create(
+        "div",
+        { className: "settings", style: "display:none"}, 
+        this.background
+      );
+
       domCtr.create(
         "div",
         {
@@ -99,10 +112,35 @@ define([
         this.header
       );
 
-      this.versionSelect = domCtr.create("select", {className:"inputField"}, this.header);
+      
+      this.settingsButton = domCtr.create(
+        "div",
+        { id: "settings", className: "btn1", innerHTML: this.strings.get("settings") },
+        this.header
+      );
 
-      domCtr.create("option", {value:"short", selected:true, innerHTML: this.strings.get("short")}, this.versionSelect);
-      domCtr.create("option", {value:"long", innerHTML: this.strings.get("long")}, this.versionSelect);
+      let elemVersion = domCtr.create("div", {  className: "element"}, this.settings);
+      this.label = domCtr.create("div", { className: "labelText", innerHTML: this.strings.get("versionLabel")}, elemVersion);
+      this.versionSelect = domCtr.create("select", {className:"input inputField"}, elemVersion);
+
+      domCtr.create("option", {value:"short", selected: this.version == "short"? true:false, innerHTML: this.strings.get("short")}, this.versionSelect);
+      domCtr.create("option", {value:"long", selected: this.version == "long"? true:false, innerHTML: this.strings.get("long")}, this.versionSelect);
+      
+      
+      let elemLang = domCtr.create("div", { className: "element"}, this.settings);
+      this.label = domCtr.create("div", { className: "labelText", innerHTML: this.strings.get("langLabel")}, elemLang);
+      this.langSelect = domCtr.create("select", {className:"input inputField"}, elemLang);
+
+      for (const i in this.strings.languages) {
+        if ( this.strings.languages[i] == this.lang) {
+          domCtr.create("option", {value: this.strings.languages[i], selected:true, innerHTML: this.strings.get(this.strings.languages[i])}, this.langSelect);
+
+        }
+        else {
+          domCtr.create("option", {value: this.strings.languages[i], innerHTML: this.strings.get(this.strings.languages[i])}, this.langSelect);
+
+        }
+    }
 
       this.login = domCtr.create(
         "div",
@@ -285,10 +323,28 @@ define([
     clickHandler() {
       let this2 = this;
       on(
+        this.settingsButton,
+        "click",
+        function (evt) {
+          this2.settings.style.display = this2.settings.style.display=="none"? "block" : "none"
+        }
+      );
+
+
+      on(
         this.versionSelect,
         "change",
         function (evt) {
           this2.updateAttributes("version", evt.target.options[evt.target.selectedIndex].value)
+        }
+      );
+
+      on(
+        this.langSelect,
+        "change",
+        function (evt) {
+          this2.updateAttributes("lang", evt.target.options[evt.target.selectedIndex].value);
+          window.open(window.location.href.split("?")[0]+this2.attributes, "_self")
         }
       );
       
@@ -303,6 +359,7 @@ define([
               : window.location.href.split("/").slice(0, -1).join("/") +
                   "/indexCollection.html" +
                   this.attributes,
+                  "_self"
             //"_blank" // <- This is what makes it open in a new window.
           );
         }.bind(this)
@@ -333,6 +390,7 @@ define([
               : window.location.href.split("/").slice(0, -1).join("/") +
                   "/indexConsolidation.html" +
                   this.attributes,
+                  "_self"
             //"_blank" // <- This is what makes it open in a new window.
           );
         }.bind(this)
@@ -349,6 +407,7 @@ define([
               : window.location.href.split("/").slice(0, -1).join("/") +
                   "/indexResults.html" +
                   this.attributes,
+                  "_self"
             //"_blank" // <- This is what makes it open in a new window.
           );
         }.bind(this)
@@ -365,6 +424,7 @@ define([
               : window.location.href.split("/").slice(0, -1).join("/") +
                   "/indexProject.html" +
                   this.attributes,
+                  "_self"
             //"_blank" // <- This is what makes it open in a new window.
           );
         }.bind(this)
@@ -380,6 +440,7 @@ define([
                   "/indexProjectOffline.html"
               : window.location.href.split("/").slice(0, -1).join("/") +
                   "/indexProject.html",
+                  "_self"
             //"_blank" // <- This is what makes it open in a new window.
           );
         }.bind(this)
@@ -408,7 +469,6 @@ define([
     for (let i in json) {
       this.attributes += i + "=" + json[i] + "&"
     }
-    console.log(this.attributes)
     }
 
   removeFromAttributes(key) {
@@ -419,7 +479,6 @@ define([
     for (let i in json) {
       this.attributes += i + "=" + json[i] + "&"
     }
-    console.log(this.attributes)
     }
   };
 });

@@ -10,7 +10,6 @@ define([
     return class StringsApp {
       constructor(language) {
         this.lang = language;
-
                
       }
       init () {
@@ -33,7 +32,9 @@ define([
         // slice from start of text to the first \n index
         // use split to create an array from string by delimiter
         const headers = str.slice(0, str.indexOf("\n")).split(delimiter);
-      
+        this.languages = [...headers]
+        this.languages.shift();
+        this.languages.pop()
         // slice from \n index + 1 to the end of the text
         // use split to create an array of each csv value row
         const rows = str.slice(str.indexOf("\n") + 1).split("\n");

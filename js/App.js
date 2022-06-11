@@ -300,7 +300,8 @@ define([
               ? window.location.href.split("/").slice(0, -1).join("/") +
                   "/indexOffline.html"
               : window.location.href.split("/").slice(0, -1).join("/") +
-                  "/index.html"
+                  "/index.html", 
+                  "_self"
           )
         }.bind(this)
       );
@@ -409,7 +410,7 @@ define([
 
       for (let item in data) {
         if (item in elements && data[item] != null) {
-          elements[item].setter(data[item]);
+          elements[item].setter(data[item], false);
           elements[item].setterUI(data[item]);
         }
       }
