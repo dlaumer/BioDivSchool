@@ -30,6 +30,22 @@ define([
         { key: "f", label: "Gruppe f" },
 
       ]
+
+      this.instructions = `
+      Hinzufügen: <br>
+      1.	Zu Vollbild wechseln  <br>
+      2.	Mit Einfach-Klicks Eckpunkte der Fläche einzeichnen.<br>
+      3.	Den letzten Punkt mit Doppelklick setzen.<br>
+      4.	Zum Abschliessen auf Schaltfläche «Hinzufügen» klicken.<br> <br>
+
+      Bearbeiten <br>
+      1.	Fläche einmal anklicken. <br>
+      2.	Sobald Fläche aktiviert ist, Fläche noch einmal anklicken. <br>
+      3.	Eckpunkte wie gewünscht verschieben. <br>
+      4.	Zum Abschliessen die Schaltfläche «Aktualisieren» anklicken. <br>
+
+
+      `
     }
 
 
@@ -246,7 +262,7 @@ define([
       //10b_neophyten__geomoid - Liste und Points tbd
       page_regionalitaet.addElement("mapInput", "neophyten__geomoid", {
         text: `10b: Markiere alle Standorte mit schädlichen gebietsfremden Pflanzen.`,
-         placeholder: "Auswählen",
+        placeholder: "Auswählen",
          //points: "",
          options: [
           { key: "0", label: "A" },
@@ -363,6 +379,19 @@ define([
       page_strukturelemente.addElement("mapInput", "a_wild_geomoid", {    
         text: `13a: Markiere Flächen mit Gemüsebeeten und/oder Beeten mit Wildblumen in der gezeigten Untersuchungsfläche.`,
         area: "wild_area",
+        points: "a_wild_points",
+        ratio: {
+          key: "wild_arearatio",
+          options: [
+            { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden" },
+            { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" },
+            { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche" },
+            { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" },
+            { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche" },
+            { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" },
+            { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
+          ]
+        },
         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
@@ -381,26 +410,24 @@ define([
         }
       }); 
 
-      
-      page_strukturelemente.addElement("radioButtonInput", "wild_arearatio", {
-        text: " ",
-        placeholder: "Auswählen",
-        points: "wild_points",
-        options: [
-          { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden" },
-          { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" },
-          { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche" },
-          { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" },
-          { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche" },
-          { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" },
-          { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
-        ],
-      });
 
       //13b_trocken_geomoid
       page_strukturelemente.addElement("mapInput", "b_trocken_geomoid", {
         text: `13b: Markiere Flächen mit Trockenstandorten wie Kies, Sand, Ruderalflächen in der gezeigten Untersuchungsfläche.`,
         area: "trocken_area",
+        points: "trocken_points",
+        ratio: {
+          key: "trocken_arearatio",
+          options: [
+            { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden" },
+            { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" },
+            { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche" },
+            { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" },
+            { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche" },
+            { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" },
+            { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
+          ]
+        },
         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
@@ -426,25 +453,23 @@ define([
         }
       }); 
       
-      page_strukturelemente.addElement("radioButtonInput", "trocken_arearatio", {
-        text: " ",
-        placeholder: "Auswählen",
-        points: "trocken_points",
-        options: [
-          { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden" },
-          { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" },
-          { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche" },
-          { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" },
-          { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche" },
-          { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" },
-          { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
-        ],
-      }); 
-
       //13c_gras_geomoid
       page_strukturelemente.addElement("mapInput", "c_gras_geomoid", {
         text: `13c: Markiere in der gezeigten Untersuchungsfläche Flächen mit Wiesen dessen Gras mindestens einmal im Jahr höher als 10 cm ist.`,
         area: "c_gras_area",
+        points: "c_gras_points",
+        ratio: {
+          key: "c_gras_arearatio",
+          options: [
+            { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden" },
+            { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" },
+            { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche" },
+            { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" },
+            { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche" },
+            { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" },
+            { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
+          ]
+        },
          //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
@@ -457,26 +482,24 @@ define([
         }
       }); 
 
-      //Bemerkung: kann man dies nicht automatisieren (counts und ratio?)
-      page_strukturelemente.addElement("radioButtonInput", "c_gras_arearatio", {
-        text: " ",
-        placeholder: "Auswählen",
-        points: "c_gras_points",
-        options: [
-          { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden" },
-          { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" },
-          { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche" },
-          { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" },
-          { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche" },
-          { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" },
-          { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
-        ],
-      });
 
       //13d_hecken_geomoid
       page_strukturelemente.addElement("mapInput", "d_hecken_geomoid", {
         text: `13d: Markiere in der gezeigten Untersuchungsfläche Flächen mit Sträuchern und/oder Hecken mit weitgehend heimischen Pflanzen.`,
         area: "d_hecken_area",
+        points: "d_hecken_points",
+        ratio: {
+          key: "d_hecken_arearatio",
+          options: [
+            { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden" },
+            { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" },
+            { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche" },
+            { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" },
+            { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche" },
+            { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" },
+            { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
+          ]
+        },
            //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
@@ -493,26 +516,24 @@ define([
         }
       }); 
 
-      //Bemerkung: kann man dies nicht automatisieren (counts und ratio?)
-      page_strukturelemente.addElement("radioButtonInput", "d_hecken_arearatio", {
-        text: "",
-        placeholder: "Auswählen",
-        points: "d_hecken_points",
-        options: [
-          { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden" },
-          { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" },
-          { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche" },
-          { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" },
-          { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche" },
-          { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" },
-          { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
-        ],
-      });
 
       //13e_baeume_geomoid
       page_strukturelemente.addElement("mapInput", "e_baeume_geomoid", {
         text: `13e: Markiere in der gezeigten Untersuchungsfläche Flächen mit Bäumen, Baumgruppen oder Wald mit weitgehend heimischen Pflanzen.`,
         area: "e_baeume_area",
+        points: "e_baeume_points",
+        ratio: {
+          key: "e_baeume_arearatio",
+          options: [
+            { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden" },
+            { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" },
+            { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche" },
+            { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" },
+            { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche" },
+            { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" },
+            { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
+          ]
+        },
         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
@@ -525,28 +546,25 @@ define([
         }
       }); 
 
-      //Bemerkung: kann man dies nicht automatisieren (counts und ratio?)
-      page_strukturelemente.addElement("radioButtonInput", "e_baeume_arearatio", {
-        text: " ",
-        placeholder: "Auswählen",
-        points: "e_baeume_points",
-        options: [
-          { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden" },
-          { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" },
-          { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche" },
-          { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" },
-          { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche" },
-          { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" },
-          { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
-        ],
-      });
-      
       
              
       //13f_wasser_geomoid
       page_strukturelemente.addElement("mapInput", "f_wasser_geomoid", {
         text: `13f: Markiere Wasserflächen in der gezeigten Untersuchungsfläche.`,
         area: "f_wasser_area",
+        points: "f_wasser_points",
+        ratio: {
+          key: "f_wasser_arearatio",
+          options: [
+            { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden" },
+            { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" },
+            { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche" },
+            { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" },
+            { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche" },
+            { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" },
+            { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
+          ]
+        },
          //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
@@ -561,21 +579,6 @@ define([
           </div>
           `,
           }
-      }); 
-   
-      page_strukturelemente.addElement("radioButtonInput", "f_wasser_arearatio", {
-        text: " ",
-        placeholder: "Auswählen",
-        points: "f_wasser_points",
-        options: [
-          { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden" },
-          { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" },
-          { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche" },
-          { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" },
-          { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche" },
-          { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" },
-          { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
-        ],
       });
 
    
@@ -1728,7 +1731,19 @@ define([
     makeContentProject() {
       let page0 = this.app.addPage("Projekt Infos");
 
-      page0.addElement("mapInput", "gebiete", { text: "Zeichne das Projektgebiet ein" });
+      page0.addElement("mapInput", "gebiete", { 
+        text: `Zeichne die Untersuchungsfläche ein:<br> <br> 
+
+        1. Finde deinen Standort mit dem entsprechendem Button in der Karte. Unter Umständen muss dazu in der Systemeinstellung der Ortungsdienst für den verwendeten Browser aktiviert werden. <br>
+        2. Klicke auf "Feature hinzufügen" um in den Zeichnungs-Modus zu wechseln. <br>
+        3. Wechsle zur Karte im Vollbildmodus. <br>
+        4. Untersuchungsfläche einzeichnen. Beim letzten eingezeichneten Punkt Doppelklick, um Fläche abzuschliessen. <br>
+        5. Esc-Taste drücken, um zur Normalansicht zurückzukehren. <br>
+        6. Fülle danach die ID, Ort und Name der Schule ein. Die ID sollte folgendem Format entsprechen: PLZ_Nachname der Lehrperson <br>
+        7. Klicke auf "Hinzufügen" um eingezeichnete Fläche hinzuzufügen. <br>
+
+        ` 
+      });
 
       this.app.addFinalPage("Ende");
 

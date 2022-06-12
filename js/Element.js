@@ -304,6 +304,12 @@
           this.editorContainer = domCtr.create("div", {className: "editor"}, this.mapContainer); 
           this.editor = domCtr.create("div", {id: this.name + "_editor"}, this.editorContainer);
   
+          this.linkInstructions = domCtr.create("div", { className: "labelText linkText", innerHTML: that.strings.get("instructions")}, this.element);
+          this.instructions = domCtr.create("div", { className: "expandable", innerHTML: that.content.instructions, }, this.element);
+
+          on(this.linkInstructions, "click", function (evt) {
+            this.instructions.style.display = this.instructions.style.display=="" ? "flex" : "";
+          }.bind(this));
           if (!that.offline) {
             let info = that.arcgis.addMap(this.input.id, this.editor.id,this);  
             this.geometry = info.geometry;
@@ -316,7 +322,12 @@
             this.area = 0;
 
             this.keyRatio = args.ratio.key;
-            this.ratioStops = args.ratio.stops;
+            if (args.ratio.stops) {
+              this.ratioStops = args.ratio.stops;
+            }
+            else {
+              this.ratioOptions = args.ratio.options;
+            }
 
             this.hasPoints = true;
             this.keyPoints = args.points;
@@ -334,15 +345,17 @@
 
         calculateRatioAndPoints(previousPoints, callback) {
 
-          that.arcgis.calculateArea(this.value, "geometry").then((area) => {
-            this.area = area;
-            let numRatio = 0;
+          that.arcgis.calculateArea(this.value, "geometry").then((info) => {
+            this.area = info.totalArea;
+            this.areas = info.areas;
+
+            if (this.ratioStops) {
+              let numRatio = 0;
               if (this.area == 0) {
                 this.ratio =  "0-" + (this.ratioStops[0]*100).toFixed(0) + "%"
                 this.points = parseInt(Object.keys(this.ratioStops)[0]);
               }
               else {
-                console.log(this.app.projectArea);
                 numRatio = this.area/this.app.projectArea;
                 if (numRatio > 1) {
                   alert(that.strings.get("alertAreSize"));
@@ -355,10 +368,62 @@
                   }
                 }
               }
-
               this.pointsInfo.innerHTML = that.showPoints ? "(" + that.strings.get("points") + ": " + this.points + ", "+that.strings.get("areaTotal")+": " + this.area.toFixed(0) + " m2, " + that.strings.get("ratio") + ": " + (numRatio*100).toFixed(2) + "%, "+that.strings.get("ratioBin")+": " + this.ratio + ")":  "("+that.strings.get("areaTotal")+": " + this.area.toFixed(0) + " m2, " + that.strings.get("ratio") + ": " + (numRatio*100).toFixed(2) + "%, "+that.strings.get("ratioBin")+": " + this.ratio + ")"
-              that.pointsTotal = that.pointsTotal - parseInt(previousPoints) + parseInt(this.points);
-              that.pointsTotalDiv.innerHTML = that.showPoints ? that.strings.get("totalPoints") + ": " + that.pointsTotal.toFixed(0):"";
+            }
+            else if (this.ratioOptions) {
+
+              let numAreas = JSON.parse(this.value).length;
+              let maxArea = Math.max(...Object.values(this.areas));
+
+              if (numAreas < 3) {
+
+                this.ratio = this.ratioOptions[0].label;
+                this.points =  this.ratioOptions[0].points
+                
+              } else if (numAreas < 5  && that.projectArea/2 < maxArea ) {
+              
+                this.ratio = this.ratioOptions[1].label;
+                this.points =  this.ratioOptions[1].points                
+              }  else if (numAreas < 5  && that.projectArea/2 >= maxArea ) {
+              
+                this.ratio = this.ratioOptions[2].label;
+                this.points =  this.ratioOptions[2].points                
+              }
+              
+                else if (numAreas < 6  && 0.4*that.projectArea < maxArea ) {
+              
+                this.ratio = this.ratioOptions[3].label;
+                this.points =  this.ratioOptions[3].points                
+              }
+              
+                else if (numAreas < 6  && 0.4*that.projectArea >= maxArea  ) {
+              
+                this.ratio = this.ratioOptions[4].label;
+                this.points =  this.ratioOptions[4].points                
+              }
+              
+                else if (numAreas < 7  && 0.3*that.projectArea < maxArea ) {
+              
+                this.ratio = this.ratioOptions[5].label;
+                this.points =  this.ratioOptions[5].points                
+              }
+              
+                else if (numAreas < 7  && 0.3*that.projectArea >= maxArea  ) {
+              
+                this.ratio = this.ratioOptions[6].label;
+                this.points =  this.ratioOptions[6].points                
+              }
+              else {
+                this.ratio = this.ratioOptions[6].label;
+                this.points =  this.ratioOptions[6].points  
+              }
+              this.pointsInfo.innerHTML = that.showPoints ? "(" + that.strings.get("points") + ": " + this.points + ", "+that.strings.get("areaTotal")+": " + this.area.toFixed(0) + " m2, "+that.strings.get("ratioBin")+": " + this.ratio + ")":  "("+that.strings.get("areaTotal")+": " + this.area.toFixed(0) + " m2, " +that.strings.get("ratioBin")+": " + this.ratio + ")"
+
+            }
+            
+
+            that.pointsTotal = that.pointsTotal - parseInt(previousPoints) + parseInt(this.points);
+            that.pointsTotalDiv.innerHTML = that.showPoints ? that.strings.get("totalPoints") + ": " + that.pointsTotal.toFixed(0):"";
             callback();
               
           })
@@ -465,6 +530,7 @@
     
             if (this.type == "mapInput") {
               this.geometry.definitionExpression = "objectid in (" + value.substring(1,value.length-1) + ")";
+              
             }
 
             if (this.hasPoints) {

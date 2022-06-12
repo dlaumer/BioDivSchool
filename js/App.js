@@ -29,6 +29,7 @@ define([
       that.consolidationWidth = null;
       that.strings = strings;
       that.version = version;
+      
 
       that.showPoints = true;
 
@@ -59,7 +60,7 @@ define([
 
       this.updateAttributes("project", this.projectId)
       this.updateAttributes("group", this.groupId)
-      
+
 
       // Add a new element in the database
       let that = this;
@@ -73,7 +74,7 @@ define([
           this.arcgis
             .calculateArea(this.projectAreaId, "project")
             .then((area) => {
-              that.projectArea = area;
+              that.projectArea = area.totalArea;
               this.arcgis.checkData(that.projectId, that.groupId, (info) => {
                 if (info != null) {
                   let data = info.data;
@@ -98,8 +99,7 @@ define([
       document.getElementById("btn_login").innerHTML = this.strings.get("loading");
       this.projectId = projectId;
       
-      var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?project=' + this.projectId + "&lang=" + this.strings.lang + "&version=" + this.version;;
-      window.history.pushState({ path: newurl }, '', newurl);
+      this.updateAttributes("project", this.projectId)
 
       // Add a new element in the database
       let that = this;
@@ -130,8 +130,7 @@ define([
       this.projectId = projectId;
       this.groupId = "all";
 
-      var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?project=' + this.projectId + "&lang=" + this .strings.lang + "&version=" + this.version;;
-      window.history.pushState({ path: newurl }, '', newurl);
+      this.updateAttributes("project", this.projectId)
       
       let that = this;
 
@@ -144,7 +143,7 @@ define([
           this.arcgis
             .calculateArea(this.projectAreaId, "project")
             .then((area) => {
-              this.projectArea = area;
+              this.projectArea = area.totalArea;
             });
           this.arcgis.checkDataGroups(that.projectId, (data) => {
             let dataGroups = that.parseGroups(data);
@@ -193,6 +192,11 @@ define([
       this.save.className = "btn1 btn_disabled";
       document.onkeydown = this.checkKey;
      
+      this.home.style.display = that.mode == "project" ? "none" : "block";
+      this.save.style.display = that.mode == "project" ? "none" : "block";
+      this.next.style.display = that.mode == "project" && this.projectId == null? "none" : "block";
+      this.back.style.display = that.mode == "project" ? "none" : "block";
+
     }
 
     createUI() {
@@ -239,6 +243,7 @@ define([
         },
         this.footerLeft
       );
+
       this.footerCenter = domCtr.create(
         "div",
         { className: "footerElements" },
@@ -273,6 +278,7 @@ define([
         },
         this.footerRight
       );
+
     }
 
     saveData(callback) {
@@ -305,14 +311,27 @@ define([
         this.startPage,
         "click",
         function (evt) {
-          window.open(
-          this.offline
-              ? window.location.href.split("/").slice(0, -1).join("/") +
-                  "/indexOffline.html"
-              : window.location.href.split("/").slice(0, -1).join("/") +
-                  "/index.html", 
-                  "_self"
-          )
+          let urlData = this.getJsonFromUrl();
+          if (Object.keys(urlData).includes("intern")) {
+            window.open(
+              this.offline
+                  ? window.location.href.split("/").slice(0, -1).join("/") +
+                      "/indexOffline.html?intern=true"
+                  : window.location.href.split("/").slice(0, -1).join("/") +
+                      "/index.html?intern=true", 
+                      "_self"
+              )
+          }
+          else {
+            window.open(
+              this.offline
+                  ? window.location.href.split("/").slice(0, -1).join("/") +
+                      "/indexOffline.html"
+                  : window.location.href.split("/").slice(0, -1).join("/") +
+                      "/index.html", 
+                      "_self"
+              )
+          }
         }.bind(this)
       );
 
@@ -336,7 +355,19 @@ define([
         this.next,
         "click",
         function (evt) {
-          this.goToPage(this.currentPage + 1);
+          if (that.mode == "project") {
+            window.open(
+              this.offline
+                  ? window.location.href.split("/").slice(0, -1).join("/") +
+                      "/indexOffline.html?intern=true"
+                  : window.location.href.split("/").slice(0, -1).join("/") +
+                      "/index.html?intern=true", 
+                      "_self"
+              )
+          }
+          else {
+            this.goToPage(this.currentPage + 1);
+          }
         }.bind(this)
       );
     }

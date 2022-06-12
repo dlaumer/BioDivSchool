@@ -319,6 +319,7 @@ define([
 
       return new Promise((resolve, reject) => {
         let totalArea = 0;
+        let areas = {}
         var query = data.createQuery();
         query.where =
           "objectid in (" + objectIds.substring(1, objectIds.length - 1) + ")";
@@ -330,10 +331,12 @@ define([
             if (results.features.length > 0) {
               for (let i = 0; i < results.features.length; i++) {
                 let geom = results.features[i].geometry;
-                totalArea += geometryEngine.geodesicArea(geom, "square-meters");
+                let area = geometryEngine.geodesicArea(geom, "square-meters");
+                areas[results.features[i].getObjectId()] = area;
+                totalArea += area;
               }
             }
-            resolve(totalArea);
+            resolve({totalArea:totalArea, areas: areas});
           })
           .catch((error) => {
             alert(error.message);
@@ -440,6 +443,8 @@ define([
               projectArea.definitionExpression =
                 "objectid = " + editInfo.addedFeatures[0].objectId.toString();
               editor.layerInfos[0].addEnabled = false;
+              that.updateAttributes("project",editInfo.edits.addFeatures[0].attributes.projectid)
+              location.reload();
             } else {
               alert(
                 "Saving not possible: " +
@@ -527,7 +532,7 @@ define([
                       // autocastable to FieldElement
                       type: "field",
                       fieldName: "name",
-                      label: "Standort",
+                      label: "Ort",
                     },
                     {
                       // autocastable to FieldElement

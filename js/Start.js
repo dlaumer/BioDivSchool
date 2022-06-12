@@ -24,6 +24,11 @@ define([
       this.attributes = "?";
       let urlData = this.getJsonFromUrl();
 
+      this.intern = "false";
+      if (Object.keys(urlData).includes("intern")) {
+        this.intern = urlData["intern"];
+      }
+
       this.lang = "de"
       if (Object.keys(urlData).includes("lang")) {
         this.lang = urlData["lang"]
@@ -44,14 +49,13 @@ define([
     }
 
     // Start the start screen
-    init(offline, intern) {
+    init(offline) {
       this.offline = offline;
-      this.intern = intern;
       this.arcgis = new ArcGis();
       if (!this.offline) {
         this.arcgis.initProject(() => {
           this.projectSelected = null;
-          this.createUI(intern);
+          this.createUI();
           this.clickHandler();
         });
       }
@@ -228,7 +232,7 @@ define([
 
       this.footerLeft = domCtr.create(
         "div",
-        { className: "footerLeft", style: this.intern? "visibility: visible;":"visibility: hidden;" },  
+        { className: "footerLeft", style: this.intern == "true"? "visibility: visible;":"visibility: hidden;" },  
         this.footer
       );
 
@@ -274,7 +278,7 @@ define([
           id: "btn_project",
           className: "btn1",
           innerHTML: this.strings.get("editProject"),
-          style: "min-width: 10vw;" + this.intern? "visibility: visible;":"visibility: hidden;",
+          style: this.intern == "true"? "min-width: 10vw;visibility: visible;":"min-width: 10vw;visibility: hidden;",
         },
         this.buttons
       );
