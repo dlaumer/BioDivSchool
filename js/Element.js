@@ -199,7 +199,7 @@
           this.input = domCtr.create("div", {className: "input inputRows"}, this.element);        
           for (const i in args.options) {
             let radioButtonContainer = domCtr.create("div", {className: "radioButtonContainer"}, this.input); 
-            domCtr.create("input", {type: "radio", name: this.key, id: this.key + "__" + args.options[i].key, className: "radioButton"}, radioButtonContainer);  
+            domCtr.create("input", {type: "radio", name: this.key, id: this.key + "___" + args.options[i].key, className: "radioButton"}, radioButtonContainer);  
             domCtr.create("label", {for: args.options[i].key, innerHTML: args.options[i].label }, radioButtonContainer);  
           }
 
@@ -217,7 +217,7 @@
           }
 
           on(this.input, "change", function (evt) {
-            this.setter(this.data[evt.target.id.split("__")[1]].label)
+            this.setter(this.data[evt.target.id.split("___")[1]].label)
             
           }.bind(this));
           
@@ -226,7 +226,14 @@
               this.setterUINonEdit(this.input, value)
             }
             else {
-              document.getElementById(this.key + "__" +  this.pointsDict[value].key).checked = true;
+              if (value==null || value == "") {
+                if (this.element.querySelector('input[name="'+this.key+'"]:checked') != null) {
+                  this.element.querySelector('input[name="'+this.key+'"]:checked').checked = false
+                }
+              }
+              else {
+                document.getElementById(this.key + "___" +  this.pointsDict[value].key).checked = true;
+              }
             }
           }
         }
@@ -300,6 +307,7 @@
           if (!that.offline) {
             let info = that.arcgis.addMap(this.input.id, this.editor.id,this);  
             this.geometry = info.geometry;
+            this.editorEsri = info.editor;
             this.projectAreaClass = info.projectArea; 
           }
 
@@ -415,7 +423,7 @@
             previousPoints = this.points;
           }
     
-          if (value == null) {
+          if (value == null || value == "") {
             this.valueSet = false;
             this.value = value;
             
@@ -436,6 +444,7 @@
               for (let i in this.rules) {
                 for (let j in this.rules[i].elements) {
                   this.rules[i].elements[j].element.style.display = "none";
+                  
                 }
                 for (let k in this.rules[i].values) {
                     if (this.rules[i].values[k] == this.value) {
@@ -443,6 +452,13 @@
                         this.rules[i].elements[j].element.style.display = "block";
                     }
                   }
+                  else {
+                    for (let j in this.rules[i].elements) {
+                      this.rules[i].elements[j].setter("");
+                      this.rules[i].elements[j].setterUI("");
+                    }
+                  }
+                  
                 }
               }
             }

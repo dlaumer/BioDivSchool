@@ -140,37 +140,36 @@ define([
 
           if (that.mode == "project") {
             callback(null);
-          }
-          else {
-          const attributes =
-            groupId == null
-              ? { projectid: projectId }
-              : { projectid: projectId, gruppe: groupId };
+          } else {
+            const attributes =
+              groupId == null
+                ? { projectid: projectId }
+                : { projectid: projectId, gruppe: groupId };
 
-          const addFeature = new Graphic({
-            geometry: null,
-            attributes: attributes,
-          });
-          // Apply uploading the (almost) empty row
-          const promise = featureClass
-            .applyEdits({
-              addFeatures: [addFeature],
-            })
-            .then((editInfo) => {
-              if (editInfo.addFeatureResults[0].objectId != -1) {
-                callback({
-                  newFeature: true,
-                  data: editInfo.addFeatureResults[0],
-                  objectId: editInfo.addFeatureResults[0].objectId,
-                });
-              } else {
-                alert(
-                  "loading not possible: " +
-                    editInfo.addFeatureResults[0].error.message
-                );
-                console.error(editInfo.addFeatureResults[0].error);
-              }
+            const addFeature = new Graphic({
+              geometry: null,
+              attributes: attributes,
             });
+            // Apply uploading the (almost) empty row
+            const promise = featureClass
+              .applyEdits({
+                addFeatures: [addFeature],
+              })
+              .then((editInfo) => {
+                if (editInfo.addFeatureResults[0].objectId != -1) {
+                  callback({
+                    newFeature: true,
+                    data: editInfo.addFeatureResults[0],
+                    objectId: editInfo.addFeatureResults[0].objectId,
+                  });
+                } else {
+                  alert(
+                    "loading not possible: " +
+                      editInfo.addFeatureResults[0].error.message
+                  );
+                  console.error(editInfo.addFeatureResults[0].error);
+                }
+              });
           }
         }
       });
@@ -180,16 +179,15 @@ define([
     checkDataProject(projectId, callback) {
       let featureClass = this.project;
 
-
       var query = featureClass.createQuery();
-      query.where = "projectid= '" + projectId + "'"
+      query.where = "projectid= '" + projectId + "'";
 
       featureClass.queryFeatures(query).then((results) => {
         // If it already exists, load the existing values
         if (results.features.length > 0) {
           callback(results.features[0].getObjectId());
         } else {
-         alert("Dieses Projekt existiert noch nicht!") 
+          alert("Dieses Projekt existiert noch nicht!");
         }
       });
     }
@@ -348,11 +346,12 @@ define([
       esriConfig.portalUrl = "https://swissparks.maps.arcgis.com/";
 
       let geometry;
+      let editor;
       let projectArea = new FeatureLayer({
         portalItem: {
           id: this.links.projectLayerId,
         },
-       
+
         editingEnabled: true,
         renderer: {
           type: "simple", // autocasts as new SimpleRenderer()
@@ -362,19 +361,17 @@ define([
           },
         },
         minScale: 0,
-        maxScale: 0
+        maxScale: 0,
       });
 
       if (that.projectAreaId != null) {
-        projectArea.definitionExpression = 
-        "objectid = " +
-        that.projectAreaId.substring(1, that.projectAreaId.length - 1)
+        projectArea.definitionExpression =
+          "objectid = " +
+          that.projectAreaId.substring(1, that.projectAreaId.length - 1);
+      } else {
+        projectArea.definitionExpression = "objectid = 0 ";
       }
-      else {
-        projectArea.definitionExpression = 
-        "objectid = 0 "
-      }
-     
+
       // TODO: Add Filter for group ID
       let map = new Map({
         basemap: "satellite",
@@ -382,7 +379,6 @@ define([
       map.add(projectArea);
 
       if (that.mode != "project") {
-
         projectArea.editingEnabled = false;
         geometry = new FeatureLayer({
           portalItem: {
@@ -406,23 +402,24 @@ define([
       const homeButton = new Home({
         view: view,
       });
-      this.readGeometry(that.projectAreaId, "project").then(
-        (projectAreaFeature) => {
-          homeButton.viewpoint = new Viewpoint({
-            targetGeometry: projectAreaFeature[0].geometry.extent
-          });
-        })
-      view.ui.add(homeButton, "top-left")
+      if (that.projectAreaId != null) {
+        this.readGeometry(that.projectAreaId, "project").then(
+          (projectAreaFeature) => {
+            homeButton.viewpoint = new Viewpoint({
+              targetGeometry: projectAreaFeature[0].geometry.extent,
+            });
+          }
+        );
+      }
+
+      view.ui.add(homeButton, "top-left");
 
       const locate = new Locate({
         view: view,
         useHeadingEnabled: false,
       });
 
-      view.ui.add(locate, "top-left")
-      
-
-   
+      view.ui.add(locate, "top-left");
 
       // TODO also calculate exisiting areas!
       function calculateAreaPending() {
@@ -440,11 +437,10 @@ define([
           console.log(editInfo);
           if (editInfo.addedFeatures.length > 0) {
             if (editInfo.addedFeatures[0].objectId != -1) {
-              projectArea.definitionExpression = 
-              "objectid = " + editInfo.addedFeatures[0].objectId.toString();
-              that.editor.layerInfos[0].addEnabled = false;
-            }
-            else {
+              projectArea.definitionExpression =
+                "objectid = " + editInfo.addedFeatures[0].objectId.toString();
+              editor.layerInfos[0].addEnabled = false;
+            } else {
               alert(
                 "Saving not possible: " +
                   editInfo.addedFeatures[0].error.message
@@ -466,6 +462,7 @@ define([
                 newValue = [...value, ...JSON.parse(element.value)];
               }
               element.setter(JSON.stringify(newValue));
+              editor.layerInfos[0].updateEnabled = true;
             } else {
               alert(
                 "Saving not possible: " +
@@ -491,63 +488,84 @@ define([
         });
       }
 
-      
-      
-
       view.when(() => {
         if (containerEditor) {
+          // Create the Editor
+          editor = new Editor({
+            view: view,
+            container: containerEditor,
 
-   
+            // Pass in the configurations created above
+          });
 
-        // Create the Editor
-        that.editor = new Editor({
-          view: view,
-          container: containerEditor,
+          editor.when(() => {
+            /*
+          console.log(document.getElementById(containerEditor).getElementsByClassName("esri-editor__feature-list-name"));
+          Array.from(document.getElementById(containerEditor).getElementsByClassName("esri-editor__feature-list-name")).forEach(function(item) {
+            console.log(that.strings.get("feature"));
+            item.innerHTML = item.innerHTML.replace("Feature", that.strings.get("feature"))
+         });
+         */
+          });
 
-          // Pass in the configurations created above
-         
-         
-        });
-
-        if (that.mode == "project") {
-          let layerInfos;
-          view.map.layers.forEach((layer) => {
+          if (that.mode == "project") {
+            let layerInfos;
+            view.map.layers.forEach((layer) => {
               // Specify a few of the fields to edit within the form
               layerInfos = {
                 layer: layer,
                 formTemplate: {
                   // autocastable to FormTemplate
                   elements: [
-                    { // autocastable to FieldElement
+                    {
+                      // autocastable to FieldElement
                       type: "field",
                       fieldName: "projectid",
-                      label: "Projekt ID"
+                      label: "Projekt ID",
                     },
-                    { // autocastable to FieldElement
+                    {
+                      // autocastable to FieldElement
                       type: "field",
                       fieldName: "name",
-                      label: "Standort"
+                      label: "Standort",
                     },
-                    { // autocastable to FieldElement
+                    {
+                      // autocastable to FieldElement
                       type: "field",
                       fieldName: "school",
-                      label: "Schule"
-                    }
-                  ]
+                      label: "Schule",
+                    },
+                  ],
                 },
               };
-          });
+            });
 
-          if (that.projectAreaId != null) {
-            layerInfos.addEnabled = false
+            if (that.projectAreaId != null) {
+              layerInfos.addEnabled = false;
+            }
+            else {
+              layerInfos.updateEnabled = false;
+            }
+
+            editor.layerInfos = [layerInfos];
           }
-
-          that.editor.layerInfos = [layerInfos]
-
+          else {
+            if (geometry.definitionExpression == "objectid = 0") {
+              editor.layerInfos = [{
+                layer: geometry,
+                updateEnabled: false
+            }]
+            }
+            else {
+              editor.layerInfos = [{
+                layer: geometry,
+                updateEnabled: true
+            }]
+            }
+            
         }
-  
-        
-        that.editor.watch(
+
+          editor.watch(
             "activeWorkflow.numPendingFeatures",
             function (newValue, oldValue) {
               /*
@@ -559,30 +577,24 @@ define([
           );
         }
 
-      if (that.projectAreaId == null) {
-        
+        if (that.projectAreaId == null) {
           locate.when(() => {
             locate.locate();
-            
           });
-      }
-      else {
+        } else {
           if (!that.offline) {
             this.readGeometry(that.projectAreaId, "project").then(
               (projectAreaFeature) => {
                 view.goTo(projectAreaFeature[0].geometry);
               }
             );
-
           }
-  
-          
-        
-      }
-    });
-      return that.mode == "project"? {projectArea: projectArea}: {projectArea:projectArea, geometry:geometry};
+        }
+      });
+      return that.mode == "project"
+        ? { projectArea: projectArea }
+        : { projectArea: projectArea, geometry: geometry, editor: editor };
     }
-
 
     addMapOverview(containerMap) {
       esriConfig.portalUrl = "https://swissparks.maps.arcgis.com/";
@@ -595,17 +607,17 @@ define([
           font: {
             // autocast as new Font()
             size: 8,
-            weight: "bold"
+            weight: "bold",
           },
-      
+
           yoffset: 10,
-          xoffset: 10
+          xoffset: 10,
         },
         labelExpressionInfo: {
-          expression: "$feature.name"
-        }
+          expression: "$feature.name",
+        },
       };
-      
+
       let pointSymbol = {
         type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
         style: "circle",
@@ -614,87 +626,87 @@ define([
         outline: {
           // autocasts as new SimpleLineSymbol()
           color: "black",
-          width: 1 // points
-        }
+          width: 1, // points
+        },
       };
-      
+
       let polygonSymbol = {
         type: "simple-fill", // autocasts as new SimpleFillSymbol()
-        color: [75, 160, 0, 0.145]
+        color: [75, 160, 0, 0.145],
       };
-      
+
       let projectAreaPoint = new FeatureLayer({
         portalItem: {
-          id:  this.links.projectLayerId
+          id: this.links.projectLayerId,
         },
-      
+
         editingEnabled: false,
         labelingInfo: [labelClass],
         renderer: {
           type: "simple",
-          symbol: pointSymbol
+          symbol: pointSymbol,
         },
         minScale: 0,
-        maxScale: 144447
+        maxScale: 144447,
       });
-      
+
       let projectAreaPolygon = new FeatureLayer({
         portalItem: {
-          id:  this.links.projectLayerId
+          id: this.links.projectLayerId,
         },
-      
+
         editingEnabled: false,
         labelingInfo: [labelClass],
         renderer: {
           type: "simple",
-          symbol: polygonSymbol
+          symbol: polygonSymbol,
         },
         minScale: 144447,
-        maxScale: 0
+        maxScale: 0,
       });
-      
+
       // TODO: Add Filter for group ID
       let map = new Map({
-        basemap: "topo-vector"
+        basemap: "topo-vector",
       });
       map.add(projectAreaPoint);
       map.add(projectAreaPolygon);
-      
+
       let view = new MapView({
         map: map,
         container: containerMap,
       });
-      
+
       let fullscreen = new Fullscreen({
-        view: view
+        view: view,
       });
       view.ui.add(fullscreen, "bottom-right");
-      
+
       let basemapToggle = new BasemapToggle({
         view: view, // view that provides access to the map's 'topo-vector' basemap
-        nextBasemap: "satellite" // allows for toggling to the 'satellite' basemap
+        nextBasemap: "satellite", // allows for toggling to the 'satellite' basemap
       });
       view.ui.add(basemapToggle, "top-right");
-      
+
       const homeButton = new Home({
-        view: view
+        view: view,
       });
-      
+
       homeButton.goToOverride = function (view) {
         return view.goTo({
           center: [8.222167506135465, 46.82443911582187],
-          zoom: 8
+          zoom: 8,
         });
       };
-      
+
       view.ui.add(homeButton, "top-left");
-      
+
       view.when(function () {
         // MapView is now ready for display and can be used. Here we will
         // use goTo to view a particular location at a given zoom level and center
         view.goTo({
           center: [8.222167506135465, 46.82443911582187],
-          zoom: 8
+          zoom: 8,
         });
       });
       return view;

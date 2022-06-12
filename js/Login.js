@@ -84,7 +84,8 @@ define([
 
           }
           else {
-            this.clickHandler();
+            that.initProject(null);
+            this.inputProjectId.value = that.strings.get("newProject");
           }
         }
         else {

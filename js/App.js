@@ -174,6 +174,15 @@ define([
       // destroy welcome page when app is started
       domCtr.destroy("splashScreen");
       this.background.style.display = "block";
+      /*
+      console.log(Array.from(document.getElementsByClassName("esri-editor__feature-list-name")))
+      Array.from(document.getElementsByClassName("esri-editor__feature-list-name")).forEach(function(item) {
+        item.innerHTML = item.innerHTML.replace("Feature", that.strings.get("feature"))
+     });
+      for (let i in that.pages) {
+        that.pages[i].page.style.display = "none"
+      }
+      */
       this.pages[0].init(null);
       this.currentPage = 0;
       // TODO Warning if did not work!
@@ -183,6 +192,7 @@ define([
           : this.strings.get("project") + ": " + this.projectId + ", " + this.strings.get("group") + ": " + this.groupId;
       this.save.className = "btn1 btn_disabled";
       document.onkeydown = this.checkKey;
+     
     }
 
     createUI() {

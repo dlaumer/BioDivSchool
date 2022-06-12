@@ -1279,9 +1279,28 @@ define([
         values: [
           "Ja",
           ], 
-        elements: [elem29d, elem29etal, elem29eberg1, elem29eberg2]
+        elements: [elem29d]
       }]
     
+      elem29d.rules = [{
+        values: [
+          "Talzone oder Hügelzone.",
+          ], 
+        elements: [elem29etal]
+      },
+      {
+        values: [
+          "Bergzonen I oder II.",
+          ], 
+        elements: [elem29eberg1]
+      },
+      {
+        values: [
+          "Bergzonen III oder IV.",
+          ], 
+        elements: [elem29eberg2]
+      }]
+
       page_pflege.addTextInfo({
         title: "Schädlingsregulierung (30, 31)", 
       }) 
@@ -1618,7 +1637,7 @@ define([
       elem40b.element.style.display = "none";
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem40a.rules = [{
-        values: ["Ja."], 
+        values: ["Ja"], 
         elements: [elem40b]
       }]
 
@@ -1654,7 +1673,7 @@ define([
 
       //41b_lichtart
       let elem41b = page_baumassnahmen.addElement("radioButtonInput", "b_lichtart", {
-        text: "41: bWie leuchten diesen Lichtquellen?",
+        text: "41b: Wie leuchten diesen Lichtquellen?",
         placeholder: "Auswählen",
         points: "b_lichtart_points",
         options: [
@@ -1667,7 +1686,7 @@ define([
        elem41b.element.style.display = "none";
        // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
        elem41a.rules = [{
-         values: ["Ja."], 
+         values: ["Ja"], 
          elements: [elem41b]
        }]
 

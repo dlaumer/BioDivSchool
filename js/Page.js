@@ -39,7 +39,6 @@ define([
 
       if (this.elements.length > 0) {
         this.elements[0].reportWindowSize();
-
       }
 
     }
