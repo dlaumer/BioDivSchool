@@ -1397,22 +1397,24 @@ define([
         Stelle mit dem Regler ein, auf welchem Anteil dieser Fläche die folgenden Bekämpfungsarten angewendet werden:        
         </div>
         ` ,
-        linkText: "Zusatzinfos",
-        text: `
-        <div class="textInfoElements">
-        Unerwünschte Pflanzen lassen sich ganz unterschiedlich bekämpfen:
-        Chemische Herbizide schaden oft auch erwünschten Pflanzen. Solche Herbizide bleiben manchmal lange im Boden. Auch gelangen Herbizide mit Regenwasser in Gewässer.
-        Abflammen und Hitze erzeugende Geräte schaden oft auch Lebewesen in den oberen Bodenschichten.
-        </div>
-        <div class="textInfoElements">
-        Abflammen
-        <img src="img/Fotos_Hilfestellungen/H32_1_Abflammen.jpg" alt="H32_1" width="100%">
-        </div>
-        <div class="textInfoElements">
-        Hitze erzeugende Geräte
-        <img src="img/Fotos_Hilfestellungen/H32_2_HitzeGeraete.jpg" alt="H32_2" width="100%">
-        </div>
-        `,
+        textInfo: {
+          linkText: "Zusatzinfos",
+          text: `
+          <div class="textInfoElements">
+          Unerwünschte Pflanzen lassen sich ganz unterschiedlich bekämpfen:
+          Chemische Herbizide schaden oft auch erwünschten Pflanzen. Solche Herbizide bleiben manchmal lange im Boden. Auch gelangen Herbizide mit Regenwasser in Gewässer.
+          Abflammen und Hitze erzeugende Geräte schaden oft auch Lebewesen in den oberen Bodenschichten.
+          </div>
+          <div class="textInfoElements">
+          Abflammen
+          <img src="img/Fotos_Hilfestellungen/H32_1_Abflammen.jpg" alt="H32_1" width="100%">
+          </div>
+          <div class="textInfoElements">
+          Hitze erzeugende Geräte
+          <img src="img/Fotos_Hilfestellungen/H32_2_HitzeGeraete.jpg" alt="H32_2" width="100%">
+          </div>
+          `
+        },
       }) 
       
       //32a_unkraut
