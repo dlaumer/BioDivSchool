@@ -733,7 +733,6 @@ define([
           { key: "2", points: 1, label: "Eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch." },
             { key: "7", points: 3, label: "Mehr als eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch." },
        ],
-           //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -750,27 +749,39 @@ define([
           }
       });
 
-      //[Falls bei 16 eine der beiden Optionen mit Hecken mit heimischen Sträuchern angekreuzt wird, dann Fragen 16a einblenden:]
+      //[Falls bei 16 eine der beiden Optionen mit Hecken mit heimischen Sträuchern angekreuzt wird, dann Fragen 16a und 16b einblenden:]
       //16a_hecken
       let elem16a = page_strukturelemente.addElement("radioButtonInput", "16a_hecken", {
-        text: "16a: Heckendetails",
+        text: "16a: In der Hecke sind insgesamt mehr als 5 verschiedene heimische Straucharten vorhanden.",
         placeholder: "Auswählen",
         points: "16a_hecken_points",
         options: [
-          { key: "0", points: 2, label: "In der Hecke sind insgesamt mehr als 5 verschiedene heimische Straucharten vorhanden." },
-          { key: "1", points: 1, label: "Eine Hecke ist mindestens 2 Meter breit und 10 Meter lang." },
+          { key: "0", points: 2, label: "Ja" },
+          { key: "1", points: 0, label: "Nein" },
+        ],
+      });
+
+      //16b_hecken
+      let elem16b = page_strukturelemente.addElement("radioButtonInput", "16b_hecken", {
+        text: "16a: Eine Hecke ist mindestens 2 Meter breit und 10 Meter lang.",
+        placeholder: "Auswählen",
+        points: "16b_hecken_points",
+        options: [
+          { key: "0", points: 1, label: "Ja" },
+          { key: "1", points: 0, label: "Nein" },
         ],
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
       elem16a.element.style.display = "none";
+      elem16b.element.style.display = "none";
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem16.rules = [{
         values: [
           "Eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch.",
           "Mehr als eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch."
         ], 
-        elements: [elem16a]
+        elements: [elem16a, elem16b]
       }]
 
 
@@ -1136,18 +1147,37 @@ define([
   
       page_pflege.addTextInfo({
         title: "Mähen von Rasen und Wiesen OHNE Sportrasen (28, 29)", 
+        text: `
+        <div class="textInfoElements">
+        28: Mit welchen Geräten werden Grasfläche (ohne Sportrasen) geschnitten?
+        Stelle mit dem Regler ein, auf welchem Anteil der Grasflächen mit welchen Geräten gemäht wird:
+        </div>
+        `
       }) 
 
-      //28_geraet
-      page_pflege.addElement("radioButtonInput", "geraet", {
-        text: "28: Markiere, mit welchen Geräten der grössere Teil der Grasfläche (ohne Sportrasen) geschnitten wird.?",
-        placeholder: "Auswählen",
-        points: "geraet_points",
-        options: [
-          { key: "0", points: 0, label: "Rasentraktor, Ride-on Mäher, Rasenmäher, Fadenmäher oder Motorsense." },
-          { key: "1", points: 3, label: "Sense oder Balkenmäher." },
-        ],
-          textInfo: {
+  
+      //28a_geraet
+      page_pflege.addElement("sliderInput", "28a_geraet", {
+        text: "28a: Rasentraktor, Ride-on Mäher, Rasenmäher, Fadenmäher oder Motorsense.",
+        min: 0,
+        max: 100,
+        step: 0.1,
+        stops: [{points: "2", value: 5},{points:"1", value:66},{points:"0", value:100}], // stops need to be defined
+        points: "28a_geraet_points",
+      });
+
+       //28b_geraet
+       page_pflege.addElement("sliderInput", "28b_geraet", {
+        text: "28b: Sense oder Balkenmäher.",
+        min: 0,
+        max: 100,
+        step: 0.1,
+        stops: [{points: "2", value: 5},{points:"1", value:66},{points:"0", value:100}], // stops need to be defined
+        points: "28b_geraet_points",
+      });
+
+      page_pflege.addTextInfo({
+        textInfo: {
           linkText: "Zusatzinfos",
           text: `
           <div class="textInfoElements">
@@ -1170,12 +1200,11 @@ define([
           Balkenmäher
           <img src="img/Fotos_Hilfestellungen/H28_5_Balkenmaeher.jpg" alt="H28_5" width="100%">          
           </div>
-          `,
-          }
-      });
+          `
+        }
+      }) 
 
       //Info
-
       page_pflege.addTextInfo({
         text: `
         <div class="textInfoElements">
@@ -1360,40 +1389,70 @@ define([
 
 
       page_pflege.addTextInfo({
-        title: "Unkrautregulierung (32)", 
+        title: "Unkrautregulierung (32)",
+        text: `
+        <div class="textInfoElements">
+        32: Wie werden Unkräuter oder unerwünschte Pflanzen bekämpft?
+        Gehe von der gesamten unbebauten und unversiegelten Untersuchungsfläche aus.
+        Stelle mit dem Regler ein, auf welchem Anteil dieser Fläche die folgenden Bekämpfungsarten angewendet werden:        
+        </div>
+        ` ,
+        linkText: "Zusatzinfos",
+        text: `
+        <div class="textInfoElements">
+        Unerwünschte Pflanzen lassen sich ganz unterschiedlich bekämpfen:
+        Chemische Herbizide schaden oft auch erwünschten Pflanzen. Solche Herbizide bleiben manchmal lange im Boden. Auch gelangen Herbizide mit Regenwasser in Gewässer.
+        Abflammen und Hitze erzeugende Geräte schaden oft auch Lebewesen in den oberen Bodenschichten.
+        </div>
+        <div class="textInfoElements">
+        Abflammen
+        <img src="img/Fotos_Hilfestellungen/H32_1_Abflammen.jpg" alt="H32_1" width="100%">
+        </div>
+        <div class="textInfoElements">
+        Hitze erzeugende Geräte
+        <img src="img/Fotos_Hilfestellungen/H32_2_HitzeGeraete.jpg" alt="H32_2" width="100%">
+        </div>
+        `,
       }) 
       
+      //32a_unkraut
+      page_pflege.addElement("sliderInput", "32a_unkraut", {
+        text: "32a: Chemische Mittel, so genannte Herbizide",
+        min: 0,
+        max: 100,
+        step: 0.1,
+        stops: [{points: "2", value: 5},{points:"1", value:66},{points:"0", value:100}],  // stops need to be defined for all 4
+        points: "32a_unkraut_points",
+      });
 
-      //32_unkraut
-      page_pflege.addElement("radioButtonInput", "unkraut", {
-        text: "32: Wie werden Unkräuter oder unerwünschte Pflanzen zur Hauptsache bekämpft?",
-        placeholder: "Auswählen",
-        points: "unkraut_points",
-        options: [
-          { key: "0", points: 0, label: "Chemische Mittel, so genannte Herbizide." },
-          { key: "1", points: 1, label: "Abflammen oder mit Hitze erzeugenden Geräten." },
-          { key: "2", points: 2, label: "Heisses Wasser, Dampf und / oder biologische Mittel und / oder mit Fadenmäher." },
-          { key: "3", points: 4, label: "Handarbeit." },
-        ],
-         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          textInfo: {
-          linkText: "Zusatzinfos",
-          text: `
-          <div class="textInfoElements">
-          Unerwünschte Pflanzen lassen sich ganz unterschiedlich bekämpfen:
-          Chemische Herbizide schaden oft auch erwünschten Pflanzen. Solche Herbizide bleiben manchmal lange im Boden. Auch gelangen Herbizide mit Regenwasser in Gewässer.
-          Abflammen und Hitze erzeugende Geräte schaden oft auch Lebewesen in den oberen Bodenschichten.
-          </div>
-          <div class="textInfoElements">
-          Abflammen
-          <img src="img/Fotos_Hilfestellungen/H32_1_Abflammen.jpg" alt="H32_1" width="100%">
-          </div>
-          <div class="textInfoElements">
-          Hitze erzeugende Geräte
-          <img src="img/Fotos_Hilfestellungen/H32_2_HitzeGeraete.jpg" alt="H32_2" width="100%">
-          </div>
-          `,
-          }
+       //32b_unkraut
+       page_pflege.addElement("sliderInput", "32b_unkraut", {
+        text: "32b: Abflammen oder mit Hitze erzeugenden Geräten",
+        min: 0,
+        max: 100,
+        step: 0.1,
+        stops: [{points: "2", value: 5},{points:"1", value:66},{points:"0", value:100}],
+        points: "32b_unkraut_points",
+      });
+
+       //32c_unkraut
+       page_pflege.addElement("sliderInput", "32c_unkraut", {
+        text: "32c: Heisses Wasser, Dampf und / oder biologische Mittel und / oder mit Fadenmäher",
+        min: 0,
+        max: 100,
+        step: 0.1,
+        stops: [{points: "2", value: 5},{points:"1", value:66},{points:"0", value:100}],
+        points: "32c_unkraut_points",
+      });
+
+       //32d_unkraut
+       page_pflege.addElement("sliderInput", "32d_unkraut", {
+        text: "32d: Handarbeit",
+        min: 0,
+        max: 100,
+        step: 0.1,
+        stops: [{points: "2", value: 5},{points:"1", value:66},{points:"0", value:100}],
+        points: "32d_unkraut_points",
       });
 
     
