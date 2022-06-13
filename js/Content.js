@@ -152,9 +152,9 @@ define([
 
       page_regionalitaet.addTextInfo({
         title: "Heimische Wildpflanzen (08, 09)",
-        text: `Alle Arten einer Region bilden zusammen ein Nahrungsnetz.
-        <img src="img/Fotos_Hilfestellungen/H01_1.png" alt="H01_1" width="100%">
+        text: `Alle Arten einer Region bilden zusammen ein Nahrungsnetz.        
         Heimische Pflanzen sind die Grundlage von Nahrungsnetzen. Deshalb sollte es möglichst viele Flächen mit heimischen Wildpflanzen geben.
+        <img src="img/Fotos_Hilfestellungen/H01_1.png" alt="H01_1" width="100%">
         `,
         textInfo: {
           linkText: "Dummy",
@@ -275,30 +275,39 @@ define([
       let page_strukturelemente = this.app.addPage("Strukturelemente");
 
       page_strukturelemente.addTextInfo({        
-        text: `
-        <div class="textInfoElements">
-        Strukturelemente sind einzelne Teile eines Lebensraums wie beispielsweise:
-        Bäume
-        <img src="img/Fotos_Hilfestellungen/H11a_1_Baeume.jpg" alt="H11a_1" width="100%">
-        </div>
-        <div class="textInfoElements">
-        Sträucher
-        <img src="img/Fotos_Hilfestellungen/H11a_2_Straeucher.jpg" alt="H11a_2" width="100%">
-        </div>
-        <div class="textInfoElements">
-        Blumenwiesen
-        <img src="img/Fotos_Hilfestellungen/H11a_3_Blumenwiese.jpg" alt="H11a_3" width="100%">
-        </div>
-        <div class="textInfoElements">
-        Kiesflächen
-        <img src="img/Fotos_Hilfestellungen/H11a_4_Kiesflaeche.jpg" alt="H11a_4" width="100%">
-        </div>
-        <div class="textInfoElements">     
-        Tümpel
-        <img src="img/Fotos_Hilfestellungen/H11a_5_Tuempel.jpg" alt="H11a_5" width="100%">
-        </div>        
-        Verschiedene Strukturelemente bieten verschiedenen Lebewesen Lebensraum und Nahrung. Je mehr verschiedene Strukturelemente, desto mehr verschiedene Arten gibt es auf einer Fläche."
-        `,
+        textInfo: {
+          linkText: "Zusatzinfos",
+          text: `
+          <div class="textInfoElements">
+          Strukturelemente sind einzelne Teile eines Lebensraums wie beispielsweise:
+          </div>
+          <div class="textInfoElements">
+          <br>
+          </div>
+          <div class="textInfoElements">
+          Bäume
+          <img src="img/Fotos_Hilfestellungen/H11a_1_Baeume.jpg" alt="H11a_1" width="100%">
+          </div>
+          <div class="textInfoElements">
+          Sträucher
+          <img src="img/Fotos_Hilfestellungen/H11a_2_Straeucher.jpg" alt="H11a_2" width="100%">
+          </div>
+          <div class="textInfoElements">
+          Blumenwiesen
+          <img src="img/Fotos_Hilfestellungen/H11a_3_Blumenwiese.jpg" alt="H11a_3" width="100%">
+          </div>
+          <div class="textInfoElements">
+          Kiesflächen
+          <img src="img/Fotos_Hilfestellungen/H11a_4_Kiesflaeche.jpg" alt="H11a_4" width="100%">
+          </div>
+          <div class="textInfoElements">     
+          Tümpel
+          <img src="img/Fotos_Hilfestellungen/H11a_5_Tuempel.jpg" alt="H11a_5" width="100%">
+          </div>        
+          Verschiedene Strukturelemente bieten verschiedenen Lebewesen Lebensraum und Nahrung. Je mehr verschiedene Strukturelemente, desto mehr verschiedene Arten gibt es auf einer Fläche."
+          `
+        }, 
+        version: ["long"]
       })
 
       page_strukturelemente.addTextInfo({
@@ -603,8 +612,11 @@ define([
           text: `
           <div class="textInfoElements">
           Es zählen nur Bäume, die höher sind als drei erwachsene Menschen, die einander auf den Schultern stehen:
-          <br>
-          <br>[Bild H14_1] Bild fehlt!<br>
+          </div>
+          <div class="textInfoElements">
+          <img src="img/Fotos_Hilfestellungen/H14_1_Baum.jpg" alt="H14_1" width="100%">
+          </div>
+          <div class="textInfoElements">
           Hoher Baum
           Hohe Bäume bieten Nahrung und Unterschlupf für eine Vielzahl von Lebewesen.
           </div>
@@ -894,7 +906,6 @@ define([
           { key: "2", points: 2, label: "2 Asthaufen, abgestorbene Bäume oder Totholzelemente vorhanden." },
           { key: "3", points: 4, label: "Mehr als 2 Asthaufen, abgestorbene Bäume oder Totholzelemente vorhanden." },
         ],
-         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -927,23 +938,20 @@ define([
           { key: "1", points: 1, label: "1-3 künstliche Nisthilfen für Insekten vorhanden." },
           { key: "2", points: 2, label: "Mehr als 3 künstliche Nisthilfen für Insekten vorhanden." },
         ],
-          //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
           <div class="textInfoElements">
-          Insekten spielen eine ganz wichtige Rolle in Nahrungsnetzen:
+          Insekten spielen eine ganz wichtige Rolle in Nahrungsnetzen:<br>
           Insekten sind wichtig für die Bestäubung von vielen Pflanzen. Insekten sind auch Nahrung für viele Tiere.
           </div>
           <div class="textInfoElements">
           Insektenhotel
-          <img src="img/Fotos_Hilfestellungen/H21_1_Insektenhotel.jpg" alt="H21_1" width="100%">[Bild ]
-          
+          <img src="img/Fotos_Hilfestellungen/H21_1_Insektenhotel.jpg" alt="H21_1" width="100%">         
           </div>
           <div class="textInfoElements">
           Lebensturm
-          <img src="img/Fotos_Hilfestellungen/H22_1_NistkastenHoehlenbrueter.jpg" alt="H21_2" width="100%">
-          
+          <img src="img/Fotos_Hilfestellungen/H21_2_Lebensturm.jpg" alt="H21_2" width="100%">          
           </div>
           `,
           }
@@ -1026,7 +1034,6 @@ define([
           { key: "1",points: 2, label: "Feuchtflächen insgesamt etwa so gross wie ein Autoparkplatz." },
           { key: "2",points: 4, label: "Feuchtflächen insgesamt grösser als ein Autoparkplatz." },
         ],
-          //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -1049,7 +1056,7 @@ define([
 
       //25_stehgew
       page_strukturelemente.addElement("radioButtonInput", "stehgew", {
-        text: "Gibt es stehende Gewässer auf der Untersuchungsfläche?",
+        text: "25: Gibt es stehende Gewässer auf der Untersuchungsfläche?",
         placeholder: "Auswählen",
         points: "stehgew_points",
         options: [
@@ -1058,7 +1065,6 @@ define([
           { key: "2", points: 2, label: "Fläche mit stehenden Gewässern  insgesamt etwa so gross wie 2 Autoparkplätze." },
           { key: "4", points: 4, label: "Fläche mit stehenden Gewässern  insgesamt grösser als 2 Autoparkplätze." },
         ],
-          //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -1077,14 +1083,13 @@ define([
 
       //26_fliessgew
       page_strukturelemente.addElement("radioButtonInput", "fliessgew", {
-        text: "Gibt es Fliessgewässer auf der Untersuchungsfläche?",
+        text: "26: Gibt es Fliessgewässer auf der Untersuchungsfläche?",
         placeholder: "Auswählen",
         points: "fliessgew_points",
         options: [
           { key: "0" ,points: 0, label: "Keine Fliessgewässer oder nur Fliessgewässer kürzer als 3 Meter vorhanden." },
           { key: "1" ,points: 6, label: "Ein oder mehrere Fliessgewässer von insgesamt mehr als 3 Meter Länge vorhanden." },
         ],
-          //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -1114,7 +1119,6 @@ define([
           { key: "1",points: 1, label: "Die Untersuchungsfläche ist zu einem Viertel bis zu drei Viertel umgeben von intensiver Landwirtschaft oder überbautem Gebiet." },
           { key: "2",points: 4, label: "Die Untersuchungsfläche ist zu weniger als einem Viertel umgeben von intensiver Landwirtschaft oder überbautem Gebiet." },
         ],
-         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -1143,7 +1147,6 @@ define([
           { key: "0", points: 0, label: "Rasentraktor, Ride-on Mäher, Rasenmäher, Fadenmäher oder Motorsense." },
           { key: "1", points: 3, label: "Sense oder Balkenmäher." },
         ],
-         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
           text: `

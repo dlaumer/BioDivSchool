@@ -35,7 +35,7 @@ define([
       }
       this.updateAttributes("lang", this.lang);
 
-      this.version = "short"
+      this.version = "long"
       if (Object.keys(urlData).includes("version")) {
         this.version = urlData["version"]
       }
