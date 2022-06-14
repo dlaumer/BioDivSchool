@@ -503,15 +503,16 @@ define([
             // Pass in the configurations created above
           });
 
-          editor.when(() => {
-            /*
-          console.log(document.getElementById(containerEditor).getElementsByClassName("esri-editor__feature-list-name"));
-          Array.from(document.getElementById(containerEditor).getElementsByClassName("esri-editor__feature-list-name")).forEach(function(item) {
-            console.log(that.strings.get("feature"));
-            item.innerHTML = item.innerHTML.replace("Feature", that.strings.get("feature"))
-         });
-         */
-          });
+          editor.viewModel.watch('state', function(state){
+            if(state === 'ready'){
+              setTimeout(function(){
+                var actions = document.getElementsByClassName("esri-editor__feature-list-name");
+                Array.from(actions).forEach(function(ele){
+                  ele.innerHTML = ele.innerHTML.replace("Feature", that.strings.get("feature"))
+                });
+              }, 50);
+            }
+          })
 
           if (that.mode == "project") {
             let layerInfos;

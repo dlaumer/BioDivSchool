@@ -1139,10 +1139,8 @@ define([
       page_pflege.addTextInfo({
         title: "Mähen von Rasen und Wiesen OHNE Sportrasen (28, 29)", 
         text: `
-        <div class="textInfoElements">
         28: Mit welchen Geräten werden Grasfläche (ohne Sportrasen) geschnitten?
         Stelle mit dem Regler ein, auf welchem Anteil der Grasflächen mit welchen Geräten gemäht wird:
-        </div>
         `
       }) 
 
@@ -1343,9 +1341,7 @@ define([
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
-          <div class="textInfoElements">
           Chemische Pestizide sind Mittel, die oft nicht nur so genannte Schädlinge töten, sondern oft auch zahlreiche harmlose oder sogar nützliche Lebewesen. Oft bleiben Pestizide lange im Boden. Auch gelangen Pestizide mit Regenwasser in Gewässer.
-          </div>
           `,
           }
       });
@@ -1366,9 +1362,7 @@ define([
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
-          <div class="textInfoElements">
           Ökologische Mittel bestehen aus Stoffen, die ähnlich so auch in der Natur vorkommen. Andere ökologische Mittel bekämpfen Schädlinge durch natürliche Gegenspieler. Beispielsweise gibt es Schlupfwespen, die gefrässige Raupen abtöten.
-          </div>
           `,
           }
       });
@@ -1382,11 +1376,9 @@ define([
       page_pflege.addTextInfo({
         title: "Unkrautregulierung (32)",
         text: `
-        <div class="textInfoElements">
         32: Wie werden Unkräuter oder unerwünschte Pflanzen bekämpft?
         Gehe von der gesamten unbebauten und unversiegelten Untersuchungsfläche aus.
         Stelle mit dem Regler ein, auf welchem Anteil dieser Fläche die folgenden Bekämpfungsarten angewendet werden:        
-        </div>
         ` ,
         textInfo: {
           linkText: "Zusatzinfos",
@@ -1467,17 +1459,13 @@ define([
       //33_duengen
       page_pflege.addTextInfo({
         text: `
-        <div class="textInfoElements">
         33: Wie werden Grasflächen (Wiesen, Rasen inklusive Sportrasen) gedüngt?<br>
         Stelle mit dem Regler ein, auf welchem Anteil der Grasflächen wie folgt gedüngt wird:         
-        </div>
         ` ,
         textInfo: {
           linkText: "Zusatzinfos",
           text: `
-          <div class="textInfoElements">
           In Böden mit wenig Nährstoffen ist die Artenvielfalt erstaunlicher Weise viel höher als in nährstoffreichen Böden. Düngemittel sind nichts Anderes als Nährstoffe für Pflanzen. Deshalb fördern Düngemittel oft das Wachstum von nur einigen wenigen Pflanzenarten.
-          </div>
           `
         },
       })
@@ -1515,17 +1503,13 @@ define([
       //34_mitteln
       page_pflege.addTextInfo({
         text: `
-        <div class="textInfoElements">
         34: Mit welchen Mitteln werden Grasflächen (Wiesen, Rasen inklusive Sportrasen) gedüngt?<br>
         Stelle mit dem Regler ein, auf welchem Anteil der Grasflächen wie folgt gedüngt wird:        
-        </div>
         ` ,
         textInfo: {
           linkText: "Zusatzinfos",
           text: `
-          <div class="textInfoElements">
           Mineralische Düngemittel helfen zwar den Pflanzen, vernachlässigen aber Bodenlebewesen. Auch kann Mineraldünger zu einem chemischen Ungleichgewicht von Nährstoffen im Boden führen. Überschüssiger Mineraldünger wird zudem mit dem Regenwasser in Gewässer geschwemmt. In Gewässer kann Mineraldünger zu übermässigem Algenwachstum führen.
-          </div>
           `,
           }
       })
@@ -1683,9 +1667,7 @@ define([
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
-          <div class="textInfoElements">
           Begrünte Fassaden bieten Lebensraum für Krabbeltiere und Vögel. Begrünte Fassaden schützen auch vor Kälte und Hitze.
-          </div>
           `,
           }
       });
@@ -1708,9 +1690,7 @@ define([
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
-          <div class="textInfoElements">
           Ein Kräuter- oder Gemüsegarten sorgt nur dann für mehr Artenvielfalt, wenn er biologisch bearbeitet wird. Bei Einsatz von chemischen Pestiziden, Herbiziden und Mineraldünger schadet dies der Artenvielfalt hingegen.
-          </div>
           `,
           }
       });
