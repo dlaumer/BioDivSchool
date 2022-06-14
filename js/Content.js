@@ -800,7 +800,6 @@ define([
           { key: "2", points: 2, label: "Bäume, Sträucher und heimische Kräuter, Blumen oder Gräser kommen alle zusammen an einer Stelle vor." },
           { key: "3", points: 4, label: "Bäume, Sträucher und heimische Kräuter, Blumen oder Gräser kommen alle zusammen an mehr als einer Stelle vor." },
         ],
-          //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -843,7 +842,6 @@ define([
           { key: "3", points: 2, label: "Ruderalfläche ist insgesamt etwa so gross wie vier Autoparkplätze." },
           { key: "4", points: 3, label: "Ruderalfläche ist insgesamt grösser als vier Autoparkplätze." },
         ],
-         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -884,7 +882,6 @@ define([
           { key: "2", points: 2, label: "2 Trockenmauern oder Steinhaufen vorhanden." },
           { key: "3", points: 4, label: "Mehr als 2 Trockenmauern oder Steinhaufen vorhanden." },
         ],
-         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -920,8 +917,7 @@ define([
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
-          <div class="textInfoElements">
-          
+          <div class="textInfoElements">          
           Asthaufen         
           <img src="img/Fotos_Hilfestellungen/H20_1_Asthaufen.jpg" alt="H20_1" width="100%">
           Asthaufen bieten ein Versteck für Igel, Mäuse aber auch für Blindschleichen sowie Kröten, Frösche und Molche.
@@ -978,7 +974,6 @@ define([
           { key: "1", points: 1, label: "1-3 künstliche Nisthilfen für Vögel vorhanden." },
           { key: "2", points: 2, label: "Mehr als 3 künstliche Nisthilfen für Vögel vorhanden." },
         ],
-          //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -1007,7 +1002,6 @@ define([
           { key: "1", points: 1, label: "1-3 künstliche Nisthilfen für kleine Säugetiere vorhanden." },
           { key: "2", points: 2, label: "Mehr als 3 künstliche Nisthilfen für kleine Säugetiere vorhanden." },
         ],
-           //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -1054,12 +1048,10 @@ define([
           <div class="textInfoElements">
           Sumpfstreifen
           <img src="img/Fotos_Hilfestellungen/H24_1_Sumpfstreifen.jpg" alt="H24_1" width="100%">
-          
           </div>
           <div class="textInfoElements">
           Moorwiese
           <img src="img/Fotos_Hilfestellungen/H24_2_Moorwiese.jpg" alt="H24_2" width="100%">
-          
           </div>
           `,
           }
@@ -1086,7 +1078,6 @@ define([
           <div class="textInfoElements">
           Tümpel
           <img src="img/Fotos_Hilfestellungen/H11a_5_Tuempel.jpg" alt="H11a_5" width="100%">
-          
           </div>
           `,
           }
@@ -1459,52 +1450,77 @@ define([
 
     
       page_pflege.addTextInfo({
-        title: "Düngen (33)", 
+        title: "Düngen (33, 34)",      
       }) 
-      
 
       //33_duengen
       page_pflege.addElement("radioButtonInput", "duengen", {
-        text: "33: Wie werden Grasflächen (Wiesen, Rasen inklusive Sportrasen) gedüngt?",
-        placeholder: "Auswählen",
-        points: "duengen_points",
+        text: "33: Ist die gesamte Grasfläche (Wiesen, Rasen inklusive Sportrasen) grösser als die Fläche für zwei Autoparkplätze?",
+        placeholder: "Auswählen",    
         options: [
-          { key: "0",points: 0, label: "Die gesamten Flächen mit Rasen oder Wiesen ist kleiner als die Fläche für zwei Autoparkplätze." },
-          { key: "1",points: 0, label: "Grasflächen werden ohne Analyse des Bodens gedüngt." },
-          { key: "2",points: 1, label: "Alle Grasflächen (Rasen und Wiesen) werden erst gedüngt, wenn eine Analyse des Bodens Bedarf anzeigt." },
-          { key: "3",points: 2, label: "Rasen werden erst gedüngt, wenn eine Analyse des Bodens Bedarf anzeigt. Wiesen, deren Gras höher als 10 cm wächst, werden nicht gedüngt." },
-          { key: "4",points: 4, label: "Es wird nicht gedüngt, weder Rasen noch Wiesen." },
-        ],
-          //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          textInfo: {
+          { key: "0",points: 0, label: "Ja" },
+          { key: "1",points: 0, label: "Nein" },
+      
+        ],          
+      });
+
+      //33_duengen
+      page_pflege.addTextInfo({
+        text: `
+        <div class="textInfoElements">
+        33: Wie werden Grasflächen (Wiesen, Rasen inklusive Sportrasen) gedüngt?<br>
+        Stelle mit dem Regler ein, auf welchem Anteil der Grasflächen wie folgt gedüngt wird:         
+        </div>
+        ` ,
+        textInfo: {
           linkText: "Zusatzinfos",
           text: `
           <div class="textInfoElements">
           In Böden mit wenig Nährstoffen ist die Artenvielfalt erstaunlicher Weise viel höher als in nährstoffreichen Böden. Düngemittel sind nichts Anderes als Nährstoffe für Pflanzen. Deshalb fördern Düngemittel oft das Wachstum von nur einigen wenigen Pflanzenarten.
           </div>
-          `,
-          }
+          `
+        },
+      })
+
+      //33a_duengen
+      page_pflege.addElement("sliderInput", "33a_duengen", {
+        text: "33a: Düngen ohne Analyse des Bodens",
+        min: 0,
+        max: 100,
+        step: 0.1,
+        stops: [{points: "2", value: 5},{points:"1", value:66},{points:"0", value:100}],
+        points: "33a_duengen_points",
       });
 
-      page_pflege.addTextInfo({
-        title: "Düngemittel (34)", 
-      }) 
-      
+       //33b_duengen
+       page_pflege.addElement("sliderInput", "33b_duengen", {
+        text: "33b: Düngen, wenn eine Analyse des Bodens Bedarf anzeigt",
+        min: 0,
+        max: 100,
+        step: 0.1,
+        stops: [{points: "2", value: 5},{points:"1", value:66},{points:"0", value:100}],
+        points: "33b_duengen_points",
+      });
+
+       //33d_duengen
+       page_pflege.addElement("sliderInput", "33c_duengen", {
+        text: "33c: keine Düngung",
+        min: 0,
+        max: 100,
+        step: 0.1,
+        stops: [{points: "2", value: 5},{points:"1", value:66},{points:"0", value:100}],
+        points: "33c_duengen_points",
+      });
 
       //34_mitteln
-      page_pflege.addElement("radioButtonInput", "mitteln", {
-        text: "34: Mit welchen Mitteln werden Grasflächen (Wiesen, Rasen inklusive Sportrasen) zur Hauptsache gedüngt?",
-        placeholder: "Auswählen",
-        points: "mitteln_points",
-        options: [
-          { key: "0", points: 0, label: "Die gesamten Flächen mit Rasen oder Wiesen ist kleiner als die Fläche für zwei Autopark-plätze." },
-          { key: "1", points: 0, label: "Mineralischer Dünger, Torf." },
-          { key: "2", points: 1, label: "Organischer Dünger wie Jauche, Mist oder Mulch, Bio-Knospenprodukte." },
-          { key: "3", points: 2, label: "Eigener Kompost." },
-          { key: "4", points: 0, label: "Kein Dünger." },
-        ],
-           //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          textInfo: {
+      page_pflege.addTextInfo({
+        text: `
+        <div class="textInfoElements">
+        34: Mit welchen Mitteln werden Grasflächen (Wiesen, Rasen inklusive Sportrasen) gedüngt?<br>
+        Stelle mit dem Regler ein, auf welchem Anteil der Grasflächen wie folgt gedüngt wird:        
+        </div>
+        ` ,
+        textInfo: {
           linkText: "Zusatzinfos",
           text: `
           <div class="textInfoElements">
@@ -1512,7 +1528,51 @@ define([
           </div>
           `,
           }
+      })
+
+
+      //34a_mitteln
+       page_pflege.addElement("sliderInput", "34a_mitteln", {
+        text: "34a: mineralischer Dünger, Torf",
+        min: 0,
+        max: 100,
+        step: 0.1,
+        stops: [{points: "2", value: 5},{points:"1", value:66},{points:"0", value:100}],
+        points: "34a_mitteln_points",
       });
+
+       //34b_mitteln
+       page_pflege.addElement("sliderInput", "34b_mitteln", {
+        text: "34b: organischer Dünger wie Jauche, Mist oder Mulch, Bio-Knospenprodukte",
+        min: 0,
+        max: 100,
+        step: 0.1,
+        stops: [{points: "2", value: 5},{points:"1", value:66},{points:"0", value:100}],
+        points: "34b_mitteln_points",
+      });
+
+       //34c_mitteln
+       page_pflege.addElement("sliderInput", "34c_mitteln", {
+        text: "34c: eigener Kompost",
+        min: 0,
+        max: 100,
+        step: 0.1,
+        stops: [{points: "2", value: 5},{points:"1", value:66},{points:"0", value:100}],
+        points: "34c_mitteln_points",
+      });
+
+       //34d_mitteln
+       page_pflege.addElement("sliderInput", "34d_mitteln", {
+        text: "34d: kein Dünger",
+        min: 0,
+        max: 100,
+        step: 0.1,
+        stops: [{points: "2", value: 5},{points:"1", value:66},{points:"0", value:100}],
+        points: "34da_mitteln_points",
+      });
+
+          
+
 
       page_pflege.addTextInfo({
         title: "Laub (35)", 
@@ -1589,8 +1649,10 @@ define([
         points: "fldacher_points",
         options: [
           { key: "0", points: 0, label: "Keine oder kaum Dachbegrünung." },
-          { key: "1", points: 1, label: "Ungefähr die Hälfte der Flachdächer ist begrünt und enthält auch Sandflächen und Totholz." },
-          { key: "2", points: 2, label: "Mehr als die Hälfte der Flachdächer ist begrünt und enthält auch Sandflächen und Totholz." },
+          { key: "1", points: 1, label: "Ungefähr die Hälfte der Flachdächer ist begrünt, enthält aber keine Sandflächen oder Totholz." },
+          { key: "2", points: 2, label: "Ungefähr die Hälfte der Flachdächer ist begrünt und enthält auch Sandflächen und Totholz." },
+          { key: "3", points: 3, label: "Mehr als die Hälfte der Flachdächer ist begrünt, enthält aber keine Sandflächen oder Totholz." },
+          { key: "4", points: 4, label: "Mehr als die Hälfte der Flachdächer ist begrünt und enthält auch Sandflächen oder Totholz." },
         ],
           //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
