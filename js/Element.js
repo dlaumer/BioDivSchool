@@ -68,6 +68,7 @@
           this.key = key;
 
           this.element = domCtr.create("div", { id: this.name, className: "element"}, this.container);
+          this.labelContainer = domCtr.create("div", { className: "labelContainer"}, this.element);
 
           if (args.title) {
             this.addTitle(args.title);
@@ -107,7 +108,7 @@
         }
     
         addSimpleTextInput(args) {
-          this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text}, this.element);
+          this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text}, this.labelContainer);
           this.input = domCtr.create("input", { className: "input inputField", placeholder: args.placeholder }, this.element);
 
           on(this.input, "input", function (evt) {
@@ -131,7 +132,7 @@
         }
 
         addDateTimeInput(args) {
-          this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text}, this.element);
+          this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text}, this.labelContainer);
           this.input = domCtr.create("input", {id: "dateTime", type:"date", className: "input dateTimeInput" }, this.element);
           
           on(this.input, "input", function (evt) {
@@ -150,7 +151,7 @@
 
         // ToDo: Mehrfachauswahl!
         addDropdownInput(args) {
-          this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text}, this.element);
+          this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text}, this.labelContainer);
           this.input = domCtr.create("select", {className:"input inputField"}, this.element);
 
           domCtr.create("option", {value:"", selected:true, innerHTML: args.placeholder}, this.input);
@@ -195,7 +196,7 @@
 
         addRadioButtonInput(args) {
           this.element.style =  "align-items: start;"
-          this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text}, this.element);
+          this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text}, this.labelContainer);
           this.input = domCtr.create("div", {className: "input inputRows"}, this.element);        
           for (const i in args.options) {
             let radioButtonContainer = domCtr.create("div", {className: "radioButtonContainer"}, this.input); 
@@ -241,7 +242,7 @@
 
         // ToDo: Points!
         addSliderInput(args) {
-          this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text}, this.element);
+          this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text}, this.labelContainer);
           this.sliderContainer = domCtr.create("div", {className: "input"}, this.element);        
           this.sliderContainer2 = domCtr.create("div", {style: "width: 80%"}, this.sliderContainer);
           this.input = domCtr.create("input", {type:"range", className: "slider", min: args.min, max: args.max, value: (args.max - args.min)/2, step: args.step}, this.sliderContainer2);
@@ -298,7 +299,7 @@
 
         addMap(args) {
           this.element.className =  "element"
-          this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text, style: "width: 100%;"}, this.element);
+          this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text, style: "width: 100%;"}, this.labelContainer);
           this.mapContainer = domCtr.create("div", {className: "mapContainer"}, this.element); 
           this.input = domCtr.create("div", {id: this.name + "_map", className:"map"}, this.mapContainer);
           this.editorContainer = domCtr.create("div", {className: "editor"}, this.mapContainer); 
@@ -438,8 +439,8 @@
         addTextInfo(args) { 
 
           //this.label.innerHTML = this.label.innerHTML + "<br><br> <a onclick=expand()>sdsdd</a>" + args.linkText;
-          this.link = domCtr.create("div", { className: "labelText linkText", innerHTML: args.linkText}, this.element);
-          this.textInfo = domCtr.create("div", { className: "expandable", innerHTML: args.text, }, this.element);
+          this.link = domCtr.create("div", { className: "labelText linkText", innerHTML: args.linkText}, this.labelContainer);
+          this.textInfo = domCtr.create("div", { className: "expandable", innerHTML: args.text, }, this.labelContainer);
 
           on(this.link, "click", function (evt) {
             this.textInfo.style.display = this.textInfo.style.display=="" ? "flex" : "";
