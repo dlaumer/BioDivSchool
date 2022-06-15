@@ -154,7 +154,7 @@ define([
         title: "Heimische Wildpflanzen (08, 09)",
         textInfo: {
           linkText: "Zusatzinfos",
-          text: `Alle Arten einer Region bilden zusammen ein Nahrungsnetz.        
+          text: `Alle Arten einer Region bilden zusammen ein Nahrungsnetz.<br>        
           Heimische Pflanzen sind die Grundlage von Nahrungsnetzen. Deshalb sollte es möglichst viele Flächen mit heimischen Wildpflanzen geben.
           <img src="img/Fotos_Hilfestellungen/H01_1.png" alt="H01_1" width="100%">
           `,
@@ -604,7 +604,6 @@ define([
           { key: "2", points: 2, label: "Bäume in deutlich unterschiedlichen Höhen vorhanden." },
           { key: "3", points: 3, label: "Bäume in drei deutlich unterschiedlichen Höhen vorhanden." },
         ],
-        //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -1137,13 +1136,14 @@ define([
       page_pflege.addTextInfo({
         title: "Mähen von Rasen und Wiesen OHNE Sportrasen (28, 29)", 
         text: `
-        28: Mit welchen Geräten werden Grasfläche (ohne Sportrasen) geschnitten?
+        28: Mit welchen Geräten werden Grasflächen (ohne Sportrasen) geschnitten?
         Stelle mit dem Regler ein, auf welchem Anteil der Grasflächen mit welchen Geräten gemäht wird:
         `
       }) 
 
-  
+      //Die neuen Items 28a und 28b sind ja voneinander abhängig. Das hätte mir auch früher einfallen können … Deshalb braucht es hier nur die Frage nach Sense, Balkenmäher: 
       //28a_geraet
+      /*
       page_pflege.addElement("sliderInput", "28a_geraet", {
         text: "28a: Rasentraktor, Ride-on Mäher, Rasenmäher, Fadenmäher oder Motorsense.",
         min: 0,
@@ -1152,16 +1152,18 @@ define([
         stops: [{points: "2", value: 5},{points:"1", value:66},{points:"0", value:100}], // stops need to be defined
         points: "28a_geraet_points",
       });
+      */
 
        //28b_geraet
        page_pflege.addElement("sliderInput", "28b_geraet", {
-        text: "28b: Sense oder Balkenmäher.",
+        text: "Sense oder Balkenmäher:",
         min: 0,
         max: 100,
         step: 0.1,
-        stops: [{points: "2", value: 5},{points:"1", value:66},{points:"0", value:100}], // stops need to be defined
+        stops: [{points: "0", value:20},{points:"1", value:50},{points:"2", value:80,{points:"3", value:100}], 
         points: "28b_geraet_points",
       });
+      //0 P.	< 20 %, 1 P.	21 – 50 %, 2 P.	51 % - 80 %, 3 P.	> 80% 
 
       page_pflege.addTextInfo({
         textInfo: {
@@ -1335,7 +1337,6 @@ define([
         step: 0.1,
         stops: [{points: "2", value: 5},{points:"1", value:66},{points:"0", value:100}],
         points: "pestizide_points",
-         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -1356,7 +1357,6 @@ define([
         step: 0.1,
         stops: [{points:"2",value:5},{points:"1", value:75},{points:"0",value:100}],
         points: "bekaempfung_points",
-         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -1444,7 +1444,7 @@ define([
       }) 
 
       //33_duengen
-      page_pflege.addElement("radioButtonInput", "duengen", {
+      elem33 = page_pflege.addElement("radioButtonInput", "duengen", {
         text: "33: Ist die gesamte Grasfläche (Wiesen, Rasen inklusive Sportrasen) grösser als die Fläche für zwei Autoparkplätze?",
         placeholder: "Auswählen",    
         options: [
@@ -1454,8 +1454,11 @@ define([
         ],          
       });
 
+      //Falls Ja, dann Items und 33 und 34, Falls Nein, dann weiter mit Item 35 (Laub) 
+
+
       //33_duengen
-      page_pflege.addTextInfo({
+      elem33text = page_pflege.addTextInfo({
         text: `
         33: Wie werden Grasflächen (Wiesen, Rasen inklusive Sportrasen) gedüngt?<br>
         Stelle mit dem Regler ein, auf welchem Anteil der Grasflächen wie folgt gedüngt wird:         
@@ -1469,7 +1472,7 @@ define([
       })
 
       //33a_duengen
-      page_pflege.addElement("sliderInput", "33a_duengen", {
+      elem33a = page_pflege.addElement("sliderInput", "33a_duengen", {
         text: "33a: Düngen ohne Analyse des Bodens",
         min: 0,
         max: 100,
@@ -1479,7 +1482,7 @@ define([
       });
 
        //33b_duengen
-       page_pflege.addElement("sliderInput", "33b_duengen", {
+       elem33b = page_pflege.addElement("sliderInput", "33b_duengen", {
         text: "33b: Düngen, wenn eine Analyse des Bodens Bedarf anzeigt",
         min: 0,
         max: 100,
@@ -1488,8 +1491,8 @@ define([
         points: "33b_duengen_points",
       });
 
-       //33d_duengen
-       page_pflege.addElement("sliderInput", "33c_duengen", {
+       //33c_duengen
+       elem33c = page_pflege.addElement("sliderInput", "33c_duengen", {
         text: "33c: keine Düngung",
         min: 0,
         max: 100,
@@ -1514,7 +1517,7 @@ define([
 
 
       //34a_mitteln
-       page_pflege.addElement("sliderInput", "34a_mitteln", {
+      elem34a = page_pflege.addElement("sliderInput", "34a_mitteln", {
         text: "34a: mineralischer Dünger, Torf",
         min: 0,
         max: 100,
@@ -1524,7 +1527,7 @@ define([
       });
 
        //34b_mitteln
-       page_pflege.addElement("sliderInput", "34b_mitteln", {
+       elem34b = page_pflege.addElement("sliderInput", "34b_mitteln", {
         text: "34b: organischer Dünger wie Jauche, Mist oder Mulch, Bio-Knospenprodukte",
         min: 0,
         max: 100,
@@ -1534,7 +1537,7 @@ define([
       });
 
        //34c_mitteln
-       page_pflege.addElement("sliderInput", "34c_mitteln", {
+       elem34c = page_pflege.addElement("sliderInput", "34c_mitteln", {
         text: "34c: eigener Kompost",
         min: 0,
         max: 100,
@@ -1544,16 +1547,31 @@ define([
       });
 
        //34d_mitteln
-       page_pflege.addElement("sliderInput", "34d_mitteln", {
+       elem34d = page_pflege.addElement("sliderInput", "34d_mitteln", {
         text: "34d: kein Dünger",
         min: 0,
         max: 100,
         step: 0.1,
         stops: [{points: "2", value: 5},{points:"1", value:66},{points:"0", value:100}],
-        points: "34da_mitteln_points",
+        points: "34d_mitteln_points",
       });
 
-          
+      // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
+      elem33text.element.style.display = "none";
+      elem33a.element.style.display = "none";
+      elem33b.element.style.display = "none";
+      elem33c.element.style.display = "none";
+      elem34a.element.style.display = "none";
+      elem34b.element.style.display = "none";
+      elem34c.element.style.display = "none";
+      elem34d.element.style.display = "none";
+      // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
+      elem33.rules = [{
+        values: [
+          "Ja",
+          ], 
+        elements: [elem33text, elem33a, elem33b, elem33c, elem34a, elem34b, elem34c, elem34d]
+      }] 
 
 
       page_pflege.addTextInfo({
