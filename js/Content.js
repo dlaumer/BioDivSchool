@@ -152,14 +152,12 @@ define([
 
       page_regionalitaet.addTextInfo({
         title: "Heimische Wildpflanzen (08, 09)",
-        text: `Alle Arten einer Region bilden zusammen ein Nahrungsnetz.        
-        Heimische Pflanzen sind die Grundlage von Nahrungsnetzen. Deshalb sollte es möglichst viele Flächen mit heimischen Wildpflanzen geben.
-        <img src="img/Fotos_Hilfestellungen/H01_1.png" alt="H01_1" width="100%">
-        `,
         textInfo: {
-          linkText: "Dummy",
-          text: `Dummy
-          `
+          linkText: "Zusatzinfos",
+          text: `Alle Arten einer Region bilden zusammen ein Nahrungsnetz.        
+          Heimische Pflanzen sind die Grundlage von Nahrungsnetzen. Deshalb sollte es möglichst viele Flächen mit heimischen Wildpflanzen geben.
+          <img src="img/Fotos_Hilfestellungen/H01_1.png" alt="H01_1" width="100%">
+          `,
         }, 
         version: ["long"]
       })
