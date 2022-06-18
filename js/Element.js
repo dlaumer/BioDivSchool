@@ -513,15 +513,17 @@
                   
                 }
                 for (let k in this.rules[i].values) {
-                    if (this.rules[i].values[k] == this.value) {
-                      for (let j in this.rules[i].elements) {
-                        this.rules[i].elements[j].element.style.display = "block";
+                  if (this.rules[i].values[k] == this.value) {
+                    for (let j in this.rules[i].elements) {
+                      this.rules[i].elements[j].element.style.display = "block";
                     }
                   }
                   else {
                     for (let j in this.rules[i].elements) {
-                      this.rules[i].elements[j].setter("");
-                      this.rules[i].elements[j].setterUI("");
+                      if ( this.rules[i].elements[j].type != "textInfo") {
+                        this.rules[i].elements[j].setter("");
+                        this.rules[i].elements[j].setterUI("");
+                      }
                     }
                   }
                   

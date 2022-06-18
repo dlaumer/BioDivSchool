@@ -1160,7 +1160,7 @@ define([
         min: 0,
         max: 100,
         step: 0.1,
-        stops: [{points: "0", value:20},{points:"1", value:50},{points:"2", value:80,{points:"3", value:100}], 
+        stops: [{points: "0", value:20},{points:"1", value:50},{points:"2", value:80},{points:"3", value:100}], 
         points: "28b_geraet_points",
       });
       //0 P.	< 20 %, 1 P.	21 – 50 %, 2 P.	51 % - 80 %, 3 P.	> 80% 
@@ -1444,7 +1444,7 @@ define([
       }) 
 
       //33_duengen
-      elem33 = page_pflege.addElement("radioButtonInput", "duengen", {
+      let elem33 = page_pflege.addElement("radioButtonInput", "duengen", {
         text: "33: Ist die gesamte Grasfläche (Wiesen, Rasen inklusive Sportrasen) grösser als die Fläche für zwei Autoparkplätze?",
         placeholder: "Auswählen",    
         options: [
@@ -1458,7 +1458,7 @@ define([
 
 
       //33_duengen
-      elem33text = page_pflege.addTextInfo({
+      let elem33text = page_pflege.addTextInfo({
         text: `
         33: Wie werden Grasflächen (Wiesen, Rasen inklusive Sportrasen) gedüngt?<br>
         Stelle mit dem Regler ein, auf welchem Anteil der Grasflächen wie folgt gedüngt wird:         
@@ -1472,7 +1472,7 @@ define([
       })
 
       //33a_duengen
-      elem33a = page_pflege.addElement("sliderInput", "33a_duengen", {
+      let elem33a = page_pflege.addElement("sliderInput", "33a_duengen", {
         text: "33a: Düngen ohne Analyse des Bodens",
         min: 0,
         max: 100,
@@ -1482,7 +1482,7 @@ define([
       });
 
        //33b_duengen
-       elem33b = page_pflege.addElement("sliderInput", "33b_duengen", {
+       let elem33b = page_pflege.addElement("sliderInput", "33b_duengen", {
         text: "33b: Düngen, wenn eine Analyse des Bodens Bedarf anzeigt",
         min: 0,
         max: 100,
@@ -1492,7 +1492,7 @@ define([
       });
 
        //33c_duengen
-       elem33c = page_pflege.addElement("sliderInput", "33c_duengen", {
+       let elem33c = page_pflege.addElement("sliderInput", "33c_duengen", {
         text: "33c: keine Düngung",
         min: 0,
         max: 100,
@@ -1502,7 +1502,7 @@ define([
       });
 
       //34_mitteln
-      page_pflege.addTextInfo({
+      let elem34text = page_pflege.addTextInfo({
         text: `
         34: Mit welchen Mitteln werden Grasflächen (Wiesen, Rasen inklusive Sportrasen) gedüngt?<br>
         Stelle mit dem Regler ein, auf welchem Anteil der Grasflächen wie folgt gedüngt wird:        
@@ -1517,7 +1517,7 @@ define([
 
 
       //34a_mitteln
-      elem34a = page_pflege.addElement("sliderInput", "34a_mitteln", {
+      let elem34a = page_pflege.addElement("sliderInput", "34a_mitteln", {
         text: "34a: mineralischer Dünger, Torf",
         min: 0,
         max: 100,
@@ -1527,7 +1527,7 @@ define([
       });
 
        //34b_mitteln
-       elem34b = page_pflege.addElement("sliderInput", "34b_mitteln", {
+       let elem34b = page_pflege.addElement("sliderInput", "34b_mitteln", {
         text: "34b: organischer Dünger wie Jauche, Mist oder Mulch, Bio-Knospenprodukte",
         min: 0,
         max: 100,
@@ -1537,7 +1537,7 @@ define([
       });
 
        //34c_mitteln
-       elem34c = page_pflege.addElement("sliderInput", "34c_mitteln", {
+       let elem34c = page_pflege.addElement("sliderInput", "34c_mitteln", {
         text: "34c: eigener Kompost",
         min: 0,
         max: 100,
@@ -1547,7 +1547,7 @@ define([
       });
 
        //34d_mitteln
-       elem34d = page_pflege.addElement("sliderInput", "34d_mitteln", {
+       let elem34d = page_pflege.addElement("sliderInput", "34d_mitteln", {
         text: "34d: kein Dünger",
         min: 0,
         max: 100,
@@ -1561,6 +1561,8 @@ define([
       elem33a.element.style.display = "none";
       elem33b.element.style.display = "none";
       elem33c.element.style.display = "none";
+      elem34text.element.style.display = "none";
+
       elem34a.element.style.display = "none";
       elem34b.element.style.display = "none";
       elem34c.element.style.display = "none";
@@ -1570,7 +1572,7 @@ define([
         values: [
           "Ja",
           ], 
-        elements: [elem33text, elem33a, elem33b, elem33c, elem34a, elem34b, elem34c, elem34d]
+        elements: [elem33text, elem33a, elem33b, elem33c, elem34text, elem34a, elem34b, elem34c, elem34d]
       }] 
 
 

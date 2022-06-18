@@ -104,6 +104,8 @@ define([
         if (Object.keys(args).includes("version") && !args.version.includes(that.version)) {
           textInfo.style.display = "none"
         }
+
+        return {element:textInfo, type: "textInfo"};
     }
 
     addWarning(text) {
