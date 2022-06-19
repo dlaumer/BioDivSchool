@@ -5,7 +5,7 @@ Start.js
 Landing page before where you see the different projects
 
 */
-
+let start = null;
 // ssh-add ~/.ssh/ssh_rsa_dlaumer
 define([
   "dojo/dom",
@@ -20,7 +20,7 @@ define([
 ], function (dom, domCtr, win, on, Content, ArcGis, StringsApp) {
   return class Start {
     constructor(callback) {
-
+      start = this;
       this.attributes = "?";
       let urlData = this.getJsonFromUrl();
 
@@ -51,11 +51,12 @@ define([
     // Start the start screen
     init(offline) {
       this.offline = offline;
-      this.arcgis = new ArcGis();
+      this.createUI();
+      this.arcgis = new ArcGis(this.strings);
       if (!this.offline) {
         this.arcgis.initProject(() => {
           this.projectSelected = null;
-          this.createUI();
+          this.addProjectMap();
           this.clickHandler();
         });
       }
@@ -116,6 +117,8 @@ define([
         this.header
       );
 
+      this.userName = domCtr.create("div", { id: "userNameEsri" }, this.header);
+
       
       this.settingsButton = domCtr.create(
         "div",
@@ -168,60 +171,6 @@ define([
         { id: "mapOverviewMap", className: "mapOverviewMap" },
         this.mapOverview
       );
-
-      if (!this.offline) {
-        this.viewOverview = this.arcgis.addMapOverview("mapOverviewMap");
-        this.arcgis.readFeatures("project").then((results) => {
-          console.log(results);
-          for (let i in results) {
-            let item = domCtr.create(
-              "div",
-              { className: "projects" },
-              this.mapOverviewProject
-            );
-            domCtr.create(
-              "div",
-              {
-                className: "projectElem",
-                innerHTML: results[i].attributes.projectid,
-                style: "width:15%",
-              },
-              item
-            );
-            domCtr.create(
-              "div",
-              {
-                className: "projectElem",
-                innerHTML: results[i].attributes.name,
-                style: "width:30%",
-              },
-              item
-            );
-            domCtr.create(
-              "div",
-              {
-                className: "projectElem",
-                innerHTML: results[i].attributes.school,
-                style: "width:45%",
-              },
-              item
-            );
-            item.addEventListener("click", () => {
-              this.viewOverview.goTo(results[i].geometry);
-              this.selectProject(
-                results[i].attributes.projectid,
-                results[i].attributes.name
-              );
-              if (this.projectSelected !== null) {
-                this.projectSelected.className = "projects";
-              }
-              this.projectSelected = item;
-              item.className = "projects projects_active";
-            });
-          }
-        });
-      }
-
 
 
       this.footer = domCtr.create(
@@ -278,7 +227,7 @@ define([
           id: "btn_project",
           className: "btn1",
           innerHTML: this.strings.get("editProject"),
-          style: this.intern == "true"? "min-width: 10vw;visibility: visible;":"min-width: 10vw;visibility: hidden;",
+          style: this.intern == "true"? "min-width: 10vw;display: block;":"min-width: 10vw;display: none;",
         },
         this.buttons
       );
@@ -316,6 +265,59 @@ define([
       );
     }
 
+    addProjectMap() {
+      this.viewOverview = this.arcgis.addMapOverview("mapOverviewMap");
+      this.arcgis.readFeatures("project").then((results) => {
+        console.log(results);
+        for (let i in results) {
+          let item = domCtr.create(
+            "div",
+            { className: "projects" },
+            this.mapOverviewProject
+          );
+          domCtr.create(
+            "div",
+            {
+              className: "projectElem",
+              innerHTML: results[i].attributes.projectid,
+              style: "width:40%",
+            },
+            item
+          );
+          domCtr.create(
+            "div",
+            {
+              className: "projectElem",
+              innerHTML: results[i].attributes.name,
+              style: "width:25%",
+            },
+            item
+          );
+          domCtr.create(
+            "div",
+            {
+              className: "projectElem",
+              innerHTML: results[i].attributes.school,
+              style: "width:25%",
+            },
+            item
+          );
+          item.addEventListener("click", () => {
+            this.viewOverview.goTo(results[i].geometry);
+            this.selectProject(
+              results[i].attributes.projectid,
+              results[i].attributes.name
+            );
+            if (this.projectSelected !== null) {
+              this.projectSelected.className = "projects";
+            }
+            this.projectSelected = item;
+            item.className = "projects projects_active";
+          });
+        }
+      });
+    }
+
     selectProject(projectId, name) {
       this.projectChosenDiv.innerHTML =
       this.strings.get("chosenProject") + ": " + projectId + ", " + name;
@@ -323,14 +325,35 @@ define([
       this.updateAttributes("project", projectId);
     }
 
+    unSelectProject() {
+      start.projectChosenDiv.innerHTML = start.strings.get("noProjectChosen");
+      start.buttons.style.display = "none";
+      start.removeFromAttributes("project");
+      start.projectSelected.className = "projects";
+      start.projectSelected = null;
+      start.viewOverview.goTo({
+        center: [8.222167506135465, 46.82443911582187],
+        zoom: 8,
+      });
+    }
+
     // Handle all the interactions
     clickHandler() {
-      let this2 = this;
+      let start = this;
+
+      on(
+        this.login,
+        "click",
+        function (evt) {
+          start.arcgis.handleSignInOut();
+        }
+      );
+
       on(
         this.settingsButton,
         "click",
         function (evt) {
-          this2.settings.style.display = this2.settings.style.display=="none"? "block" : "none"
+          start.settings.style.display = start.settings.style.display=="none"? "block" : "none"
         }
       );
 
@@ -339,7 +362,7 @@ define([
         this.versionSelect,
         "change",
         function (evt) {
-          this2.updateAttributes("version", evt.target.options[evt.target.selectedIndex].value)
+          start.updateAttributes("version", evt.target.options[evt.target.selectedIndex].value)
         }
       );
 
@@ -347,8 +370,8 @@ define([
         this.langSelect,
         "change",
         function (evt) {
-          this2.updateAttributes("lang", evt.target.options[evt.target.selectedIndex].value);
-          window.open(window.location.href.split("?")[0]+this2.attributes, "_self")
+          start.updateAttributes("lang", evt.target.options[evt.target.selectedIndex].value);
+          window.open(window.location.href.split("?")[0]+start.attributes, "_self")
         }
       );
       
@@ -371,15 +394,7 @@ define([
 
       on(this.mapOverviewProject, "click", function (e) {
         if (e.target === this) {
-          this2.projectChosenDiv.innerHTML = this2.strings.get("noProjectChosen");
-          this2.buttons.style.display = "none";
-          this2.removeFromAttributes("project");
-          this2.projectSelected.className = "projects";
-          this2.projectSelected = null;
-          this2.viewOverview.goTo({
-            center: [8.222167506135465, 46.82443911582187],
-            zoom: 8,
-          });
+         start.unSelectProject()
         }
       });
 

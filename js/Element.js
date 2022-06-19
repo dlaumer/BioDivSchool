@@ -104,21 +104,25 @@
           if (args.textInfo) {
             this.addTextInfo(args.textInfo);
           }
-
         }
     
         addSimpleTextInput(args) {
           this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text}, this.labelContainer);
-          this.input = domCtr.create("input", { className: "input inputField", placeholder: args.placeholder }, this.element);
+          if (that.mode != "results") {
+            this.input = domCtr.create("input", { className: "input inputField", placeholder: args.placeholder }, this.element);
 
-          on(this.input, "input", function (evt) {
-            if (evt.target.value == "") {
-              this.setter(null)
-            }
-            else {
-              this.setter(evt.target.value)
-            }
-          }.bind(this));
+            on(this.input, "input", function (evt) {
+              if (evt.target.value == "") {
+                this.setter(null)
+              }
+              else {
+                this.setter(evt.target.value)
+              }
+            }.bind(this));
+          }
+          else {
+            this.input = domCtr.create("div", { className: "groupResult input", innerHTML: ""},  this.element)
+          } 
 
           this.setterUI = function (value) {
             if (that.mode == "results") {
@@ -133,11 +137,17 @@
 
         addDateTimeInput(args) {
           this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text}, this.labelContainer);
-          this.input = domCtr.create("input", {id: "dateTime", type:"date", className: "input dateTimeInput" }, this.element);
+          if (that.mode != "results") {
+            this.input = domCtr.create("input", {id: "dateTime", type:"date", className: "input dateTimeInput" }, this.element);
           
           on(this.input, "input", function (evt) {
             this.setter(evt.target.value)
           }.bind(this));
+          }
+          else {
+            this.input = domCtr.create("div", { className: "groupResult input", innerHTML: ""},  this.element)
+          } 
+          
 
           this.setterUI = function (value) {
             if (that.mode == "results") {
@@ -152,13 +162,18 @@
         // ToDo: Mehrfachauswahl!
         addDropdownInput(args) {
           this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text}, this.labelContainer);
-          this.input = domCtr.create("select", {className:"input inputField"}, this.element);
+          if (that.mode != "results") {
+            this.input = domCtr.create("select", {className:"input inputField"}, this.element);
 
-          domCtr.create("option", {value:"", selected:true, innerHTML: args.placeholder}, this.input);
-          for (const i in args.options) {
-              domCtr.create("option", {value:args.options[i].key, innerHTML: args.options[i].label}, this.input);
+            domCtr.create("option", {value:"", selected:true, innerHTML: args.placeholder}, this.input);
+            for (const i in args.options) {
+                domCtr.create("option", {value:args.options[i].key, innerHTML: args.options[i].label}, this.input);
+            }
           }
-
+          else {
+            this.input = domCtr.create("div", { className: "groupResult input", innerHTML: ""},  this.element)
+          } 
+          
           if (args.points != null) {
             this.hasPoints = true;
             this.keyPoints = args.points;
@@ -197,12 +212,17 @@
         addRadioButtonInput(args) {
           this.element.style =  "align-items: start;"
           this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text}, this.labelContainer);
-          this.input = domCtr.create("div", {className: "input inputRows"}, this.element);        
-          for (const i in args.options) {
-            let radioButtonContainer = domCtr.create("div", {className: "radioButtonContainer"}, this.input); 
-            domCtr.create("input", {type: "radio", name: this.key, id: this.key + "___" + args.options[i].key, className: "radioButton"}, radioButtonContainer);  
-            domCtr.create("label", {for: args.options[i].key, innerHTML: args.options[i].label }, radioButtonContainer);  
+          if (that.mode != "results") {
+            this.input = domCtr.create("div", {className: "input inputRows"}, this.element);        
+            for (const i in args.options) {
+              let radioButtonContainer = domCtr.create("div", {className: "radioButtonContainer"}, this.input); 
+              domCtr.create("input", {type: "radio", name: this.key, id: this.key + "___" + args.options[i].key, className: "radioButton"}, radioButtonContainer);  
+              domCtr.create("label", {for: args.options[i].key, innerHTML: args.options[i].label }, radioButtonContainer);  
+            }
           }
+          else {
+            this.input = domCtr.create("div", { className: "groupResult input", innerHTML: ""},  this.element)
+          } 
 
           if (args.points != null) {
             this.hasPoints = true;
@@ -243,36 +263,39 @@
         // ToDo: Points!
         addSliderInput(args) {
           this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text}, this.labelContainer);
-          this.sliderContainer = domCtr.create("div", {className: "input"}, this.element);        
-          this.sliderContainer2 = domCtr.create("div", {style: "width: 80%"}, this.sliderContainer);
-          this.input = domCtr.create("input", {type:"range", className: "slider", min: args.min, max: args.max, value: (args.max - args.min)/2, step: args.step}, this.sliderContainer2);
-          this.ticksContainer = domCtr.create("div", {className: "ticksContainer"}, this.sliderContainer2);  
-          
-          // if there are more than 100 steps, don't show all of the ticks because they all overlap.
-          let stepTicks = args.step;
-          if ((args.max - args.min) / args.step > 100) {
-            stepTicks = (args.max - args.min) / 100;
-          }
-          for (let i = args.min; i <= args.max; i += stepTicks) {
-            domCtr.create("div", {className: "ticks"}, this.ticksContainer);
-          }
-          this.labelContainer = domCtr.create("div", {className: "ticksContainer", style: "padding: 0 5px;"}, this.sliderContainer2);  
-          domCtr.create("div", {className: "labels", innerHTML: args.min}, this.labelContainer);
-          domCtr.create("div", {className: "labels", innerHTML: args.max}, this.labelContainer);     
+          if (that.mode != "results") {
+            this.sliderContainer = domCtr.create("div", {className: "input"}, this.element);        
+            this.sliderContainer2 = domCtr.create("div", {style: "width: 80%"}, this.sliderContainer);
+            this.input = domCtr.create("input", {type:"range", className: "slider", min: args.min, max: args.max, value: (args.max - args.min)/2, step: args.step}, this.sliderContainer2);
+            this.ticksContainer = domCtr.create("div", {className: "ticksContainer"}, this.sliderContainer2);  
+            
+            // if there are more than 100 steps, don't show all of the ticks because they all overlap.
+            let stepTicks = args.step;
+            if ((args.max - args.min) / args.step > 100) {
+              stepTicks = (args.max - args.min) / 100;
+            }
+            for (let i = args.min; i <= args.max; i += stepTicks) {
+              domCtr.create("div", {className: "ticks"}, this.ticksContainer);
+            }
+            this.labelContainer = domCtr.create("div", {className: "ticksContainer", style: "padding: 0 5px;"}, this.sliderContainer2);  
+            domCtr.create("div", {className: "labels", innerHTML: args.min}, this.labelContainer);
+            domCtr.create("div", {className: "labels", innerHTML: args.max}, this.labelContainer);     
 
-          this.bubble = domCtr.create("div", {className: "bubble"}, this.sliderContainer);   
-          this.input.addEventListener("input", () => {
+            this.bubble = domCtr.create("div", {className: "bubble"}, this.sliderContainer);   
+            this.input.addEventListener("input", () => {
+              this.bubble.innerHTML = this.input.value.toString() + "%";
+            });
             this.bubble.innerHTML = this.input.value.toString() + "%";
-          });
-          this.bubble.innerHTML = this.input.value.toString() + "%";
-
+          }
+          else {
+            this.input = domCtr.create("div", { className: "groupResult input", innerHTML: ""},  this.element)
+          } 
 
           if (args.points != null) {
             this.hasPoints = true;
             this.keyPoints = args.points;
             this.pointsInfo = domCtr.create("div", {id: this.name + "_pointsInfo", className: "pointsInfo"}, this.label);
             this.stops = args.stops;
-
           }
 
 
@@ -302,9 +325,13 @@
           this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text, style: "width: 100%;"}, this.labelContainer);
           this.mapContainer = domCtr.create("div", {className: "mapContainer"}, this.element); 
           this.input = domCtr.create("div", {id: this.name + "_map", className:"map"}, this.mapContainer);
+
           this.editorContainer = domCtr.create("div", {className: "editor"}, this.mapContainer); 
           this.editor = domCtr.create("div", {id: this.name + "_editor"}, this.editorContainer);
-  
+          if (that.mode == "results") {
+            this.input.style = "width:100%";
+            this.editorContainer.style.display = "none";
+          }
           this.linkInstructions = domCtr.create("div", { className: "labelText linkText", innerHTML: that.strings.get("instructions")}, this.element);
           this.instructions = domCtr.create("div", { className: "expandable", innerHTML: that.content.instructions, }, this.element);
 
@@ -468,15 +495,8 @@
 
         setterUINonEdit(container, value) {
 
-          container.innerHTML = '';
-          if (this.type == "mapInput") {
-            this.editorContainer.style = "display:none";
-            this.input.style = "width:100%";
-            this.geometry.definitionExpression = "objectid in (" + value.substring(1,value.length-1) + ")";
-          }
-          else {
-
-            domCtr.create("div", { className: "groupResult", innerHTML: value},  container)
+          if (this.type != "mapInput") {
+            this.input.innerHTML = value;
           }
         }
           
@@ -515,7 +535,7 @@
                 for (let k in this.rules[i].values) {
                   if (this.rules[i].values[k] == this.value) {
                     for (let j in this.rules[i].elements) {
-                      this.rules[i].elements[j].element.style.display = "block";
+                      this.rules[i].elements[j].element.style.display = "flex";
                     }
                   }
                   else {

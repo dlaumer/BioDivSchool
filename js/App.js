@@ -25,11 +25,12 @@ define([
       that.projectAreaId = null;
       that.mode = mode;
       this.offline = offline;
-      this.arcgis = new ArcGis();
       that.consolidationWidth = null;
       that.strings = strings;
       that.version = version;
-      
+
+      this.arcgis = new ArcGis(that.strings);
+
 
       that.showPoints = true;
 
@@ -436,10 +437,12 @@ define([
 
     addFinalPage(title) {
       let page = new Page(this, this.pages.length, this.pageContainer, title);
-      page.addElement("finalButton", "final", {
-        text: "Hast du alle Fragen deines Auftrages beantwortet?",
-        func: this.finalize,
-      });
+      let element = domCtr.create("div", { id: "finalElement", className: "element final"}, page.page);  
+      let final = domCtr.create("div", { id: "btn_final", className: "btn1", innerHTML: that.strings.get("results") }, element);
+
+      on(final, "click", function (evt) {
+        this.finalize();
+      }.bind(this));
       this.pages.push(page);
       this.lastPage = page;
 

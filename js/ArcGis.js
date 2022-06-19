@@ -5,6 +5,9 @@ ArcGis.js
 Used for all functions which need the esri arcgis js api
 */
 define([
+  "esri/portal/Portal",
+  "esri/identity/OAuthInfo",
+  "esri/identity/IdentityManager",
   "esri/core/Accessor",
   "esri/layers/FeatureLayer",
   "esri/Map",
@@ -23,6 +26,9 @@ define([
   "esri/config",
   "dojo/dom-construct",
 ], function (
+  Portal, 
+  OAuthInfo,
+  esriId,
   Accessor,
   FeatureLayer,
   Map,
@@ -41,11 +47,60 @@ define([
   domCtr
 ) {
   return class ArcGis {
-    constructor(content) {
+    constructor(strings) {
+
+      this.strings = strings;
+      esriConfig.portalUrl = "https://swissparks.maps.arcgis.com/";
+
+      this.signedIn = false;
+      this.info = new OAuthInfo({
+        appId: "1HVYw8T7xd77rBjt",
+        popup: false // the default
+      });
+
+      esriId.registerOAuthInfos([this.info]);
+
+      esriId
+      .checkSignInStatus(this.info.portalUrl + "/sharing")
+      .then(() => {
+        this.handleSignedIn();
+      })
+      .catch(() => {
+        this.handleSignedOut();
+      })
+
       this.createUI();
       this.clickHandler();
-      this.content = content;
       this.links = new Links();
+    }
+
+    handleSignInOut() {
+      if (this.signedIn) {
+        esriId.destroyCredentials();
+        window.location.reload();
+      }
+      else {
+        esriId.getCredential(this.info.portalUrl + "/sharing");
+      }
+    }
+
+    handleSignedIn() {
+      const portal = new Portal();
+      portal.load().then(() => {
+        window.history.pushState({ path: window.location.href.substr(0, window.location.href.indexOf('#')) }, '', window.location.href.substr(0, window.location.href.indexOf('#')));
+        if ( document.getElementById("login")) {
+          document.getElementById("login").innerHTML = this.strings.get("logoutEsri");
+          document.getElementById("userNameEsri").innerHTML = portal.user.username
+        }
+        this.signedIn = true;
+      });
+    }
+
+    handleSignedOut() {
+      this.signedIn = false;
+      if ( document.getElementById("login")) {
+        document.getElementById("login").innerText = this.strings.get("loginEsri");
+      }
     }
 
     createUI() {}
@@ -346,8 +401,7 @@ define([
     }
 
     addMap(containerMap, containerEditor, element) {
-      esriConfig.portalUrl = "https://swissparks.maps.arcgis.com/";
-
+      
       let geometry;
       let editor;
       let projectArea = new FeatureLayer({
@@ -603,7 +657,6 @@ define([
     }
 
     addMapOverview(containerMap) {
-      esriConfig.portalUrl = "https://swissparks.maps.arcgis.com/";
 
       let labelClass = {
         // autocasts as new LabelClass()
@@ -699,6 +752,7 @@ define([
       });
 
       homeButton.goToOverride = function (view) {
+        start.unSelectProject();
         return view.goTo({
           center: [8.222167506135465, 46.82443911582187],
           zoom: 8,
