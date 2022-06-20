@@ -1428,13 +1428,7 @@ define([
 
     
       page_pflege.addTextInfo({
-        title: "Düngen (33, 34)",
-        textInfo: {
-          linkText: "Zusatzinfos",
-          text: `
-          In Böden mit wenig Nährstoffen ist die Artenvielfalt erstaunlicher Weise viel höher als in nährstoffreichen Böden. Düngemittel sind nichts Anderes als Nährstoffe für Pflanzen. Deshalb fördern Düngemittel oft das Wachstum von nur einigen wenigen Pflanzenarten.
-          `
-        },      
+        title: "Düngen (33, 34)",          
       }) 
 
       //33_duengen
@@ -1447,7 +1441,7 @@ define([
         ],          
       });
 
-      //Falls Ja, dann Items 33grass und 34, Falls Nein, dann weiter mit Item 35 (Laub) 
+      //Falls Ja, dann Items 33_grasduengen und 34er, Falls Nein, dann weiter mit Item 35 (Laub) 
 
 
       //33_grasduengen
@@ -1460,7 +1454,18 @@ define([
         ],       
       });
 
-      //Falls Ja, dann Items und 33a und 34, Falls Nein, dann weiter mit Item 35 (Laub)
+      //Falls Ja, dann Items und 33a_duengen und 34, Falls Nein, dann weiter mit Item 35 (Laub)
+
+      let elem33info = page_pflege.addTextInfo({
+        text: "Stelle mit dem Regler ein, auf welchem Anteil der Grasflächen wie folgt gedüngt wird:",
+        textInfo: {
+          linkText: "Zusatzinfos",
+          text: `
+          In Böden mit wenig Nährstoffen ist die Artenvielfalt erstaunlicher Weise viel höher als in nährstoffreichen Böden. Düngemittel sind nichts Anderes als Nährstoffe für Pflanzen. Deshalb fördern Düngemittel oft das Wachstum von nur einigen wenigen Pflanzenarten.
+          `
+        },              
+      }) 
+      
 
       //33a_duengen
       let elem33a = page_pflege.addElement("sliderInput", "33a_duengen", {
@@ -1468,7 +1473,7 @@ define([
         min: 0,
         max: 100,
         step: 0.1,
-        stops: [{points: "2", value: 5},{points:"1", value:66},{points:"0", value:100}],
+        stops: [{points: "0", value: 5},{points:"1", value:66},{points:"0", value:100}],
         points: "33a_duengen_points",
       });
 
@@ -1482,16 +1487,7 @@ define([
         points: "33b_duengen_points",
       });
 
-       //33c_duengen
-       let elem33c = page_pflege.addElement("sliderInput", "33c_duengen", {
-        text: "33c: keine Düngung",
-        min: 0,
-        max: 100,
-        step: 0.1,
-        stops: [{points: "2", value: 5},{points:"1", value:66},{points:"0", value:100}],
-        points: "33c_duengen_points",
-      });
-
+    
       //34_mitteln
       let elem34text = page_pflege.addTextInfo({
         text: `
@@ -1548,10 +1544,11 @@ define([
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
-      elem33text.element.style.display = "none";
+      elem33gras.element.style.display = "none";
+      elem33info.element.style.display = "none";      
+      
       elem33a.element.style.display = "none";
       elem33b.element.style.display = "none";
-      elem33c.element.style.display = "none";
       elem34text.element.style.display = "none";
 
       elem34a.element.style.display = "none";
@@ -1563,9 +1560,14 @@ define([
         values: [
           "Ja",
           ], 
-        elements: [elem33text, elem33a, elem33b, elem33c, elem34text, elem34a, elem34b, elem34c, elem34d]
+        elements: [elem33gras, elem34text, elem34a, elem34b, elem34c, elem34d]
       }] 
-
+      elem33gras.rules = [{
+        values: [
+          "Ja",
+          ], 
+        elements: [elem33info, elem33a, elem33b, elem33c, elem34text, elem34a, elem34b, elem34c, elem34d]
+      }] 
 
       page_pflege.addTextInfo({
         title: "Laub (35)", 
