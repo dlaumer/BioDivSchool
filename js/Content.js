@@ -173,7 +173,6 @@ define([
           stops: [{points: "0", value: 0.25},{points:"2", value:0.5},{points: "4", value:0.75},{points: "6", value:1}]
         },
         points: "wild_points",
-        //bitte noch Hilfestellung/Zusatzinfos hinzufügen
         textInfo: {
           linkText: "Zusatzinfos",
           text: `<div class="textInfoElements"><img src="img/Fotos_Hilfestellungen/H08_1_heimische_Blumenstraeucher.jpg" alt="H08_1" width="100%">
@@ -233,7 +232,6 @@ define([
             key: "2", points: -2, label: "mehr als eine Art von schädlichen gebietsfremden Pflanzen",
           },
         ],
-        //bitte noch Hilfestellung/Zusatzinfos hinzufügen
         textInfo: {
             linkText: "Zusatzinfos",
             text: `Gebietsfremde Pflanzen sind Pflanzen, die natürlicher Weise nicht hier wachsen. Sie werden Neophyten genannt. Die meisten Neophyten sind harmlos. Es gibt aber Neophyten, die Probleme bereiten. Solche Neophyten sind schädlich.
@@ -341,7 +339,6 @@ define([
           stops: [{points:"4", value: 0.33},{points:"2", value: 0.5},{points:"1", value: 0.66},{points:"6", value:1}]
         },
         points: "versieg_points",
-         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -364,7 +361,6 @@ define([
           stops: [{points:"2", value:0.25},{points:"1", value: 0.5},{points:"0", value:1}]
         },
         points: "rasen_points",
-        //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -399,7 +395,6 @@ define([
             { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
           ]
         },
-        //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -435,7 +430,6 @@ define([
             { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
           ]
         },
-        //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -477,7 +471,6 @@ define([
             { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
           ]
         },
-         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -507,7 +500,6 @@ define([
             { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
           ]
         },
-           //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -541,7 +533,6 @@ define([
             { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
           ]
         },
-        //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -572,7 +563,6 @@ define([
             { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
           ]
         },
-         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -601,7 +591,7 @@ define([
         options: [
           { key: "0", points: 0, label: "Keine Bäume vorhanden, die höher als 4 - 5 Meter sind." },
           { key: "1", points: 1, label: "Nur 1 Baum vorhanden oder alle Bäume etwa gleich hoch." },
-          { key: "2", points: 2, label: "Bäume in deutlich unterschiedlichen Höhen vorhanden." },
+          { key: "2", points: 2, label: "Bäume in zwei deutlich unterschiedlichen Höhen vorhanden." },
           { key: "3", points: 3, label: "Bäume in drei deutlich unterschiedlichen Höhen vorhanden." },
         ],
           textInfo: {
@@ -676,7 +666,6 @@ define([
           { key: "2", points: 1, label: "1-3 Gruppen aus mindestens 5 Sträuchern vorhanden. Die meisten dieser Sträucher sind heimisch." },
           { key: "3", points: 3, label: "Mehr als 3 Gruppen aus mindestens 5 Sträuchern vorhanden. Die meisten dieser Sträucher sind heimisch." },
         ],
-           //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -1220,13 +1209,13 @@ define([
         points: "b_maehen_points",
         options: [
           { key: "0", points: 1, label: "einmal oder weniger" },
-          { key: "1", points: 0, label: "zweimal oder öfter" },
+          { key: "1", points: -2, label: "zweimal oder öfter" },
         ],
       });
 
        //29c_maehen
        page_pflege.addElement("radioButtonInput", "c_maehen", {
-        text: "29c: Es wird jeweils nicht die ganze Grasfläche zum gleichen Zeitpunkt geschnitten. Verschiedene Grasflächen werden zu unterschiedlichen Zeitpunkten geschnitten.",
+        text: "29c: Ein Teil der Grasfläche wird jedes Jahr gar nicht geschnitten. Das kann jedes Jahr ein anderer Teil sein. ",
         placeholder: "Auswählen",
         points: "c_maehen_points",
         options: [
@@ -1294,7 +1283,6 @@ define([
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
-      elem29d.element.style.display = "none";
       elem29etal.element.style.display = "none";
       elem29eberg1.element.style.display = "none";
       elem29eberg2.element.style.display = "none";
@@ -1651,10 +1639,10 @@ define([
         points: "fldacher_points",
         options: [
           { key: "0", points: 0, label: "Keine oder kaum Dachbegrünung." },
-          { key: "1", points: 1, label: "Ungefähr die Hälfte der Flachdächer ist begrünt, enthält aber keine Sandflächen oder Totholz." },
-          { key: "2", points: 2, label: "Ungefähr die Hälfte der Flachdächer ist begrünt und enthält auch Sandflächen und Totholz." },
-          { key: "3", points: 3, label: "Mehr als die Hälfte der Flachdächer ist begrünt, enthält aber keine Sandflächen oder Totholz." },
-          { key: "4", points: 4, label: "Mehr als die Hälfte der Flachdächer ist begrünt und enthält auch Sandflächen oder Totholz." },
+          { key: "1", points: 0, label: "Ungefähr die Hälfte der Flachdächer ist begrünt, enthält aber keine Sandflächen oder Totholz." },
+          { key: "2", points: 1, label: "Ungefähr die Hälfte der Flachdächer ist begrünt und enthält auch Sandflächen und Totholz." },
+          { key: "3", points: 1, label: "Mehr als die Hälfte der Flachdächer ist begrünt, enthält aber keine Sandflächen oder Totholz." },
+          { key: "4", points: 2, label: "Mehr als die Hälfte der Flachdächer ist begrünt und enthält auch Sandflächen oder Totholz." },
         ],
           //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
