@@ -1428,7 +1428,13 @@ define([
 
     
       page_pflege.addTextInfo({
-        title: "Düngen (33, 34)",      
+        title: "Düngen (33, 34)",
+        textInfo: {
+          linkText: "Zusatzinfos",
+          text: `
+          In Böden mit wenig Nährstoffen ist die Artenvielfalt erstaunlicher Weise viel höher als in nährstoffreichen Böden. Düngemittel sind nichts Anderes als Nährstoffe für Pflanzen. Deshalb fördern Düngemittel oft das Wachstum von nur einigen wenigen Pflanzenarten.
+          `
+        },      
       }) 
 
       //33_duengen
@@ -1437,27 +1443,24 @@ define([
         placeholder: "Auswählen",    
         options: [
           { key: "0",points: 0, label: "Ja" },
-          { key: "1",points: 0, label: "Nein" },
-      
+          { key: "1",points: 0, label: "Nein" },      
         ],          
       });
 
-      //Falls Ja, dann Items und 33 und 34, Falls Nein, dann weiter mit Item 35 (Laub) 
+      //Falls Ja, dann Items 33grass und 34, Falls Nein, dann weiter mit Item 35 (Laub) 
 
 
-      //33_duengen
-      let elem33text = page_pflege.addTextInfo({
-        text: `
-        33: Wie werden Grasflächen (Wiesen, Rasen inklusive Sportrasen) gedüngt?<br>
-        Stelle mit dem Regler ein, auf welchem Anteil der Grasflächen wie folgt gedüngt wird:         
-        ` ,
-        textInfo: {
-          linkText: "Zusatzinfos",
-          text: `
-          In Böden mit wenig Nährstoffen ist die Artenvielfalt erstaunlicher Weise viel höher als in nährstoffreichen Böden. Düngemittel sind nichts Anderes als Nährstoffe für Pflanzen. Deshalb fördern Düngemittel oft das Wachstum von nur einigen wenigen Pflanzenarten.
-          `
-        },
-      })
+      //33_grasduengen
+      let elem33gras = page_pflege.addElement("radioButtonInput", "grasduengen", {
+        text: "33gras: Werden Grasflächen (Wiesen, Rasen inklusive Sportrasen) gedüngt?",
+        placeholder: "Auswählen",    
+        options: [
+          { key: "0",points: 0, label: "Ja" },
+          { key: "1",points: 0, label: "Nein" },      
+        ],       
+      });
+
+      //Falls Ja, dann Items und 33a und 34, Falls Nein, dann weiter mit Item 35 (Laub)
 
       //33a_duengen
       let elem33a = page_pflege.addElement("sliderInput", "33a_duengen", {
