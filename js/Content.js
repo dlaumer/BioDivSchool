@@ -1566,7 +1566,7 @@ define([
         values: [
           "Ja",
           ], 
-        elements: [elem33info, elem33a, elem33b, elem33c, elem34text, elem34a, elem34b, elem34c, elem34d]
+        elements: [elem33info, elem33a, elem33b, elem34text, elem34a, elem34b, elem34c, elem34d]
       }] 
 
       page_pflege.addTextInfo({
