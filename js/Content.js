@@ -219,14 +219,14 @@ define([
 
   
       //10_neophyten
-      page_regionalitaet.addElement("radioButtonInput", "neophyten", {
+      let elem10 = page_regionalitaet.addElement("radioButtonInput", "neophyten", {
         text: "10: Gibt es im Untersuchungsgebiet schädliche gebietsfremde Pflanzen?",
         placeholder: "Auswählen",
         points: "neophyten_points",
         options: [
           { key: "0", points: 2, label: "keine" },
           {
-            key: "1", points: 0, label: "eine oder mehrere Arten von schädlichen gebietsfremden Pflanzen",
+            key: "1", points: 0, label: "eine Art von schädlichen gebietsfremden Pflanzen",
           },
           {
             key: "2", points: -2, label: "mehr als eine Art von schädlichen gebietsfremden Pflanzen",
@@ -245,7 +245,7 @@ define([
 
 
       //10a_neophytenmenge
-      page_regionalitaet.addElement("radioButtonInput", "neophytenmenge", {
+      let elem10a = page_regionalitaet.addElement("radioButtonInput", "neophytenmenge", {
         text: "10a: Wie gross ist die Fläche, die insgesamt durch alle schädlichen gebietsfremden Pflanzen bedeckt wird?",
         placeholder: "Auswählen",
         points: "neophytenmenge_points",
@@ -256,7 +256,7 @@ define([
       });
 
       //10b_neophyten__geomoid - Liste und Points tbd
-      page_regionalitaet.addElement("mapInput", "neophyten__geomoid", {
+      let elem10b = page_regionalitaet.addElement("mapInput", "neophyten__geomoid", {
         text: `10b: Markiere alle Standorte mit schädlichen gebietsfremden Pflanzen.`,
         placeholder: "Auswählen",
          //points: "",
@@ -266,6 +266,18 @@ define([
           { key: "-2", label: "C"},
         ],
       });
+
+      // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
+      elem10a.element.style.display = "none";
+      elem10b.element.style.display = "none";
+      // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
+      elem10.rules = [{
+        values: [
+          "eine Art von schädlichen gebietsfremden Pflanzen",
+          "mehr als eine Art von schädlichen gebietsfremden Pflanzen" ], 
+        elements: [elem10a, elem10b]
+      }]
+
       
       /*Strukturelemente*/      
       let page_strukturelemente = this.app.addPage("Strukturelemente");
@@ -1124,33 +1136,16 @@ define([
   
       page_pflege.addTextInfo({
         title: "Mähen von Rasen und Wiesen OHNE Sportrasen (28, 29)", 
-        text: `
-        28: Mit welchen Geräten werden Grasflächen (ohne Sportrasen) geschnitten?
-        Stelle mit dem Regler ein, auf welchem Anteil der Grasflächen mit welchen Geräten gemäht wird:
-        `
       }) 
 
-      //Die neuen Items 28a und 28b sind ja voneinander abhängig. Das hätte mir auch früher einfallen können … Deshalb braucht es hier nur die Frage nach Sense, Balkenmäher: 
-      //28a_geraet
-      /*
-      page_pflege.addElement("sliderInput", "28a_geraet", {
-        text: "28a: Rasentraktor, Ride-on Mäher, Rasenmäher, Fadenmäher oder Motorsense.",
-        min: 0,
-        max: 100,
-        step: 0.1,
-        stops: [{points: "2", value: 5},{points:"1", value:66},{points:"0", value:100}], // stops need to be defined
-        points: "28a_geraet_points",
-      });
-      */
-
-       //28b_geraet
-       page_pflege.addElement("sliderInput", "28b_geraet", {
-        text: "Sense oder Balkenmäher:",
+      //28_geraet
+      page_pflege.addElement("sliderInput", "28_geraet", {
+        text: "28: Mit welchen Geräten werden Grasflächen (ohne Sportrasen) geschnitten? Stelle mit dem Regler ein, auf welchem Anteil der Grasflächen mit mit Sense oder Balkenmäher  gemäht wird:",
         min: 0,
         max: 100,
         step: 0.1,
         stops: [{points: "0", value:20},{points:"1", value:50},{points:"2", value:80},{points:"3", value:100}], 
-        points: "28b_geraet_points",
+        points: "28_geraet_points",
       });
       //0 P.	< 20 %, 1 P.	21 – 50 %, 2 P.	51 % - 80 %, 3 P.	> 80% 
 
@@ -1352,20 +1347,21 @@ define([
           `,
           }
       });
-      //kaum ökologische Schädlingsbekämpfung <5%	3
-      //5.1-50%	2
-      //50.1-75%	1
-      //ökologische Schädlingsbekämpfung auf der gesamten unbebauten Fläche >75%	0
-      //points: "bekaempfung_points",
-
-
+     
+      //32_unkraut
       page_pflege.addTextInfo({
-        title: "Unkrautregulierung (32)",
-        text: `
-        32: Wie werden Unkräuter oder unerwünschte Pflanzen bekämpft?
-        Gehe von der gesamten unbebauten und unversiegelten Untersuchungsfläche aus.
-        Stelle mit dem Regler ein, auf welchem Anteil dieser Fläche die folgenden Bekämpfungsarten angewendet werden:        
-        ` ,
+        title: "Unkrautregulierung (32)",       
+      }) 
+
+      //32a_unkraut
+      let elem32a = page_pflege.addElement("radioButtonInput", "32a_unkraut", {
+        text: "32a: Werden Unkräuter oder unerwünschte Pflanzen überhaupt regelmässig bekämpft?",
+        placeholder: "Auswählen",
+        options: [
+          { key: "0", points: 0, label: "Ja" },
+          { key: "1", points: 4, label: "Nein" },
+        ],
+        points: "32a_unkraut_points",
         textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -1384,47 +1380,31 @@ define([
           </div>
           `
         },
-      }) 
-      
-      //32a_unkraut
-      page_pflege.addElement("sliderInput", "32a_unkraut", {
-        text: "32a: Chemische Mittel, so genannte Herbizide",
-        min: 0,
-        max: 100,
-        step: 0.1,
-        stops: [{points: "2", value: 5},{points:"1", value:66},{points:"0", value:100}],  // stops need to be defined for all 4
-        points: "32a_unkraut_points",
       });
 
        //32b_unkraut
-       page_pflege.addElement("sliderInput", "32b_unkraut", {
-        text: "32b: Abflammen oder mit Hitze erzeugenden Geräten",
-        min: 0,
-        max: 100,
-        step: 0.1,
-        stops: [{points: "2", value: 5},{points:"1", value:66},{points:"0", value:100}],
+       let elem32b = page_pflege.addElement("radioButtonInput", "32b_unkraut", {
+        text: "32b: Wie werden Unkräuter oder unerwünschte Pflanzen zur Hauptsache bekämpft?",
+        placeholder: "Auswählen",
+        options: [
+          { key: "0", points: 0, label: "Mehr als 75 % der gesamten Unkrautbekämpfung erfolgt mit chemischen Mitteln, so genannten Herbiziden." },
+          { key: "1", points: 1, label: "25 - 75 % der gesamten Unkrautbekämpfung erfolgt mit chemischen Mitteln, so genannten Herbiziden." },
+          { key: "2", points: 4, label: "Weniger als 25 % der gesamten Unkrautbekämpfung erfolgt mit chemischen Mitteln, so genannten Herbiziden." },
+        ],
         points: "32b_unkraut_points",
       });
-
-       //32c_unkraut
-       page_pflege.addElement("sliderInput", "32c_unkraut", {
-        text: "32c: Heisses Wasser, Dampf und / oder biologische Mittel und / oder mit Fadenmäher",
-        min: 0,
-        max: 100,
-        step: 0.1,
-        stops: [{points: "2", value: 5},{points:"1", value:66},{points:"0", value:100}],
-        points: "32c_unkraut_points",
-      });
-
-       //32d_unkraut
-       page_pflege.addElement("sliderInput", "32d_unkraut", {
-        text: "32d: Handarbeit",
-        min: 0,
-        max: 100,
-        step: 0.1,
-        stops: [{points: "2", value: 5},{points:"1", value:66},{points:"0", value:100}],
-        points: "32d_unkraut_points",
-      });
+      
+      // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
+      elem32b.element.style.display = "none";
+      
+      // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
+      elem32a.rules = [{
+        values: [
+          "Ja",
+          ], 
+        elements: [elem32b]
+      }]     
+     
 
     
       page_pflege.addTextInfo({
@@ -1450,123 +1430,72 @@ define([
         placeholder: "Auswählen",    
         options: [
           { key: "0",points: 0, label: "Ja" },
-          { key: "1",points: 0, label: "Nein" },      
-        ],       
+          { key: "1",points: 4, label: "Nein" },      
+        ],
+        textInfo: {
+          linkText: "Zusatzinfos",
+          text: `
+          <div class="textInfoElements">
+          In Böden mit wenig Nährstoffen ist die Artenvielfalt erstaunlicher Weise viel höher als in nährstoffreichen Böden. Düngemittel sind nichts Anderes als Nährstoffe für Pflanzen. Deshalb fördern Düngemittel oft das Wachstum von nur einigen wenigen Pflanzenarten.
+          </div>
+          `
+        },       
       });
 
       //Falls Ja, dann Items und 33a_duengen und 34, Falls Nein, dann weiter mit Item 35 (Laub)
 
-      let elem33info = page_pflege.addTextInfo({
-        text: "Stelle mit dem Regler ein, auf welchem Anteil der Grasflächen wie folgt gedüngt wird:",
-        textInfo: {
-          linkText: "Zusatzinfos",
-          text: `
-          In Böden mit wenig Nährstoffen ist die Artenvielfalt erstaunlicher Weise viel höher als in nährstoffreichen Böden. Düngemittel sind nichts Anderes als Nährstoffe für Pflanzen. Deshalb fördern Düngemittel oft das Wachstum von nur einigen wenigen Pflanzenarten.
-          `
-        },              
-      }) 
       
-
       //33a_duengen
-      let elem33a = page_pflege.addElement("sliderInput", "33a_duengen", {
-        text: "33a: Düngen ohne Analyse des Bodens",
-        min: 0,
-        max: 100,
-        step: 0.1,
-        stops: [{points: "0", value: 5},{points:"1", value:66},{points:"0", value:100}],
-        points: "33a_duengen_points",
-      });
+      let elem33a = page_pflege.addElement("radioButtonInput", "a_duengen", {
+        text: "33a: Wie werden Grasflächen (Wiesen, Rasen inklusive Sportrasen) gedüngt?",
+        placeholder: "Auswählen",    
+        options: [
+          { key: "0",points: 0, label: "Mehr als die Hälfte des Bodens wird ohne Analyse des Bodens gedüngt." },
+          { key: "1",points: 2, label: "Weniger als die Hälfte des Bodens wird ohne Analyse des Bodens gedüngt." },      
+        ],
+        points: "33a_duengen_points",     
+      });    
+  
 
-       //33b_duengen
-       let elem33b = page_pflege.addElement("sliderInput", "33b_duengen", {
-        text: "33b: Düngen, wenn eine Analyse des Bodens Bedarf anzeigt",
-        min: 0,
-        max: 100,
-        step: 0.1,
-        stops: [{points: "2", value: 5},{points:"1", value:66},{points:"0", value:100}],
-        points: "33b_duengen_points",
-      });
 
-    
       //34_mitteln
-      let elem34text = page_pflege.addTextInfo({
-        text: `
-        34: Mit welchen Mitteln werden Grasflächen (Wiesen, Rasen inklusive Sportrasen) gedüngt?<br>
-        Stelle mit dem Regler ein, auf welchem Anteil der Grasflächen wie folgt gedüngt wird:        
-        ` ,
+      let elem34 = page_pflege.addElement("radioButtonInput", "mitteln", {
+        text: "34: Mit welchen Mitteln werden Grasflächen (Wiesen, Rasen inklusive Sportrasen) gedüngt?",
+        placeholder: "Auswählen",    
+        options: [
+          { key: "0",points: 0, label: "Mehr als ein Drittel der Düngemittel sind mineralischer Dünger oder Torf." },
+          { key: "1",points: 1, label: "Mehr als die Hälfte der Düngemittel sind organischer Dünger wie Jauche, Mist oder Mulch oder Bio-Knospenprodukte." },  
+          { key: "2",points: 2, label: "Mehr als die Hälfte der Düngemittel ist eigener Kompost." },      
+        ],
+        points: "34_mitteln_points",
         textInfo: {
           linkText: "Zusatzinfos",
           text: `
           Mineralische Düngemittel helfen zwar den Pflanzen, vernachlässigen aber Bodenlebewesen. Auch kann Mineraldünger zu einem chemischen Ungleichgewicht von Nährstoffen im Boden führen. Überschüssiger Mineraldünger wird zudem mit dem Regenwasser in Gewässer geschwemmt. In Gewässer kann Mineraldünger zu übermässigem Algenwachstum führen.
           `,
           }
-      })
-
-
-      //34a_mitteln
-      let elem34a = page_pflege.addElement("sliderInput", "34a_mitteln", {
-        text: "34a: mineralischer Dünger, Torf",
-        min: 0,
-        max: 100,
-        step: 0.1,
-        stops: [{points: "2", value: 5},{points:"1", value:66},{points:"0", value:100}],
-        points: "34a_mitteln_points",
       });
 
-       //34b_mitteln
-       let elem34b = page_pflege.addElement("sliderInput", "34b_mitteln", {
-        text: "34b: organischer Dünger wie Jauche, Mist oder Mulch, Bio-Knospenprodukte",
-        min: 0,
-        max: 100,
-        step: 0.1,
-        stops: [{points: "2", value: 5},{points:"1", value:66},{points:"0", value:100}],
-        points: "34b_mitteln_points",
-      });
-
-       //34c_mitteln
-       let elem34c = page_pflege.addElement("sliderInput", "34c_mitteln", {
-        text: "34c: eigener Kompost",
-        min: 0,
-        max: 100,
-        step: 0.1,
-        stops: [{points: "2", value: 5},{points:"1", value:66},{points:"0", value:100}],
-        points: "34c_mitteln_points",
-      });
-
-       //34d_mitteln
-       let elem34d = page_pflege.addElement("sliderInput", "34d_mitteln", {
-        text: "34d: kein Dünger",
-        min: 0,
-        max: 100,
-        step: 0.1,
-        stops: [{points: "2", value: 5},{points:"1", value:66},{points:"0", value:100}],
-        points: "34d_mitteln_points",
-      });
+    
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
       elem33gras.element.style.display = "none";
-      elem33info.element.style.display = "none";      
-      
-      elem33a.element.style.display = "none";
-      elem33b.element.style.display = "none";
-      elem34text.element.style.display = "none";
+      elem33a.element.style.display = "none";    
 
-      elem34a.element.style.display = "none";
-      elem34b.element.style.display = "none";
-      elem34c.element.style.display = "none";
-      elem34d.element.style.display = "none";
+      elem34.element.style.display = "none";
+
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem33.rules = [{
         values: [
           "Ja",
           ], 
-        elements: [elem33gras, elem34text, elem34a, elem34b, elem34c, elem34d]
+        elements: [elem33gras, elem34]
       }] 
       elem33gras.rules = [{
         values: [
           "Ja",
           ], 
-        elements: [elem33info, elem33a, elem33b, elem34text, elem34a, elem34b, elem34c, elem34d]
+        elements: [elem33a, elem34]
       }] 
 
       page_pflege.addTextInfo({
