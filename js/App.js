@@ -87,7 +87,7 @@ define([
                 this.initUI();
               });
             });
-          
+
         });
       } else {
         that.content.init();
@@ -99,7 +99,7 @@ define([
 
       document.getElementById("btn_login").innerHTML = this.strings.get("loading");
       this.projectId = projectId;
-      
+
       this.updateAttributes("project", this.projectId)
 
       // Add a new element in the database
@@ -132,7 +132,7 @@ define([
       this.groupId = "all";
 
       this.updateAttributes("project", this.projectId)
-      
+
       let that = this;
 
       if (!this.offline) {
@@ -154,7 +154,7 @@ define([
               let data = info.data;
               that.objectId = info.objectId;
               if (!info.newFeature) {
-                 that.loadInputs(data.attributes);
+                that.loadInputs(data.attributes);
               } else {
                 that.loadInputs(occurences.dataAll);
                 that.saveData();
@@ -192,10 +192,10 @@ define([
           : this.strings.get("project") + ": " + this.projectId + ", " + this.strings.get("group") + ": " + this.groupId;
       this.save.className = "btn1 btn_disabled";
       document.onkeydown = this.checkKey;
-     
+
       this.home.style.display = that.mode == "project" ? "none" : "block";
       this.save.style.display = that.mode == "project" ? "none" : "block";
-      this.next.style.display = that.mode == "project" && this.projectId == null? "none" : "block";
+      this.next.style.display = that.mode == "project" && this.projectId == null ? "none" : "block";
       this.back.style.display = that.mode == "project" ? "none" : "block";
 
     }
@@ -206,10 +206,10 @@ define([
         { class: "background", style: "display: none" },
         win.body()
       );
-      this.header = domCtr.create("div", { id: "header" , className: "header"}, this.background);
+      this.header = domCtr.create("div", { id: "header", className: "header" }, this.background);
       this.save = domCtr.create(
         "div",
-        { id: "save", className: "btn1 btn_disabled", innerHTML: this.strings.get("save")},
+        { id: "save", className: "btn1 btn_disabled", innerHTML: this.strings.get("save") },
         this.header
       );
 
@@ -255,7 +255,7 @@ define([
         {
           id: "btn_back",
           className: "btn2",
-          innerHTML:this.strings.get("back"),
+          innerHTML: this.strings.get("back"),
           style: "visibility:hidden",
         },
         this.footerCenter
@@ -316,22 +316,22 @@ define([
           if (Object.keys(urlData).includes("intern")) {
             window.open(
               this.offline
-                  ? window.location.href.split("/").slice(0, -1).join("/") +
-                      "/indexOffline.html?intern=true"
-                  : window.location.href.split("/").slice(0, -1).join("/") +
-                      "/index.html?intern=true", 
-                      "_self"
-              )
+                ? window.location.href.split("/").slice(0, -1).join("/") +
+                "/indexOffline.html?intern=true"
+                : window.location.href.split("/").slice(0, -1).join("/") +
+                "/index.html?intern=true",
+              "_self"
+            )
           }
           else {
             window.open(
               this.offline
-                  ? window.location.href.split("/").slice(0, -1).join("/") +
-                      "/indexOffline.html"
-                  : window.location.href.split("/").slice(0, -1).join("/") +
-                      "/index.html", 
-                      "_self"
-              )
+                ? window.location.href.split("/").slice(0, -1).join("/") +
+                "/indexOffline.html"
+                : window.location.href.split("/").slice(0, -1).join("/") +
+                "/index.html",
+              "_self"
+            )
           }
         }.bind(this)
       );
@@ -359,12 +359,12 @@ define([
           if (that.mode == "project") {
             window.open(
               this.offline
-                  ? window.location.href.split("/").slice(0, -1).join("/") +
-                      "/indexOffline.html?intern=true"
-                  : window.location.href.split("/").slice(0, -1).join("/") +
-                      "/index.html?intern=true", 
-                      "_self"
-              )
+                ? window.location.href.split("/").slice(0, -1).join("/") +
+                "/indexOffline.html?intern=true"
+                : window.location.href.split("/").slice(0, -1).join("/") +
+                "/index.html?intern=true",
+              "_self"
+            )
           }
           else {
             this.goToPage(this.currentPage + 1);
@@ -400,33 +400,33 @@ define([
 
     addPage(title, version) {
       if (!version || version && version.includes(that.version)) {
-      let page;
-      if (that.mode == "consolidation") {
-        page = new Consolidation(
-          this,
-          this.pages.length,
-          this.pageContainer,
-          title
-        );
-      } else {
-        page = this.addPageNormal(title, this.pageContainer);
-      }
+        let page;
+        if (that.mode == "consolidation") {
+          page = new Consolidation(
+            this,
+            this.pages.length,
+            this.pageContainer,
+            title
+          );
+        } else {
+          page = this.addPageNormal(title, this.pageContainer);
+        }
 
-      // Add to page of content
-      if (this.loginPage != null) {
-        let pageNr = this.pages.length - 1;
+        // Add to page of content
+        if (this.loginPage != null) {
+          let pageNr = this.pages.length - 1;
 
-        let elem = domCtr.create(
-          "div",
-          { class: "contentLink", innerHTML: pageNr + ". " + title },
-          this.loginPage.page
-        );
-        elem.addEventListener("click", () => {
-          this.goToPage(that.mode == "consolidation" ? pageNr + 1 : pageNr);
-        });
+          let elem = domCtr.create(
+            "div",
+            { class: "contentLink", innerHTML: pageNr + ". " + title },
+            this.loginPage.page
+          );
+          elem.addEventListener("click", () => {
+            this.goToPage(that.mode == "consolidation" ? pageNr + 1 : pageNr);
+          });
+        }
+        return page;
       }
-      return page;
-    }
     }
 
     addPageNormal(title, container) {
@@ -437,7 +437,7 @@ define([
 
     addFinalPage(title) {
       let page = new Page(this, this.pages.length, this.pageContainer, title);
-      let element = domCtr.create("div", { id: "finalElement", className: "element final"}, page.page);  
+      let element = domCtr.create("div", { id: "finalElement", className: "element final" }, page.page);
       let final = domCtr.create("div", { id: "btn_final", className: "btn1", innerHTML: that.strings.get("results") }, element);
 
       on(final, "click", function (evt) {
@@ -454,8 +454,10 @@ define([
 
       for (let item in data) {
         if (item in elements && data[item] != null) {
-          elements[item].setter(data[item], false);
-          elements[item].setterUI(data[item]);
+          if (elements[item].checkAllowedValues(data[item])) {
+            elements[item].setter(data[item], false);
+            elements[item].setterUI(data[item]);
+          }
         }
       }
     }
@@ -510,14 +512,14 @@ define([
               }
             }
           }
-        
+
           if (elements[i].type == "sliderInput") {
             dataAll[i] = (avg / Object.keys(data[i]).length).toFixed(2);
           }
           else {
             dataAll[i] = max;
           }
-          
+
         }
       }
       return { count: count, dataAll: dataAll };
@@ -537,7 +539,7 @@ define([
       that.saveData(() => {
         that.lastPage.addWarning(that.strings.get("warnSaveSuccess"));
         window.open(
-          that.offline? window.location.href.split("/").slice(0, -1).join("/")+ "/" + '/indexResultsOffline.html?project=' + that.projectId + '&group=' + that.groupId: window.location.href.split("/").slice(0, -1).join("/") + "/" + '/indexResults.html?project=' + that.projectId + '&group=' + that.groupId   ,  
+          that.offline ? window.location.href.split("/").slice(0, -1).join("/") + "/" + '/indexResultsOffline.html?project=' + that.projectId + '&group=' + that.groupId : window.location.href.split("/").slice(0, -1).join("/") + "/" + '/indexResults.html?project=' + that.projectId + '&group=' + that.groupId   ,
         );
       })
     }
@@ -599,8 +601,8 @@ define([
       var query = location.search.substr(1);
       var result = {};
       query.split("&").forEach(function (part) {
-          var item = part.split("=");
-          result[item[0]] = decodeURIComponent(item[1]);
+        var item = part.split("=");
+        result[item[0]] = decodeURIComponent(item[1]);
       });
       return result;
     }
@@ -614,7 +616,7 @@ define([
       }
       var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + att;
       window.history.pushState({ path: newurl }, '', newurl);
-  }
+    }
 
     removeFromAttributes(key) {
       let json = this.getJsonFromUrl();
@@ -627,6 +629,6 @@ define([
       }
       var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + att;
       window.history.pushState({ path: newurl }, '', newurl);
-      }
+    }
   };
 });
