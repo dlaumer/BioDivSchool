@@ -104,7 +104,7 @@ define([
 
       this.settings = domCtr.create(
         "div",
-        { className: "settings", style: "display:none"}, 
+        { className: "settings", style: "display:none" },
         this.background
       );
 
@@ -119,35 +119,35 @@ define([
 
       this.userName = domCtr.create("div", { id: "userNameEsri" }, this.header);
 
-      
+
       this.settingsButton = domCtr.create(
         "div",
         { id: "settings", className: "btn1", innerHTML: this.strings.get("settings") },
         this.header
       );
 
-      let elemVersion = domCtr.create("div", {  className: "element"}, this.settings);
-      this.label = domCtr.create("div", { className: "labelText", innerHTML: this.strings.get("versionLabel")}, elemVersion);
-      this.versionSelect = domCtr.create("select", {className:"input inputField"}, elemVersion);
+      let elemVersion = domCtr.create("div", { className: "element" }, this.settings);
+      this.label = domCtr.create("div", { className: "labelText", innerHTML: this.strings.get("versionLabel") }, elemVersion);
+      this.versionSelect = domCtr.create("select", { className: "input inputField" }, elemVersion);
 
-      domCtr.create("option", {value:"short", selected: this.version == "short"? true:false, innerHTML: this.strings.get("short")}, this.versionSelect);
-      domCtr.create("option", {value:"long", selected: this.version == "long"? true:false, innerHTML: this.strings.get("long")}, this.versionSelect);
-      
-      
-      let elemLang = domCtr.create("div", { className: "element"}, this.settings);
-      this.label = domCtr.create("div", { className: "labelText", innerHTML: this.strings.get("langLabel")}, elemLang);
-      this.langSelect = domCtr.create("select", {className:"input inputField"}, elemLang);
+      domCtr.create("option", { value: "short", selected: this.version == "short" ? true : false, innerHTML: this.strings.get("short") }, this.versionSelect);
+      domCtr.create("option", { value: "long", selected: this.version == "long" ? true : false, innerHTML: this.strings.get("long") }, this.versionSelect);
+
+
+      let elemLang = domCtr.create("div", { className: "element" }, this.settings);
+      this.label = domCtr.create("div", { className: "labelText", innerHTML: this.strings.get("langLabel") }, elemLang);
+      this.langSelect = domCtr.create("select", { className: "input inputField" }, elemLang);
 
       for (const i in this.strings.languages) {
-        if ( this.strings.languages[i] == this.lang) {
-          domCtr.create("option", {value: this.strings.languages[i], selected:true, innerHTML: this.strings.get(this.strings.languages[i])}, this.langSelect);
+        if (this.strings.languages[i] == this.lang) {
+          domCtr.create("option", { value: this.strings.languages[i], selected: true, innerHTML: this.strings.get(this.strings.languages[i]) }, this.langSelect);
 
         }
         else {
-          domCtr.create("option", {value: this.strings.languages[i], innerHTML: this.strings.get(this.strings.languages[i])}, this.langSelect);
+          domCtr.create("option", { value: this.strings.languages[i], innerHTML: this.strings.get(this.strings.languages[i]) }, this.langSelect);
 
         }
-    }
+      }
 
       this.login = domCtr.create(
         "div",
@@ -175,35 +175,35 @@ define([
 
       this.footer = domCtr.create(
         "div",
-        {  className: "footerStart", style: "position:relative"},
+        { className: "footerStart", style: "position:relative" },
         this.background
       );
 
       this.footerLeft = domCtr.create(
         "div",
-        { className: "footerLeft", style: this.intern == "true"? "visibility: visible;":"visibility: hidden;" },  
+        { className: "footerLeft", style: this.intern == "true" ? "visibility: visible;" : "visibility: hidden;" },
         this.footer
       );
 
 
       this.footerRight = domCtr.create(
         "div",
-        { className: "footerRight"},
+        { className: "footerRight" },
         this.footer
       );
 
-      
-      
+
+
 
       this.projectChosenDiv = domCtr.create(
         "div",
-        { className: "footerRightElement", innerHTML: this.strings.get("noProjectChosen")},
+        { className: "footerRightElement", innerHTML: this.strings.get("noProjectChosen") },
         this.footerRight
       );
 
       this.buttons = domCtr.create(
         "div",
-        { className: "footerRightElement", style: "display: none"},
+        { className: "footerRightElement", style: "display: none" },
         this.footerRight
       );
 
@@ -227,7 +227,7 @@ define([
           id: "btn_project",
           className: "btn1",
           innerHTML: this.strings.get("editProject"),
-          style: this.intern == "true"? "min-width: 10vw;display: block;":"min-width: 10vw;display: none;",
+          style: this.intern == "true" ? "min-width: 10vw;display: block;" : "min-width: 10vw;display: none;",
         },
         this.buttons
       );
@@ -320,7 +320,7 @@ define([
 
     selectProject(projectId, name) {
       this.projectChosenDiv.innerHTML =
-      this.strings.get("chosenProject") + ": " + projectId + ", " + name;
+        this.strings.get("chosenProject") + ": " + projectId + ", " + name;
       this.buttons.style.display = "flex";
       this.updateAttributes("project", projectId);
     }
@@ -353,7 +353,7 @@ define([
         this.settingsButton,
         "click",
         function (evt) {
-          start.settings.style.display = start.settings.style.display=="none"? "block" : "none"
+          start.settings.style.display = start.settings.style.display == "none" ? "block" : "none"
         }
       );
 
@@ -371,30 +371,23 @@ define([
         "change",
         function (evt) {
           start.updateAttributes("lang", evt.target.options[evt.target.selectedIndex].value);
-          window.open(window.location.href.split("?")[0]+start.attributes, "_self")
+          window.open(window.location.href.split("?")[0] + start.attributes, "_self")
         }
       );
-      
+
       on(
         this.btn_collection,
         "click",
         function (evt) {
-          window.open(
-            this.offline
-              ? window.location.href.split("/").slice(0, -1).join("/") +
-                  "/indexCollectionOffline.html"
-              : window.location.href.split("/").slice(0, -1).join("/") +
-                  "/indexCollection.html" +
-                  this.attributes,
-                  "_self"
-            //"_blank" // <- This is what makes it open in a new window.
-          );
+          this.updateAttributes("mode", "collection");
+          window.open(window.location.href + this.attributes, "_self");
+
         }.bind(this)
       );
 
       on(this.mapOverviewProject, "click", function (e) {
         if (e.target === this) {
-         start.unSelectProject()
+          start.unSelectProject()
         }
       });
 
@@ -402,16 +395,8 @@ define([
         this.btn_consolidation,
         "click",
         function (evt) {
-          window.open(
-            this.offline
-              ? window.location.href.split("/").slice(0, -1).join("/") +
-                  "/indexConsolidationOffline.html"
-              : window.location.href.split("/").slice(0, -1).join("/") +
-                  "/indexConsolidation.html" +
-                  this.attributes,
-                  "_self"
-            //"_blank" // <- This is what makes it open in a new window.
-          );
+          this.updateAttributes("mode", "consolidation");
+          window.open(window.location.href + this.attributes, "_self");
         }.bind(this)
       );
 
@@ -419,16 +404,10 @@ define([
         this.btn_results,
         "click",
         function (evt) {
-          window.open(
-            this.offline
-              ? window.location.href.split("/").slice(0, -1).join("/") +
-                  "/indexResultsOffline.html"
-              : window.location.href.split("/").slice(0, -1).join("/") +
-                  "/indexResults.html" +
-                  this.attributes,
-                  "_self"
-            //"_blank" // <- This is what makes it open in a new window.
-          );
+          this.updateAttributes("mode", "results");
+
+          window.open(window.location.href + this.attributes, "_self");
+
         }.bind(this)
       );
 
@@ -436,16 +415,9 @@ define([
         this.btn_project,
         "click",
         function (evt) {
-          window.open(
-            this.offline
-              ? window.location.href.split("/").slice(0, -1).join("/") +
-                  "/indexProjectOffline.html"
-              : window.location.href.split("/").slice(0, -1).join("/") +
-                  "/indexProject.html" +
-                  this.attributes,
-                  "_self"
-            //"_blank" // <- This is what makes it open in a new window.
-          );
+          this.updateAttributes("mode", "project");
+          window.open(window.location.href + this.attributes, "_self");
+
         }.bind(this)
       );
 
@@ -453,51 +425,45 @@ define([
         this.btn_project_new,
         "click",
         function (evt) {
-          window.open(
-            this.offline
-              ? window.location.href.split("/").slice(0, -1).join("/") +
-                  "/indexProjectOffline.html"
-              : window.location.href.split("/").slice(0, -1).join("/") +
-                  "/indexProject.html",
-                  "_self"
-            //"_blank" // <- This is what makes it open in a new window.
-          );
+          this.updateAttributes("mode", "project");
+          window.open(window.location.href + this.attributes, "_self");
+
         }.bind(this)
       );
     }
 
-    
 
-        // Read the current url!
-  getJsonFromUrl(query) {
-    if (!query) {
-      query = location.search.substr(1);
-    }
-    var result = {};
-    query.split("&").forEach(function (part) {
+
+    // Read the current url!
+    getJsonFromUrl(query) {
+      if (!query) {
+        query = location.search.substr(1);
+      }
+      var result = {};
+      query.split("&").forEach(function (part) {
         var item = part.split("=");
         result[item[0]] = decodeURIComponent(item[1]);
-    });
-    return result;
-  }
-  updateAttributes(key, value) {
-    let json = this.getJsonFromUrl(this.attributes.split("?")[1]);
-    delete json[""]
-    json[key] = value;
-    this.attributes = "?";
-    for (let i in json) {
-      this.attributes += i + "=" + json[i] + "&"
+      });
+      return result;
     }
+    updateAttributes(key, value) {
+      let json = this.getJsonFromUrl(this.attributes.split("?")[1]);
+      delete json[""]
+      json[key] = value;
+      this.attributes = "?";
+      for (let i in json) {
+        this.attributes += i + "=" + json[i] + "&"
+      }
     }
 
-  removeFromAttributes(key) {
-    let json = this.getJsonFromUrl(this.attributes.split("?")[1]);
-    delete json[""]
-    delete json[key];
-    this.attributes = "?";
-    for (let i in json) {
-      this.attributes += i + "=" + json[i] + "&"
-    }
+    removeFromAttributes(key) {
+      let json = this.getJsonFromUrl(this.attributes.split("?")[1]);
+      delete json[""]
+      delete json[key];
+      this.attributes = "?";
+      for (let i in json) {
+        this.attributes += i + "=" + json[i] + "&"
+      }
     }
   };
 });

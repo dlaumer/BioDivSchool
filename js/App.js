@@ -321,26 +321,9 @@ define([
         "click",
         function (evt) {
           let urlData = this.getJsonFromUrl();
-          if (Object.keys(urlData).includes("intern")) {
-            window.open(
-              this.offline
-                ? window.location.href.split("/").slice(0, -1).join("/") +
-                "/indexOffline.html?intern=true"
-                : window.location.href.split("/").slice(0, -1).join("/") +
-                "/index.html?intern=true",
-              "_self"
-            )
-          }
-          else {
-            window.open(
-              this.offline
-                ? window.location.href.split("/").slice(0, -1).join("/") +
-                "/indexOffline.html"
-                : window.location.href.split("/").slice(0, -1).join("/") +
-                "/index.html",
-              "_self"
-            )
-          }
+          this.updateAttributes("mode", "start")
+            window.open(window.location.href, "_self")
+
         }.bind(this)
       );
 
@@ -365,14 +348,8 @@ define([
         "click",
         function (evt) {
           if (that.mode == "project") {
-            window.open(
-              this.offline
-                ? window.location.href.split("/").slice(0, -1).join("/") +
-                "/indexOffline.html?intern=true"
-                : window.location.href.split("/").slice(0, -1).join("/") +
-                "/index.html?intern=true",
-              "_self"
-            )
+            window.open(window.location.href + "?intern=true&mode=start", "_self")
+
           }
           else {
             this.goToPage(this.currentPage + 1);

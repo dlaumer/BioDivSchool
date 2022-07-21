@@ -41,11 +41,41 @@
   
   <!-- load app.js -->
   <script>
-  require(["biodivschool/Start",  "dojo/domReady!"],function(Start){
-    var start = new Start(() => {
-      start.init(false);  
-    });   
+  require(["biodivschool/Start", "biodivschool/Login", "dojo/domReady!"], function (Start, Login) {
+
+let urlData = getJsonFromUrl();
+let mode = "start";
+offline = false;
+if (Object.keys(urlData).includes("mode")) {
+  mode = urlData.mode;
+}
+if (Object.keys(urlData).includes("offline")) {
+  offline = (urlData.offline === 'true');
+}
+
+if (mode == "start") {
+  var start = new Start(() => {
+    start.init(offline = offline);
   });
+}
+else if (mode == "collection" || mode == "results" || mode == "consolidation" || mode == "project") {
+  var login = new Login(mode, () => {
+    login.init(offline); 
+  });
+}
+
+
+
+function getJsonFromUrl() {
+  var query = location.search.substr(1);
+  var result = {};
+  query.split("&").forEach(function (part) {
+    var item = part.split("=");
+    result[item[0]] = decodeURIComponent(item[1]);
+  });
+  return result;
+}
+});
   </script>
 
 </head>
