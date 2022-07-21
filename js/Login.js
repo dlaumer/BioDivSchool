@@ -191,6 +191,8 @@ define([
         this.inputProjectId,
         "input",
         function (evt) {
+          this.updateAttributes("project", this.inputProjectId.value)
+
           if (this.inputProjectId.value == "") {
             this.login.className = "btn1 btn_disabled";
           } else {
@@ -207,6 +209,7 @@ define([
         this.inputGroupId,
         "change",
         function (evt) {
+          this.updateAttributes("group", this.inputGroupId.value)
           if (this.inputProjectId.value != "") {
             this.login.className = "btn1";
           } else {
@@ -243,25 +246,25 @@ define([
       return result;
     }
     updateAttributes(key, value) {
-      let json = this.getJsonFromUrl(this.attributes.split("?")[1]);
-      delete json[""]
-      json[key] = value;
-      this.attributes = "?";
-      for (let i in json) {
-        this.attributes += i + "=" + json[i] + "&"
-      }
-      console.log(this.attributes)
-  }
-
-    removeFromAttributes(key) {
-      let json = this.getJsonFromUrl(this.attributes.split("?")[1]);
-      delete json[""]
-      delete json[key];
-      this.attributes = "?";
-      for (let i in json) {
-        this.attributes += i + "=" + json[i] + "&"
-      }
-      console.log(this.attributes)
-      }
+      // Construct URLSearchParams object instance from current URL querystring.
+       var queryParams = new URLSearchParams(window.location.search);
+       
+       // Set new or modify existing parameter value. 
+       queryParams.set(key, value);
+       
+       // Replace current querystring with the new one.
+       history.replaceState(null, null, "?"+queryParams.toString());
+           }
+ 
+     removeFromAttributes(key) {
+       // Construct URLSearchParams object instance from current URL querystring.
+       var queryParams = new URLSearchParams(window.location.search);
+       
+       // Set new or modify existing parameter value. 
+       queryParams.delete(key);
+       
+       // Replace current querystring with the new one.
+       history.replaceState(null, null, "?"+queryParams.toString());
+     }
   };
 });

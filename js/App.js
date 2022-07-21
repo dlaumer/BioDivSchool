@@ -321,7 +321,8 @@ define([
         "click",
         function (evt) {
           let urlData = this.getJsonFromUrl();
-          this.updateAttributes("mode", "start")
+          this.updateAttributes("mode", "start");
+          this.removeAttributes("group");
             window.open(window.location.href, "_self")
 
         }.bind(this)
@@ -438,7 +439,6 @@ define([
       let elements = that.getAllElements(false);
 
       for (let item in data) {
-        console.log(data[item]);
 
         if (item in elements && data[item] != null) {
           if (elements[item].checkAllowedValues(data[item])) {
@@ -594,29 +594,26 @@ define([
       return result;
     }
     updateAttributes(key, value) {
-      let json = this.getJsonFromUrl();
-      delete json[""]
-      json[key] = value;
-      let att = "?";
-      for (let i in json) {
-        att += i + "=" + json[i] + "&"
-      }
-      var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + att;
-      window.history.pushState({ path: newurl }, '', newurl);
-    }
-
-    removeFromAttributes(key) {
-      let json = this.getJsonFromUrl();
-      delete json[""]
-      delete json[key];
-      this.attributes = "?";
-      let att = "?";
-      for (let i in json) {
-        att += i + "=" + json[i] + "&"
-      }
-      var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + att;
-      window.history.pushState({ path: newurl }, '', newurl);
-    }
+      // Construct URLSearchParams object instance from current URL querystring.
+       var queryParams = new URLSearchParams(window.location.search);
+       
+       // Set new or modify existing parameter value. 
+       queryParams.set(key, value);
+       
+       // Replace current querystring with the new one.
+       history.replaceState(null, null, "?"+queryParams.toString());
+           }
+ 
+     removeAttributes(key) {
+       // Construct URLSearchParams object instance from current URL querystring.
+       var queryParams = new URLSearchParams(window.location.search);
+       
+       // Set new or modify existing parameter value. 
+       queryParams.delete(key);
+       
+       // Replace current querystring with the new one.
+       history.replaceState(null, null, "?"+queryParams.toString());
+     }
 
     saveJSON(data) {
       let bl = new Blob([JSON.stringify(data)], {

@@ -511,7 +511,6 @@ define([
 
     setterUINonEdit(container, value) {
 
-      console.log(value);
       if (this.type != "mapInput") {
         this.input.innerHTML = value;
       }
@@ -729,8 +728,6 @@ define([
           i++;
         }
         this.elementWidth = document.getElementsByClassName("element")[i].clientWidth;
-
-        console.log(this.elementWidth);
 
         if (this.elementWidth != 0) {
           if (this.elementWidth < 600) {

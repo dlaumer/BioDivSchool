@@ -375,6 +375,7 @@ diagram {
   border-color: var(--dark_gray) !important;
   opacity: 0.5 !important;
   color: var(--dark_gray) !important;
+  pointer-events: none !important;
 }
 
 .page {

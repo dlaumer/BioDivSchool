@@ -21,7 +21,6 @@ define([
   return class Start {
     constructor(callback) {
       start = this;
-      this.attributes = "?";
       let urlData = this.getJsonFromUrl();
 
       this.intern = "false";
@@ -380,7 +379,7 @@ define([
         "click",
         function (evt) {
           this.updateAttributes("mode", "collection");
-          window.open(window.location.href + this.attributes, "_self");
+          window.open(window.location.href, "_self");
 
         }.bind(this)
       );
@@ -396,7 +395,7 @@ define([
         "click",
         function (evt) {
           this.updateAttributes("mode", "consolidation");
-          window.open(window.location.href + this.attributes, "_self");
+          window.open(window.location.href, "_self");
         }.bind(this)
       );
 
@@ -406,7 +405,7 @@ define([
         function (evt) {
           this.updateAttributes("mode", "results");
 
-          window.open(window.location.href + this.attributes, "_self");
+          window.open(window.location.href, "_self");
 
         }.bind(this)
       );
@@ -416,7 +415,7 @@ define([
         "click",
         function (evt) {
           this.updateAttributes("mode", "project");
-          window.open(window.location.href + this.attributes, "_self");
+          window.open(window.location.href, "_self");
 
         }.bind(this)
       );
@@ -426,7 +425,7 @@ define([
         "click",
         function (evt) {
           this.updateAttributes("mode", "project");
-          window.open(window.location.href + this.attributes, "_self");
+          window.open(window.location.href, "_self");
 
         }.bind(this)
       );
@@ -447,23 +446,25 @@ define([
       return result;
     }
     updateAttributes(key, value) {
-      let json = this.getJsonFromUrl(this.attributes.split("?")[1]);
-      delete json[""]
-      json[key] = value;
-      this.attributes = "?";
-      for (let i in json) {
-        this.attributes += i + "=" + json[i] + "&"
-      }
-    }
+     // Construct URLSearchParams object instance from current URL querystring.
+      var queryParams = new URLSearchParams(window.location.search);
+      
+      // Set new or modify existing parameter value. 
+      queryParams.set(key, value);
+      
+      // Replace current querystring with the new one.
+      history.replaceState(null, null, "?"+queryParams.toString());
+          }
 
     removeFromAttributes(key) {
-      let json = this.getJsonFromUrl(this.attributes.split("?")[1]);
-      delete json[""]
-      delete json[key];
-      this.attributes = "?";
-      for (let i in json) {
-        this.attributes += i + "=" + json[i] + "&"
-      }
+      // Construct URLSearchParams object instance from current URL querystring.
+      var queryParams = new URLSearchParams(window.location.search);
+      
+      // Set new or modify existing parameter value. 
+      queryParams.delete(key);
+      
+      // Replace current querystring with the new one.
+      history.replaceState(null, null, "?"+queryParams.toString());
     }
   };
 });
