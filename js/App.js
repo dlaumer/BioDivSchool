@@ -163,9 +163,6 @@ define([
               that.objectId = info.objectId;
               if (!info.newFeature) {
                 that.loadInputs(data.attributes);
-              } else {
-                that.loadInputs(occurences.dataAll);
-                that.saveData();
               }
 
               this.initUI();

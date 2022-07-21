@@ -511,9 +511,16 @@ define([
 
     setterUINonEdit(container, value) {
 
-      if (this.type != "mapInput") {
-        this.input.innerHTML = value;
+      if (this.type == "mapInput") {
+        let geometryTemp = that.arcgis.addMap(container, null, null);   
+        geometryTemp.geometry.definitionExpression = "objectid in (" + value.substring(1,value.length-1) + ")";
       }
+      else {
+
+        domCtr.create("div", { className: "groupResult", innerHTML: value},  container)
+      }
+
+  
     }
 
 
