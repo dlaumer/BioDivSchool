@@ -170,11 +170,14 @@ define([
         domCtr.create("option", { value: "", selected: true, innerHTML: args.placeholder }, this.input);
         for (const i in args.options) {
           domCtr.create("option", { value: args.options[i].key, innerHTML: args.options[i].label }, this.input);
-          this.allowedValues.push(args.options[i].label); // ToDo: Change to key!
         }
       }
       else {
         this.input = domCtr.create("div", { className: "groupResult input", innerHTML: "" }, this.element)
+      }
+
+      for (const i in args.options) {
+        this.allowedValues.push(args.options[i].label); // ToDo: Change to key!
       }
 
       if (args.points != null) {
@@ -223,11 +226,14 @@ define([
           let radioButtonContainer = domCtr.create("div", { className: "radioButtonContainer" }, this.input);
           domCtr.create("input", { type: "radio", name: this.key, id: this.key + "___" + args.options[i].key, className: "radioButton" }, radioButtonContainer);
           domCtr.create("label", { for: args.options[i].key, innerHTML: args.options[i].label }, radioButtonContainer);
-          this.allowedValues.push(args.options[i].label); // ToDo: Change to key!
         }
       }
       else {
-        this.input = domCtr.create("div", { className: "groupResult input", innerHTML: "" }, this.element)
+        this.input = domCtr.create("div", { className: "groupResult input", innerHTML: "" }, this.element);
+       
+      }
+      for (const i in args.options) {
+        this.allowedValues.push(args.options[i].label); // ToDo: Change to key!
       }
 
       if (args.points != null) {
@@ -505,6 +511,7 @@ define([
 
     setterUINonEdit(container, value) {
 
+      console.log(value);
       if (this.type != "mapInput") {
         this.input.innerHTML = value;
       }

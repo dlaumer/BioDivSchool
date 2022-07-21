@@ -170,7 +170,7 @@ define([
         area: "wild_geomarea",
         ratio: {
           key: "wild_geomarearatio",
-          stops: [{points: "0", value: 0.25},{points:"2", value:0.5},{points: "4", value:0.75},{points: "6", value:1}]
+          stops: [{points: "0", value: 0.25, measure: "dummyId"},{points:"2", value:0.5},{points: "4", value:0.75},{points: "6", value:1}]
         },
         points: "wild_points",
         textInfo: {
@@ -195,7 +195,7 @@ define([
         placeholder: "Auswählen",
         points: "arten_points",
         options: [
-          { key: "0", points: 0, label: "weniger als 10 verschiedene Arten" },
+          { key: "0", points: 0, label: "weniger als 10 verschiedene Arten", measure: "dummyId" },
           { key: "1", points: 1, label: "11 – 20 Arten" },
           { key: "2", points: 2, label: "21 – 35 Arten" },
           { key: "3", points: 4, label: "36 – 50 Arten" },
@@ -1144,7 +1144,7 @@ define([
         min: 0,
         max: 100,
         step: 0.1,
-        stops: [{points: "0", value:20},{points:"1", value:50},{points:"2", value:80},{points:"3", value:100}], 
+        stops: [{points: "0", value:20, measure: "dummyId"},{points:"1", value:50},{points:"2", value:80},{points:"3", value:100}], 
         points: "28_geraet_points",
       });
       //0 P.	< 20 %, 1 P.	21 – 50 %, 2 P.	51 % - 80 %, 3 P.	> 80% 

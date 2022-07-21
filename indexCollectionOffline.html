@@ -37,13 +37,13 @@
     };
   </script>
   <script src="../dojo.js"></script>
-
+  <script type="text/javascript" src="data.js"></script>
   
   <!-- load app.js -->
   <script>
   require(["biodivschool/Login"],function(Login){
     var login = new Login("collection", () => {
-      login.init(false); 
+      login.init(true); 
     });
   });
   </script>

@@ -79,6 +79,8 @@ define([
               this.arcgis.checkData(that.projectId, that.groupId, (info) => {
                 if (info != null) {
                   let data = info.data;
+                  //this.saveJSON(data)
+                  console.log(data);
                   that.objectId = info.objectId;
                   if (!info.newFeature) {
                     that.loadInputs(data.attributes);
@@ -90,8 +92,14 @@ define([
 
         });
       } else {
-        that.content.init();
-        this.initUI();
+
+          that.content.init();
+
+          var data = JSON.parse(exampleData);
+          that.loadInputs(data.attributes);
+        
+          this.initUI();
+        
       }
     }
 
@@ -453,6 +461,8 @@ define([
       let elements = that.getAllElements(false);
 
       for (let item in data) {
+        console.log(data[item]);
+
         if (item in elements && data[item] != null) {
           if (elements[item].checkAllowedValues(data[item])) {
             elements[item].setter(data[item], false);
@@ -630,5 +640,19 @@ define([
       var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + att;
       window.history.pushState({ path: newurl }, '', newurl);
     }
+
+    saveJSON(data) {
+      let bl = new Blob([JSON.stringify(data)], {
+         type: "text/html"
+      });
+      let a = document.createElement("a");
+      a.href = URL.createObjectURL(bl);
+      a.download = "data.json";
+      a.hidden = true;
+      document.body.appendChild(a);
+      a.innerHTML =
+         "someinnerhtml";
+      a.click();
+   }
   };
 });
