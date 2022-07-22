@@ -28,6 +28,7 @@ define([
       that.consolidationWidth = null;
       that.strings = strings;
       that.version = version;
+      that.results = {};
 
       this.arcgis = new ArcGis(that.strings);
 
@@ -93,13 +94,13 @@ define([
         });
       } else {
 
-          that.content.init();
+        that.content.init();
 
-          var data = JSON.parse(exampleData);
-          that.loadInputs(data.attributes);
-        
-          this.initUI();
-        
+        var data = JSON.parse(exampleData);
+        that.loadInputs(data.attributes);
+
+        this.initUI();
+
       }
     }
 
@@ -320,7 +321,7 @@ define([
           let urlData = this.getJsonFromUrl();
           this.updateAttributes("mode", "start");
           this.removeAttributes("group");
-            window.open(window.location.href, "_self")
+          window.open(window.location.href, "_self")
 
         }.bind(this)
       );
@@ -378,6 +379,27 @@ define([
 
       this.pages.push(page);
       this.loginPage = page;
+
+      if (that.mode == "results") {
+        let map = domCtr.create(
+          "div",
+          { className: "mapOverview" },
+          this.loginPage.page
+        );
+  
+
+        this.loginPage.mapResults = domCtr.create(
+          "div",
+          {  className: "mapOverviewMap" },
+          map
+        );
+        this.loginPage.legendResults = domCtr.create(
+          "div",
+          {  className: "mapOverviewProjects" },
+          map
+        );
+      }
+
       return page;
     }
 
@@ -434,16 +456,19 @@ define([
 
     loadInputs(data) {
       let elements = that.getAllElements(false);
-
+      let setterPromises = [];
       for (let item in data) {
 
         if (item in elements && data[item] != null) {
           if (elements[item].checkAllowedValues(data[item])) {
-            elements[item].setter(data[item], false);
+            setterPromises.push(elements[item].setter(data[item], false));
             elements[item].setterUI(data[item]);
           }
         }
       }
+      Promise.all(setterPromises).then(() => {
+        that.parseResults(elements);
+      })
     }
 
     parseGroups(data) {
@@ -458,6 +483,22 @@ define([
         }
       }
       return newData;
+    }
+
+    parseResults(elements) {
+      for (let item in elements) {
+        let element = elements[item];
+        // 1. if it's a map element, get the ids
+        if (element.type == "mapInput") {
+          let layerData = { name: element.key, value: element.value, color: element.color};
+          if (!Object.keys(that.results).includes("mapLayers")) {
+            that.results.mapLayers = []
+          }
+          that.results.mapLayers.push(layerData);
+        }
+      }
+      console.log(that.results);
+      that.arcgis.addMapResults(this.loginPage.mapResults, this.loginPage.legendResults, that.results.mapLayers)
     }
 
     loadInputsGroup(data, count) {
@@ -592,29 +633,29 @@ define([
     }
     updateAttributes(key, value) {
       // Construct URLSearchParams object instance from current URL querystring.
-       var queryParams = new URLSearchParams(window.location.search);
-       
-       // Set new or modify existing parameter value. 
-       queryParams.set(key, value);
-       
-       // Replace current querystring with the new one.
-       history.replaceState(null, null, "?"+queryParams.toString());
-           }
- 
-     removeAttributes(key) {
-       // Construct URLSearchParams object instance from current URL querystring.
-       var queryParams = new URLSearchParams(window.location.search);
-       
-       // Set new or modify existing parameter value. 
-       queryParams.delete(key);
-       
-       // Replace current querystring with the new one.
-       history.replaceState(null, null, "?"+queryParams.toString());
-     }
+      var queryParams = new URLSearchParams(window.location.search);
+
+      // Set new or modify existing parameter value. 
+      queryParams.set(key, value);
+
+      // Replace current querystring with the new one.
+      history.replaceState(null, null, "?" + queryParams.toString());
+    }
+
+    removeAttributes(key) {
+      // Construct URLSearchParams object instance from current URL querystring.
+      var queryParams = new URLSearchParams(window.location.search);
+
+      // Set new or modify existing parameter value. 
+      queryParams.delete(key);
+
+      // Replace current querystring with the new one.
+      history.replaceState(null, null, "?" + queryParams.toString());
+    }
 
     saveJSON(data) {
       let bl = new Blob([JSON.stringify(data)], {
-         type: "text/html"
+        type: "text/html"
       });
       let a = document.createElement("a");
       a.href = URL.createObjectURL(bl);
@@ -622,8 +663,8 @@ define([
       a.hidden = true;
       document.body.appendChild(a);
       a.innerHTML =
-         "someinnerhtml";
+        "someinnerhtml";
       a.click();
-   }
+    }
   };
 });

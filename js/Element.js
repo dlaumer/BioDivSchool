@@ -337,6 +337,7 @@ define([
 
 
     addMap(args) {
+      this.color = args.color;
       this.element.className = "element"
       this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text, style: "width: 100%;" }, this.labelContainer);
       this.mapContainer = domCtr.create("div", { className: "mapContainer" }, this.element);
@@ -512,7 +513,7 @@ define([
     setterUINonEdit(container, value) {
 
       if (this.type == "mapInput") {
-        let geometryTemp = that.arcgis.addMap(container, null, null);   
+        let geometryTemp = that.arcgis.addMap(container, null, this);   
         geometryTemp.geometry.definitionExpression = "objectid in (" + value.substring(1,value.length-1) + ")";
       }
       else {
@@ -525,7 +526,7 @@ define([
 
 
     setter(value, saveData = true) {
-      new Promise((resolve, reject) => {
+      return new Promise((resolve, reject) => {
 
         let previousPoints = 0;
         if (this.points != null) {

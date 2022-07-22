@@ -172,6 +172,7 @@ define([
           key: "wild_geomarearatio",
           stops: [{points: "0", value: 0.25, measure: "dummyId"},{points:"2", value:0.5},{points: "4", value:0.75},{points: "6", value:1}]
         },
+        color: [74, 186, 27],
         points: "wild_points",
         textInfo: {
           linkText: "Zusatzinfos",
@@ -265,6 +266,7 @@ define([
           { key: "0", label: "B"},
           { key: "-2", label: "C"},
         ],
+        color: [147, 145, 98],
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
@@ -350,6 +352,7 @@ define([
           key: "versieg_arearatio",
           stops: [{points:"4", value: 0.33},{points:"2", value: 0.5},{points:"1", value: 0.66},{points:"6", value:1}]
         },
+        color: [64, 9, 105],
         points: "versieg_points",
           textInfo: {
           linkText: "Zusatzinfos",
@@ -372,6 +375,7 @@ define([
           key: "rasen_area_ratio",
           stops: [{points:"2", value:0.25},{points:"1", value: 0.5},{points:"0", value:1}]
         },
+        color: [46, 37, 72],
         points: "rasen_points",
           textInfo: {
           linkText: "Zusatzinfos",
@@ -407,6 +411,7 @@ define([
             { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
           ]
         },
+        color: [129, 0, 157],
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -442,6 +447,7 @@ define([
             { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
           ]
         },
+        color: [213, 226, 218],
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -483,6 +489,7 @@ define([
             { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
           ]
         },
+        color: [2, 199, 116],
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -512,6 +519,7 @@ define([
             { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
           ]
         },
+        color: [87, 72, 242],
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -545,6 +553,7 @@ define([
             { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
           ]
         },
+        color: [195, 17, 64],
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -575,6 +584,7 @@ define([
             { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
           ]
         },
+        color: [185, 184, 106],
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -1778,6 +1788,7 @@ define([
       let page0 = this.app.addPage("Projekt Infos");
 
       page0.addElement("mapInput", "gebiete", { 
+        color: [255,0, 0],
         text: `Zeichne die Untersuchungsfläche ein:<br> <br> 
 
         1. Finde deinen Standort mit dem entsprechendem Button in der Karte. Unter Umständen muss dazu in der Systemeinstellung der Ortungsdienst für den verwendeten Browser aktiviert werden. <br>

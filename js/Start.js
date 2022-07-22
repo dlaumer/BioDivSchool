@@ -274,11 +274,12 @@ define([
             { className: "projects" },
             this.mapOverviewProject
           );
+         
           domCtr.create(
             "div",
             {
               className: "projectElem",
-              innerHTML: results[i].attributes.projectid,
+              innerHTML: results[i].attributes.name,
               style: "width:40%",
             },
             item
@@ -287,17 +288,8 @@ define([
             "div",
             {
               className: "projectElem",
-              innerHTML: results[i].attributes.name,
-              style: "width:25%",
-            },
-            item
-          );
-          domCtr.create(
-            "div",
-            {
-              className: "projectElem",
               innerHTML: results[i].attributes.school,
-              style: "width:25%",
+              style: "width:40%",
             },
             item
           );

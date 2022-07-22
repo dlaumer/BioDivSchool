@@ -21,6 +21,8 @@ define([
   "esri/Graphic",
   "esri/geometry/geometryEngine",
   "esri/widgets/Fullscreen",
+  "esri/widgets/Legend",
+  "esri/widgets/LayerList",
 
   "biodivschool/Links",
   "esri/config",
@@ -42,6 +44,8 @@ define([
   Graphic,
   geometryEngine,
   Fullscreen,
+  Legend, 
+  LayerList,
   Links,
   esriConfig,
   domCtr
@@ -442,6 +446,13 @@ define([
             id: this.links.geometryLayerId,
           },
           definitionExpression: "objectid = 0",
+          renderer: {
+            type: "simple", // autocasts as new SimpleRenderer()
+            symbol: {
+              type: "simple-fill", // autocasts as new SimpleFillSymbol()
+              color:  [...element.color, 0.5],
+            },
+          },
         });
         map.add(geometry);
       }
@@ -769,6 +780,111 @@ define([
           zoom: 8,
         });
       });
+      return view;
+    }
+
+    addMapResults(containerMap, containerLegend, mapLayers) {
+      let projectArea = new FeatureLayer({
+        portalItem: {
+          id: this.links.projectLayerId,
+        },
+
+        editingEnabled: true,
+        renderer: {
+          type: "simple", // autocasts as new SimpleRenderer()
+          symbol: {
+            type: "simple-fill", // autocasts as new SimpleFillSymbol()
+            color: [0, 0, 0, 0],
+          },
+        },
+        minScale: 0,
+        maxScale: 0,
+      });
+
+      if (that.projectAreaId != null) {
+        projectArea.definitionExpression =
+          "objectid = " +
+          that.projectAreaId.substring(1, that.projectAreaId.length - 1);
+      } else {
+        projectArea.definitionExpression = "objectid = 0 ";
+      }
+
+      let map = new Map({
+        basemap: "topo-vector",
+      });
+      map.add(projectArea);
+
+      for (let i in mapLayers) {
+        if (mapLayers[i].value != null && mapLayers[i].value != "") {
+          let layer = new FeatureLayer({
+            portalItem: {
+              id: this.links.geometryLayerId,
+            },
+            title: mapLayers[i].name,
+            definitionExpression:  "objectid in (" + mapLayers[i].value.substring(1,mapLayers[i].value.length-1) + ")",
+            renderer: {
+              type: "simple", // autocasts as new SimpleRenderer()
+              symbol: {
+                type: "simple-fill", // autocasts as new SimpleFillSymbol()
+                color:  [...mapLayers[i].color, 0.5],
+              },
+            },
+          });
+          map.add(layer);
+        }
+
+      }
+
+      let view = new MapView({
+        map: map,
+        container: containerMap,
+      });
+
+      let fullscreen = new Fullscreen({
+        view: view,
+      });
+      view.ui.add(fullscreen, "bottom-right");
+
+      let basemapToggle = new BasemapToggle({
+        view: view, // view that provides access to the map's 'topo-vector' basemap
+        nextBasemap: "satellite", // allows for toggling to the 'satellite' basemap
+      });
+      view.ui.add(basemapToggle, "top-right");
+
+      new Legend({view:view, container: containerLegend})
+      view.ui.add(new Expand({view:view, expanded: false, content: new LayerList({view:view})}), "top-right");
+
+
+      const homeButton = new Home({
+        view: view,
+      });
+
+      view.ui.add(homeButton, "top-left");
+      if (that.projectAreaId != null) {
+        this.readGeometry(that.projectAreaId, "project").then(
+          (projectAreaFeature) => {
+            homeButton.viewpoint = new Viewpoint({
+              targetGeometry: projectAreaFeature[0].geometry.extent,
+            });
+          }
+        );
+      };
+      view.when(() => {
+        if (that.projectAreaId == null) {
+          locate.when(() => {
+            locate.locate();
+          });
+        } else {
+          if (!that.offline) {
+            this.readGeometry(that.projectAreaId, "project").then(
+              (projectAreaFeature) => {
+                view.goTo(projectAreaFeature[0].geometry);
+              }
+            );
+          }
+        }
+      })
+      
       return view;
     }
   };
