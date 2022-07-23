@@ -52,7 +52,7 @@ define([
       this.value = null;
       this.setterUI = null;
       this.hasPoints = false;
-      this.points = null;
+      this.points = 0;
       this.allowedValues = null; // Meaning all the values are allowed
 
       this.groupDivs = null;
@@ -187,10 +187,15 @@ define([
 
         this.pointsDict = {}
         this.data = {}
+
         for (const i in args.options) {
           this.pointsDict[args.options[i].label] = { "points": args.options[i].points, "key": args.options[i].key };
           this.data[args.options[i].key] = { "points": args.options[i].points, "label": args.options[i].label };
         }
+
+        this.minPoints =Math.min(...args.options.map(item => item.points))
+        this.maxPoints = Math.max(...args.options.map(item => item.points));
+
       }
 
 
@@ -230,7 +235,7 @@ define([
       }
       else {
         this.input = domCtr.create("div", { className: "groupResult input", innerHTML: "" }, this.element);
-       
+
       }
       for (const i in args.options) {
         this.allowedValues.push(args.options[i].label); // ToDo: Change to key!
@@ -241,12 +246,15 @@ define([
         this.keyPoints = args.points;
         this.pointsInfo = domCtr.create("div", { id: this.name + "_pointsInfo", className: "pointsInfo" }, this.label);
 
-      }
-      this.pointsDict = {}
-      this.data = {}
-      for (const i in args.options) {
-        this.pointsDict[args.options[i].label] = { "points": args.options[i].points, "key": args.options[i].key };
-        this.data[args.options[i].key] = { "points": args.options[i].points, "label": args.options[i].label };
+
+        this.pointsDict = {}
+        this.data = {}
+        for (const i in args.options) {
+          this.pointsDict[args.options[i].label] = { "points": args.options[i].points, "key": args.options[i].key };
+          this.data[args.options[i].key] = { "points": args.options[i].points, "label": args.options[i].label };
+        }
+        this.minPoints =Math.min(...args.options.map(item => item.points))
+        this.maxPoints = Math.max(...args.options.map(item => item.points));
       }
 
       on(this.input, "change", function (evt) {
@@ -310,6 +318,9 @@ define([
         this.keyPoints = args.points;
         this.pointsInfo = domCtr.create("div", { id: this.name + "_pointsInfo", className: "pointsInfo" }, this.label);
         this.stops = args.stops;
+
+        this.minPoints =Math.min(...this.stops.map(item => item.points))
+        this.maxPoints = Math.max(...this.stops.map(item => item.points));
       }
 
 
@@ -369,9 +380,16 @@ define([
         this.keyRatio = args.ratio.key;
         if (args.ratio.stops) {
           this.ratioStops = args.ratio.stops;
+
+          this.minPoints =Math.min(...args.ratio.stops.map(item => item.points))
+          this.maxPoints = Math.max(...args.ratio.stops.map(item => item.points));
+
         }
         else {
           this.ratioOptions = args.ratio.options;
+
+          this.minPoints =Math.min(...args.ratio.options.map(item => item.points))
+          this.maxPoints = Math.max(...args.ratio.options.map(item => item.points));
         }
 
         this.hasPoints = true;
@@ -513,15 +531,15 @@ define([
     setterUINonEdit(container, value) {
 
       if (this.type == "mapInput") {
-        let geometryTemp = that.arcgis.addMap(container, null, this);   
-        geometryTemp.geometry.definitionExpression = "objectid in (" + value.substring(1,value.length-1) + ")";
+        let geometryTemp = that.arcgis.addMap(container, null, this);
+        geometryTemp.geometry.definitionExpression = "objectid in (" + value.substring(1, value.length - 1) + ")";
       }
       else {
 
-        domCtr.create("div", { className: "groupResult", innerHTML: value},  container)
+        domCtr.create("div", { className: "groupResult", innerHTML: value }, container)
       }
 
-  
+
     }
 
 

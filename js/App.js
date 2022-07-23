@@ -375,36 +375,24 @@ define([
     }
 
     addStartPage(title) {
-      let page = new Page(this, this.pages.length, this.pageContainer, title);
+      let page = new Page(this, this.pages.length, this.pageContainer, title + " - " + that.strings.get(that.mode));
 
       this.pages.push(page);
       this.loginPage = page;
 
       if (that.mode == "results") {
-        let map = domCtr.create(
-          "div",
-          { className: "mapOverview" },
-          this.loginPage.page
-        );
-  
-
-        this.loginPage.mapResults = domCtr.create(
-          "div",
-          {  className: "mapOverviewMap" },
-          map
-        );
-        this.loginPage.legendResults = domCtr.create(
-          "div",
-          {  className: "mapOverviewProjects" },
-          map
+       domCtr.create("div",
+          { class: "pageTitle title", innerHTML: that.strings.get("points") },
+          page.page
         );
       }
 
       return page;
     }
 
-    addPage(title, version) {
-      if (!version || version && version.includes(that.version)) {
+    addPage(title, args = {}) {
+
+      if (!args.version || args.version && args.version.includes(that.version)) {
         let page;
         if (that.mode == "consolidation") {
           page = new Consolidation(
@@ -416,19 +404,29 @@ define([
         } else {
           page = this.addPageNormal(title, this.pageContainer);
         }
+        if (args.pointsInfo) {
+          page.pointsInfo = args.pointsInfo;
+        }
 
         // Add to page of content
         if (this.loginPage != null) {
           let pageNr = this.pages.length - 1;
 
-          let elem = domCtr.create(
+          page.pageOverview = domCtr.create(
             "div",
-            { class: "contentLink", innerHTML: pageNr + ". " + title },
+            { class: "pageOverview" },
             this.loginPage.page
           );
-          elem.addEventListener("click", () => {
+
+          domCtr.create(
+            "div",
+            { class: "contentLink", innerHTML: pageNr + ". " + title },
+            page.pageOverview
+          );
+          page.pageOverview.addEventListener("click", () => {
             this.goToPage(that.mode == "consolidation" ? pageNr + 1 : pageNr);
           });
+
         }
         return page;
       }
@@ -466,9 +464,12 @@ define([
           }
         }
       }
-      Promise.all(setterPromises).then(() => {
-        that.parseResults(elements);
-      })
+      if (that.mode == "results") {
+        Promise.all(setterPromises).then(() => {
+          that.parseResults();
+        })
+      }
+
     }
 
     parseGroups(data) {
@@ -485,19 +486,139 @@ define([
       return newData;
     }
 
-    parseResults(elements) {
-      for (let item in elements) {
-        let element = elements[item];
-        // 1. if it's a map element, get the ids
-        if (element.type == "mapInput") {
-          let layerData = { name: element.key, value: element.value, color: element.color};
-          if (!Object.keys(that.results).includes("mapLayers")) {
-            that.results.mapLayers = []
+    parseResults() {
+      
+      for (let i in that.pages) {
+        let page = that.pages[i];
+        if (i == 0 || i == that.pages.length - 1) { continue }; // The first and last pages have no elements
+        let points = 0;
+        let maxPoints = 0;
+        let minPoints = 0;
+        for (let j in page.elements) {
+          let element = page.elements[j];
+          // 1. if it's a map element, get the ids
+          if (element.type == "mapInput") {
+            let layerData = { name: element.key, value: element.value, color: element.color };
+            if (!Object.keys(that.results).includes("mapLayers")) {
+              that.results.mapLayers = []
+            }
+            that.results.mapLayers.push(layerData);
           }
-          that.results.mapLayers.push(layerData);
+
+          // 2. Read the points, and also the min and max points of this element
+          if (element.hasPoints) {
+            points += element.points;
+            maxPoints += element.maxPoints;
+            minPoints += element.minPoints;
+          }
+
         }
+        console.log(points);
+
+        console.log(maxPoints);
+        console.log(minPoints);
+
+
+
+        let pointBar = domCtr.create(
+          "div",
+          { class: "pointsBar pointsNumber" },
+          page.pageOverview
+        );
+
+        domCtr.create("div",
+          { style: "width:" + (100 / (maxPoints - minPoints) * (points - minPoints)).toFixed(0) + "%" },
+          pointBar
+        );
+
+        let label = domCtr.create("div",
+          { class: "labelPoints", innerHTML: points + " " + that.strings.get("points") },
+          pointBar
+        );
+
+
+
+        let bubble = domCtr.create("div",
+          { class: "bubbleResults" },
+
+          label
+        );
+
+        let colorBar = domCtr.create(
+          "div",
+          { class: "pointsBar colorBar" },
+          page.pageOverview
+        );
+        let red = domCtr.create(
+          "div",
+          { class: "red", style: "width:" + (100 / (maxPoints - minPoints) * (page.pointsInfo[0] - minPoints)).toFixed(0) + "%" },
+          colorBar
+        );
+        let orange = domCtr.create(
+          "div",
+          { class: "orange", style: "width:" + (100 / (maxPoints - minPoints) * (page.pointsInfo[1] - page.pointsInfo[0])).toFixed(0) + "%" },
+          colorBar
+        );
+        let green = domCtr.create(
+          "div",
+          { class: "green", style: "width:" + (100 / (maxPoints - minPoints) * (maxPoints - page.pointsInfo[1])).toFixed(0) + "%" },
+          colorBar
+        );
+
+        let pointsLabels = domCtr.create(
+          "div",
+          { class: "pointsBar pointsLabels" },
+          page.pageOverview
+        );
+        domCtr.create("div",
+          { id: "green", class: "labelElement", innerHTML: minPoints },
+          pointsLabels
+        );
+        domCtr.create("div",
+          { id: "green", class: "labelElement", innerHTML: page.pointsInfo[0], style: "width:" + (100 / (maxPoints - minPoints) * (page.pointsInfo[0] - minPoints)).toFixed(0) + "%" },
+          pointsLabels
+        );
+        domCtr.create(
+          "div",
+          { id: "orange", class: "labelElement", innerHTML: page.pointsInfo[1], style: "width:" + (100 / (maxPoints - minPoints) * (page.pointsInfo[1] - page.pointsInfo[0])).toFixed(0) + "%" },
+          pointsLabels
+        );
+        domCtr.create(
+          "div",
+          { id: "green", class: "labelElement", innerHTML: maxPoints, style: "width:" + (100 / (maxPoints - minPoints) * (maxPoints - page.pointsInfo[1])).toFixed(0) + "%" },
+          pointsLabels
+        );
+
+        if (points <= page.pointsInfo[0]) {
+          label.style.color = "rgba(255,0,0,1)";
+          bubble.style.backgroundColor = "rgba(255,0,0,1)";
+          //bubble.style.border  = "2px solid rgba(255,0,0,1)";
+
+        }
+        else if (points >= page.pointsInfo[0] && points <= page.pointsInfo[1]) {
+          label.style.color = "rgba(255, 192,0,1)";
+          bubble.style.backgroundColor = "rgba(255, 192,0,1)";
+          //bubble.style.border  = "2px solid rgba(255, 192,0,1)";
+
+
+        }
+        else {
+          label.style.color = "rgba(0, 176, 80,1)";
+          bubble.style.backgroundColor = "rgba(0, 176, 80,1)";
+          //bubble.style.border = "2px solid rgba(0, 176, 80,1)";
+
+
+        }
+
       }
-      console.log(that.results);
+      domCtr.create("div",
+          { class: "pageTitle title", innerHTML: that.strings.get("areas") },
+          this.loginPage.page
+        );
+
+      let map = domCtr.create("div", { className: "mapOverview" }, this.loginPage.page);
+      this.loginPage.mapResults = domCtr.create("div", { className: "mapOverviewMap" }, map);
+      this.loginPage.legendResults = domCtr.create("div", { className: "mapOverviewProjects" }, map);
       that.arcgis.addMapResults(this.loginPage.mapResults, this.loginPage.legendResults, that.results.mapLayers)
     }
 

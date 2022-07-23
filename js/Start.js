@@ -121,7 +121,7 @@ define([
 
       this.settingsButton = domCtr.create(
         "div",
-        { id: "settings", className: "btn1", innerHTML: this.strings.get("settings") },
+        { id: "settings", className: "btn2", innerHTML: this.strings.get("settings") },
         this.header
       );
 
@@ -212,7 +212,7 @@ define([
         "div",
         {
           id: "btn_project_new",
-          className: "btn1",
+          className: "btn2",
           innerHTML: this.strings.get("newProject"),
           style: "min-width: 10vw;",
         },
@@ -224,7 +224,7 @@ define([
         "div",
         {
           id: "btn_project",
-          className: "btn1",
+          className: "btn2",
           innerHTML: this.strings.get("editProject"),
           style: this.intern == "true" ? "min-width: 10vw;display: block;" : "min-width: 10vw;display: none;",
         },
@@ -236,7 +236,7 @@ define([
         "div",
         {
           id: "btn_collection",
-          className: "btn1",
+          className: "btn2",
           innerHTML: this.strings.get("collection"),
           style: "min-width: 10vw;",
         },
@@ -246,7 +246,7 @@ define([
         "div",
         {
           id: "btn_consolidation",
-          className: "btn1",
+          className: "btn2",
           innerHTML: this.strings.get("consolidation"),
           style: "min-width: 10vw;",
         },
@@ -256,7 +256,7 @@ define([
         "div",
         {
           id: "btn_results",
-          className: "btn1",
+          className: "btn2",
           innerHTML: this.strings.get("results"),
           style: "min-width: 10vw;",
         },

@@ -147,8 +147,8 @@ define([
 
       this.app.addStartPage("BioDivSchool");
       /*Regionalität der Pflanzen*/
-      let page_regionalitaet = this.app.addPage("Regionalität der Pflanzen");
-
+      let page_regionalitaet = this.app.addPage("Regionalität der Pflanzen", {
+        pointsInfo: [0,10] });
 
       page_regionalitaet.addTextInfo({
         title: "Heimische Wildpflanzen (08, 09)",
@@ -170,7 +170,7 @@ define([
         area: "wild_geomarea",
         ratio: {
           key: "wild_geomarearatio",
-          stops: [{points: "0", value: 0.25, measure: "dummyId"},{points:"2", value:0.5},{points: "4", value:0.75},{points: "6", value:1}]
+          stops: [{points: 0, value: 0.25, measure: "dummyId"},{points:2, value:0.5},{points: 4, value:0.75},{points: 6, value:1}]
         },
         color: [74, 186, 27],
         points: "wild_points",
@@ -282,7 +282,8 @@ define([
 
       
       /*Strukturelemente*/      
-      let page_strukturelemente = this.app.addPage("Strukturelemente");
+      let page_strukturelemente = this.app.addPage("Strukturelemente", {
+      pointsInfo: [10, 32]});
 
       page_strukturelemente.addTextInfo({        
         textInfo: {
@@ -350,7 +351,7 @@ define([
         area: "versieg_area",
         ratio: {
           key: "versieg_arearatio",
-          stops: [{points:"4", value: 0.33},{points:"2", value: 0.5},{points:"1", value: 0.66},{points:"6", value:1}]
+          stops: [{points:4, value: 0.33},{points:2, value: 0.5},{points:1, value: 0.66},{points:6, value:1}]
         },
         color: [64, 9, 105],
         points: "versieg_points",
@@ -373,7 +374,7 @@ define([
         area: "rasen_area",
         ratio: {
           key: "rasen_area_ratio",
-          stops: [{points:"2", value:0.25},{points:"1", value: 0.5},{points:"0", value:1}]
+          stops: [{points:2, value:0.25},{points:1, value: 0.5},{points:0, value:1}]
         },
         color: [46, 37, 72],
         points: "rasen_points",
@@ -1141,7 +1142,8 @@ define([
       });
 
       /*Pflege*/
-      let page_pflege = this.app.addPage("Pflege");
+      let page_pflege = this.app.addPage("Pflege", {
+      pointsInfo: [2,11]});
 
   
       page_pflege.addTextInfo({
@@ -1154,7 +1156,7 @@ define([
         min: 0,
         max: 100,
         step: 0.1,
-        stops: [{points: "0", value:20, measure: "dummyId"},{points:"1", value:50},{points:"2", value:80},{points:"3", value:100}], 
+        stops: [{points: 0, value:20, measure: "dummyId"},{points:1, value:50},{points:2, value:80},{points:3, value:100}], 
         points: "28_geraet_points",
       });
       //0 P.	< 20 %, 1 P.	21 – 50 %, 2 P.	51 % - 80 %, 3 P.	> 80% 
@@ -1328,7 +1330,7 @@ define([
         min: 0,
         max: 100,
         step: 0.1,
-        stops: [{points: "2", value: 5},{points:"1", value:66},{points:"0", value:100}],
+        stops: [{points: 2, value: 5},{points:1, value:66},{points:0, value:100}],
         points: "pestizide_points",
           textInfo: {
           linkText: "Zusatzinfos",
@@ -1348,7 +1350,7 @@ define([
         min: 0,
         max: 100,
         step: 0.1,
-        stops: [{points:"2",value:5},{points:"1", value:75},{points:"0",value:100}],
+        stops: [{points:2,value:5},{points:1, value:75},{points:0,value:100}],
         points: "bekaempfung_points",
           textInfo: {
           linkText: "Zusatzinfos",
@@ -1570,7 +1572,8 @@ define([
       });
 
       /*Bauliche Massnahmen*/
-       let page_baumassnahmen = this.app.addPage("Bauliche Massnahmen");
+       let page_baumassnahmen = this.app.addPage("Bauliche Massnahmen", {
+       pointsInfo: [2,4]});
 
       page_baumassnahmen.addTextInfo({
         title: "Begrünung von Dach oder Fassaden (37, 38)", 
