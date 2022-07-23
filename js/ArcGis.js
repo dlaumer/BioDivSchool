@@ -404,10 +404,11 @@ define([
       });
     }
 
-    addMap(containerMap, containerEditor, element) {
+    addMap(containerMap, containerEditor, element, callback) {
       
       let geometry;
       let editor;
+      let prototype;
       let projectArea = new FeatureLayer({
         portalItem: {
           id: this.links.projectLayerId,
@@ -580,6 +581,11 @@ define([
           })
 
           if (that.mode == "project") {
+            projectArea.load().then(() => {
+              prototype = projectArea.templates[0].prototype;
+              callback({ projectArea: projectArea, prototype: prototype,  geometry: null, editor: editor })
+            })
+
             let layerInfos;
             view.map.layers.forEach((layer) => {
               // Specify a few of the fields to edit within the form
@@ -605,6 +611,12 @@ define([
                       type: "field",
                       fieldName: "school",
                       label: "Schule",
+                    },
+                    {
+                      // autocastable to FieldElement
+                      type: "field",
+                      fieldName: "Creator",
+                      label: "Creator",
                     },
                   ],
                 },
@@ -662,9 +674,10 @@ define([
           }
         }
       });
-      return that.mode == "project"
-        ? { projectArea: projectArea }
-        : { projectArea: projectArea, geometry: geometry, editor: editor };
+      if (that.mode != "project") {
+        callback({ projectArea: projectArea, geometry: geometry, editor: editor });
+      }
+       
     }
 
     addMapOverview(containerMap) {

@@ -112,7 +112,7 @@ define([
       if (that.mode != "results") {
         this.input = domCtr.create("input", { className: "input inputField", placeholder: args.placeholder }, this.element);
 
-        on(this.input, "input", function (evt) {
+        on(this.input, "change", function (evt) {
           if (evt.target.value == "") {
             this.setter(null)
           }
@@ -367,10 +367,12 @@ define([
         this.instructions.style.display = this.instructions.style.display == "" ? "flex" : "";
       }.bind(this));
       if (!that.offline) {
-        let info = that.arcgis.addMap(this.input.id, this.editor.id, this);
-        this.geometry = info.geometry;
-        this.editorEsri = info.editor;
-        this.projectAreaClass = info.projectArea;
+        that.arcgis.addMap(this.input.id, this.editor.id, this, (info) => {
+          this.geometry = info.geometry;
+          this.editorEsri = info.editor;
+          this.projectAreaClass = info.projectArea;
+          this.prototype = info.prototype;
+        });
       }
 
       if (args.points != null) {
@@ -531,8 +533,10 @@ define([
     setterUINonEdit(container, value) {
 
       if (this.type == "mapInput") {
-        let geometryTemp = that.arcgis.addMap(container, null, this);
-        geometryTemp.geometry.definitionExpression = "objectid in (" + value.substring(1, value.length - 1) + ")";
+        that.arcgis.addMap(container, null, this, (info)=> {
+          info.geometry.definitionExpression = "objectid in (" + value.substring(1, value.length - 1) + ")";
+
+        });
       }
       else {
 
@@ -575,9 +579,11 @@ define([
 
               }
               for (let k in this.rules[i].values) {
-                if (this.rules[i].values[k] == this.value) {
+                if ((this.rules[i].values[k] == this.value) || (this.rules[i].values.length == 1 && this.rules[i].values[k] == null && this.value != "")) {
                   for (let j in this.rules[i].elements) {
                     this.rules[i].elements[j].element.style.display = "flex";
+                    this.rules[i].elements[j].element.style.visibility = "visible";
+
                   }
                 }
                 else {
@@ -630,7 +636,7 @@ define([
         }
       }).then(() => {
 
-        if (saveData) {
+        if (saveData && that.mode != "project") {
           this.app.save.innerHTML = that.strings.get("saving")
           this.app.save.className = "btn1"
           let data = this.getter();
@@ -648,6 +654,10 @@ define([
               });
 
           });
+        }
+        else if (that.mode == "project" && (this.key == "school" || this.key == "projectid" || this.key == "name" )) {
+          console.log(this.map.prototype);
+          this.map.prototype.attributes[this.key] = this.value;
         }
       })
 

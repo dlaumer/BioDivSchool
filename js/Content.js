@@ -50,15 +50,9 @@ define([
 
 
     init() {
-      if (that.mode == "project") {
-        this.makeContentProject()
-      }
-      else {
         this.makeContent();
-      }
-
-      
     }
+
 
     // Start the login screen
     makeContent() {
@@ -1787,9 +1781,75 @@ define([
     }
 
 
-    makeContentProject() {
+    makeNewProject() {
       let page0 = this.app.addPage("Projekt Infos");
 
+      let projektid = page0.addElement("simpleTextInput", "projectid", {
+        text: "Projekt ID",
+        placeholder: " PLZ_Nachname der Lehrperson",
+      });
+
+      let name = page0.addElement("simpleTextInput", "name", {
+        text: "Ort",
+        placeholder: "",
+      });
+
+      // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
+      name.element.style.display = "none";
+      // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
+      projektid.rules = [{
+        values: [null], 
+        elements: [name]
+      }]
+      
+
+      let school = page0.addElement("simpleTextInput", "school", {
+        text: "Schule",
+        placeholder: "",
+      });
+
+      // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
+      school.element.style.display = "none";
+      // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
+      name.rules = [{
+        values: [null], 
+        elements: [school]
+      }]
+
+      let map = page0.addElement("mapInput", "gebiete", { 
+        color: [255,0, 0],
+        text: `Zeichne die Untersuchungsfläche ein:<br> <br> 
+
+        1. Finde deinen Standort mit dem entsprechendem Button in der Karte. Unter Umständen muss dazu in der Systemeinstellung der Ortungsdienst für den verwendeten Browser aktiviert werden. <br>
+        2. Klicke auf "Feature hinzufügen" um in den Zeichnungs-Modus zu wechseln. <br>
+        3. Wechsle zur Karte im Vollbildmodus. <br>
+        4. Untersuchungsfläche einzeichnen. Beim letzten eingezeichneten Punkt Doppelklick, um Fläche abzuschliessen. <br>
+        5. Esc-Taste drücken, um zur Normalansicht zurückzukehren. <br>
+        6. Klicke auf "Hinzufügen" um eingezeichnete Fläche hinzuzufügen. <br>
+
+        ` 
+      });
+      projektid.map = map;
+      name.map = map;
+      school.map = map;
+
+      // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
+      map.element.style.visibility = "hidden";
+      // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
+      school.rules = [{
+        values: [null], 
+        elements: [map]
+      }]
+
+      this.app.addFinalPage("Ende");
+
+    }
+
+    
+    editProject() {
+      let page0 = this.app.addPage("Projekt Infos");
+
+     
       page0.addElement("mapInput", "gebiete", { 
         color: [255,0, 0],
         text: `Zeichne die Untersuchungsfläche ein:<br> <br> 

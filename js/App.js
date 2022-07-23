@@ -119,18 +119,18 @@ define([
             let data = info.data;
             that.objectId = info.objectId;
             that.projectAreaId = "[" + that.objectId.toFixed(0) + "]";
-            that.content.init();
+            that.content.editProject();
             if (!info.newFeature) {
               that.loadInputs(data.attributes);
             }
           }
           else {
-            that.content.init();
+            that.content.makeNewProject();
           }
           this.initUI();
         });
       } else {
-        that.content.init();
+        that.content.makeNewProject();
         this.initUI();
       }
     }
