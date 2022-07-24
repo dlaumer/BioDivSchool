@@ -676,9 +676,8 @@ define([
           });
         }
         else if (that.mode == "project" && (this.key == "school" || this.key == "projectid" || this.key == "name" )) {
-          //that.arcgis.handleSignInOut();
           this.map.prototype.attributes[this.key] = this.value;
-          //this.map.prototype.attributes["owner"] = start.userNameEsri;
+          this.map.prototype.attributes["owner"] = that.userNameEsri;
         }
       })
 

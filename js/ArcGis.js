@@ -97,6 +97,9 @@ define([
           document.getElementById("userNameEsri").innerHTML = portal.user.username;
           start.userNameEsri = portal.user.username;
         }
+        else {
+          that.userNameEsri = portal.user.username;
+        }
         this.signedIn = true;
       });
     }
@@ -106,6 +109,7 @@ define([
       if ( document.getElementById("login")) {
         document.getElementById("login").innerText = this.strings.get("loginEsri");
       }
+      that.userNameEsri = null;
     }
 
     createUI() {}

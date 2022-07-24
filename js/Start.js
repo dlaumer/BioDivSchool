@@ -21,6 +21,7 @@ define([
   return class Start {
     constructor(callback) {
       start = this;
+      start.userNameEsri;
       let urlData = this.getJsonFromUrl();
 
       this.intern = "false";
@@ -297,7 +298,8 @@ define([
             this.viewOverview.goTo(results[i].geometry);
             this.selectProject(
               results[i].attributes.projectid,
-              results[i].attributes.name
+              results[i].attributes.name, 
+              results[i].attributes.owner,
             );
             if (this.projectSelected !== null) {
               this.projectSelected.className = "projects";
@@ -309,11 +311,18 @@ define([
       });
     }
 
-    selectProject(projectId, name) {
+    selectProject(projectId, name, owner) {
       this.projectChosenDiv.innerHTML =
         this.strings.get("chosenProject") + ": " + projectId + ", " + name;
-      this.buttons.style.display = "flex";
-      this.updateAttributes("project", projectId);
+      //if (start.userNameEsri != null && start.userNameEsri == owner) {
+      if (start.userNameEsri == null || (start.userNameEsri != null && start.userNameEsri == owner)) {
+        this.buttons.style.display = "flex";
+        this.updateAttributes("project", projectId);
+      }
+      else {
+        start.buttons.style.display = "none";
+      start.removeFromAttributes("project");
+      }
     }
 
     unSelectProject() {

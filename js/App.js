@@ -30,7 +30,7 @@ define([
       that.version = version;
       that.results = {};
 
-      this.arcgis = new ArcGis(that.strings);
+      that.arcgis = new ArcGis(that.strings);
 
 
       that.showPoints = true;
