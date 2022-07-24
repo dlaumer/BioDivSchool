@@ -94,7 +94,8 @@ define([
         window.history.pushState({ path: window.location.href.substr(0, window.location.href.indexOf('#')) }, '', window.location.href.substr(0, window.location.href.indexOf('#')));
         if ( document.getElementById("login")) {
           document.getElementById("login").innerHTML = this.strings.get("logoutEsri");
-          document.getElementById("userNameEsri").innerHTML = portal.user.username
+          document.getElementById("userNameEsri").innerHTML = portal.user.username;
+          start.userNameEsri = portal.user.username;
         }
         this.signedIn = true;
       });
@@ -615,8 +616,8 @@ define([
                     {
                       // autocastable to FieldElement
                       type: "field",
-                      fieldName: "Creator",
-                      label: "Creator",
+                      fieldName: "owner",
+                      label: "Owner",
                     },
                   ],
                 },

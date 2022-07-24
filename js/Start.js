@@ -417,6 +417,8 @@ define([
         "click",
         function (evt) {
           this.updateAttributes("mode", "project");
+          this.removeFromAttributes("project");
+
           window.open(window.location.href, "_self");
 
         }.bind(this)

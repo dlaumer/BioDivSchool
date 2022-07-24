@@ -122,6 +122,7 @@ define([
         }.bind(this));
       }
       else {
+        this.pointsDict[args.options[i].label] = {"key": args.options[i].key };
         this.input = domCtr.create("div", { className: "groupResult input", innerHTML: "" }, this.element)
       }
 
@@ -197,6 +198,14 @@ define([
         this.maxPoints = Math.max(...args.options.map(item => item.points));
 
       }
+      else {
+        this.data = {}
+        this.pointsDict = {}
+        for (const i in args.options) {
+          this.pointsDict[args.options[i].label] = {"key": args.options[i].key };
+          this.data[args.options[i].key] = {"label": args.options[i].label };
+        }
+      }
 
 
       on(this.input, "change", function (evt) {
@@ -255,7 +264,18 @@ define([
         }
         this.minPoints =Math.min(...args.options.map(item => item.points))
         this.maxPoints = Math.max(...args.options.map(item => item.points));
+      } 
+      else {
+        this.data = {}
+        this.pointsDict = {}
+        for (const i in args.options) {
+          this.pointsDict[args.options[i].label] = {"key": args.options[i].key };
+
+          this.data[args.options[i].key] = {"label": args.options[i].label };
+        }
       }
+
+    
 
       on(this.input, "change", function (evt) {
         this.setter(this.data[evt.target.id.split("___")[1]].label)
@@ -656,8 +676,9 @@ define([
           });
         }
         else if (that.mode == "project" && (this.key == "school" || this.key == "projectid" || this.key == "name" )) {
-          console.log(this.map.prototype);
+          //that.arcgis.handleSignInOut();
           this.map.prototype.attributes[this.key] = this.value;
+          //this.map.prototype.attributes["owner"] = start.userNameEsri;
         }
       })
 
