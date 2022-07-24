@@ -10,25 +10,47 @@ define([
     return class StringsApp {
       constructor(language) {
         this.lang = language;
+        this.data = {}
                
       }
-      init () {
-        return new Promise((resolve, reject) => {
-            window.fetch("js/strings/strings.csv").then(response => response.blob())
+      init (mode) {
+        let promises = [];
+        promises.push(new Promise((resolve, reject) => {
+            window.fetch("content/strings.csv").then(response => response.blob())
             .then(blob => {
                 const reader = new FileReader();
                 var this2 = this;
                 reader.onload = function (e) {
                     const text = e.target.result;
-                    this2.data = this2.csvToArray(text);
+                    this2.csvToArray(text);
                     resolve()
                 };
                 reader.readAsText(blob);
             })
-          })
+          }))
+
+          if (mode != "start") {
+            promises.push(new Promise((resolve, reject) => {
+              window.fetch("content/measures.csv").then(response => response.blob())
+              .then(blob => {
+                  const reader = new FileReader();
+                  var this2 = this;
+                  reader.onload = function (e) {
+                      const text = e.target.result;
+                      this2.csvToArray(text);
+                      resolve()
+                  };
+                  reader.readAsText(blob);
+              })
+            }))
+  
+          }
+          return promises
       }
 
-      csvToArray(str, delimiter = ",") {
+      csvToArray(str, delimiter = ";") {
+        var this2 = this;
+
         // slice from start of text to the first \n index
         // use split to create an array from string by delimiter
         const headers = str.slice(0, str.indexOf("\n")).split(delimiter);
@@ -45,18 +67,21 @@ define([
         // use headers.reduce to create an object
         // object properties derived from headers:values
         // the object passed as an element of the array
-        const arr = {}
         rows.forEach(function (row) {
             const values = row.split(delimiter);
             const el = headers.reduce(function (object, header, index) {
             object[header] = values[index];
             return object;
             }, {});
-            arr[el["id"]] = el;
+            if (Object.keys(this2.data).includes(el["id"]) && el["id"] != "") {
+              alert("The content has two identical IDs: " + el["id"])
+            }
+            else {
+              this2.data[el["id"]] = el;
+            }
         });
 
         // return the array
-        return arr;
       }
 
       get(stringID) {

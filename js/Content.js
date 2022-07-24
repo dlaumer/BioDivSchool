@@ -605,11 +605,12 @@ define([
         text: "14: Gibt es auf der Untersuchungsfläche Bäume?",
         placeholder: "Auswählen",
         points: "baeume_points",
+        measure: "A14.0",
         options: [
-          { key: "0", points: 0, label: "Keine Bäume vorhanden, die höher als 4 - 5 Meter sind." },
-          { key: "1", points: 1, label: "Nur 1 Baum vorhanden oder alle Bäume etwa gleich hoch." },
-          { key: "2", points: 2, label: "Bäume in zwei deutlich unterschiedlichen Höhen vorhanden." },
-          { key: "3", points: 3, label: "Bäume in drei deutlich unterschiedlichen Höhen vorhanden." },
+          { key: "0", points: 0, label: "Keine Bäume vorhanden, die höher als 4 - 5 Meter sind." , measure: "A14.1"},
+          { key: "1", points: 1, label: "Nur 1 Baum vorhanden oder alle Bäume etwa gleich hoch." , measure: "A14.2"},
+          { key: "2", points: 2, label: "Bäume in zwei deutlich unterschiedlichen Höhen vorhanden." , measure: "A14.3"},
+          { key: "3", points: 3, label: "Bäume in drei deutlich unterschiedlichen Höhen vorhanden." , measure: "A14.4"},
         ],
           textInfo: {
           linkText: "Zusatzinfos",

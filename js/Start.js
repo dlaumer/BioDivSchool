@@ -42,7 +42,7 @@ define([
       this.updateAttributes("version", this.version);
 
       this.strings = new StringsApp(this.lang);
-      this.strings.init().then(() => {
+      Promise.all(this.strings.init("start")).then(() => {
         this.createSplashScreen();
         callback();
       });

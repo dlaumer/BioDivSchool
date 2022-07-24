@@ -53,6 +53,7 @@ define([
       this.setterUI = null;
       this.hasPoints = false;
       this.points = 0;
+      this.measure = null;
       this.allowedValues = null; // Meaning all the values are allowed
 
       this.groupDivs = null;
@@ -105,6 +106,10 @@ define([
       if (args.textInfo) {
         this.addTextInfo(args.textInfo);
       }
+
+      if (args.measure) {
+        this.measureNone = args.measure;
+      }
     }
 
     addSimpleTextInput(args) {
@@ -122,7 +127,6 @@ define([
         }.bind(this));
       }
       else {
-        this.pointsDict[args.options[i].label] = {"key": args.options[i].key };
         this.input = domCtr.create("div", { className: "groupResult input", innerHTML: "" }, this.element)
       }
 
@@ -186,26 +190,24 @@ define([
         this.keyPoints = args.points;
         this.pointsInfo = domCtr.create("div", { id: this.name + "_pointsInfo", className: "pointsInfo" }, this.label);
 
-        this.pointsDict = {}
-        this.data = {}
-
-        for (const i in args.options) {
-          this.pointsDict[args.options[i].label] = { "points": args.options[i].points, "key": args.options[i].key };
-          this.data[args.options[i].key] = { "points": args.options[i].points, "label": args.options[i].label };
-        }
-
         this.minPoints =Math.min(...args.options.map(item => item.points))
         this.maxPoints = Math.max(...args.options.map(item => item.points));
 
       }
-      else {
-        this.data = {}
-        this.pointsDict = {}
-        for (const i in args.options) {
-          this.pointsDict[args.options[i].label] = {"key": args.options[i].key };
-          this.data[args.options[i].key] = {"label": args.options[i].label };
+      for (const i in args.options) {
+        this.pointsDict[args.options[i].label] = { "points": args.options[i].points, "key": args.options[i].key };
+        this.data[args.options[i].key] = { "points": args.options[i].points, "label": args.options[i].label };
+
+        if (args.options[i].points) {
+          this.pointsDict[args.options[i].label]["points"] = args.options[i].points;
+          this.data[args.options[i].key]["points"] = args.options[i].points;
+        }
+        if (args.options[i].measure) {
+          this.pointsDict[args.options[i].label]["measure"] = args.options[i].measure;
+          this.data[args.options[i].key]["measure"] = args.options[i].measure;
         }
       }
+
 
 
       on(this.input, "change", function (evt) {
@@ -254,24 +256,23 @@ define([
         this.hasPoints = true;
         this.keyPoints = args.points;
         this.pointsInfo = domCtr.create("div", { id: this.name + "_pointsInfo", className: "pointsInfo" }, this.label);
-
-
-        this.pointsDict = {}
-        this.data = {}
-        for (const i in args.options) {
-          this.pointsDict[args.options[i].label] = { "points": args.options[i].points, "key": args.options[i].key };
-          this.data[args.options[i].key] = { "points": args.options[i].points, "label": args.options[i].label };
-        }
+       
         this.minPoints =Math.min(...args.options.map(item => item.points))
         this.maxPoints = Math.max(...args.options.map(item => item.points));
       } 
-      else {
-        this.data = {}
-        this.pointsDict = {}
-        for (const i in args.options) {
-          this.pointsDict[args.options[i].label] = {"key": args.options[i].key };
+      this.pointsDict = {}
+      this.data = {}
+      for (const i in args.options) {
+        this.pointsDict[args.options[i].label] = { "points": args.options[i].points, "key": args.options[i].key };
+        this.data[args.options[i].key] = { "points": args.options[i].points, "label": args.options[i].label };
 
-          this.data[args.options[i].key] = {"label": args.options[i].label };
+        if (args.options[i].points) {
+          this.pointsDict[args.options[i].label]["points"] = args.options[i].points;
+          this.data[args.options[i].key]["points"] = args.options[i].points;
+        }
+        if (args.options[i].measure) {
+          this.pointsDict[args.options[i].label]["measure"] = args.options[i].measure;
+          this.data[args.options[i].key]["measure"] = args.options[i].measure;
         }
       }
 
@@ -439,6 +440,7 @@ define([
           if (this.area == 0) {
             this.ratio = "0-" + (this.ratioStops[0] * 100).toFixed(0) + "%"
             this.points = parseInt(Object.keys(this.ratioStops)[0]);
+            this.measure = this.measureNone ? this.measureNone : null;
           }
           else {
             numRatio = this.area / this.app.projectArea;
@@ -449,6 +451,8 @@ define([
               if (numRatio < this.ratioStops[i].value) {
                 this.ratio = (i - 1 >= 0 ? this.ratioStops[i - 1].value * 100 : 0).toFixed(0) + "-" + (this.ratioStops[i].value * 100).toFixed(0) + "%"
                 this.points = this.ratioStops[i].points;
+                this.measure =this.ratioStops[i].measure ? this.ratioStops[i].measure : null;
+
                 break;
               }
             }
@@ -464,43 +468,58 @@ define([
 
             this.ratio = this.ratioOptions[0].label;
             this.points = this.ratioOptions[0].points
+            this.measure =this.ratioOptions[0].measure ? this.ratioOptions[6].measure : null;
 
           } else if (numAreas < 5 && that.projectArea / 2 < maxArea) {
 
             this.ratio = this.ratioOptions[1].label;
             this.points = this.ratioOptions[1].points
+            this.measure =this.ratioOptions[1].measure ? this.ratioOptions[6].measure : null;
+
           } else if (numAreas < 5 && that.projectArea / 2 >= maxArea) {
 
             this.ratio = this.ratioOptions[2].label;
             this.points = this.ratioOptions[2].points
+            this.measure =this.ratioOptions[2].measure ? this.ratioOptions[6].measure : null;
+
           }
 
           else if (numAreas < 6 && 0.4 * that.projectArea < maxArea) {
 
             this.ratio = this.ratioOptions[3].label;
             this.points = this.ratioOptions[3].points
+            this.measure =this.ratioOptions[3].measure ? this.ratioOptions[6].measure : null;
+
           }
 
           else if (numAreas < 6 && 0.4 * that.projectArea >= maxArea) {
 
             this.ratio = this.ratioOptions[4].label;
             this.points = this.ratioOptions[4].points
+            this.measure =this.ratioOptions[4].measure ? this.ratioOptions[6].measure : null;
+
           }
 
           else if (numAreas < 7 && 0.3 * that.projectArea < maxArea) {
 
             this.ratio = this.ratioOptions[5].label;
             this.points = this.ratioOptions[5].points
+            this.measure =this.ratioOptions[5].measure ? this.ratioOptions[6].measure : null;
+
           }
 
           else if (numAreas < 7 && 0.3 * that.projectArea >= maxArea) {
 
             this.ratio = this.ratioOptions[6].label;
             this.points = this.ratioOptions[6].points
+            this.measure =this.ratioOptions[6].measure ? this.ratioOptions[6].measure : null;
+
           }
           else {
             this.ratio = this.ratioOptions[6].label;
             this.points = this.ratioOptions[6].points
+            this.measure =this.ratioOptions[6].measure ? this.ratioOptions[6].measure : null;
+
           }
           this.pointsInfo.innerHTML = that.showPoints ? "(" + that.strings.get("points") + ": " + this.points + ", " + that.strings.get("areaTotal") + ": " + this.area.toFixed(0) + " m2, " + that.strings.get("ratioBin") + ": " + this.ratio + ")" : "(" + that.strings.get("areaTotal") + ": " + this.area.toFixed(0) + " m2, " + that.strings.get("ratioBin") + ": " + this.ratio + ")"
 
@@ -560,9 +579,17 @@ define([
       }
       else {
 
-        domCtr.create("div", { className: "groupResult", innerHTML: value }, container)
+        domCtr.create("div", { className: "groupResult", innerHTML: value }, container);
+        
+      }
+      if (that.mode == "results") {
+        if (this.measure != null) {
+          domCtr.create("div", { className: "groupResult", innerHTML: that.strings.get(this.measure) }, container)
+
+        }
       }
 
+      
 
     }
 
@@ -633,17 +660,24 @@ define([
                 for (let i in this.stops) {
                   if (parseFloat(this.value) < this.stops[i].value) {
                     this.points = this.stops[i].points;
+                    this.measure =this.stops[i].measure ? this.stops[i].measure : null;
+
                     break;
                   }
                 }
               }
               else {
                 this.points = this.pointsDict[this.value].points;
+                this.measure = this.pointsDict[this.value].measure ? this.pointsDict[this.value].measure : null;
+
               }
 
               if (that.showPoints) {
                 this.pointsInfo.innerHTML = this.points == 1 ? "(" + this.points + " " + that.strings.get("point") + ")" : "(" + this.points + " " + that.strings.get("point") + ")";
               }
+
+
+
               that.pointsTotal = that.pointsTotal - parseInt(previousPoints) + parseInt(this.points);
               that.pointsTotalDiv.innerHTML = that.showPoints ? that.strings.get("totalPoints") + ": " + that.pointsTotal.toFixed(0) : "";
               resolve();
@@ -676,8 +710,9 @@ define([
           });
         }
         else if (that.mode == "project" && (this.key == "school" || this.key == "projectid" || this.key == "name" )) {
+          //that.arcgis.handleSignInOut();
           this.map.prototype.attributes[this.key] = this.value;
-          this.map.prototype.attributes["owner"] = that.userNameEsri;
+          //this.map.prototype.attributes["owner"] = start.userNameEsri;
         }
       })
 

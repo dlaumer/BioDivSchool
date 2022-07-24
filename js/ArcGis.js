@@ -108,8 +108,11 @@ define([
       this.signedIn = false;
       if ( document.getElementById("login")) {
         document.getElementById("login").innerText = this.strings.get("loginEsri");
+        start.userNameEsri = null;
       }
-      that.userNameEsri = null;
+      else {
+        that.userNameEsri = null;
+      }
     }
 
     createUI() {}

@@ -37,7 +37,8 @@ define([
       }
 
       this.strings = new StringsApp(this.lang);
-      this.strings.init().then(() => {
+      Promise.all(this.strings.init("app")).then(() => {
+        console.log(this.strings.data)
         this.createSplashScreen();
         callback();
       });
