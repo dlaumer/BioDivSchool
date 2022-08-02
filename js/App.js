@@ -220,6 +220,11 @@ define([
       );
 
       this.userName = domCtr.create("div", { id: "userName" }, this.header);
+      this.download = domCtr.create(
+        "div",
+        { id: "download", className: "btn1", innerHTML: this.strings.get("download") },
+        this.header
+      );
       this.startPage = domCtr.create(
         "div",
         { id: "startPage", className: "btn1", innerHTML: this.strings.get("startPage") },
@@ -315,6 +320,30 @@ define([
       });
 
       on(
+        this.download,
+        "click",
+        function (evt) {
+          /*
+          var doc = new jsPDF('p', 'pt', 'a4');
+
+          doc.html(document.getElementById("pageContainer"), {
+            html2canvas: {
+                // insert html2canvas options here, e.g.
+                scale: 0.75
+            },
+            callback: function (doc) {
+              doc.save();
+            }
+          });
+          */
+
+          var element = document.getElementById('pageContainer');
+          html2pdf(element);
+
+        }.bind(this)
+      );
+
+      on(
         this.startPage,
         "click",
         function (evt) {
@@ -381,7 +410,7 @@ define([
       this.loginPage = page;
 
       if (that.mode == "results") {
-       domCtr.create("div",
+        domCtr.create("div",
           { class: "pageTitle title", innerHTML: that.strings.get("points") },
           page.page
         );
@@ -487,7 +516,7 @@ define([
     }
 
     parseResults() {
-      
+
       for (let i in that.pages) {
         let page = that.pages[i];
         if (i == 0 || i == that.pages.length - 1) { continue }; // The first and last pages have no elements
@@ -612,9 +641,9 @@ define([
 
       }
       domCtr.create("div",
-          { class: "pageTitle title", innerHTML: that.strings.get("areas") },
-          this.loginPage.page
-        );
+        { class: "pageTitle title", innerHTML: that.strings.get("areas") },
+        this.loginPage.page
+      );
 
       let map = domCtr.create("div", { className: "mapOverview" }, this.loginPage.page);
       this.loginPage.mapResults = domCtr.create("div", { className: "mapOverviewMap" }, map);
@@ -772,6 +801,27 @@ define([
 
       // Replace current querystring with the new one.
       history.replaceState(null, null, "?" + queryParams.toString());
+    }
+
+    async downloadComponentInPDF(Component) {
+      await html2canvas(Component).then((canvas) => {
+        const componentWidth = Component.offsetWidth
+        const componentHeight = Component.offsetHeight
+
+        const orientation = componentWidth >= componentHeight ? 'l' : 'p'
+
+        const imgData = canvas.toDataURL('image/png')
+        const pdf = new jsPDF({
+          orientation,
+          unit: 'px'
+        })
+
+        pdf.internal.pageSize.width = componentWidth
+        pdf.internal.pageSize.height = componentHeight
+
+        pdf.addImage(imgData, 'PNG', 0, 0, componentWidth, componentHeight)
+        pdf.save('download.pdf')
+      })
     }
 
     saveJSON(data) {
