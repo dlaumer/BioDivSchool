@@ -162,9 +162,10 @@ define([
             Markiere solche Flächen in der gezeigten Untersuchungsfläche.
             Benutze dazu das Polygon-Werkzeug.`,
         area: "wild_geomarea",
+        measure: "A08.0",
         ratio: {
           key: "wild_geomarearatio",
-          stops: [{points: 0, value: 0.25, measure: "dummyId"},{points:2, value:0.5},{points: 4, value:0.75},{points: 6, value:1}]
+          stops: [{points: 0, value: 0.25, measure: "A08.1"},{points:2, value:0.5, measure: "A08.2"},{points: 4, value:0.75, measure: "A08.3"},{points: 6, value:1, measure: "A08.4"}]
         },
         color: [74, 186, 27],
         name_display : "Heimische Pflanzen",
@@ -190,12 +191,13 @@ define([
         text: "09: Wie viele verschiedene Arten von Wildpflanzen wachsen auf der gesamten Untersuchungsfläche?",
         placeholder: "Auswählen",
         points: "arten_points",
+        measure: "A09.0",
         options: [
-          { key: "0", points: 0, label: "weniger als 10 verschiedene Arten", measure: "dummyId" },
-          { key: "1", points: 1, label: "11 – 20 Arten" },
-          { key: "2", points: 2, label: "21 – 35 Arten" },
-          { key: "3", points: 4, label: "36 – 50 Arten" },
-          { key: "4", points: 4, label: "mehr als 50 verschiedene Arten" },
+          { key: "0", points: 0, label: "weniger als 10 verschiedene Arten", measure: "A09.1"},
+          { key: "1", points: 1, label: "11 – 20 Arten", measure: "A09.2" },
+          { key: "2", points: 2, label: "21 – 35 Arten", measure: "A09.3" },
+          { key: "3", points: 4, label: "36 – 50 Arten", measure: "A09.4" },
+          { key: "4", points: 4, label: "mehr als 50 verschiedene Arten", measure: "A09.5" },
         ],
         textInfo: {
             linkText: "Hinweise zur Bestimmung von Pflanzen",
@@ -220,13 +222,9 @@ define([
         placeholder: "Auswählen",
         points: "neophyten_points",
         options: [
-          { key: "0", points: 2, label: "keine" },
-          {
-            key: "1", points: 0, label: "eine Art von schädlichen gebietsfremden Pflanzen",
-          },
-          {
-            key: "2", points: -2, label: "mehr als eine Art von schädlichen gebietsfremden Pflanzen",
-          },
+          { key: "0", points: 2, label: "keine",  measure: "A10.1" },
+          { key: "1", points: 0, label: "eine Art von schädlichen gebietsfremden Pflanzen", measure: "A10.2"},
+          { key: "2", points: -2, label: "mehr als eine Art von schädlichen gebietsfremden Pflanzen",  measure: "A10.2"},
         ],
         textInfo: {
             linkText: "Zusatzinfos",
@@ -246,8 +244,8 @@ define([
         placeholder: "Auswählen",
         points: "neophytenmenge_points",
         options: [
-          { key: "0", points: -1, label: "kleiner als ein Parkplatz für ein Auto " },
-          { key: "1", points: -2, label: "grösser als ein Parkplatz für ein Auto " },
+          { key: "0", points: -1, label: "kleiner als ein Parkplatz für ein Auto ", measure: "A10.2" },
+          { key: "1", points: -2, label: "grösser als ein Parkplatz für ein Auto ",  measure: "A10.2" },
         ],
       });
 
@@ -345,9 +343,10 @@ define([
       page_strukturelemente.addElement("mapInput", "versieg_geomoid", {
         text: `11: Markiere versiegelte Flächen in der gezeigten Untersuchungsfläche.`,
         area: "versieg_area",
+        measure: "A11.0"
         ratio: {
           key: "versieg_arearatio",
-          stops: [{points:4, value: 0.33},{points:2, value: 0.5},{points:1, value: 0.66},{points:6, value:1}]
+          stops: [{points:4, value: 0.33, measure: "A11.3"},{points:2, value: 0.5, measure: "A11.2"},{points:1, value: 0.66, measure: "A11.1"},{points:6, value:1, measure: "A11.1"}]
         },
         color: [64, 9, 105, 0.7],
         name_display : "Versiegelte Flächen",
@@ -369,9 +368,10 @@ define([
       page_strukturelemente.addElement("mapInput", "rasen_geomoid", {      
         text: `12: Markiere Flächen mit Rasen in der gezeigten Untersuchungsfläche.`,
         area: "rasen_area",
+        measure: "A12.0",
         ratio: {
           key: "rasen_area_ratio",
-          stops: [{points:2, value:0.25},{points:1, value: 0.5},{points:0, value:1}]
+          stops: [{points:2, value:0.25, measure: "A12.3"},{points:1, value: 0.5, measure: "A12.2",},{points:0, value:1, measure: "A12.1",}]
         },
         color: [46, 37, 72, 0.7],
         name_display : "Rasenflächen",
@@ -401,13 +401,13 @@ define([
         ratio: {
           key: "wild_arearatio",
           options: [
-            { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden" },
-            { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" },
-            { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche" },
-            { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" },
-            { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche" },
-            { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" },
-            { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
+            { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden", measure: "A13.1" },
+            { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" , measure: "A13.2"},
+            { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche", measure: "A13.3" },
+            { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" ,measure: "A13.4"  },
+            { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche", measure: "A13.5"  },
+            { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" , measure: "A13.6" },
+            { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" , measure: "A13.7"  },
           ]
         },
         color: [129, 0, 157, 0.7],
@@ -438,13 +438,13 @@ define([
         ratio: {
           key: "trocken_arearatio",
           options: [
-            { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden" },
-            { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" },
-            { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche" },
-            { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" },
-            { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche" },
-            { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" },
-            { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
+            { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden", measure: "A13.1" },
+            { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" , measure: "A13.2"},
+            { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche", measure: "A13.3" },
+            { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" ,measure: "A13.4"  },
+            { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche", measure: "A13.5"  },
+            { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" , measure: "A13.6" },
+            { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" , measure: "A13.7"  },
           ]
         },
         color: [213, 226, 218, 0.7],
@@ -481,13 +481,13 @@ define([
         ratio: {
           key: "c_gras_arearatio",
           options: [
-            { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden" },
-            { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" },
-            { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche" },
-            { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" },
-            { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche" },
-            { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" },
-            { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
+            { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden", measure: "A13.1" },
+            { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" , measure: "A13.2"},
+            { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche", measure: "A13.3" },
+            { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" ,measure: "A13.4"  },
+            { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche", measure: "A13.5"  },
+            { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" , measure: "A13.6" },
+            { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" , measure: "A13.7"  },
           ]
         },
         color: [2, 199, 116, 0.7],
@@ -512,13 +512,13 @@ define([
         ratio: {
           key: "d_hecken_arearatio",
           options: [
-            { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden" },
-            { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" },
-            { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche" },
-            { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" },
-            { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche" },
-            { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" },
-            { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
+            { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden", measure: "A13.1" },
+            { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" , measure: "A13.2"},
+            { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche", measure: "A13.3" },
+            { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" ,measure: "A13.4"  },
+            { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche", measure: "A13.5"  },
+            { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" , measure: "A13.6" },
+            { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" , measure: "A13.7"  },
           ]
         },
         color: [87, 72, 242, 0.7],
@@ -547,13 +547,13 @@ define([
         ratio: {
           key: "e_baeume_arearatio",
           options: [
-            { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden" },
-            { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" },
-            { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche" },
-            { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" },
-            { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche" },
-            { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" },
-            { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
+            { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden", measure: "A13.1" },
+            { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" , measure: "A13.2"},
+            { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche", measure: "A13.3" },
+            { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" ,measure: "A13.4"  },
+            { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche", measure: "A13.5"  },
+            { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" , measure: "A13.6" },
+            { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" , measure: "A13.7"  },
           ]
         },
         color: [195, 17, 64, 0.7],
@@ -579,13 +579,13 @@ define([
         ratio: {
           key: "f_wasser_arearatio",
           options: [
-            { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden" },
-            { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" },
-            { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche" },
-            { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" },
-            { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche" },
-            { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" },
-            { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
+            { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden", measure: "A13.1" },
+            { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" , measure: "A13.2"},
+            { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche", measure: "A13.3" },
+            { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" ,measure: "A13.4"  },
+            { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche", measure: "A13.5"  },
+            { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" , measure: "A13.6" },
+            { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" , measure: "A13.7"  },
           ]
         },
         color: [185, 184, 106, 0.7],
