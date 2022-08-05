@@ -167,6 +167,7 @@ define([
           stops: [{points: 0, value: 0.25, measure: "dummyId"},{points:2, value:0.5},{points: 4, value:0.75},{points: 6, value:1}]
         },
         color: [74, 186, 27],
+        name_display : "Heimische Pflanzen",
         points: "wild_points",
         textInfo: {
           linkText: "Zusatzinfos",
@@ -261,6 +262,7 @@ define([
           { key: "-2", label: "C"},
         ],
         color: [147, 145, 98, 0.7],
+        name_display : "Neophyten",
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
@@ -348,6 +350,7 @@ define([
           stops: [{points:4, value: 0.33},{points:2, value: 0.5},{points:1, value: 0.66},{points:6, value:1}]
         },
         color: [64, 9, 105, 0.7],
+        name_display : "Versiegelte Flächen",
         points: "versieg_points",
           textInfo: {
           linkText: "Zusatzinfos",
@@ -371,6 +374,7 @@ define([
           stops: [{points:2, value:0.25},{points:1, value: 0.5},{points:0, value:1}]
         },
         color: [46, 37, 72, 0.7],
+        name_display : "Rasenflächen",
         points: "rasen_points",
           textInfo: {
           linkText: "Zusatzinfos",
@@ -407,6 +411,7 @@ define([
           ]
         },
         color: [129, 0, 157, 0.7],
+        name_display : "Gemüsebeete oder Wildblumen",
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -443,6 +448,7 @@ define([
           ]
         },
         color: [213, 226, 218, 0.7],
+        name_display : "Kies, Sand, Ruderalflächen",
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -485,6 +491,7 @@ define([
           ]
         },
         color: [2, 199, 116, 0.7],
+        name_display : "Hohes Gras",
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -515,6 +522,7 @@ define([
           ]
         },
         color: [87, 72, 242, 0.7],
+        name_display : "Strüäucher oder Hecken",
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -549,6 +557,7 @@ define([
           ]
         },
         color: [195, 17, 64, 0.7],
+        name_display : "Heimische Bäume",
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -580,6 +589,7 @@ define([
           ]
         },
         color: [185, 184, 106, 0.7],
+        name_display : "Gewässer",
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -1819,6 +1829,7 @@ define([
 
       let map = page0.addElement("mapInput", "gebiete", { 
         color: [255,0, 0, 0.7],
+        name_display : "Untersuchungsgebiet",
         text: `Zeichne die Untersuchungsfläche ein:<br> <br> 
 
         1. Finde deinen Standort mit dem entsprechendem Button in der Karte. Unter Umständen muss dazu in der Systemeinstellung der Ortungsdienst für den verwendeten Browser aktiviert werden. <br>
@@ -1853,6 +1864,7 @@ define([
      
       page0.addElement("mapInput", "gebiete", { 
         color: [255,0, 0, 0.7],
+        name_display : "Untersuchungsgebiet",
         text: `Zeichne die Untersuchungsfläche ein:<br> <br> 
 
         1. Finde deinen Standort mit dem entsprechendem Button in der Karte. Unter Umständen muss dazu in der Systemeinstellung der Ortungsdienst für den verwendeten Browser aktiviert werden. <br>
