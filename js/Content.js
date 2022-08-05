@@ -260,7 +260,7 @@ define([
           { key: "0", label: "B"},
           { key: "-2", label: "C"},
         ],
-        color: [147, 145, 98],
+        color: [147, 145, 98, 0.7],
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
@@ -347,7 +347,7 @@ define([
           key: "versieg_arearatio",
           stops: [{points:4, value: 0.33},{points:2, value: 0.5},{points:1, value: 0.66},{points:6, value:1}]
         },
-        color: [64, 9, 105],
+        color: [64, 9, 105, 0.7],
         points: "versieg_points",
           textInfo: {
           linkText: "Zusatzinfos",
@@ -370,7 +370,7 @@ define([
           key: "rasen_area_ratio",
           stops: [{points:2, value:0.25},{points:1, value: 0.5},{points:0, value:1}]
         },
-        color: [46, 37, 72],
+        color: [46, 37, 72, 0.7],
         points: "rasen_points",
           textInfo: {
           linkText: "Zusatzinfos",
@@ -406,7 +406,7 @@ define([
             { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
           ]
         },
-        color: [129, 0, 157],
+        color: [129, 0, 157, 0.7],
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -442,7 +442,7 @@ define([
             { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
           ]
         },
-        color: [213, 226, 218],
+        color: [213, 226, 218, 0.7],
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -484,7 +484,7 @@ define([
             { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
           ]
         },
-        color: [2, 199, 116],
+        color: [2, 199, 116, 0.7],
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -514,7 +514,7 @@ define([
             { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
           ]
         },
-        color: [87, 72, 242],
+        color: [87, 72, 242, 0.7],
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -548,7 +548,7 @@ define([
             { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
           ]
         },
-        color: [195, 17, 64],
+        color: [195, 17, 64, 0.7],
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -579,7 +579,7 @@ define([
             { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" },
           ]
         },
-        color: [185, 184, 106],
+        color: [185, 184, 106, 0.7],
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -1818,7 +1818,7 @@ define([
       }]
 
       let map = page0.addElement("mapInput", "gebiete", { 
-        color: [255,0, 0],
+        color: [255,0, 0, 0.7],
         text: `Zeichne die Untersuchungsfläche ein:<br> <br> 
 
         1. Finde deinen Standort mit dem entsprechendem Button in der Karte. Unter Umständen muss dazu in der Systemeinstellung der Ortungsdienst für den verwendeten Browser aktiviert werden. <br>
@@ -1852,7 +1852,7 @@ define([
 
      
       page0.addElement("mapInput", "gebiete", { 
-        color: [255,0, 0],
+        color: [255,0, 0, 0.7],
         text: `Zeichne die Untersuchungsfläche ein:<br> <br> 
 
         1. Finde deinen Standort mit dem entsprechendem Button in der Karte. Unter Umständen muss dazu in der Systemeinstellung der Ortungsdienst für den verwendeten Browser aktiviert werden. <br>
