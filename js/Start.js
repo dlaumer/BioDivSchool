@@ -314,8 +314,8 @@ define([
     selectProject(projectId, name, owner) {
       this.projectChosenDiv.innerHTML =
         this.strings.get("chosenProject") + ": " + projectId + ", " + name;
-      //if (start.userNameEsri != null && start.userNameEsri == owner) {
-      if (start.userNameEsri == null || (start.userNameEsri != null && start.userNameEsri == owner)) {
+      if (start.userNameEsri != null && start.userNameEsri == owner) {
+      //if (start.userNameEsri == null || (start.userNameEsri != null && start.userNameEsri == owner)) {
         this.buttons.style.display = "flex";
         this.updateAttributes("project", projectId);
       }

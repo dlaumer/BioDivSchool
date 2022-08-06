@@ -847,7 +847,7 @@ define([
               type: "simple", // autocasts as new SimpleRenderer()
               symbol: {
                 type: "simple-fill", // autocasts as new SimpleFillSymbol()
-                color:  [...mapLayers[i].color, 0.5],
+                color:  mapLayers[i].color,
               },
             },
           });
