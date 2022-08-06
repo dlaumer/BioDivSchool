@@ -651,8 +651,8 @@ define([
         placeholder: "Auswählen",
         points: "a_baeume_points",
         options: [
-          { key: "0", points: 1, label: "Ja" },
-          { key: "1", points: 0, label: "Nein" },
+          { key: "0", points: 1, label: "Ja", measure: "A14.5" },
+          { key: "1", points: 0, label: "Nein", measure: "A14.6"  },
         ],
       });
 
@@ -663,7 +663,7 @@ define([
         points: "b_baeume_points",
         options: [
           { key: "0", points: 2, label: "Ja" },
-          { key: "1", points: 0, label: "Nein" },
+          { key: "1", points: 0, label: "Nein", measure: "A14.7"},
         ],
       });
 
@@ -688,11 +688,12 @@ define([
         text: "15: Gibt es auf der Untersuchungsfläche Gruppen aus mindestens 5 Sträuchern?",
         placeholder: "Auswählen",
         points: "straeucher_points",
+        measure: "A15.0",
         options: [
-          { key: "0", points: 0, label: "Keine Sträucher oder nur vereinzelte Sträucher vorhanden." },
-          { key: "1", points: 0, label: "Überwiegend nicht-heimische Sträucher vorhanden. " },
-          { key: "2", points: 1, label: "1-3 Gruppen aus mindestens 5 Sträuchern vorhanden. Die meisten dieser Sträucher sind heimisch." },
-          { key: "3", points: 3, label: "Mehr als 3 Gruppen aus mindestens 5 Sträuchern vorhanden. Die meisten dieser Sträucher sind heimisch." },
+          { key: "0", points: 0, label: "Keine Sträucher oder nur vereinzelte Sträucher vorhanden.", measure: "A15.1"},
+          { key: "1", points: 0, label: "Überwiegend nicht-heimische Sträucher vorhanden.", measure: "A15.2" },
+          { key: "2", points: 1, label: "1-3 Gruppen aus mindestens 5 Sträuchern vorhanden. Die meisten dieser Sträucher sind heimisch.", measure: "A15.3"},
+          { key: "3", points: 3, label: "Mehr als 3 Gruppen aus mindestens 5 Sträuchern vorhanden. Die meisten dieser Sträucher sind heimisch.", measure: "A15.3"},
         ],
           textInfo: {
           linkText: "Zusatzinfos",
@@ -715,8 +716,8 @@ define([
         placeholder: "Auswählen",
         points: "15a_straeucher_points",
         options: [
-          { key: "0", points: 2, label: "Ja" },
-          { key: "1", points: 0, label: "Nein" },
+          { key: "0", points: 2, label: "Ja", measure: "A15.4"},
+          { key: "1", points: 0, label: "Nein", measure: "A15.5"},
         ],
       });
 
@@ -741,11 +742,12 @@ define([
         text: "16: Gibt es auf der Untersuchungsfläche Hecken?",
         placeholder: "Auswählen",
         points: "hecken_points",
+        measure: "A16.0",
         options: [
-          { key: "0", points: 0, label: "Keine Hecke vorhanden." },
-          { key: "1", points: 0, label: "Hecken vorhanden. Die Hecken bestehen aber überwiegend aus nicht-heimische Sträuchern." },
-          { key: "2", points: 1, label: "Eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch." },
-            { key: "7", points: 3, label: "Mehr als eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch." },
+          { key: "0", points: 0, label: "Keine Hecke vorhanden.", measure: "A16.1"},
+          { key: "1", points: 0, label: "Hecken vorhanden. Die Hecken bestehen aber überwiegend aus nicht-heimische Sträuchern.", measure: "A16.2"},
+          { key: "2", points: 1, label: "Eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch.", measure: "A16.3" },
+          { key: "3", points: 3, label: "Mehr als eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch.", measure: "A16.3"},
        ],
           textInfo: {
           linkText: "Zusatzinfos",
@@ -770,8 +772,8 @@ define([
         placeholder: "Auswählen",
         points: "16a_hecken_points",
         options: [
-          { key: "0", points: 2, label: "Ja" },
-          { key: "1", points: 0, label: "Nein" },
+          { key: "0", points: 2, label: "Ja", measure: "A16.4" },
+          { key: "1", points: 0, label: "Nein", measure: "A16.5" },
         ],
       });
 
@@ -781,8 +783,8 @@ define([
         placeholder: "Auswählen",
         points: "16b_hecken_points",
         options: [
-          { key: "0", points: 1, label: "Ja" },
-          { key: "1", points: 0, label: "Nein" },
+          { key: "0", points: 1, label: "Ja", measure: "A16.6" },
+          { key: "1", points: 0, label: "Nein", measure: "A16.7" },
         ],
       });
 
@@ -808,11 +810,12 @@ define([
         text: "17: Sind Bäume, Sträucher und heimische Kräuter, Blumen oder Gräser zusammen an einem Ort anzutreffen?",
         placeholder: "Auswählen",
         points: "vielfalt_points",
+        measure: "A17.0",
         options: [
-          { key: "0", points: 0, label: "Bäume, Sträucher und heimische Kräuter, Blumen oder Gräser sind nirgends zusammen anzutreffen." },
-          { key: "1", points: 1, label: "Zwei der drei Elemente (1. Bäume, 2. Sträucher und 3. heimische Kräuter, Blumen oder Gräser) kommen zusammen vor. Alle drei Elemente kommen jedoch nirgends alle zusammen vor." },
-          { key: "2", points: 2, label: "Bäume, Sträucher und heimische Kräuter, Blumen oder Gräser kommen alle zusammen an einer Stelle vor." },
-          { key: "3", points: 4, label: "Bäume, Sträucher und heimische Kräuter, Blumen oder Gräser kommen alle zusammen an mehr als einer Stelle vor." },
+          { key: "0", points: 0, label: "Bäume, Sträucher und heimische Kräuter, Blumen oder Gräser sind nirgends zusammen anzutreffen.", measure: "A17.1" },
+          { key: "1", points: 1, label: "Zwei der drei Elemente (1. Bäume, 2. Sträucher und 3. heimische Kräuter, Blumen oder Gräser) kommen zusammen vor. Alle drei Elemente kommen jedoch nirgends alle zusammen vor.", measure: "A17.2" },
+          { key: "2", points: 2, label: "Bäume, Sträucher und heimische Kräuter, Blumen oder Gräser kommen alle zusammen an einer Stelle vor.", measure: "A17.3" },
+          { key: "3", points: 4, label: "Bäume, Sträucher und heimische Kräuter, Blumen oder Gräser kommen alle zusammen an mehr als einer Stelle vor.", measure: "A17.4" },
         ],
           textInfo: {
           linkText: "Zusatzinfos",
@@ -849,12 +852,13 @@ define([
         text: "18: Gibt es auf der Untersuchungsfläche Ruderalflächen mit passenden heimischen Pflanzen?",
         placeholder: "Auswählen",
         points: "ruderal_points",
+        measure: "A18.0",
         options: [
-          { key: "0", points: 0, label: "Keine Ruderalfläche vorhanden." },
-          { key: "1", points: 0, label: "Ruderalfläche vorhanden. Darin kommen aber schädliche gebietsfremden Pflanzen vor.." },
-          { key: "2", points: 1, label: "Ruderalfläche ist insgesamt etwa so gross wie zwei Autoparkplätze." },
-          { key: "3", points: 2, label: "Ruderalfläche ist insgesamt etwa so gross wie vier Autoparkplätze." },
-          { key: "4", points: 3, label: "Ruderalfläche ist insgesamt grösser als vier Autoparkplätze." },
+          { key: "0", points: 0, label: "Keine Ruderalfläche vorhanden.", measure: "A18.1" },
+          { key: "1", points: 0, label: "Ruderalfläche vorhanden. Darin kommen aber schädliche gebietsfremden Pflanzen vor..", measure: "A18.2" },
+          { key: "2", points: 1, label: "Ruderalfläche ist insgesamt etwa so gross wie zwei Autoparkplätze.", measure: "A18.3" },
+          { key: "3", points: 2, label: "Ruderalfläche ist insgesamt etwa so gross wie vier Autoparkplätze.", measure: "A18.4" },
+          { key: "4", points: 3, label: "Ruderalfläche ist insgesamt grösser als vier Autoparkplätze.", measure: "A18.5" },
         ],
           textInfo: {
           linkText: "Zusatzinfos",
@@ -890,11 +894,12 @@ define([
         text: "19: Gibt es auf der Untersuchungsfläche Trockenmauern oder Steinhaufen?",
         placeholder: "Auswählen",
         points: "mauern_points",
+        measure: "A19.0",
         options: [
-          { key: "0", points: 0, label: "Keine Trockenmauern oder Steinhaufen vorhanden." },
-          { key: "1", points: 1, label: "1 Trockenmauer oder Steinhaufen vorhanden." },
-          { key: "2", points: 2, label: "2 Trockenmauern oder Steinhaufen vorhanden." },
-          { key: "3", points: 4, label: "Mehr als 2 Trockenmauern oder Steinhaufen vorhanden." },
+          { key: "0", points: 0, label: "Keine Trockenmauern oder Steinhaufen vorhanden.", measure: "A19.1" },
+          { key: "1", points: 1, label: "1 Trockenmauer oder Steinhaufen vorhanden.", measure: "A19.2" },
+          { key: "2", points: 2, label: "2 Trockenmauern oder Steinhaufen vorhanden.", measure: "A19.2" },
+          { key: "3", points: 4, label: "Mehr als 2 Trockenmauern oder Steinhaufen vorhanden.", measure: "A19.3" },
         ],
           textInfo: {
           linkText: "Zusatzinfos",
@@ -922,11 +927,12 @@ define([
         text: "20: Gibt es auf der Untersuchungsfläche Asthaufen, abgestorbene Bäume oder Totholz?",
         placeholder: "Auswählen",
         points: "totholz_points",
+        measure: "A20.0",
         options: [
-          { key: "0", points: 0, label: "Keine Asthaufen, abgestorbene Bäume oder Totholz vorhanden." },
-          { key: "1", points: 1, label: "1 Asthaufen, abgestorbener Baum oder Totholzelement vorhanden." },
-          { key: "2", points: 2, label: "2 Asthaufen, abgestorbene Bäume oder Totholzelemente vorhanden." },
-          { key: "3", points: 4, label: "Mehr als 2 Asthaufen, abgestorbene Bäume oder Totholzelemente vorhanden." },
+          { key: "0", points: 0, label: "Keine Asthaufen, abgestorbene Bäume oder Totholz vorhanden.", measure: "A20.1" },
+          { key: "1", points: 1, label: "1 Asthaufen, abgestorbener Baum oder Totholzelement vorhanden.", measure: "A20.2"  },
+          { key: "2", points: 2, label: "2 Asthaufen, abgestorbene Bäume oder Totholzelemente vorhanden.", measure: "A20.2"  },
+          { key: "3", points: 4, label: "Mehr als 2 Asthaufen, abgestorbene Bäume oder Totholzelemente vorhanden.", measure: "A20.3"  },
         ],
           textInfo: {
           linkText: "Zusatzinfos",
@@ -954,10 +960,11 @@ define([
         text: "21: Gibt es auf der Untersuchungsfläche künstliche Nisthilfen für Insekten?",
         placeholder: "Auswählen",
         points: "insekten_points",
+        measure: "A21.0", 
         options: [
-          { key: "0", points: 0, label: "Keine künstliche Nisthilfen für Insekten vorhanden." },
-          { key: "1", points: 1, label: "1-3 künstliche Nisthilfen für Insekten vorhanden." },
-          { key: "2", points: 2, label: "Mehr als 3 künstliche Nisthilfen für Insekten vorhanden." },
+          { key: "0", points: 0, label: "Keine künstliche Nisthilfen für Insekten vorhanden.", measure: "A21.1" },
+          { key: "1", points: 1, label: "1-3 künstliche Nisthilfen für Insekten vorhanden.", measure: "A21.2"  },
+          { key: "2", points: 2, label: "Mehr als 3 künstliche Nisthilfen für Insekten vorhanden.", measure: "A21.3"  },
         ],
           textInfo: {
           linkText: "Zusatzinfos",
@@ -983,10 +990,11 @@ define([
         text: "22: Gibt es auf der Untersuchungsfläche künstliche Nisthilfen für Vögel?",
         placeholder: "Auswählen",
         points: "voegel_points",
+        measure: "A20.1", 
         options: [
-          { key: "0", points: 0, label: "Keine künstliche Nisthilfen für Vögel vorhanden." },
-          { key: "1", points: 1, label: "1-3 künstliche Nisthilfen für Vögel vorhanden." },
-          { key: "2", points: 2, label: "Mehr als 3 künstliche Nisthilfen für Vögel vorhanden." },
+          { key: "0", points: 0, label: "Keine künstliche Nisthilfen für Vögel vorhanden.", measure: "A22.1"  },
+          { key: "1", points: 1, label: "1-3 künstliche Nisthilfen für Vögel vorhanden.", measure: "A22.2"  },
+          { key: "2", points: 2, label: "Mehr als 3 künstliche Nisthilfen für Vögel vorhanden.", measure: "A22.3"  },
         ],
           textInfo: {
           linkText: "Zusatzinfos",
@@ -1012,9 +1020,9 @@ define([
         placeholder: "Auswählen",
         points: "saeuger_points",
         options: [
-          { key: "0", points: 0, label: "Keine künstliche Nisthilfen für kleine Säugetiere vorhanden." },
-          { key: "1", points: 1, label: "1-3 künstliche Nisthilfen für kleine Säugetiere vorhanden." },
-          { key: "2", points: 2, label: "Mehr als 3 künstliche Nisthilfen für kleine Säugetiere vorhanden." },
+          { key: "0", points: 0, label: "Keine künstliche Nisthilfen für kleine Säugetiere vorhanden.", measure: "A23.1"  },
+          { key: "1", points: 1, label: "1-3 künstliche Nisthilfen für kleine Säugetiere vorhanden.", measure: "A23.2"  },
+          { key: "2", points: 2, label: "Mehr als 3 künstliche Nisthilfen für kleine Säugetiere vorhanden.", measure: "A23.3"  },
         ],
           textInfo: {
           linkText: "Zusatzinfos",
@@ -1048,10 +1056,11 @@ define([
         text: "24: Gibt es Feuchtflächen auf der Untersuchungsfläche?",
         placeholder: "Auswählen",
         points: "feuchtfl_points",
+        measure: "A24.0", 
         options: [
-          { key: "0",points: 0, label: "Keine Feuchtflächen vorhanden." },
-          { key: "1",points: 2, label: "Feuchtflächen insgesamt etwa so gross wie ein Autoparkplatz." },
-          { key: "2",points: 4, label: "Feuchtflächen insgesamt grösser als ein Autoparkplatz." },
+          { key: "0",points: 0, label: "Keine Feuchtflächen vorhanden.", measure: "A24.1" },
+          { key: "1",points: 2, label: "Feuchtflächen insgesamt etwa so gross wie ein Autoparkplatz.", measure: "A24.2"},
+          { key: "2",points: 4, label: "Feuchtflächen insgesamt grösser als ein Autoparkplatz.", measure: "A24.3" },
         ],
           textInfo: {
           linkText: "Zusatzinfos",
@@ -1077,10 +1086,10 @@ define([
         placeholder: "Auswählen",
         points: "stehgew_points",
         options: [
-          { key: "0", points: 0, label: "Keine stehenden Gewässer vorhanden." },
-          { key: "1", points: 1, label: "Fläche mit stehenden Gewässern  insgesamt etwa so gross wie 1 Autoparkplatz." },
-          { key: "2", points: 2, label: "Fläche mit stehenden Gewässern  insgesamt etwa so gross wie 2 Autoparkplätze." },
-          { key: "4", points: 4, label: "Fläche mit stehenden Gewässern  insgesamt grösser als 2 Autoparkplätze." },
+          { key: "0", points: 0, label: "Keine stehenden Gewässer vorhanden.", measure: "A25.1" },
+          { key: "1", points: 1, label: "Fläche mit stehenden Gewässern  insgesamt etwa so gross wie 1 Autoparkplatz.", measure: "A25.2" },
+          { key: "2", points: 2, label: "Fläche mit stehenden Gewässern  insgesamt etwa so gross wie 2 Autoparkplätze.", measure: "A25.2" },
+          { key: "4", points: 4, label: "Fläche mit stehenden Gewässern  insgesamt grösser als 2 Autoparkplätze.", measure: "A25.3" },
         ],
           textInfo: {
           linkText: "Zusatzinfos",
@@ -1103,8 +1112,8 @@ define([
         placeholder: "Auswählen",
         points: "fliessgew_points",
         options: [
-          { key: "0" ,points: 0, label: "Keine Fliessgewässer oder nur Fliessgewässer kürzer als 3 Meter vorhanden." },
-          { key: "1" ,points: 6, label: "Ein oder mehrere Fliessgewässer von insgesamt mehr als 3 Meter Länge vorhanden." },
+          { key: "0" ,points: 0, label: "Keine Fliessgewässer oder nur Fliessgewässer kürzer als 3 Meter vorhanden.", measure: "A26.1" },
+          { key: "1" ,points: 6, label: "Ein oder mehrere Fliessgewässer von insgesamt mehr als 3 Meter Länge vorhanden.", measure: "A26.2" },
         ],
           textInfo: {
           linkText: "Zusatzinfos",
@@ -1130,10 +1139,11 @@ define([
         text: "27: Ist die Untersuchungsfläche umgeben von intensiver Landwirtschaft oder überbautem Gebiet?",
         placeholder: "Auswählen",
         points: "umgebung_points",
+        measure: "A27.0",
         options: [
-          { key: "0",points: 0, label: "Die Untersuchungsfläche ist zu ungefähr drei Viertel oder mehr umgeben von intensiver Landwirtschaft oder überbautem Gebiet." },
-          { key: "1",points: 1, label: "Die Untersuchungsfläche ist zu einem Viertel bis zu drei Viertel umgeben von intensiver Landwirtschaft oder überbautem Gebiet." },
-          { key: "2",points: 4, label: "Die Untersuchungsfläche ist zu weniger als einem Viertel umgeben von intensiver Landwirtschaft oder überbautem Gebiet." },
+          { key: "0",points: 0, label: "Die Untersuchungsfläche ist zu ungefähr drei Viertel oder mehr umgeben von intensiver Landwirtschaft oder überbautem Gebiet.", measure: "A27.1" },
+          { key: "1",points: 1, label: "Die Untersuchungsfläche ist zu einem Viertel bis zu drei Viertel umgeben von intensiver Landwirtschaft oder überbautem Gebiet.", measure: "A27.2" },
+          { key: "2",points: 4, label: "Die Untersuchungsfläche ist zu weniger als einem Viertel umgeben von intensiver Landwirtschaft oder überbautem Gebiet.", measure: "A27.3" },
         ],
           textInfo: {
           linkText: "Zusatzinfos",
@@ -1161,7 +1171,8 @@ define([
         min: 0,
         max: 100,
         step: 0.1,
-        stops: [{points: 0, value:20, measure: "dummyId"},{points:1, value:50},{points:2, value:80},{points:3, value:100}], 
+        stops: [{points: 0, value:20, measure: "A28.1"},{points:1, value:50, measure: "A28.2"},{points:2, value:80, measure: "A28.2"},{points:3, value:100, measure: "A28.3"}], 
+        measure: "A28.0",
         points: "28_geraet_points",
       });
       //0 P.	< 20 %, 1 P.	21 – 50 %, 2 P.	51 % - 80 %, 3 P.	> 80% 
@@ -1209,8 +1220,8 @@ define([
         placeholder: "Auswählen",
         points: "a_maehen_points",
         options: [
-          { key: "0", points: 1, label: "Ja" },
-          { key: "1", points: 0, label: "Nein" },
+          { key: "0", points: 1, label: "Ja", measure: "A29a.1" },
+          { key: "1", points: 0, label: "Nein", measure: "A29.P" },
         ],
       });
 
@@ -1220,8 +1231,8 @@ define([
         placeholder: "Auswählen",
         points: "b_maehen_points",
         options: [
-          { key: "0", points: 1, label: "einmal oder weniger" },
-          { key: "1", points: -2, label: "zweimal oder öfter" },
+          { key: "0", points: 1, label: "einmal oder weniger", measure: "A29b.1"  },
+          { key: "1", points: -2, label: "zweimal oder öfter", measure: "A29.P"  },
         ],
       });
 
@@ -1231,8 +1242,8 @@ define([
         placeholder: "Auswählen",
         points: "c_maehen_points",
         options: [
-          { key: "0", points: 1, label: "Ja" },
-          { key: "1", points: 0, label: "Nein" },
+          { key: "0", points: 1, label: "Ja", measure: "A29c.1"  },
+          { key: "1", points: 0, label: "Nein", measure: "A29.P"  },
         ],
       });
     
@@ -1267,8 +1278,8 @@ define([
         placeholder: "Auswählen",
         points: "e_schnitt_points",
         options: [
-          { key: "0", points: 2, label: "Ja" },
-          { key: "1", points: 0, label: "Nein" },
+          { key: "0", points: 2, label: "Ja", measure: "A29e.1"  },
+          { key: "1", points: 0, label: "Nein", measure: "A29.P"  },
         ],
       });
 
@@ -1278,8 +1289,8 @@ define([
         placeholder: "Auswählen",
         points: "e_schnitt_points",
         options: [
-          { key: "0", points: 2, label: "Ja" },
-          { key: "1", points: 0, label: "Nein" },
+          { key: "0", points: 2, label: "Ja", measure: "A29e.1"  },
+          { key: "1", points: 0, label: "Nein", measure: "A29.P"  },
         ],
       });
 
@@ -1289,8 +1300,8 @@ define([
         placeholder: "Auswählen",
         points: "e_schnitt_points",
         options: [
-          { key: "0", points: 2, label: "Ja" },
-          { key: "1", points: 0, label: "Nein" },
+          { key: "0", points: 2, label: "Ja", measure: "A29e.1"  },
+          { key: "1", points: 0, label: "Nein", measure: "A29.P"  },
         ],
       });
 
@@ -1335,7 +1346,8 @@ define([
         min: 0,
         max: 100,
         step: 0.1,
-        stops: [{points: 2, value: 5},{points:1, value:66},{points:0, value:100}],
+        stops: [{points: 2, value: 5, measure: "A30.1"},{points:1, value:66, measure: "A30.2"},{points:0, value:100, measure: "A30.3"}],
+        measure: "A30.0", 
         points: "pestizide_points",
           textInfo: {
           linkText: "Zusatzinfos",
@@ -1355,7 +1367,7 @@ define([
         min: 0,
         max: 100,
         step: 0.1,
-        stops: [{points:2,value:5},{points:1, value:75},{points:0,value:100}],
+        stops: [{points:3, value:5, measure: "A31.1"},{points:2, value:50, measure: "A31.2"},{points:1, value:75, measure: "A31.3"},{points:0,value:100, measure: "A31.3"}],
         points: "bekaempfung_points",
           textInfo: {
           linkText: "Zusatzinfos",
@@ -1374,9 +1386,10 @@ define([
       let elem32a = page_pflege.addElement("radioButtonInput", "32a_unkraut", {
         text: "32a: Werden Unkräuter oder unerwünschte Pflanzen überhaupt regelmässig bekämpft?",
         placeholder: "Auswählen",
+        measure: "A32.0", 
         options: [
-          { key: "0", points: 0, label: "Ja" },
-          { key: "1", points: 4, label: "Nein" },
+          { key: "0", points: 0, label: "Ja", measure: "A32.?" },
+          { key: "1", points: 4, label: "Nein", measure: "A32.1"  },
         ],
         points: "32a_unkraut_points",
         textInfo: {
@@ -1403,10 +1416,11 @@ define([
        let elem32b = page_pflege.addElement("radioButtonInput", "32b_unkraut", {
         text: "32b: Wie werden Unkräuter oder unerwünschte Pflanzen zur Hauptsache bekämpft?",
         placeholder: "Auswählen",
+        measure: "A32.0", 
         options: [
-          { key: "0", points: 0, label: "Mehr als 75 % der gesamten Unkrautbekämpfung erfolgt mit chemischen Mitteln, so genannten Herbiziden." },
-          { key: "1", points: 1, label: "25 - 75 % der gesamten Unkrautbekämpfung erfolgt mit chemischen Mitteln, so genannten Herbiziden." },
-          { key: "2", points: 4, label: "Weniger als 25 % der gesamten Unkrautbekämpfung erfolgt mit chemischen Mitteln, so genannten Herbiziden." },
+          { key: "0", points: 0, label: "Mehr als 75 % der gesamten Unkrautbekämpfung erfolgt mit chemischen Mitteln, so genannten Herbiziden.", measure: "A32.2" },
+          { key: "1", points: 1, label: "25 - 75 % der gesamten Unkrautbekämpfung erfolgt mit chemischen Mitteln, so genannten Herbiziden.", measure: "A32.3"  },
+          { key: "2", points: 2, label: "Weniger als 25 % der gesamten Unkrautbekämpfung erfolgt mit chemischen Mitteln, so genannten Herbiziden.", measure: "A32.4"  },
         ],
         points: "32b_unkraut_points",
       });
@@ -1431,7 +1445,8 @@ define([
       //33_duengen
       let elem33 = page_pflege.addElement("radioButtonInput", "duengen", {
         text: "33: Ist die gesamte Grasfläche (Wiesen, Rasen inklusive Sportrasen) grösser als die Fläche für zwei Autoparkplätze?",
-        placeholder: "Auswählen",    
+        placeholder: "Auswählen",
+        measure: "A33.0",     
         options: [
           { key: "0",points: 0, label: "Ja" },
           { key: "1",points: 0, label: "Nein" },      
@@ -1444,10 +1459,11 @@ define([
       //33_grasduengen
       let elem33gras = page_pflege.addElement("radioButtonInput", "grasduengen", {
         text: "33gras: Werden Grasflächen (Wiesen, Rasen inklusive Sportrasen) gedüngt?",
-        placeholder: "Auswählen",    
+        placeholder: "Auswählen",
+        measure: "A33.0",    
         options: [
           { key: "0",points: 0, label: "Ja" },
-          { key: "1",points: 4, label: "Nein" },      
+          { key: "1",points: 4, label: "Nein", measure: "A33.1" },      
         ],
         textInfo: {
           linkText: "Zusatzinfos",
@@ -1465,10 +1481,11 @@ define([
       //33a_duengen
       let elem33a = page_pflege.addElement("radioButtonInput", "a_duengen", {
         text: "33a: Wie werden Grasflächen (Wiesen, Rasen inklusive Sportrasen) gedüngt?",
-        placeholder: "Auswählen",    
+        placeholder: "Auswählen",
+        measure: "A33.0",   
         options: [
-          { key: "0",points: 0, label: "Mehr als die Hälfte des Bodens wird ohne Analyse des Bodens gedüngt." },
-          { key: "1",points: 2, label: "Weniger als die Hälfte des Bodens wird ohne Analyse des Bodens gedüngt." },      
+          { key: "0",points: 0, label: "Mehr als die Hälfte des Bodens wird ohne Analyse des Bodens gedüngt.", measure: "A33.2"  },
+          { key: "1",points: 2, label: "Weniger als die Hälfte des Bodens wird ohne Analyse des Bodens gedüngt.", measure: "A33.3"  },      
         ],
         points: "33a_duengen_points",     
       });    
@@ -1478,11 +1495,12 @@ define([
       //34_mitteln
       let elem34 = page_pflege.addElement("radioButtonInput", "mitteln", {
         text: "34: Mit welchen Mitteln werden Grasflächen (Wiesen, Rasen inklusive Sportrasen) gedüngt?",
-        placeholder: "Auswählen",    
+        placeholder: "Auswählen",
+        measure: "A34.0", 
         options: [
-          { key: "0",points: 0, label: "Mehr als ein Drittel der Düngemittel sind mineralischer Dünger oder Torf." },
-          { key: "1",points: 1, label: "Mehr als die Hälfte der Düngemittel sind organischer Dünger wie Jauche, Mist oder Mulch oder Bio-Knospenprodukte." },  
-          { key: "2",points: 2, label: "Mehr als die Hälfte der Düngemittel ist eigener Kompost." },      
+          { key: "0",points: 0, label: "Mehr als ein Drittel der Düngemittel sind mineralischer Dünger oder Torf.", measure: "A34.1" },
+          { key: "1",points: 1, label: "Mehr als die Hälfte der Düngemittel sind organischer Dünger wie Jauche, Mist oder Mulch oder Bio-Knospenprodukte.", measure: "A34.2" },  
+          { key: "2",points: 2, label: "Mehr als die Hälfte der Düngemittel ist eigener Kompost.", measure: "A34.3" },      
         ],
         points: "34_mitteln_points",
         textInfo: {
@@ -1524,10 +1542,11 @@ define([
         text: "35: Was passiert im Herbst mit dem Laub?",
         placeholder: "Auswählen",
         points: "laub_points",
+        measure: "A35.0",
         options: [
-          { key: "0", points: 0, label: "Sämtliches Laub wird eingesammelt und entsorgt." },
-          { key: "1", points: 1, label: "Vereinzelt wird Laub bewusst belassen." },
-          { key: "2", points: 2, label: "Es werden bewusst zahlreiche Laubhaufen erstellt." },
+          { key: "0", points: 0, label: "Sämtliches Laub wird eingesammelt und entsorgt.", measure: "A35.1" },
+          { key: "1", points: 1, label: "Vereinzelt wird Laub bewusst belassen.", measure: "A35.2" },
+          { key: "2", points: 2, label: "Es werden bewusst zahlreiche Laubhaufen erstellt.", measure: "A35.3" },
         ],
           //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
@@ -1556,10 +1575,11 @@ define([
         text: "36: Was passiert im Herbst mit alten Samenständen von Gras, Blumen und Sträucher?",
         placeholder: "Auswählen",
         points: "samen_points",
+        measure: "A36.0"
         options: [
-          { key: "0", points: 0, label: "Alle alten Samenstände werden eingesammelt und entsorgt." },
-          { key: "1", points: 1, label: "Vereinzelt werden alte Samenstände bewusst belassen." },
-          { key: "2", points: 2, label: "Die meisten Samenstände werden bewusst belassen." },
+          { key: "0", points: 0, label: "Alle alten Samenstände werden eingesammelt und entsorgt.", measure: "A36.1" },
+          { key: "1", points: 1, label: "Vereinzelt werden alte Samenstände bewusst belassen.", measure: "A36.2" },
+          { key: "2", points: 2, label: "Die meisten Samenstände werden bewusst belassen.", measure: "A36.3" },
         ],
         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
@@ -1589,12 +1609,13 @@ define([
         text: "37: Gibt es auf Flachdächern eine Begrünung?",
         placeholder: "Auswählen",
         points: "fldacher_points",
+        measure: "A37.0",
         options: [
-          { key: "0", points: 0, label: "Keine oder kaum Dachbegrünung." },
-          { key: "1", points: 0, label: "Ungefähr die Hälfte der Flachdächer ist begrünt, enthält aber keine Sandflächen oder Totholz." },
-          { key: "2", points: 1, label: "Ungefähr die Hälfte der Flachdächer ist begrünt und enthält auch Sandflächen und Totholz." },
-          { key: "3", points: 1, label: "Mehr als die Hälfte der Flachdächer ist begrünt, enthält aber keine Sandflächen oder Totholz." },
-          { key: "4", points: 2, label: "Mehr als die Hälfte der Flachdächer ist begrünt und enthält auch Sandflächen oder Totholz." },
+          { key: "0", points: 0, label: "Keine oder kaum Dachbegrünung.", measure: "A37.1" },
+          { key: "1", points: 0, label: "Ungefähr die Hälfte der Flachdächer ist begrünt, enthält aber keine Sandflächen oder Totholz.", measure: "A37.1" },
+          { key: "2", points: 1, label: "Ungefähr die Hälfte der Flachdächer ist begrünt und enthält auch Sandflächen und Totholz.", measure: "A37.2" },
+          { key: "3", points: 1, label: "Mehr als die Hälfte der Flachdächer ist begrünt, enthält aber keine Sandflächen oder Totholz.", measure: "A37.3" },
+          { key: "4", points: 2, label: "Mehr als die Hälfte der Flachdächer ist begrünt und enthält auch Sandflächen oder Totholz.", measure: "A37.4" },
         ],
           //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
@@ -1618,8 +1639,8 @@ define([
         placeholder: "Auswählen",
         points: "fassaden_points",
         options: [
-          { key: "0", points: 0, label: "Keine oder nur vereinzelt Fassadenbegrünung." },
-          { key: "1", points: 1, label: "Fassaden von einer Fläche von insgesamt mindestens zwei Autoparkplätzen ist begrünt." },
+          { key: "0", points: 0, label: "Keine oder nur vereinzelt Fassadenbegrünung.", measure: "A38.1" },
+          { key: "1", points: 1, label: "Fassaden von einer Fläche von insgesamt mindestens zwei Autoparkplätzen ist begrünt.", measure: "A38.2" },
         ],
         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
@@ -1640,9 +1661,10 @@ define([
         text: "Gibt es auf der Untersuchungsfläche einen biologisch bearbeiteten Kräuter- oder Gemüsegarten?",
         placeholder: "Auswählen",
         points: "kraeuter_points",
+        measure: "A39.0",
         options: [
-          { key: "0",points: 0, label: "Nein" },
-          { key: "1",points: 1, label: "Ja" },
+          { key: "0",points: 0, label: "Nein", measure: "A39.1" },
+          { key: "1",points: 1, label: "Ja", measure: "A39.2" },
         ],
           //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
@@ -1663,8 +1685,9 @@ define([
         text: "40a: Gibt es an den Gebäuden grosse Glasflächen?",
         placeholder: "Auswählen",
         points: "a_glas_points",
+        measure: "A40.0",
         options: [
-          { key: "0",points: 2, label: "Nein" },
+          { key: "0",points: 2, label: "Nein", measure: "A40.1" },
           { key: "1",points: 0, label: "Ja" },
         ],
          //bitte noch Hilfestellung/Zusatzinfos hinzufügen
@@ -1694,9 +1717,9 @@ define([
         placeholder: "Auswählen",
         points: "b_glasschutz_points",
         options: [
-          { key: "0",points: 0, label: "Glasflächen ohne Vogelschutz." },
-          { key: "1",points: 0, label: "Glasflächen mit aufgeklebten Umrissen von Vögeln." },
-          { key: "2",points: 2, label: "Glasflächen mit aufgeklebten Vogelschutzstreifen. (Birdstripes)" },
+          { key: "0",points: 0, label: "Glasflächen ohne Vogelschutz.", measure: "A40.2" },
+          { key: "1",points: 0, label: "Glasflächen mit aufgeklebten Umrissen von Vögeln.", measure: "A40.2" },
+          { key: "2",points: 2, label: "Glasflächen mit aufgeklebten Vogelschutzstreifen. (Birdstripes)", measure: "A40.3" },
         ],
       });
 
@@ -1715,7 +1738,7 @@ define([
         placeholder: "Auswählen",
         points: "a_licht_points",
         options: [
-          { key: "0",points: 2, label: "Nein" },
+          { key: "0",points: 2, label: "Nein", measure: "A41.1" },
           { key: "1",points: 0, label: "Ja" },
         ],
         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
@@ -1744,8 +1767,8 @@ define([
         placeholder: "Auswählen",
         points: "b_lichtart_points",
         options: [
-          { key: "0",points: 0, label: "Einige Lichtquellen strahlen auch nach oben ab, beispielsweise zur Beleuchtung des Gebäudes." },
-          { key: "1",points: 1, label: "Gelbliche Lichtquellen, die fast nur nach unten strahlen, beispielsweise Wegbeleuchtung." },
+          { key: "0",points: 0, label: "Einige Lichtquellen strahlen auch nach oben ab, beispielsweise zur Beleuchtung des Gebäudes.", measure: "A41.2" },
+          { key: "1",points: 1, label: "Gelbliche Lichtquellen, die fast nur nach unten strahlen, beispielsweise Wegbeleuchtung.", measure: "A41.3" },
         ],
       });
 
@@ -1765,8 +1788,8 @@ define([
         placeholder: "Auswählen",
         points: "schaechte_points",
         options: [
-          { key: "0", points: 2, label: "Nein oder nur sehr wenige." },
-          { key: "1", points: 0, label: "Ja" },
+          { key: "0", points: 2, label: "Nein oder nur sehr wenige.", measure: "A42.1" },
+          { key: "1", points: 0, label: "Ja", measure: "A42.2" },
         ],
          //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
