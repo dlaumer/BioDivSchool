@@ -314,15 +314,24 @@ define([
     selectProject(projectId, name, owner) {
       this.projectChosenDiv.innerHTML =
         this.strings.get("chosenProject") + ": " + projectId + ", " + name;
+
+        start.buttons.style.display = "flex";
+        this.updateAttributes("project", projectId);
+
       if (start.userNameEsri != null && start.userNameEsri == owner) {
       //if (start.userNameEsri == null || (start.userNameEsri != null && start.userNameEsri == owner)) {
         this.buttons.style.display = "flex";
-        this.updateAttributes("project", projectId);
+        this.btn_collection.style.display = "flex";
+        this.btn_consolidation.style.display = "flex";
+        this.btn_project.style.display = this.intern == "true" ? "flex" : "none"
       }
       else {
-        start.buttons.style.display = "none";
-      start.removeFromAttributes("project");
+        this.btn_collection.style.display = "none";
+        this.btn_consolidation.style.display = "none";
+        this.btn_project.style.display = "none"
+        //start.removeFromAttributes("project");
       }
+
     }
 
     unSelectProject() {
@@ -405,6 +414,7 @@ define([
         "click",
         function (evt) {
           this.updateAttributes("mode", "results");
+          this.updateAttributes("group", "all");
 
           window.open(window.location.href, "_self");
 
