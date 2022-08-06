@@ -343,7 +343,7 @@ define([
       page_strukturelemente.addElement("mapInput", "versieg_geomoid", {
         text: `11: Markiere versiegelte Flächen in der gezeigten Untersuchungsfläche.`,
         area: "versieg_area",
-        measure: "A11.0"
+        measure: "A11.0",
         ratio: {
           key: "versieg_arearatio",
           stops: [{points:4, value: 0.33, measure: "A11.3"},{points:2, value: 0.5, measure: "A11.2"},{points:1, value: 0.66, measure: "A11.1"},{points:6, value:1, measure: "A11.1"}]
