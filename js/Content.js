@@ -1575,7 +1575,7 @@ define([
         text: "36: Was passiert im Herbst mit alten Samenständen von Gras, Blumen und Sträucher?",
         placeholder: "Auswählen",
         points: "samen_points",
-        measure: "A36.0"
+        measure: "A36.0",
         options: [
           { key: "0", points: 0, label: "Alle alten Samenstände werden eingesammelt und entsorgt.", measure: "A36.1" },
           { key: "1", points: 1, label: "Vereinzelt werden alte Samenstände bewusst belassen.", measure: "A36.2" },
