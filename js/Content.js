@@ -264,8 +264,8 @@ define([
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
-      elem10a.element.style.display = "none";
-      elem10b.element.style.display = "none";
+      elem10a.hide();
+      elem10b.hide();
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem10.rules = [{
         values: [
@@ -646,7 +646,7 @@ define([
       //[Falls bei 14 eine der beiden Optionen mit mehr als einem Baum angekreuzt wird, dann Fragen 14a und 14b einblenden:] gelöst durch mehrere Schnittmengen
 
       //14a_baeume
-      let elem14a = page_strukturelemente.addElement("radioButtonInput", "14a_baeume", {
+      let elem14a = page_strukturelemente.addElement("radioButtonInput", "a_baeume", {
         text: "14a: Sind insgesamt mindestens 3 verschiedene heimische Baumarten vorhanden?",
         placeholder: "Auswählen",
         points: "a_baeume_points",
@@ -657,7 +657,7 @@ define([
       });
 
        //14b_baeume
-       let elem14b = page_strukturelemente.addElement("radioButtonInput", "14b_baeume", {
+       let elem14b = page_strukturelemente.addElement("radioButtonInput", "b_baeume", {
         text: "14b: Haben mindestens zwei der Bäume einen Umfang von mehr als 2 Metern?",
         placeholder: "Auswählen",
         points: "b_baeume_points",
@@ -668,8 +668,8 @@ define([
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
-      elem14a.element.style.display = "none";
-      elem14b.element.style.display = "none";
+      elem14a.hide();
+      elem14b.hide();
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem14.rules = [{
         values: [
@@ -711,10 +711,10 @@ define([
       //[Falls bei 15 eine der beiden Optionen mit Gruppen von Sträuchern angekreuzt wird, dann Fragen 15a einblenden:]
 
        //15a_straeucher
-       let elem15a = page_strukturelemente.addElement("radioButtonInput", "15a_straeucher", {
+       let elem15a = page_strukturelemente.addElement("radioButtonInput", "a_straeucher", {
         text: "15a: Insgesamt mehr als 5 verschiedene heimische Straucharten.",
         placeholder: "Auswählen",
-        points: "15a_straeucher_points",
+        points: "a_straeucher_points",
         options: [
           { key: "0", points: 2, label: "Ja", measure: "A15.4"},
           { key: "1", points: 0, label: "Nein", measure: "A15.5"},
@@ -722,7 +722,7 @@ define([
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
-      elem15a.element.style.display = "none";
+      elem15a.hide();
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem15.rules = [{
         values: [
@@ -789,8 +789,8 @@ define([
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
-      elem16a.element.style.display = "none";
-      elem16b.element.style.display = "none";
+      elem16a.hide();
+      elem16b.hide();
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem16.rules = [{
         values: [
@@ -1306,9 +1306,9 @@ define([
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
-      elem29etal.element.style.display = "none";
-      elem29eberg1.element.style.display = "none";
-      elem29eberg2.element.style.display = "none";
+      elem29etal.hide();
+      elem29eberg1.hide();
+      elem29eberg2.hide();
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem29a.rules = [{
         values: [
@@ -1426,7 +1426,7 @@ define([
       });
       
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
-      elem32b.element.style.display = "none";
+      elem32b.hide();
       
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem32a.rules = [{
@@ -1514,10 +1514,10 @@ define([
     
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
-      elem33gras.element.style.display = "none";
-      elem33a.element.style.display = "none";    
+      elem33gras.hide();
+      elem33a.hide();    
 
-      elem34.element.style.display = "none";
+      elem34.hide();
 
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem33.rules = [{
@@ -1724,7 +1724,7 @@ define([
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
-      elem40b.element.style.display = "none";
+      elem40b.hide();
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem40a.rules = [{
         values: ["Ja"], 
@@ -1773,7 +1773,7 @@ define([
       });
 
        // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
-       elem41b.element.style.display = "none";
+       elem41b.hide();
        // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
        elem41a.rules = [{
          values: ["Ja"], 
@@ -1829,7 +1829,7 @@ define([
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
-      name.element.style.display = "none";
+      name.hide();
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       projektid.rules = [{
         values: [null], 
@@ -1843,7 +1843,7 @@ define([
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
-      school.element.style.display = "none";
+      school.hide();
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       name.rules = [{
         values: [null], 

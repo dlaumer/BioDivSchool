@@ -787,6 +787,12 @@ define([
       }
     }
 
+    hide() {
+      if (that.mode != "consolidation") {
+        this.element.style.display = "none";
+      }
+    }
+
     checkAllowedValues(value) {
 
       if (this.type == "radioButtonInput" || this.type == "dropdownInput") {
@@ -816,7 +822,15 @@ define([
     reportWindowSize() {
       if (document.getElementsByClassName("element").length > 0) {
         let i = 0;
-        while (document.getElementsByClassName("element")[i] && document.getElementsByClassName("element")[i].clientWidth == 0) {
+        //while (!document.getElementsByClassName("element")[i] || !document.getElementsByClassName("element")[i].hasOwnProperty('clientWidth') || document.getElementsByClassName("element")[i].hasOwnProperty('clientWidth') && document.getElementsByClassName("element")[i].clientWidth == 0) {
+        let notFound = true;
+        while (notFound && i<50) {
+          try {
+            notFound = document.getElementsByClassName("element")[i].clientWidth == 0
+          }
+          catch {
+
+          }
           i++;
         }
         this.elementWidth = document.getElementsByClassName("element")[i].clientWidth;

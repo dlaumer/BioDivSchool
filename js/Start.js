@@ -376,9 +376,9 @@ define([
       if (start.userNameEsri != null && start.userNameEsri == owner) {
       //if (start.userNameEsri == null || (start.userNameEsri != null && start.userNameEsri == owner)) {
         this.buttons.style.display = "flex";
-        this.btn_collection.style.display = "flex";
-        this.btn_consolidation.style.display = "flex";
-        this.btn_project.style.display = this.intern == "true" ? "flex" : "none"
+        this.btn_collection.style.display = "block";
+        this.btn_consolidation.style.display = "block";
+        this.btn_project.style.display = this.intern == "true" ? "block" : "none"
       }
       else {
         this.btn_collection.style.display = "none";
