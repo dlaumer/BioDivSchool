@@ -166,6 +166,7 @@ define([
         { id: "mapOverviewProjects", className: "mapOverviewProjects" },
         this.mapOverview
       );
+      
       this.mapOverviewMap = domCtr.create(
         "div",
         { id: "mapOverviewMap", className: "mapOverviewMap" },
@@ -268,12 +269,40 @@ define([
     addProjectMap() {
       this.viewOverview = this.arcgis.addMapOverview("mapOverviewMap");
       this.arcgis.readFeatures("project").then((results) => {
-        console.log(results);
+        start.mapOverviewProject.innerHTML = "";
+
+        if (start.userNameEsri != null) {
+          domCtr.create(
+            "div",
+            { innerHTML: start.strings.get("myProjects") },
+            start.mapOverviewProject
+          );
+          // Read all the own projects
+          for (let i in results) {
+            if (results[i].attributes.owner == start.userNameEsri) {
+              addProject(i)
+            }
+          }
+        }
+        
+        domCtr.create(
+          "div",
+          { innerHTML: start.strings.get("projects") },
+          start.mapOverviewProject
+        );
+        // Read all the other projects
         for (let i in results) {
+          if (results[i].attributes.owner != start.userNameEsri) {
+            addProject(i)
+          }
+        }
+
+        function addProject(i) {
+          
           let item = domCtr.create(
             "div",
             { className: "projects" },
-            this.mapOverviewProject
+            start.mapOverviewProject
           );
          
           domCtr.create(
@@ -281,7 +310,8 @@ define([
             {
               className: "projectElem",
               innerHTML: results[i].attributes.name,
-              style: "width:40%",
+              title: results[i].attributes.name,
+              style: "width:30%",
             },
             item
           );
@@ -290,21 +320,46 @@ define([
             {
               className: "projectElem",
               innerHTML: results[i].attributes.school,
+              title: results[i].attributes.school,
               style: "width:40%",
             },
             item
           );
+          let additionalInfo = domCtr.create(
+            "div",
+            {
+              className: "projectElemCreation",
+              style: "width:30%",
+            },
+            item
+          );
+
+          let creationDate =  new Date(results[i].attributes.CreationDate);
+          domCtr.create(
+            "div",
+            {
+              innerHTML: creationDate.toISOString().slice(0, 10),
+            },
+            additionalInfo
+          );
+          domCtr.create(
+            "div",
+            {
+              innerHTML: results[i].attributes.owner,
+            },
+            additionalInfo
+          );
           item.addEventListener("click", () => {
-            this.viewOverview.goTo(results[i].geometry);
-            this.selectProject(
+            start.viewOverview.goTo(results[i].geometry);
+            start.selectProject(
               results[i].attributes.projectid,
               results[i].attributes.name, 
               results[i].attributes.owner,
             );
-            if (this.projectSelected !== null) {
-              this.projectSelected.className = "projects";
+            if (start.projectSelected !== null) {
+              start.projectSelected.className = "projects";
             }
-            this.projectSelected = item;
+            start.projectSelected = item;
             item.className = "projects projects_active";
           });
         }

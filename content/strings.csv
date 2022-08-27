@@ -45,4 +45,6 @@ versionLabel;Version;Version;Version;
 langLabel;Sprache;Langue;Language;
 feature;Fläche;Surface;Feature;
 instructions;Anleitung;Instructions;Instructions;
-areas; Gebiete; Areas; Zonesm
+areas; Gebiete; Areas; Zones;
+myProjects; Meine Projekte; My Projects; Mes projets;
+projects; Projekte; Projects; Projets;

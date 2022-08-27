@@ -52,7 +52,7 @@ body {
 
 .mapOverviewProjects{
   height: 100%;
-  width: 30%;
+  width: 40%;
   overflow: auto;
   padding: 10px;
   
@@ -112,12 +112,26 @@ body {
   border: 1px solid black;
   font-size: min(2vmax, 18px);
   cursor: pointer;
-
+  padding: 0 10px;
 }
 
 .projectElem {
   text-align: left;
   overflow: hidden; 
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.projectElemCreation {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  font-size: min(1vmax, 11px);
+  justify-content: space-around;
+  overflow: hidden; 
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
 }
 
 #splashScreen {
