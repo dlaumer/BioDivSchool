@@ -320,9 +320,9 @@ define([
         for (let i = args.min; i <= args.max; i += stepTicks) {
           domCtr.create("div", { className: "ticks" }, this.ticksContainer);
         }
-        this.labelContainer = domCtr.create("div", { className: "ticksContainer", style: "padding: 0 5px;" }, this.sliderContainer2);
-        domCtr.create("div", { className: "labels", innerHTML: args.min }, this.labelContainer);
-        domCtr.create("div", { className: "labels", innerHTML: args.max }, this.labelContainer);
+        this.labelsContainer = domCtr.create("div", { className: "ticksContainer", style: "padding: 0 5px;" }, this.sliderContainer2);
+        domCtr.create("div", { className: "labels", innerHTML: args.min }, this.labelsContainer);
+        domCtr.create("div", { className: "labels", innerHTML: args.max }, this.labelsContainer);
 
         this.bubble = domCtr.create("div", { className: "bubble" }, this.sliderContainer);
         this.input.addEventListener("input", () => {
@@ -349,11 +349,11 @@ define([
         this.setter(this.input.value, false)
       }.bind(this));
 
-      /*
+      
       on(this.input, "change", function (evt) {
         this.setter(this.input.value)
       }.bind(this));
-      */
+      
 
       this.setterUI = function (value) {
         if (that.mode == "results") {
@@ -816,7 +816,7 @@ define([
     reportWindowSize() {
       if (document.getElementsByClassName("element").length > 0) {
         let i = 0;
-        while (document.getElementsByClassName("element")[i].clientWidth == 0) {
+        while (document.getElementsByClassName("element")[i] && document.getElementsByClassName("element")[i].clientWidth == 0) {
           i++;
         }
         this.elementWidth = document.getElementsByClassName("element")[i].clientWidth;

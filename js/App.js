@@ -508,7 +508,7 @@ define([
           let element = page.elements[j];
           // 1. if it's a map element, get the ids
           if (element.type == "mapInput") {
-            let layerData = { name: element.key, value: element.value, color: element.color };
+            let layerData = { name: element.key, value: element.value, color: element.color, name_display: element.name_display };
             if (!Object.keys(that.results).includes("mapLayers")) {
               that.results.mapLayers = []
             }

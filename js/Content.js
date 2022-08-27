@@ -521,8 +521,8 @@ define([
             { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" , measure: "A13.7"  },
           ]
         },
-        color: [87, 72, 242, 0.7],
-        name_display : "Strüäucher oder Hecken",
+        color: [185, 184, 106, 0.7],
+        name_display : "Sträucher oder Hecken",
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -588,7 +588,7 @@ define([
             { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" , measure: "A13.7"  },
           ]
         },
-        color: [185, 184, 106, 0.7],
+        color: [87, 72, 242, 0.7],
         name_display : "Gewässer",
           textInfo: {
           linkText: "Zusatzinfos",
@@ -673,7 +673,7 @@ define([
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem14.rules = [{
         values: [
-          "Bäume in deutlich unterschiedlichen Höhen vorhanden.",
+          "Bäume in zwei deutlich unterschiedlichen Höhen vorhanden.",
           "Bäume in drei deutlich unterschiedlichen Höhen vorhanden." ], 
         elements: [elem14a, elem14b]
       }]
@@ -767,10 +767,10 @@ define([
 
       //[Falls bei 16 eine der beiden Optionen mit Hecken mit heimischen Sträuchern angekreuzt wird, dann Fragen 16a und 16b einblenden:]
       //16a_hecken
-      let elem16a = page_strukturelemente.addElement("radioButtonInput", "16a_hecken", {
+      let elem16a = page_strukturelemente.addElement("radioButtonInput", "a_hecken", {
         text: "16a: In der Hecke sind insgesamt mehr als 5 verschiedene heimische Straucharten vorhanden.",
         placeholder: "Auswählen",
-        points: "16a_hecken_points",
+        points: "a_hecken_points",
         options: [
           { key: "0", points: 2, label: "Ja", measure: "A16.4" },
           { key: "1", points: 0, label: "Nein", measure: "A16.5" },
@@ -778,10 +778,10 @@ define([
       });
 
       //16b_hecken
-      let elem16b = page_strukturelemente.addElement("radioButtonInput", "16b_hecken", {
+      let elem16b = page_strukturelemente.addElement("radioButtonInput", "b_hecken", {
         text: "16a: Eine Hecke ist mindestens 2 Meter breit und 10 Meter lang.",
         placeholder: "Auswählen",
-        points: "16b_hecken_points",
+        points: "b_hecken_points",
         options: [
           { key: "0", points: 1, label: "Ja", measure: "A16.6" },
           { key: "1", points: 0, label: "Nein", measure: "A16.7" },
@@ -1166,14 +1166,14 @@ define([
       }) 
 
       //28_geraet
-      page_pflege.addElement("sliderInput", "28_geraet", {
+      page_pflege.addElement("sliderInput", "geraet", {
         text: "28: Mit welchen Geräten werden Grasflächen (ohne Sportrasen) geschnitten? Stelle mit dem Regler ein, auf welchem Anteil der Grasflächen mit mit Sense oder Balkenmäher  gemäht wird:",
         min: 0,
         max: 100,
         step: 0.1,
         stops: [{points: 0, value:20, measure: "A28.1"},{points:1, value:50, measure: "A28.2"},{points:2, value:80, measure: "A28.2"},{points:3, value:100, measure: "A28.3"}], 
         measure: "A28.0",
-        points: "28_geraet_points",
+        points: "geraet_points",
       });
       //0 P.	< 20 %, 1 P.	21 – 50 %, 2 P.	51 % - 80 %, 3 P.	> 80% 
 
@@ -1383,7 +1383,7 @@ define([
       }) 
 
       //32a_unkraut
-      let elem32a = page_pflege.addElement("radioButtonInput", "32a_unkraut", {
+      let elem32a = page_pflege.addElement("radioButtonInput", "a_unkraut", {
         text: "32a: Werden Unkräuter oder unerwünschte Pflanzen überhaupt regelmässig bekämpft?",
         placeholder: "Auswählen",
         measure: "A32.0", 
@@ -1391,7 +1391,7 @@ define([
           { key: "0", points: 0, label: "Ja", measure: "A32.?" },
           { key: "1", points: 4, label: "Nein", measure: "A32.1"  },
         ],
-        points: "32a_unkraut_points",
+        points: "a_unkraut_points",
         textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -1413,7 +1413,7 @@ define([
       });
 
        //32b_unkraut
-       let elem32b = page_pflege.addElement("radioButtonInput", "32b_unkraut", {
+       let elem32b = page_pflege.addElement("radioButtonInput", "b_unkraut", {
         text: "32b: Wie werden Unkräuter oder unerwünschte Pflanzen zur Hauptsache bekämpft?",
         placeholder: "Auswählen",
         measure: "A32.0", 
@@ -1422,7 +1422,7 @@ define([
           { key: "1", points: 1, label: "25 - 75 % der gesamten Unkrautbekämpfung erfolgt mit chemischen Mitteln, so genannten Herbiziden.", measure: "A32.3"  },
           { key: "2", points: 2, label: "Weniger als 25 % der gesamten Unkrautbekämpfung erfolgt mit chemischen Mitteln, so genannten Herbiziden.", measure: "A32.4"  },
         ],
-        points: "32b_unkraut_points",
+        points: "b_unkraut_points",
       });
       
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
@@ -1487,7 +1487,7 @@ define([
           { key: "0",points: 0, label: "Mehr als die Hälfte des Bodens wird ohne Analyse des Bodens gedüngt.", measure: "A33.2"  },
           { key: "1",points: 2, label: "Weniger als die Hälfte des Bodens wird ohne Analyse des Bodens gedüngt.", measure: "A33.3"  },      
         ],
-        points: "33a_duengen_points",     
+        points: "a_duengen_points",     
       });    
   
 
@@ -1502,7 +1502,7 @@ define([
           { key: "1",points: 1, label: "Mehr als die Hälfte der Düngemittel sind organischer Dünger wie Jauche, Mist oder Mulch oder Bio-Knospenprodukte.", measure: "A34.2" },  
           { key: "2",points: 2, label: "Mehr als die Hälfte der Düngemittel ist eigener Kompost.", measure: "A34.3" },      
         ],
-        points: "34_mitteln_points",
+        points: "mitteln_points",
         textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -1900,6 +1900,7 @@ define([
         2. Klicke auf die Projektfläche. <br>
         3. Ändere die Form der Projektfläche oder die Attribute (ID, Ort, Schule). <br>
         4. Klicke auf Aktualisieren. <br>
+        5. Falls du dein Projekt löschen willst, klicke auf Löschen.
         ` 
       });
 
