@@ -620,12 +620,12 @@ define([
                       fieldName: "school",
                       label: "Schule",
                     },
-                    {
+                    /*{
                       // autocastable to FieldElement
                       type: "field",
                       fieldName: "owner",
                       label: "Owner",
-                    },
+                    },*/
                   ],
                 },
               };
@@ -841,7 +841,7 @@ define([
             portalItem: {
               id: this.links.geometryLayerId,
             },
-            title: mapLayers[i].name,
+            title: mapLayers[i].name_display,
             definitionExpression:  "objectid in (" + mapLayers[i].value.substring(1,mapLayers[i].value.length-1) + ")",
             renderer: {
               type: "simple", // autocasts as new SimpleRenderer()

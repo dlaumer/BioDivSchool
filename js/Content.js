@@ -1820,7 +1820,7 @@ define([
 
       let projektid = page0.addElement("simpleTextInput", "projectid", {
         text: "Projekt ID",
-        placeholder: " PLZ_Nachname der Lehrperson",
+        placeholder: " PLZ_NachnameLehrperson_Jahr",
       });
 
       let name = page0.addElement("simpleTextInput", "name", {
@@ -1884,20 +1884,22 @@ define([
     editProject() {
       let page0 = this.app.addPage("Projekt Infos");
 
+      page0.addTextInfo({
+        title: "Erfassung",
+      })
      
+      page0.addTextInfo({
+        title: "Projekt bearbeiten",
+      })
       page0.addElement("mapInput", "gebiete", { 
         color: [255,0, 0, 0.7],
         name_display : "Untersuchungsgebiet",
-        text: `Zeichne die Untersuchungsfläche ein:<br> <br> 
+        text: `Bearbeite dein Projekt:<br> <br> 
 
-        1. Finde deinen Standort mit dem entsprechendem Button in der Karte. Unter Umständen muss dazu in der Systemeinstellung der Ortungsdienst für den verwendeten Browser aktiviert werden. <br>
-        2. Klicke auf "Feature hinzufügen" um in den Zeichnungs-Modus zu wechseln. <br>
-        3. Wechsle zur Karte im Vollbildmodus. <br>
-        4. Untersuchungsfläche einzeichnen. Beim letzten eingezeichneten Punkt Doppelklick, um Fläche abzuschliessen. <br>
-        5. Esc-Taste drücken, um zur Normalansicht zurückzukehren. <br>
-        6. Fülle danach die ID, Ort und Name der Schule ein. Die ID sollte folgendem Format entsprechen: PLZ_Nachname der Lehrperson <br>
-        7. Klicke auf "Hinzufügen" um eingezeichnete Fläche hinzuzufügen. <br>
-
+        1. Klicke auf "Feature bearbeiten". <br>
+        2. Klicke auf die Projektfläche. <br>
+        3. Ändere die Form der Projektfläche oder die Attribute (ID, Ort, Schule). <br>
+        4. Klicke auf Aktualisieren. <br>
         ` 
       });
 

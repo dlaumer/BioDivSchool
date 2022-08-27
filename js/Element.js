@@ -370,6 +370,7 @@ define([
 
     addMap(args) {
       this.color = args.color;
+      this.name_display = args.name_display;
       this.element.className = "element"
       this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text, style: "width: 100%;" }, this.labelContainer);
       this.mapContainer = domCtr.create("div", { className: "mapContainer" }, this.element);
@@ -712,7 +713,7 @@ define([
         else if (that.mode == "project" && (this.key == "school" || this.key == "projectid" || this.key == "name" )) {
           //that.arcgis.handleSignInOut();
           this.map.prototype.attributes[this.key] = this.value;
-          //this.map.prototype.attributes["owner"] = start.userNameEsri;
+          this.map.prototype.attributes["owner"] = that.userNameEsri;
         }
       })
 
