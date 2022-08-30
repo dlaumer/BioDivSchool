@@ -128,7 +128,7 @@ define([
             queryParams.set("mode", "collection");
             queryParams.delete("intern");
             let url = window.location.href.split("?")[0] + "?" + queryParams.toString();
-            domCtr.create("div", { className: "labelText", innerHTML: "Link: <a href="+url+" target=_blank>"+url+"</a>", style: "width: 100%; margin-bottom: 10px;"}, document.getElementById("textInfo_Erfassung"));
+            domCtr.create("div", { className: "labelText", innerHTML: that.strings.get("link") + ": <a href="+url+" target=_blank>"+url+"</a>", style: "width: 100%; margin-bottom: 10px;"}, document.getElementById("textInfo_Erfassung"));
             domCtr.create("div", { id: "qrcode"}, document.getElementById("textInfo_Erfassung"));
 
             new QRCode(document.getElementById("qrcode"), url);

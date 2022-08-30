@@ -25,6 +25,7 @@ input[type=checkbox]
   --gray: #bebebe;
   --very_gray: #f5f3f3;
   --project: #4ba000;
+  --projectLight: #4ba000b0;
   --expandable: #7fd63266;
   --highlight: #e0ca3c;
   --dark_gray: #4c4c4c;
@@ -93,12 +94,17 @@ body {
 }
 
 .projects:hover {
-  background-color: var(--very_gray);
+  background-color: var(--projectLight);
 }
 
 .projects_active{
-  background-color: var(--project)!important;
-  color: white!important;
+  background-color: var(--project  ) !important;
+  color: white !important;
+
+}
+
+.projects_active:hover {
+  opacity: 1 !important;
 }
 
 .projects {
@@ -113,6 +119,7 @@ body {
   font-size: min(2vmax, 18px);
   cursor: pointer;
   padding: 0 10px;
+  background-color: var(--expandable);
 }
 
 .projectElem {
