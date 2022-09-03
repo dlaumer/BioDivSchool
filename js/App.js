@@ -82,7 +82,7 @@ define([
               this.arcgis.checkData(that.projectId, that.groupId, (info) => {
                 if (info != null) {
                   let data = info.data;
-                  //this.saveJSON(data)
+                  this.saveJSON(data)
                   that.objectId = info.objectId;
                   if (!info.newFeature) {
                     that.loadInputs(data.attributes);
@@ -96,7 +96,6 @@ define([
       } else {
 
         that.content.init();
-
         var data = JSON.parse(exampleData);
         that.loadInputs(data.attributes);
 
@@ -206,7 +205,7 @@ define([
       this.infoBox.innerHTML =
         that.mode == "project"
           ? that.projectName + ", " + that.schoolName + " <small>(" + that.projectId + ")</small>"
-          : that.projectName + ", " + that.schoolName + " <small>(" + that.projectId + ")</small>, " + this.strings.get("group") + ": " + this.groupId;
+          : that.projectName + ", " + that.schoolName + " <gitsmall>(" + that.projectId + ")</small>, " + this.strings.get("group") + ": " + this.groupId;
       this.save.className = "btn1 btn_disabled";
       document.onkeydown = this.checkKey;
 
@@ -470,8 +469,10 @@ define([
 
         if (item in elements && data[item] != null) {
           if (elements[item].checkAllowedValues(data[item])) {
-            setterPromises.push(elements[item].setter(data[item], false));
-            elements[item].setterUI(data[item]);
+            setterPromises.push(elements[item].setter(data[item], false).then(() => {
+              elements[item].setterUI(data[item]);
+
+            }));
           }
         }
       }
@@ -791,7 +792,7 @@ define([
       });
       let a = document.createElement("a");
       a.href = URL.createObjectURL(bl);
-      a.download = "data.json";
+      a.download = "data2.json";
       a.hidden = true;
       document.body.appendChild(a);
       a.innerHTML =

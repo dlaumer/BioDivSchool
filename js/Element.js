@@ -127,7 +127,7 @@ define([
         }.bind(this));
       }
       else {
-        this.input = domCtr.create("div", { className: "groupResult input", innerHTML: "" }, this.element)
+        this.input = domCtr.create("div", { className: " input", innerHTML: "" }, this.element)
       }
 
       this.setterUI = function (value) {
@@ -357,7 +357,7 @@ define([
 
       this.setterUI = function (value) {
         if (that.mode == "results") {
-          this.setterUINonEdit(this.input, value)
+          this.setterUINonEdit(this.input, value + "%")
         }
         else {
           this.input.value = value
@@ -379,8 +379,11 @@ define([
       this.editorContainer = domCtr.create("div", { className: "editor" }, this.mapContainer);
       this.editor = domCtr.create("div", { id: this.name + "_editor" }, this.editorContainer);
       if (that.mode == "results") {
-        this.input.style = "width:100%";
-        this.editorContainer.style.display = "none";
+        //this.input.style = "width:100%";
+        this.editorContainer.innerHTML = "";
+        this.input.style = "width:50vw;";
+        this.mapContainer.style = "justify-content: space-between;";
+        this.editorContainer.style = "width:40%;"
       }
       this.linkInstructions = domCtr.create("div", { className: "labelText linkText", innerHTML: that.strings.get("instructions") }, this.element);
       this.instructions = domCtr.create("div", { className: "expandable", innerHTML: that.content.instructions, }, this.element);
@@ -580,18 +583,21 @@ define([
       }
       else {
 
-        domCtr.create("div", { className: "groupResult", innerHTML: value }, container);
+        domCtr.create("div", { className: "result", innerHTML: value }, container);
         
       }
       if (that.mode == "results") {
         if (this.measure != null) {
-          domCtr.create("div", { className: "groupResult", innerHTML: that.strings.get(this.measure) }, container)
+          if (this.type == "mapInput") {
+            domCtr.create("div", { className: "measure", innerHTML: that.strings.get(this.measure) }, this.editorContainer)
+
+          }
+          else {
+            domCtr.create("div", { className: "measure", innerHTML: that.strings.get(this.measure) }, container)
+          }
 
         }
       }
-
-      
-
     }
 
 
@@ -674,7 +680,7 @@ define([
               }
 
               if (that.showPoints) {
-                this.pointsInfo.innerHTML = this.points == 1 ? "(" + this.points + " " + that.strings.get("point") + ")" : "(" + this.points + " " + that.strings.get("point") + ")";
+                this.pointsInfo.innerHTML = this.points == 1 ? "(" + this.points + " " + that.strings.get("point") + ")" : "(" + this.points + " " + that.strings.get("points") + ")";
               }
 
 

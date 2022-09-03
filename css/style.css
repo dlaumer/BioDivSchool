@@ -306,7 +306,16 @@ body {
 
 
 .groupResult {
-  width: 100%;
+  flex-direction: column !important;;
+}
+
+.result {
+  background-color: var(--expandable);
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.measure {
   background-color: var(--gray);
   padding: 10px;
 }
