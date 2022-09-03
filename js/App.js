@@ -70,7 +70,9 @@ define([
       if (!this.offline) {
         // Check if this project alreayd exists
         this.arcgis.checkDataProject(that.projectId, (info) => {
-          that.projectAreaId = "[" + info.toFixed(0) + "]";
+          that.projectAreaId = "[" + info.getObjectId().toFixed(0) + "]";
+          that.projectName = info.attributes["name"];
+          that.schoolName = info.attributes["school"];
           that.content.init();
 
           this.arcgis
@@ -81,7 +83,6 @@ define([
                 if (info != null) {
                   let data = info.data;
                   //this.saveJSON(data)
-                  console.log(data);
                   that.objectId = info.objectId;
                   if (!info.newFeature) {
                     that.loadInputs(data.attributes);
@@ -202,10 +203,10 @@ define([
       this.pages[0].init(null);
       this.currentPage = 0;
       // TODO Warning if did not work!
-      this.userName.innerHTML =
+      this.infoBox.innerHTML =
         that.mode == "project"
-          ? this.strings.get("project") + ": " + this.projectId
-          : this.strings.get("project") + ": " + this.projectId + ", " + this.strings.get("group") + ": " + this.groupId;
+          ? that.projectName + ", " + that.schoolName + " <small>(" + that.projectId + ")</small>"
+          : that.projectName + ", " + that.schoolName + " <small>(" + that.projectId + ")</small>, " + this.strings.get("group") + ": " + this.groupId;
       this.save.className = "btn1 btn_disabled";
       document.onkeydown = this.checkKey;
 
@@ -229,7 +230,7 @@ define([
         this.header
       );
 
-      this.userName = domCtr.create("div", { id: "userName" }, this.header);
+      this.infoBox = domCtr.create("div", { id: "userName" }, this.header);
       this.startPage = domCtr.create(
         "div",
         { id: "startPage", className: "btn1", innerHTML: this.strings.get("startPage") },

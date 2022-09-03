@@ -354,6 +354,7 @@ define([
             start.selectProject(
               results[i].attributes.projectid,
               results[i].attributes.name, 
+              results[i].attributes.school,
               results[i].attributes.owner,
             );
             if (start.projectSelected !== null) {
@@ -366,9 +367,9 @@ define([
       });
     }
 
-    selectProject(projectId, name, owner) {
+    selectProject(projectId, name, school, owner) {
       this.projectChosenDiv.innerHTML =
-        this.strings.get("chosenProject") + ": " + projectId + ", " + name;
+        this.strings.get("chosenProject") + ": " + name + ", " + school + " <small>(" + projectId + ")</small>" ;
 
         start.buttons.style.display = "flex";
         this.updateAttributes("project", projectId);

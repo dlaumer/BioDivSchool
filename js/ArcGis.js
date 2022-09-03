@@ -243,7 +243,6 @@ define([
       });
     }
 
-    // function to add one row to the table
     checkDataProject(projectId, callback) {
       let featureClass = this.project;
 
@@ -253,7 +252,7 @@ define([
       featureClass.queryFeatures(query).then((results) => {
         // If it already exists, load the existing values
         if (results.features.length > 0) {
-          callback(results.features[0].getObjectId());
+          callback(results.features[0]);
         } else {
           alert("Dieses Projekt existiert noch nicht!");
         }
