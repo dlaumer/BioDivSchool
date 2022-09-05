@@ -157,7 +157,7 @@ define([
       if (!this.offline) {
         // Check if this project alreayd exists
         this.arcgis.checkDataProject(that.projectId, (info) => {
-          that.projectAreaId = "[" + info.toFixed(0) + "]";
+          that.projectAreaId = "[" + info.getObjectId().toFixed(0) + "]";
           that.content.init();
 
           this.arcgis

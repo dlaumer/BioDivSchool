@@ -350,18 +350,23 @@ define([
             additionalInfo
           );
           item.addEventListener("click", () => {
-            start.viewOverview.goTo(results[i].geometry);
-            start.selectProject(
-              results[i].attributes.projectid,
-              results[i].attributes.name, 
-              results[i].attributes.school,
-              results[i].attributes.owner,
-            );
-            if (start.projectSelected !== null) {
-              start.projectSelected.className = "projects";
+            if (start.projectSelected == item) {
+              start.unSelectProject();
             }
-            start.projectSelected = item;
-            item.className = "projects projects_active";
+            else {
+              start.viewOverview.goTo(results[i].geometry);
+              start.selectProject(
+                results[i].attributes.projectid,
+                results[i].attributes.name, 
+                results[i].attributes.school,
+                results[i].attributes.owner,
+              );
+              if (start.projectSelected !== null) {
+                start.projectSelected.className = "projects";
+              }
+              start.projectSelected = item;
+              item.className = "projects projects_active";
+            }
           });
         }
       });

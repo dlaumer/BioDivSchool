@@ -485,6 +485,7 @@ define([
             homeButton.viewpoint = new Viewpoint({
               targetGeometry: projectAreaFeature[0].geometry.extent,
             });
+            //projectArea.selectFeatures(projectAreaFeature);
           }
         );
       }
@@ -633,6 +634,7 @@ define([
 
             if (that.projectAreaId != null) {
               layerInfos.addEnabled = false;
+              //editor.startUpdateWorkflowAtFeatureEdit();
             }
             else {
               layerInfos.updateEnabled = false;

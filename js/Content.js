@@ -33,17 +33,23 @@ define([
 
       this.instructions = `
       Hinzufügen: <br>
-      1.	Zu Vollbild wechseln  <br>
-      2.	Mit Einfach-Klicks Eckpunkte der Fläche einzeichnen.<br>
-      3.	Den letzten Punkt mit Doppelklick setzen.<br>
-      4.	Zum Abschliessen auf Schaltfläche «Hinzufügen» klicken.<br> <br>
+      1.  Im Editor auf «Fläche hinzufügen» klicken <br>
+      2.	Zu Vollbild wechseln  <br>
+      3.	Mit Einfach-Klicks Eckpunkte der Fläche einzeichnen.<br>
+      4.	Den letzten Punkt mit Doppelklick setzen.<br>
+      5.	Zum Abschliessen auf Schaltfläche «Hinzufügen» klicken.<br> <br>
 
       Bearbeiten <br>
-      1.	Fläche einmal anklicken. <br>
-      2.	Sobald Fläche aktiviert ist, Fläche noch einmal anklicken. <br>
-      3.	Eckpunkte wie gewünscht verschieben. <br>
-      4.	Zum Abschliessen die Schaltfläche «Aktualisieren» anklicken. <br>
+      1.  Im Editor auf «Fläche bearbeiten» klicken <br>
+      2.	Fläche einmal anklicken. <br>
+      3.	Sobald Fläche aktiviert ist, Fläche noch einmal anklicken. <br>
+      4.	Eckpunkte wie gewünscht verschieben. <br>
+      5.	Zum Abschliessen die Schaltfläche «Aktualisieren» anklicken. <br> <br>
 
+      Löschen <br>
+      1.  Im Editor auf «Fläche bearbeiten» klicken <br>
+      2.	Fläche einmal anklicken. <br>
+      5.	Die Schaltfläche «Löschen» anklicken. <br>
 
       `
     }
