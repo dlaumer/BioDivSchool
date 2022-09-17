@@ -434,6 +434,7 @@ body {
   max-width: 30vw;
   cursor: pointer;
   display: block;
+  height: fit-content;
 }
 
 .save {
@@ -530,6 +531,7 @@ body {
   padding: 10px;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .textInfoElements {
@@ -550,7 +552,7 @@ body {
     flex-direction: column;
     justify-content: center;
       text-align: left;
-  width: 50vw;
+      width: 100%
 }
 
 .labelFinal {

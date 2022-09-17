@@ -376,7 +376,7 @@ define([
       this.mapContainer = domCtr.create("div", { className: "mapContainer" }, this.element);
       this.input = domCtr.create("div", { id: this.name + "_map", className: "map" }, this.mapContainer);
 
-      this.editorContainer = domCtr.create("div", { className: "editor" }, this.mapContainer);
+      this.editorContainer = domCtr.create("div", { id: this.name + "_editor", className: "editor" }, this.mapContainer);
       this.editor = domCtr.create("div", { id: this.name + "_editor" }, this.editorContainer);
       if (that.mode == "results") {
         //this.input.style = "width:100%";
@@ -385,11 +385,20 @@ define([
         this.mapContainer.style = "justify-content: space-between;";
         this.editorContainer.style = "width:40%;"
       }
-      this.linkInstructions = domCtr.create("div", { className: "labelText linkText", innerHTML: that.strings.get("instructions") }, this.element);
-      this.instructions = domCtr.create("div", { className: "expandable", innerHTML: that.content.instructions, }, this.element);
+      this.linkInstructions = domCtr.create("div", { id: "linkInstructions", className: "labelText linkText", innerHTML: that.strings.get("instructions") }, this.editorContainer);
+      this.instructions = domCtr.create("div", { className: "expandable" }, this.element);
 
+      this.instructionsText = domCtr.create("div", {innerHTML: that.content.instructions, }, this.instructions);
+     this.instructionsClose =  domCtr.create("div", {className: "btn1", innerHTML: that.strings.get("close"), }, this.instructions);
+
+     this.instructionsClose
+
+     on(this.instructionsClose, "click", function (evt) {
+      this.instructions.style.display = "";
+    }.bind(this));
       on(this.linkInstructions, "click", function (evt) {
         this.instructions.style.display = this.instructions.style.display == "" ? "flex" : "";
+        this.instructions.scrollIntoView({behavior: "smooth", block: 'start'});
       }.bind(this));
       if (!that.offline) {
         that.arcgis.addMap(this.input.id, this.editor.id, this, (info) => {

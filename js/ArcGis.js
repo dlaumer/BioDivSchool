@@ -581,7 +581,10 @@ define([
           editor.viewModel.watch('state', function(state){
             if(state === 'ready'){
               setTimeout(function(){
-                var actions = document.getElementsByClassName("esri-editor__feature-list-name");
+                let container = document.querySelector("#" + element.name + "_editor");
+                domCtr.place(container.querySelector('#linkInstructions'), container.querySelector('.esri-editor__header'), "after")
+
+                  var actions = document.getElementsByClassName("esri-editor__feature-list-name");
                 Array.from(actions).forEach(function(ele){
                   ele.innerHTML = ele.innerHTML.replace("Feature", that.strings.get("feature"))
                 });
