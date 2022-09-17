@@ -1279,7 +1279,7 @@ define([
       //[Je nach gewählter Zone wird in 29e nur die entsprechende Frage zum Anklicken angezeigt:]
 
       //29etal
-      let elem29etal = page_pflege.addElement("radioButtonInput", "b_schnitt", {
+      let elem29etal = page_pflege.addElement("radioButtonInput", "e_tal_schnitt", {
         text: "29e: [Tal- und Hügelzone] Gibt es Grasflächen (grösser als vier Autoparkplätze), die erst nach dem 15. Juni geschnitten werden?",
         placeholder: "Auswählen",
         points: "e_schnitt_points",

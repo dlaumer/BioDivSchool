@@ -8,6 +8,10 @@ Holds all the input elements for ONE feature in the database, one key-value pair
 
 let style = document.createElement('style')
 style.innerHTML = `
+
+        .labelContainer {
+          width: 100% !important;
+        }
         .input {
           width: 100% !important;
         }
@@ -61,7 +65,13 @@ define([
       this.rules = null;
 
       this.elementWidth = 0;
-      window.onresize = this.reportWindowSize
+      if (that.mode == "consolidation") {
+        document.head.appendChild(style);
+      }
+      else {
+        window.onresize = this.reportWindowSize
+
+      }
 
     }
 
