@@ -24,16 +24,22 @@ define([
       that.pointsTotal = 0;
       that.projectAreaId = null;
       that.mode = mode;
-      this.offline = offline;
+      that.offline = offline;
       that.consolidationWidth = null;
       that.strings = strings;
       that.version = version;
       that.results = {};
+      that.pages = [];
+      that.pageNo = 0;
 
       that.arcgis = new ArcGis(that.strings);
 
-
-      that.showPoints = true;
+      if (this.mode == "collection") {
+        that.showPoints = false;
+      }
+      else {
+        that.showPoints = true;
+      }
 
       if (!this.offline) {
         this.arcgis.init(() => {
@@ -41,7 +47,7 @@ define([
             this.arcgis.initProject(() => {
               this.createUI();
               this.clickHandler();
-              this.pages = [];
+              
               callback();
             });
           });
@@ -49,7 +55,6 @@ define([
       } else {
         this.createUI();
         this.clickHandler();
-        this.pages = [];
         callback();
       }
     }
@@ -82,7 +87,7 @@ define([
               this.arcgis.checkData(that.projectId, that.groupId, (info) => {
                 if (info != null) {
                   let data = info.data;
-                  this.saveJSON(data)
+                  //this.saveJSON(data)
                   that.objectId = info.objectId;
                   if (!info.newFeature) {
                     that.loadInputs(data.attributes);
@@ -116,12 +121,13 @@ define([
       if (!this.offline) {
         this.arcgis.checkData(that.projectId, null, (info) => {
           if (info != null) {
-            let data = info.data;
-            that.objectId = info.objectId;
+            that.projectName = info.attributes["name"];
+            that.schoolName = info.attributes["school"];
+            that.objectId = info.getObjectId();
             that.projectAreaId = "[" + that.objectId.toFixed(0) + "]";
             that.content.editProject();
             if (!info.newFeature) {
-              that.loadInputs(data.attributes);
+              that.loadInputs(info.attributes);
             }
             // Add the url for the collection
             var queryParams = new URLSearchParams(window.location.search);
@@ -158,6 +164,10 @@ define([
         // Check if this project alreayd exists
         this.arcgis.checkDataProject(that.projectId, (info) => {
           that.projectAreaId = "[" + info.getObjectId().toFixed(0) + "]";
+
+          that.projectName = info.attributes["name"];
+          that.schoolName = info.attributes["school"];
+
           that.content.init();
 
           this.arcgis
@@ -430,7 +440,7 @@ define([
 
           domCtr.create(
             "div",
-            { class: "contentLink", innerHTML: pageNr + ". " + title },
+            { class: "contentLink", innerHTML: (that.pageNo + 1) + ". " + title },
             page.pageOverview
           );
           page.pageOverview.addEventListener("click", () => {
@@ -438,6 +448,7 @@ define([
           });
 
         }
+        that.pageNo = that.pageNo + 1;
         return page;
       }
     }
@@ -485,8 +496,6 @@ define([
     }
 
     parseGroups(data) {
-      console.log("Anzahl Gruppen: " + data.length.toFixed(0));
-
       let newData = {};
       for (let item in data[0].attributes) {
         newData[item] = {};
@@ -525,13 +534,7 @@ define([
           }
 
         }
-        console.log(points);
-
-        console.log(maxPoints);
-        console.log(minPoints);
-
-
-
+      
         let pointBar = domCtr.create(
           "div",
           { class: "pointsBar pointsNumber" },
@@ -696,9 +699,10 @@ define([
     finalize() {
       that.saveData(() => {
         that.lastPage.addWarning(that.strings.get("warnSaveSuccess"));
-        window.open(
-          that.offline ? window.location.href.split("/").slice(0, -1).join("/") + "/" + '/indexResultsOffline.html?project=' + that.projectId + '&group=' + that.groupId : window.location.href.split("/").slice(0, -1).join("/") + "/" + '/indexResults.html?project=' + that.projectId + '&group=' + that.groupId   ,
-        );
+        this.updateAttributes("mode", "results");
+          this.updateAttributes("group", that.groupId);
+
+          window.open(window.location.href, "_self");
       })
     }
 

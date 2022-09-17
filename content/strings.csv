@@ -31,7 +31,7 @@ diagram;Diagramm;Diagramme;Diagram;
 values;Werte;Chiffres;Values;
 warnFillAll;Bitte zuerst alle Felder ausfüllen!;Veuillez d'abord remplir tous les champs !;Please fill in all the elements first!;
 warnSaveSuccess;Die Daten wurden erfolgreich gespeichert;Les données ont été enregistrées avec succès;The data was saved successfully!;
-editProject;Projekt bearbeiten;Editer projet;Edit project;
+editProject;Projekt bearbeiten/löschen;Editer/effacer projet;Edit/delete project;
 noProjectChosen;Kein Projekt ausgewählt;Aucun projet sélectionné;No project selected;
 loginEsri;Einloggen;Connecter;Login;
 startPage;Startseite;Debut;Start page;

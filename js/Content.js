@@ -1900,7 +1900,7 @@ define([
       page0.addElement("mapInput", "gebiete", { 
         color: [255,0, 0, 0.7],
         name_display : "Untersuchungsgebiet",
-        text: `Bearbeite dein Projekt:<br> <br> 
+        text: `Bearbeite dein Projekt:<br> 
 
         1. Klicke auf "Feature bearbeiten". <br>
         2. Klicke auf die Projektfläche. <br>
