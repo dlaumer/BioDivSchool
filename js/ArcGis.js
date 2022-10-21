@@ -23,6 +23,7 @@ define([
   "esri/widgets/Fullscreen",
   "esri/widgets/Legend",
   "esri/widgets/LayerList",
+  "esri/core/watchUtils",
 
   "biodivschool/Links",
   "esri/config",
@@ -46,6 +47,7 @@ define([
   Fullscreen,
   Legend, 
   LayerList,
+  reactiveUtils,
   Links,
   esriConfig,
   domCtr
@@ -569,7 +571,7 @@ define([
       }
 
       view.when(() => {
-        if (containerEditor) {
+        if (containerEditor && that.mode != "results") {
           // Create the Editor
           editor = new Editor({
             view: view,
@@ -688,7 +690,28 @@ define([
         }
       });
       if (that.mode != "project") {
-        callback({ projectArea: projectArea, geometry: geometry, editor: editor });
+
+        reactiveUtils.whenFalseOnce(view, "updating", () => {
+          console.log("The map with id:" + element.key + " has loaded");
+          view.takeScreenshot().then((screenshot) => {
+            element.screenshot.src = screenshot.dataUrl;
+          })
+         
+        });
+        callback({ projectArea: projectArea, geometry: geometry, editor: editor, /*mapLoaded: new Promise((resolve3, reject3) => {
+          reactiveUtils.whenFalseOnce(view, "updating", () => {
+            console.log("The map with id:" + element.key + " has loaded");
+            view.takeScreenshot().then((screenshot) => {
+              element.screenshot.src = screenshot.dataUrl;
+              resolve3();
+              reject3();
+            })
+           
+          });
+          
+        }) 
+        */
+      });
       }
        
     }
@@ -809,7 +832,7 @@ define([
       return view;
     }
 
-    addMapResults(containerMap, containerLegend, mapLayers) {
+    addMapResults(containerMap, containerLegend, mapLayers, screenshotDiv) {
       let projectArea = new FeatureLayer({
         portalItem: {
           id: this.links.projectLayerId,
@@ -877,7 +900,7 @@ define([
       });
       view.ui.add(basemapToggle, "top-right");
 
-      new Legend({view:view, container: containerLegend})
+      new Legend({view:view, style: {type:"card", layout: "side-by-side"}, container: containerLegend})
       view.ui.add(new Expand({view:view, expanded: false, content: new LayerList({view:view})}), "top-right");
 
 
@@ -910,7 +933,12 @@ define([
           }
         }
       })
-      
+
+      reactiveUtils.whenFalseOnce(view, "updating", () => {
+        view.takeScreenshot().then((screenshot) => {
+          screenshotDiv.src = screenshot.dataUrl;
+        })
+      })
       return view;
     }
   };

@@ -59,7 +59,7 @@ define([
       this.points = 0;
       this.measure = null;
       this.allowedValues = null; // Meaning all the values are allowed
-
+      this.resultDiv = null;
       this.groupDivs = null;
 
       this.rules = null;
@@ -79,7 +79,10 @@ define([
       this.type = type;
       this.key = key;
 
-      this.element = domCtr.create("div", { id: this.name, className: "element" }, this.container);
+      this.element = domCtr.create("div", { id: this.name, className: "element inputElement" }, this.container);
+      if (that.mode == "results") {
+        this.element.style.display = "none"
+      }
       this.labelContainer = domCtr.create("div", { className: "labelContainer" }, this.element);
 
       if (args.title) {
@@ -244,7 +247,7 @@ define([
 
     addRadioButtonInput(args) {
       this.allowedValues = []
-      this.element.style = "align-items: start;"
+      this.element.style.alignItems = "start;"
       this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text }, this.labelContainer);
       if (that.mode != "results") {
         this.input = domCtr.create("div", { className: "input inputRows" }, this.element);
@@ -379,29 +382,32 @@ define([
 
 
     addMap(args) {
+
       this.color = args.color;
       this.name_display = args.name_display;
-      this.element.className = "element"
+      //this.element.className = "element";
       this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text, style: "width: 100%;" }, this.labelContainer);
       this.mapContainer = domCtr.create("div", { className: "mapContainer" }, this.element);
       this.input = domCtr.create("div", { id: this.name + "_map", className: "map" }, this.mapContainer);
+      this.screenshot = domCtr.create("img", {className: "screenshot"}, this.mapContainer);
 
       this.editorContainer = domCtr.create("div", { id: this.name + "_editor", className: "editor" }, this.mapContainer);
       this.editor = domCtr.create("div", { id: this.name + "_editor" }, this.editorContainer);
-      if (that.mode == "results") {
-        //this.input.style = "width:100%";
-        this.editorContainer.innerHTML = "";
-        this.input.style = "width:50vw;";
-        this.mapContainer.style = "justify-content: space-between;";
-        this.editorContainer.style = "width:40%;"
-      }
+      
       this.linkInstructions = domCtr.create("div", { id: "linkInstructions", className: "labelText linkText", innerHTML: that.strings.get("instructions") }, this.editorContainer);
       this.instructions = domCtr.create("div", { className: "expandable" }, this.element);
 
       this.instructionsText = domCtr.create("div", {innerHTML: that.content.instructions, }, this.instructions);
      this.instructionsClose =  domCtr.create("div", {className: "btn1", innerHTML: that.strings.get("close"), }, this.instructions);
 
-     this.instructionsClose
+     if (that.mode == "results") {
+      //this.input.style = "width:100%";
+      this.editorContainer.innerHTML = "";
+      this.input.style = "width:50vw;";
+      this.mapContainer.style = "justify-content: space-between;";
+      this.editorContainer.style = "width:40%;";
+      this.linkInstructions.display = "none";
+    }
 
      on(this.instructionsClose, "click", function (evt) {
       this.instructions.style.display = "";
@@ -416,6 +422,8 @@ define([
           this.editorEsri = info.editor;
           this.projectAreaClass = info.projectArea;
           this.prototype = info.prototype;
+          //that.mapLoadedPromises.push(info.mapLoaded);
+          
         });
       }
 
@@ -453,7 +461,7 @@ define([
     }
 
     calculateRatioAndPoints(previousPoints, callback) {
-
+      if (!that.offline) {
       that.arcgis.calculateArea(this.value, "geometry").then((info) => {
         this.area = info.totalArea;
         this.areas = info.areas;
@@ -480,7 +488,11 @@ define([
               }
             }
           }
-          this.pointsInfo.innerHTML = that.showPoints ? "(" + that.strings.get("points") + ": " + this.points + ", " + that.strings.get("areaTotal") + ": " + this.area.toFixed(0) + " m2, " + that.strings.get("ratio") + ": " + (numRatio * 100).toFixed(2) + "%, " + that.strings.get("ratioBin") + ": " + this.ratio + ")" : "(" + that.strings.get("areaTotal") + ": " + this.area.toFixed(0) + " m2, " + that.strings.get("ratio") + ": " + (numRatio * 100).toFixed(2) + "%, " + that.strings.get("ratioBin") + ": " + this.ratio + ")"
+          this.pointsInfo.innerHTML = that.showPoints ? "(" + that.strings.get("points") + ": " + this.points + ")": "";
+          if (that.mode == "results") {
+            this.resultDiv = domCtr.create("div", { className: "result" }, this.editorContainer);
+            this.resultDiv.innerHTML =  "<b>" + that.strings.get("result") + ":</b><br>" + that.strings.get("areaTotal") + ": " + this.area.toFixed(0) + " m2, " + that.strings.get("ratio") + ": " + (numRatio * 100).toFixed(2) + "%, " + that.strings.get("ratioBin") + ": " + this.ratio;
+          }
         }
         else if (this.ratioOptions) {
 
@@ -544,8 +556,11 @@ define([
             this.measure =this.ratioOptions[6].measure ? this.ratioOptions[6].measure : null;
 
           }
-          this.pointsInfo.innerHTML = that.showPoints ? "(" + that.strings.get("points") + ": " + this.points + ", " + that.strings.get("areaTotal") + ": " + this.area.toFixed(0) + " m2, " + that.strings.get("ratioBin") + ": " + this.ratio + ")" : "(" + that.strings.get("areaTotal") + ": " + this.area.toFixed(0) + " m2, " + that.strings.get("ratioBin") + ": " + this.ratio + ")"
-
+          this.pointsInfo.innerHTML = that.showPoints ? "(" + that.strings.get("points") + ": " + this.points + ")": "";
+          if (that.mode == "results") {
+            this.resultDiv = domCtr.create("div", { className: "result" }, this.editorContainer);
+            this.resultDiv.innerHTML =  "<b>" + that.strings.get("result") + ":</b><br>" + that.strings.get("areaTotal") + ": " + this.area.toFixed(0) + " m2, " + that.strings.get("ratioBin") + ": " + this.ratio ;
+          }
         }
 
 
@@ -555,10 +570,10 @@ define([
 
       })
         .catch((error) => {
-          alert(that.strings.get("alertArea"))
+          //alert(that.strings.get("alertArea"))
           console.log(error)
         });
-
+      }
     }
 
 
@@ -601,10 +616,19 @@ define([
         });
       }
       else {
+        if (this.resultDiv == null) {
+          this.resultDiv = domCtr.create("div", { className: "result", innerHTML: value }, container);
+        }
+        else {
+          this.resultDiv.innerHTML = value;
+        }
+        if (that.mode == "results") {
+          this.resultDiv.innerHTML = "<b>" + that.strings.get("result") + ":</b><br>" + this.resultDiv.innerHTML;
+        }
 
-        domCtr.create("div", { className: "result", innerHTML: value }, container);
-        
       }
+      
+
       if (that.mode == "results") {
         if (this.measure != null) {
           if (this.type == "mapInput") {
@@ -622,6 +646,11 @@ define([
 
     setter(value, saveData = true) {
       return new Promise((resolve, reject) => {
+
+        if (that.mode == "results" && value != null && value != "") {
+
+          this.element.style.display = "flex"
+        }
 
         let previousPoints = 0;
         if (this.points != null) {
@@ -716,7 +745,7 @@ define([
         }
       }).then(() => {
 
-        if (saveData && that.mode != "project") {
+        if (saveData && that.mode != "project" && !that.offline) {
           this.app.save.innerHTML = that.strings.get("saving")
           this.app.save.className = "btn1"
           let data = this.getter();
@@ -729,7 +758,7 @@ define([
               .catch((reason) => {
                 reject(reason);
               }).then(() => {
-                this.app.save.innerHTML = that.strings.get("save")
+                this.app.save.innerHTML = that.strings.get("saved")
                 this.app.save.className = "btn1 btn_disabled"
               });
 

@@ -31,6 +31,7 @@ define([
       that.results = {};
       that.pages = [];
       that.pageNo = 0;
+      that.mapLoadedPromises = [];
 
       that.arcgis = new ArcGis(that.strings);
 
@@ -80,6 +81,7 @@ define([
           that.schoolName = info.attributes["school"];
           that.content.init();
 
+        
           this.arcgis
             .calculateArea(this.projectAreaId, "project")
             .then((area) => {
@@ -94,6 +96,14 @@ define([
                   }
                 }
                 this.initUI();
+                if (that.mode == "results") {
+                  /*
+                  Promise.allSettled(that.mapLoadedPromises).then(() => {
+                    console.log("All Maps loaded!")
+                    that.print.classList.remove("btn_disabled");
+                  })
+                  */
+                }
               });
             });
 
@@ -215,15 +225,18 @@ define([
       this.infoBox.innerHTML =
         that.mode == "project"
           ? that.projectName + ", " + that.schoolName + " <small>(" + that.projectId + ")</small>"
-          : that.projectName + ", " + that.schoolName + " <gitsmall>(" + that.projectId + ")</small>, " + this.strings.get("group") + ": " + this.groupId;
+          : that.projectName + ", " + that.schoolName + " <small>(" + that.projectId + ")</small>, " + this.strings.get("group") + ": " + this.groupId;
       this.save.className = "btn1 btn_disabled";
       document.onkeydown = this.checkKey;
 
       this.home.style.display = that.mode == "project" ? "none" : "block";
-      this.save.style.display = that.mode == "project" ? "none" : "block";
+      this.save.style.display = that.mode == "project" || that.mode == "results" ? "none" : "block";
       this.next.style.display = that.mode == "project" && this.projectId == null ? "none" : "block";
       this.back.style.display = that.mode == "project" ? "none" : "block";
 
+      if (that.mode == "results") {
+        that.makeTitlePage();
+      }
     }
 
     createUI() {
@@ -232,20 +245,36 @@ define([
         { class: "background", style: "display: none" },
         win.body()
       );
+
       this.header = domCtr.create("div", { id: "header", className: "header" }, this.background);
+      
       this.save = domCtr.create(
         "div",
-        { id: "save", className: "btn1 btn_disabled", innerHTML: this.strings.get("save") },
+        { id: "save", className: "saveInfo", innerHTML: this.strings.get("saved") },
         this.header
-      );
+        );
 
+      if (that.mode == "results") {
+        this.print = domCtr.create(
+          "div",
+          { id: "print", className: "btn1 btn_disabled", innerHTML: this.strings.get("print") },
+          this.header
+          );
+          setTimeout(() => {
+            this.print.className = "btn1"
+          }, 10000);
+          this.save.style.display = "none !important";
+      }
+        
+      
+       
       this.infoBox = domCtr.create("div", { id: "userName" }, this.header);
       this.startPage = domCtr.create(
         "div",
         { id: "startPage", className: "btn1", innerHTML: this.strings.get("startPage") },
         this.header
       );
-
+     
       this.pageContainer = domCtr.create(
         "div",
         { id: "pageContainer" },
@@ -312,7 +341,7 @@ define([
       that.save.innerHTML = this.strings.get("saving");
       let elements = that.getAllElements(false);
       that.uploadData(elements).then((value) => {
-        that.save.innerHTML = this.strings.get("save");
+        that.save.innerHTML = this.strings.get("saved");
         that.save.className = "btn1 btn_disabled";
         callback()
       });
@@ -327,12 +356,14 @@ define([
     }
 
     clickHandler() {
-      on(this.save, "click", () => {
-        that.saveData(() => {
-          that.save.innerHTML = this.strings.get("save");
-          that.save.className = "btn1 btn_disabled";
-        })
-      });
+
+      if (that.mode == "results") {
+
+        on(this.print, "click", () => {
+         window.print();
+        });
+      }
+            
 
       on(
         this.startPage,
@@ -397,12 +428,13 @@ define([
     addStartPage(title) {
       let page = new Page(this, this.pages.length, this.pageContainer, title + " - " + that.strings.get(that.mode));
 
+      page.titleDiv.id = "startTitle";
       this.pages.push(page);
       this.loginPage = page;
 
       if (that.mode == "results") {
        domCtr.create("div",
-          { class: "pageTitle title", innerHTML: that.strings.get("points") },
+          { class: "pageTitle title", id: "pointsTitle", innerHTML: that.strings.get("points") },
           page.page
         );
       }
@@ -460,17 +492,20 @@ define([
     }
 
     addFinalPage(title) {
-      let page = new Page(this, this.pages.length, this.pageContainer, title);
-      let element = domCtr.create("div", { id: "finalElement", className: "element final" }, page.page);
-      let final = domCtr.create("div", { id: "btn_final", className: "btn1", innerHTML: that.strings.get("results") }, element);
-
-      on(final, "click", function (evt) {
-        this.finalize();
-      }.bind(this));
-      this.pages.push(page);
-      this.lastPage = page;
-
-      return page;
+      if (that.mode != "results") {
+        let page = new Page(this, this.pages.length, this.pageContainer, title);
+        let element = domCtr.create("div", { id: "finalElement", className: "element final" }, page.page);
+        let final = domCtr.create("div", { id: "btn_final", className: "btn1", innerHTML: that.strings.get("results") }, element);
+  
+        on(final, "click", function (evt) {
+          this.finalize();
+        }.bind(this));
+        this.pages.push(page);
+        this.lastPage = page;
+        
+        return page;
+      }
+     
     }
 
     loadInputs(data) {
@@ -478,7 +513,7 @@ define([
       let setterPromises = [];
       for (let item in data) {
 
-        if (item in elements && data[item] != null) {
+        if (item in elements && data[item] != null) { 
           if (elements[item].checkAllowedValues(data[item])) {
             setterPromises.push(elements[item].setter(data[item], false).then(() => {
               elements[item].setterUI(data[item]);
@@ -511,7 +546,8 @@ define([
       
       for (let i in that.pages) {
         let page = that.pages[i];
-        if (i == 0 || i == that.pages.length - 1) { continue }; // The first and last pages have no elements
+
+        if (i == 0 || page == that.lastPage) { continue }; // The first and last pages have no elements
         let points = 0;
         let maxPoints = 0;
         let minPoints = 0;
@@ -631,10 +667,11 @@ define([
           this.loginPage.page
         );
 
-      let map = domCtr.create("div", { className: "mapOverview" }, this.loginPage.page);
-      this.loginPage.mapResults = domCtr.create("div", { className: "mapOverviewMap" }, map);
-      this.loginPage.legendResults = domCtr.create("div", { className: "mapOverviewProjects" }, map);
-      that.arcgis.addMapResults(this.loginPage.mapResults, this.loginPage.legendResults, that.results.mapLayers)
+      let map = domCtr.create("div", { className: "mapOverviewResults" }, this.loginPage.page);
+      this.loginPage.mapResults = domCtr.create("div", { className: "mapOverviewResultsMap" }, map);
+      this.screenshotDiv = domCtr.create("img", { className: "screenshot" }, map);
+      this.loginPage.legendResults = domCtr.create("div", { className: "mapOverviewResultsLegend" }, map);
+      that.arcgis.addMapResults(this.loginPage.mapResults, this.loginPage.legendResults, that.results.mapLayers, this.screenshotDiv)
     }
 
     loadInputsGroup(data, count) {
@@ -759,6 +796,17 @@ define([
         that.goToPage(that.currentPage + 1);
       }
     }
+
+
+    makeTitlePage() {
+      this.titlePage = domCtr.create("div", { id: "titlePage"});
+      domCtr.place(this.titlePage, this.header, "before");
+      domCtr.create("div", { id: "title", innerHTML: that.strings.get("titlePdf") }, this.titlePage);
+      domCtr.create("div", { id: "school", className: "titleInfo", innerHTML:  that.strings.get("school") + ": " + that.schoolName}, this.titlePage);
+      domCtr.create("div", { id: "location", className: "titleInfo", innerHTML: that.strings.get("location") + ": " + that.projectName }, this.titlePage);
+
+    }
+
     getJsonFromUrl() {
       var query = location.search.substr(1);
       var result = {};

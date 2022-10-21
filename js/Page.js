@@ -34,8 +34,11 @@ define([
     init(prevPage) {
       if (prevPage !== null) {
         prevPage.page.className = "page";
+        this.page.style.display = that.mode == "consolidation" ? "none" : "block"
+
       }
       this.page.className = "page active";
+      this.page.style.display = "block"
 
       if (this.elements.length > 0) {
         this.elements[0].reportWindowSize();
@@ -49,6 +52,7 @@ define([
         { id: this.name, className: "page" },
         this.container
       );
+      this.page.style.display = that.mode == "consolidation" ? "none" : "block"
       this.titleDiv = domCtr.create(
         "div",
         { class: "pageTitle", innerHTML: this.title },

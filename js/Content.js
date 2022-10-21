@@ -1394,7 +1394,7 @@ define([
         placeholder: "Auswählen",
         measure: "A32.0", 
         options: [
-          { key: "0", points: 0, label: "Ja", measure: "A32.?" },
+          { key: "0", points: 0, label: "Ja" }, // TODO: Add measure
           { key: "1", points: 4, label: "Nein", measure: "A32.1"  },
         ],
         points: "a_unkraut_points",

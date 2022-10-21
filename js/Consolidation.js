@@ -33,9 +33,9 @@ define([
 
     init(prevPage) {
       if (prevPage !== null) {
-        prevPage.page.className = "page";
+        prevPage.page.className = "page2";
       }
-      this.page.className = "page active";
+      this.page.className = "page2 active2";
     }
 
     createUI() {

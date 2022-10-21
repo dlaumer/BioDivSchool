@@ -33,6 +33,7 @@ input[type=checkbox]
 
 body {
   margin: 0;
+  font-size: min(3vmax, 18px);
 }
 
 #start {
@@ -47,6 +48,7 @@ body {
 }
 
 .mapOverviewMap {
+
   height: 100%;
   width: 60%;
 }
@@ -55,8 +57,27 @@ body {
   height: 100%;
   width: 40%;
   overflow: auto;
+  padding: 10px; 
+}
+
+
+.mapOverviewResults {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.mapOverviewResultsMap {
+  height: 80%;
+  width: 100%;
+}
+
+.mapOverviewResultsLegend{
+  height: 20%;
+  width: 100%;
+  overflow: visible;
   padding: 10px;
-  
 }
 
 .mapResults {
@@ -64,6 +85,135 @@ body {
   width: 100%;
 }
 
+.esri-legend--card__service-caption-container {
+  border-bottom: unset !important;
+}
+.esri-legend--card__service {
+  border: 1px solid rgba(110,110,110,.3);
+}
+.esri-legend--card {
+  flex-wrap: wrap;
+}
+
+.esri-legend--card__section {
+  min-width: 200px;
+}
+
+@media print {
+  body {
+  -webkit-print-color-adjust: exact !important;
+  font-size: 14px !important;
+}
+
+  #titlePage {
+    display: flex !important;
+  }
+
+  #print {
+    display: none !important;
+  }
+  #startPage {
+    display: none !important;
+  }
+
+  .esri-legend--card {
+    flex-wrap: wrap;
+  }
+
+  #pageContainer {
+    height: unset !important;
+    position: unset !important;
+  }
+
+
+  #title {
+    font-size: xxx-large;
+  }
+  .titleInfo {
+    font-size: x-large;
+  }
+
+  .header {
+    display: none !important;
+  }
+  #footer {
+    display: none !important;
+  }
+
+  .mapOverviewProjects {
+    overflow: visible;
+  }
+  .esri-legend__service {
+    padding: 0 14px !important;
+  }
+  .esri-widget__heading {
+
+    margin: 0 !important;
+  }
+  .esri-legend__layer-table {
+    margin-bottom: 0px !important;
+  }
+  .linkText {
+    display: none !important;
+  }
+  .expandable {
+    display: none !important;
+  }
+  .page {
+    height: auto !important;
+    display: block !important;
+    overflow: visible !important;
+    position: unset !important;
+  }
+  .esri-editor__temp-wrapper {
+    display: none !important;
+  }
+  .mapOverview {
+    height: 400px !important;
+  }
+
+  .pageTitle  {page-break-before: always;}
+
+  .inputElement {page-break-after: always;}
+
+  #startTitle {
+    page-break-before:avoid !important;
+  }
+  #pointsTitle {
+    page-break-before:avoid !important;
+  }
+
+  .labelContainer {
+    width: 100% !important;
+  }
+  .input {
+    width: 100% !important;
+    font-size: 14px !important;
+  }
+
+  .labelText {
+    width: 100% !important;
+  }
+
+  .map  {
+    width: 100% !important;
+    height: 70% !important;
+    display: none;
+  }
+  .screenshot {
+    display: block !important;
+  }
+  .mapContainer {
+    flex-direction: column !important;
+    height: unset !important;
+  }
+
+  .editor {
+    width: 100% !important;
+    height: 60% !important;
+    overflow: inherit !important;
+  }
+}
 
 @media only screen and (max-width: 600px) {
 
@@ -165,6 +315,14 @@ body {
   width: 100%;
   height: 100%;
 }
+#titlePage {
+  width: 100%;
+  height: 100%;;
+  display: none;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
 
 .header {
   height: 10%;
@@ -179,6 +337,7 @@ body {
   padding: 0 10px;
   background-color: var(--very_gray);
   font-size: min(2vmax, 18px);
+  z-index: 100;
 }
 
 #userName {
@@ -193,7 +352,7 @@ body {
 #pageContainer {
   width: 100%;
   height: 80%;
-  padding: 2%;
+  position: absolute;
 }
 
 .consolidationContainer {
@@ -312,7 +471,6 @@ body {
 .result {
   background-color: var(--expandable);
   padding: 10px;
-  margin-bottom: 20px;
 }
 
 .measure {
@@ -437,7 +595,7 @@ body {
   height: fit-content;
 }
 
-.save {
+#save {
   border: none !important;
 }
 
@@ -478,13 +636,19 @@ body {
 .page {
   width: 100%;
   height: 100%;
+
   overflow: auto;
-  padding: 10px;
-  display: none;
+  background-color: white;
+  z-index: 1;
+  position: inherit;
+  padding: 20px;
+
 }
 
 .active {
-  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 99;
 }
 
 .pageTitle {
@@ -553,10 +717,10 @@ body {
 
 .labelText {
   display: flex;
-    flex-direction: column;
-    justify-content: center;
-      text-align: left;
-      width: 100%
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+  width: 100%;
 }
 
 .labelFinal {
@@ -566,7 +730,7 @@ body {
 }
 
 .input {
-  width: 40% !important;
+  width: 40%;
   display: flex;
   flex-direction: row;
   font-size: min(3vmax, 18px);;
@@ -679,6 +843,7 @@ label {
   flex-direction: row;
 }
 
+
 .pointsInfo {
   width: 100%;
   font-size: min(1.5vmax, 15px);
@@ -688,6 +853,11 @@ label {
 .map {
   height: 100%;
   width: 70%;
+}
+.screenshot {
+  height: 50%;
+  display: none;
+  object-fit: contain;
 }
 
 .editor {
