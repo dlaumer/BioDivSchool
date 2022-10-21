@@ -855,9 +855,7 @@ label {
   width: 70%;
 }
 .screenshot {
-  height: 50%;
   display: none;
-  object-fit: contain;
 }
 
 .editor {

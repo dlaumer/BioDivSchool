@@ -257,12 +257,15 @@ define([
       if (that.mode == "results") {
         this.print = domCtr.create(
           "div",
-          { id: "print", className: "btn1 btn_disabled", innerHTML: this.strings.get("print") },
+          { id: "print", className: "btn1 btn_disabled", innerHTML: this.strings.get("printWait") },
           this.header
           );
           setTimeout(() => {
-            this.print.className = "btn1"
-          }, 10000);
+            Promise.all(that.mapLoadedPromises).then(() => {
+              this.print.innerHTML = this.strings.get("print")
+              this.print.className = "btn1"
+            })
+          }, 1000);
           this.save.style.display = "none !important";
       }
         

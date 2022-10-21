@@ -24,6 +24,9 @@ define([
   "esri/widgets/Legend",
   "esri/widgets/LayerList",
   "esri/core/watchUtils",
+  "esri/rest/print",
+  "esri/rest/support/PrintTemplate",
+  "esri/rest/support/PrintParameters",
 
   "biodivschool/Links",
   "esri/config",
@@ -48,6 +51,9 @@ define([
   Legend, 
   LayerList,
   reactiveUtils,
+  print, 
+  PrintTemplate, 
+  PrintParameters,
   Links,
   esriConfig,
   domCtr
@@ -691,13 +697,17 @@ define([
       });
       if (that.mode != "project") {
 
+        that.mapLoadedPromises.push(new Promise ((resolve, reject) => {
+
         reactiveUtils.whenFalseOnce(view, "updating", () => {
           console.log("The map with id:" + element.key + " has loaded");
-          view.takeScreenshot().then((screenshot) => {
-            element.screenshot.src = screenshot.dataUrl;
+          this.printMap(view).then((image) => {
+            element.screenshot.src = image.url;
+            resolve();
           })
          
         });
+      }));
         callback({ projectArea: projectArea, geometry: geometry, editor: editor, /*mapLoaded: new Promise((resolve3, reject3) => {
           reactiveUtils.whenFalseOnce(view, "updating", () => {
             console.log("The map with id:" + element.key + " has loaded");
@@ -934,12 +944,42 @@ define([
         }
       })
 
-      reactiveUtils.whenFalseOnce(view, "updating", () => {
-        view.takeScreenshot().then((screenshot) => {
-          screenshotDiv.src = screenshot.dataUrl;
+      that.mapLoadedPromises.push(new Promise ((resolve, reject) => {
+        reactiveUtils.whenFalseOnce(view, "updating", () => {
+          this.printMap(view).then((image) => {
+            screenshotDiv.src = image.url;
+            resolve();
+          })
         })
-      })
+      }))
       return view;
+    }
+
+    printMap(view) {
+      return new Promise((resolve, reject) => {
+
+        // url to the print service
+        const url = "https://utility.arcgisonline.com/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task";
+
+        const template = new PrintTemplate({
+          format: "png32",
+          layout: "map-only",
+          exportOptions: {
+            width: 1600,
+            height: 900
+          },
+          scalePreserved: false
+        });
+
+        const params = new PrintParameters({
+          view: view,
+          template: template
+        });
+
+        // print when this function is called
+        
+        print.execute(url, params).then((result) => {resolve(result)}).catch((err) => {alert("Exporting an image of the map did not work:   " + err)});
+      })
     }
   };
 });

@@ -610,10 +610,14 @@ define([
     setterUINonEdit(container, value) {
 
       if (this.type == "mapInput") {
-        that.arcgis.addMap(container, null, this, (info)=> {
-          info.geometry.definitionExpression = "objectid in (" + value.substring(1, value.length - 1) + ")";
-
-        });
+        if (that.mode == "consolidation") {
+          that.arcgis.addMap(container, null, this, (info)=> {
+            info.geometry.definitionExpression = "objectid in (" + value.substring(1, value.length - 1) + ")";
+  
+          });
+        }
+       
+        
       }
       else {
         if (this.resultDiv == null) {
