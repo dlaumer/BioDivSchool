@@ -131,13 +131,14 @@ define([
       if (!this.offline) {
         this.arcgis.checkData(that.projectId, null, (info) => {
           if (info != null) {
-            that.projectName = info.attributes["name"];
-            that.schoolName = info.attributes["school"];
-            that.objectId = info.getObjectId();
+            let data = info.data;
+            that.projectName = data.attributes["name"];
+            that.schoolName = data.attributes["school"];
+            that.objectId = data.getObjectId();
             that.projectAreaId = "[" + that.objectId.toFixed(0) + "]";
             that.content.editProject();
             if (!info.newFeature) {
-              that.loadInputs(info.attributes);
+              that.loadInputs(data.attributes);
             }
             // Add the url for the collection
             var queryParams = new URLSearchParams(window.location.search);
@@ -222,10 +223,12 @@ define([
       this.pages[0].init(null);
       this.currentPage = 0;
       // TODO Warning if did not work!
-      this.infoBox.innerHTML =
+      if (that.projectId != "null") {
+        this.infoBox.innerHTML =
         that.mode == "project"
           ? that.projectName + ", " + that.schoolName + " <small>(" + that.projectId + ")</small>"
           : that.projectName + ", " + that.schoolName + " <small>(" + that.projectId + ")</small>, " + this.strings.get("group") + ": " + this.groupId;
+      }
       this.save.className = "btn1 btn_disabled";
       document.onkeydown = this.checkKey;
 
