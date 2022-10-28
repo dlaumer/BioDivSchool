@@ -239,7 +239,9 @@ define([
             <ul>
               <li><a target = "_blank" href = "https://www.neophyt.ch">neophyt.ch</a></li>
               <li><a target = "_blank" href = "http://www.neophyten-schweiz.ch/index.php?l=D&p=1&t=5">neophyten-schweiz.ch</a></li>
-            </ul>`,
+            </ul>
+            <br>
+            Beilage: <a href="../content/Praxishilfe_invasive_Neophyten_ANJF_20_ZH.pdf" target="_blank">Neophytenarten</a>`,
         }
       });
 
@@ -626,7 +628,7 @@ define([
           { key: "0", points: 0, label: "Keine Bäume vorhanden, die höher als 4 - 5 Meter sind." , measure: "A14.1"},
           { key: "1", points: 1, label: "Nur 1 Baum vorhanden oder alle Bäume etwa gleich hoch." , measure: "A14.2"},
           { key: "2", points: 2, label: "Bäume in zwei deutlich unterschiedlichen Höhen vorhanden." , measure: "A14.3"},
-          { key: "3", points: 3, label: "Bäume in drei deutlich unterschiedlichen Höhen vorhanden." , measure: "A14.4"},
+          { key: "3", points: 3, label: "Bäume in drei deutlich unterschiedlichen Höhen vorhanden." , measure: "A14.3"},
         ],
           textInfo: {
           linkText: "Zusatzinfos",
@@ -657,8 +659,8 @@ define([
         placeholder: "Auswählen",
         points: "a_baeume_points",
         options: [
-          { key: "0", points: 1, label: "Ja", measure: "A14.5" },
-          { key: "1", points: 0, label: "Nein", measure: "A14.6"  },
+          { key: "0", points: 1, label: "Ja", measure: "A14.4" },
+          { key: "1", points: 0, label: "Nein", measure: "A14.5"  },
         ],
       });
 
@@ -668,7 +670,7 @@ define([
         placeholder: "Auswählen",
         points: "b_baeume_points",
         options: [
-          { key: "0", points: 2, label: "Ja" },
+          { key: "0", points: 2, label: "Ja", measure: "A14.6"},
           { key: "1", points: 0, label: "Nein", measure: "A14.7"},
         ],
       });
@@ -1455,7 +1457,7 @@ define([
         measure: "A33.0",     
         options: [
           { key: "0",points: 0, label: "Ja" },
-          { key: "1",points: 0, label: "Nein" },      
+          { key: "1",points: 0, label: "Nein", measure: "A33.0"},      
         ],          
       });
 
@@ -1490,8 +1492,8 @@ define([
         placeholder: "Auswählen",
         measure: "A33.0",   
         options: [
-          { key: "0",points: 0, label: "Mehr als die Hälfte des Bodens wird ohne Analyse des Bodens gedüngt.", measure: "A33.2"  },
-          { key: "1",points: 2, label: "Weniger als die Hälfte des Bodens wird ohne Analyse des Bodens gedüngt.", measure: "A33.3"  },      
+          { key: "0",points: 0, label: "Mehr als die Hälfte des Bodens wird ohne Analyse des Bodens gedüngt.", measure: "A33.2"},
+          { key: "1",points: 2, label: "Weniger als die Hälfte des Bodens wird ohne Analyse des Bodens gedüngt.", measure: "A33.3"},      
         ],
         points: "a_duengen_points",     
       });    
@@ -1722,6 +1724,7 @@ define([
         text: "40b: Wie werden die Vögel vor diesen Glasscheiben geschützt?",
         placeholder: "Auswählen",
         points: "b_glasschutz_points",
+        measure: "A40.2",
         options: [
           { key: "0",points: 0, label: "Glasflächen ohne Vogelschutz.", measure: "A40.2" },
           { key: "1",points: 0, label: "Glasflächen mit aufgeklebten Umrissen von Vögeln.", measure: "A40.2" },
@@ -1743,6 +1746,7 @@ define([
         text: "41a: Gibt es auf dem Untersuchungsgebiet Lichtquellen, die jeden Tag bis spät in die Nacht leuchten?",
         placeholder: "Auswählen",
         points: "a_licht_points",
+        measure: "A41.1",
         options: [
           { key: "0",points: 2, label: "Nein", measure: "A41.1" },
           { key: "1",points: 0, label: "Ja" },
@@ -1772,9 +1776,10 @@ define([
         text: "41b: Wie leuchten diesen Lichtquellen?",
         placeholder: "Auswählen",
         points: "b_lichtart_points",
+        measure: "A41.2",
         options: [
-          { key: "0",points: 0, label: "Einige Lichtquellen strahlen auch nach oben ab, beispielsweise zur Beleuchtung des Gebäudes.", measure: "A41.2" },
-          { key: "1",points: 1, label: "Gelbliche Lichtquellen, die fast nur nach unten strahlen, beispielsweise Wegbeleuchtung.", measure: "A41.3" },
+          { key: "0",points: 0, label: "Einige Lichtquellen strahlen auch nach oben ab, beispielsweise zur Beleuchtung des Gebäudes.", measure: "A41.2"},
+          { key: "1",points: 1, label: "Gelbliche Lichtquellen, die fast nur nach unten strahlen, beispielsweise Wegbeleuchtung.", measure: "A41.3"},
         ],
       });
 
@@ -1793,8 +1798,9 @@ define([
         text: "42: Gibt es auf dem Untersuchungsgebiet Wasserschächte oder Lichtschächte, in denen Tiere gefangen bleiben?",
         placeholder: "Auswählen",
         points: "schaechte_points",
+        measure: "A42.1",
         options: [
-          { key: "0", points: 2, label: "Nein oder nur sehr wenige.", measure: "A42.1" },
+          { key: "0", points: 2, label: "Nein oder nur sehr wenige.", measure: "A42.1"},
           { key: "1", points: 0, label: "Ja", measure: "A42.2" },
         ],
          //bitte noch Hilfestellung/Zusatzinfos hinzufügen
