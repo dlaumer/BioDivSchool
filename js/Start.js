@@ -2,7 +2,7 @@
 --------------
 Start.js
 --------------
-Landing page before where you see the different projects
+Start page for all the sub-applications. Shows all the different projects and provides links to the subsequent applications. 
 
 */
 let start = null;

@@ -2,8 +2,7 @@
 --------------
 StringsApp.js
 --------------
-Used to populate the webpage with the specific input elements. Trying to seperate the logic to make the site and the actual "data" for the app
-
+ The code concerned with loading all the texts with different languages
 */
 define([
   ], function () {

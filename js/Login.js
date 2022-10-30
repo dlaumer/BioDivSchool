@@ -2,7 +2,7 @@
 --------------
 Login.js
 --------------
-Simple login page before starting the main app.
+Used as a starter screen to the following main app, used by the user to select project and group etc
 
 */
 

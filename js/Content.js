@@ -2,8 +2,7 @@
 --------------
 Content.js
 --------------
-Used to populate the webpage with the specific input elements. Trying to seperate the logic to make the site and the actual "data" for the app
-
+ Seperation of code for functionality and content. Here all the inputs are defined and also the rules for points and the link to the database.
 */
 
 // ssh-add ~/.ssh/ssh_rsa_dlaumer
@@ -85,7 +84,7 @@ define([
         - text
     - version
 
-    radioButtonInput
+    dropdownInput
     --------------
     - text
     - placeholder
@@ -1524,7 +1523,6 @@ define([
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
       elem33gras.hide();
       elem33a.hide();    
-
       elem34.hide();
 
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:

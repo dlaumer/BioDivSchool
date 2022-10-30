@@ -2,7 +2,7 @@
 --------------
 App.js
 --------------
-Holds the main functionality for the webpage. The main buttons and all the different pages.
+Main code base for sub-applications like collection, consolidation, results and projects! Depending on the `mode` property the codepath is slightly different. But since all sub-applications are so similar it makes sense to share most of the code.
 */
 let that = null;
 
@@ -35,11 +35,11 @@ define([
 
       that.arcgis = new ArcGis(that.strings);
 
-      if (this.mode == "collection") {
-        that.showPoints = false;
+      if (this.mode == "results") {
+        that.showPoints = true;
       }
       else {
-        that.showPoints = true;
+        that.showPoints = false;
       }
 
       if (!this.offline) {

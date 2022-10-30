@@ -2,8 +2,7 @@
 --------------
 Page.js
 --------------
-Holds all the objects for one page. Pages are used to split up the input elements into chunks, so that not everything is in one long scrollable page.
-
+The app's main structure is based on pages and elements, an app can have several pages and a page can have several elements. One element corresponds to one entry in the database! (One input per element)
 */
 
 

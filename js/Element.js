@@ -2,7 +2,14 @@
 --------------
 Element.js
 --------------
-Holds all the input elements for ONE feature in the database, one key-value pair!
+ One element is responsible to the input collection for one (!) entry in the database, one key-value pair. There are many different types of input:
+    - simpleTextInput
+    - dateInput
+    - dropdownInput
+    - radioButtonInput
+    - sliderInput
+    - mapInput
+    - textInfo (special case without connected database entry, just info)
 
 */
 
@@ -634,19 +641,42 @@ define([
       
 
       if (that.mode == "results") {
+      
+        if (this.type == "mapInput") {
+          this.measureDiv = domCtr.create("div", { className: "measure" }, this.editorContainer)
+
+        }
+        else {
+          this.measureDiv = domCtr.create("div", { className: "measure" }, container)
+        }
+
         if (this.measure != null) {
-          if (this.type == "mapInput") {
-            domCtr.create("div", { className: "measure", innerHTML: that.strings.get(this.measure) }, this.editorContainer)
-
-          }
-          else {
-            domCtr.create("div", { className: "measure", innerHTML: that.strings.get(this.measure) }, container)
-          }
-
+          this.measureDiv.innerHTML = that.strings.get(this.measure);
+        }
+        
+        // Hardcoded special measure rules...
+        // TODO: Change to key!!!
+        if (this.key == "grasduengen" && value == "Nein") {
+          let elements = that.getAllElements();
+          let elem33 = elements["duengen"];
+          elem33.measureDiv = this.measure;
+        }
+        if (this.key == "mitteln") {
+          let elements = that.getAllElements();
+          let elem33gras = elements["grasduengen"];
+          let elem33 = elements["duengen"];
+          elem33.measureDiv = this.measure;
+          elem33gras.measureDiv = this.measure;
+        }
+        if (this.key == "b_unkraut") {
+          let elements = that.getAllElements();
+          let elem32a = elements["a_unkraut"];
+          elem32a.measureDiv = this.measure;
         }
       }
     }
 
+    
 
     setter(value, saveData = true) {
       return new Promise((resolve, reject) => {
@@ -681,15 +711,14 @@ define([
           if (this.rules != null) {
             for (let i in this.rules) {
               for (let j in this.rules[i].elements) {
-                this.rules[i].elements[j].element.style.display = "none";
-
+                this.hideWithRules(this.rules[i].elements[j]);
               }
               for (let k in this.rules[i].values) {
                 if ((this.rules[i].values[k] == this.value) || (this.rules[i].values.length == 1 && this.rules[i].values[k] == null && this.value != "")) {
                   for (let j in this.rules[i].elements) {
                     this.rules[i].elements[j].element.style.display = "flex";
                     this.rules[i].elements[j].element.style.visibility = "visible";
-
+                    
                   }
                 }
                 else {
@@ -848,6 +877,17 @@ define([
     hide() {
       if (that.mode != "consolidation") {
         this.element.style.display = "none";
+      }
+    }
+
+    hideWithRules(element) {
+      element.hide();
+      if (element.rules != null) {
+        for (let i in element.rules) {
+          for (let j in element.rules[i].elements) {
+            element.hideWithRules(element.rules[i].elements[j])
+          }
+        }
       }
     }
 

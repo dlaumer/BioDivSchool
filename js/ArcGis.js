@@ -2,7 +2,7 @@
 --------------
 ArcGis.js
 --------------
-Used for all functions which need the esri arcgis js api
+All the code connected with the ArcGIS JS API. This is mainly the connection to the database and everything which has to do with maps.
 */
 define([
   "esri/portal/Portal",
@@ -27,8 +27,6 @@ define([
   "esri/rest/print",
   "esri/rest/support/PrintTemplate",
   "esri/rest/support/PrintParameters",
-
-  "biodivschool/Links",
   "esri/config",
   "dojo/dom-construct",
 ], function (
@@ -54,7 +52,6 @@ define([
   print, 
   PrintTemplate, 
   PrintParameters,
-  Links,
   esriConfig,
   domCtr
 ) {
@@ -83,7 +80,13 @@ define([
 
       this.createUI();
       this.clickHandler();
-      this.links = new Links();
+      this.links = {
+      //geometryLayerI: "3c34d04c41fd47d4b8852788c00e2f1f",    // Daniel
+      geometryLayerId: "c3fde87341cc4145a3fd47a9441cd19a",  //Christian
+      //dataLayerId: "51be950e7c1b4cbb8085c67a2c412868",    // Daniel   
+      dataLayerId: "d5acf5ac02b54c16925ac0aeca838e45",  //Christian
+      projectLayerId: "18ac6eb030ca46adac62874af52b17fc"
+      }
     }
 
     handleSignInOut() {

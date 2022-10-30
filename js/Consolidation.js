@@ -1,9 +1,8 @@
 /*
 --------------
-Page.js
+Consolidation.js
 --------------
-Holds all the objects for one page. Pages are used to split up the input elements into chunks, so that not everything is in one long scrollable page.
-
+A special version of page.js. It is used as a wrapper for the page during the consolidation mode since there is a page for every page then.
 */
 
 define([
