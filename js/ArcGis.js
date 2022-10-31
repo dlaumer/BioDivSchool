@@ -110,7 +110,7 @@ define([
           start.addProjectMap();
         }
         else {
-          that.userNameEsri = portal.user.username;
+          app.userNameEsri = portal.user.username;
         }
         this.signedIn = true;
       });
@@ -123,7 +123,7 @@ define([
         start.userNameEsri = null;
       }
       else {
-        that.userNameEsri = null;
+        app.userNameEsri = null;
       }
     }
 
@@ -195,7 +195,7 @@ define([
     // function to add one row to the table
     checkData(projectId, groupId, callback) {
       let featureClass = this.table;
-      if (that.mode == "project") {
+      if (app.mode == "project") {
         featureClass = this.project;
       }
 
@@ -217,7 +217,7 @@ define([
           // Make a new entry
           // In the case of project mode, just say that there is none yet
 
-          if (that.mode == "project") {
+          if (app.mode == "project") {
             callback(null);
           } else {
             const attributes =
@@ -287,7 +287,7 @@ define([
     // function to read one row of the table
     readFeature(objectid, callback) {
       let featureClass = this.table;
-      if (that.mode == "project") {
+      if (app.mode == "project") {
         featureClass = this.project;
       }
 
@@ -348,7 +348,7 @@ define([
     // function to change one row in the table
     updateFeature(objectid, data) {
       let featureClass = this.table;
-      if (that.mode == "project") {
+      if (app.mode == "project") {
         featureClass = this.project;
       }
       return new Promise((resolve, reject) => {
@@ -445,10 +445,10 @@ define([
         maxScale: 0,
       });
 
-      if (that.projectAreaId != null) {
+      if (app.projectAreaId != null) {
         projectArea.definitionExpression =
           "objectid = " +
-          that.projectAreaId.substring(1, that.projectAreaId.length - 1);
+          app.projectAreaId.substring(1, app.projectAreaId.length - 1);
       } else {
         projectArea.definitionExpression = "objectid = 0 ";
       }
@@ -459,7 +459,7 @@ define([
       });
       map.add(projectArea);
 
-      if (that.mode != "project") {
+      if (app.mode != "project") {
         projectArea.editingEnabled = false;
         geometry = new FeatureLayer({
           portalItem: {
@@ -490,8 +490,8 @@ define([
       const homeButton = new Home({
         view: view,
       });
-      if (that.projectAreaId != null) {
-        this.readGeometry(that.projectAreaId, "project").then(
+      if (app.projectAreaId != null) {
+        this.readGeometry(app.projectAreaId, "project").then(
           (projectAreaFeature) => {
             homeButton.viewpoint = new Viewpoint({
               targetGeometry: projectAreaFeature[0].geometry.extent,
@@ -521,7 +521,7 @@ define([
         return totalArea;
       }
 
-      if (that.mode == "project") {
+      if (app.mode == "project") {
         projectArea.on("edits", function (editInfo) {
           console.log(editInfo);
           if (editInfo.addedFeatures.length > 0) {
@@ -529,7 +529,7 @@ define([
               projectArea.definitionExpression =
                 "objectid = " + editInfo.addedFeatures[0].objectId.toString();
               editor.layerInfos[0].addEnabled = false;
-              that.updateAttributes("project",editInfo.edits.addFeatures[0].attributes.projectid)
+              app.updateAttributes("project",editInfo.edits.addFeatures[0].attributes.projectid)
               location.reload();
             } else {
               alert(
@@ -580,7 +580,7 @@ define([
       }
 
       view.when(() => {
-        if (containerEditor && that.mode != "results") {
+        if (containerEditor && app.mode != "results") {
           // Create the Editor
           editor = new Editor({
             view: view,
@@ -597,13 +597,13 @@ define([
 
                   var actions = document.getElementsByClassName("esri-editor__feature-list-name");
                 Array.from(actions).forEach(function(ele){
-                  ele.innerHTML = ele.innerHTML.replace("Feature", that.strings.get("feature"))
+                  ele.innerHTML = ele.innerHTML.replace("Feature", app.strings.get("feature"))
                 });
               }, 50);
             }
           })
 
-          if (that.mode == "project") {
+          if (app.mode == "project") {
             projectArea.load().then(() => {
               prototype = projectArea.templates[0].prototype;
               callback({ projectArea: projectArea, prototype: prototype,  geometry: null, editor: editor })
@@ -646,7 +646,7 @@ define([
               };
             });
 
-            if (that.projectAreaId != null) {
+            if (app.projectAreaId != null) {
               layerInfos.addEnabled = false;
               //editor.startUpdateWorkflowAtFeatureEdit();
             }
@@ -684,13 +684,13 @@ define([
           );
         }
 
-        if (that.projectAreaId == null) {
+        if (app.projectAreaId == null) {
           locate.when(() => {
             locate.locate();
           });
         } else {
-          if (!that.offline) {
-            this.readGeometry(that.projectAreaId, "project").then(
+          if (!app.offline) {
+            this.readGeometry(app.projectAreaId, "project").then(
               (projectAreaFeature) => {
                 view.goTo(projectAreaFeature[0].geometry);
               }
@@ -698,9 +698,9 @@ define([
           }
         }
       });
-      if (that.mode != "project") {
+      if (app.mode != "project") {
 
-        that.mapLoadedPromises.push(new Promise ((resolve, reject) => {
+        app.mapLoadedPromises.push(new Promise ((resolve, reject) => {
 
         reactiveUtils.whenFalseOnce(view, "updating", () => {
           console.log("The map with id:" + element.key + " has loaded");
@@ -863,10 +863,10 @@ define([
         maxScale: 0,
       });
 
-      if (that.projectAreaId != null) {
+      if (app.projectAreaId != null) {
         projectArea.definitionExpression =
           "objectid = " +
-          that.projectAreaId.substring(1, that.projectAreaId.length - 1);
+          app.projectAreaId.substring(1, app.projectAreaId.length - 1);
       } else {
         projectArea.definitionExpression = "objectid = 0 ";
       }
@@ -922,8 +922,8 @@ define([
       });
 
       view.ui.add(homeButton, "top-left");
-      if (that.projectAreaId != null) {
-        this.readGeometry(that.projectAreaId, "project").then(
+      if (app.projectAreaId != null) {
+        this.readGeometry(app.projectAreaId, "project").then(
           (projectAreaFeature) => {
             homeButton.viewpoint = new Viewpoint({
               targetGeometry: projectAreaFeature[0].geometry.extent,
@@ -932,13 +932,13 @@ define([
         );
       };
       view.when(() => {
-        if (that.projectAreaId == null) {
+        if (app.projectAreaId == null) {
           locate.when(() => {
             locate.locate();
           });
         } else {
-          if (!that.offline) {
-            this.readGeometry(that.projectAreaId, "project").then(
+          if (!app.offline) {
+            this.readGeometry(app.projectAreaId, "project").then(
               (projectAreaFeature) => {
                 view.goTo(projectAreaFeature[0].geometry);
               }
@@ -947,7 +947,7 @@ define([
         }
       })
 
-      that.mapLoadedPromises.push(new Promise ((resolve, reject) => {
+      app.mapLoadedPromises.push(new Promise ((resolve, reject) => {
         reactiveUtils.whenFalseOnce(view, "updating", () => {
           this.printMap(view).then((image) => {
             screenshotDiv.src = image.url;

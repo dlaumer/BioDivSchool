@@ -88,6 +88,9 @@ define([
           return this.data[stringID][this.lang]
 
         }
+        else if (stringID == "") {
+          return ""
+        }
         else {
           alert("There is a missing string: " + stringID)
         }

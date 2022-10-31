@@ -4,7 +4,7 @@ App.js
 --------------
 Main code base for sub-applications like collection, consolidation, results and projects! Depending on the `mode` property the codepath is slightly different. But since all sub-applications are so similar it makes sense to share most of the code.
 */
-let that = null;
+let app = null;
 
 define([
   "dojo/dom",
@@ -20,26 +20,26 @@ define([
 ], function (dom, domCtr, win, on, Page, Consolidation, ArcGis, Start) {
   return class App {
     constructor(offline, mode, strings, version, callback) {
-      that = this;
-      that.pointsTotal = 0;
-      that.projectAreaId = null;
-      that.mode = mode;
-      that.offline = offline;
-      that.consolidationWidth = null;
-      that.strings = strings;
-      that.version = version;
-      that.results = {};
-      that.pages = [];
-      that.pageNo = 0;
-      that.mapLoadedPromises = [];
+      app = this;
+      app.pointsTotal = 0;
+      app.projectAreaId = null;
+      app.mode = mode;
+      app.offline = offline;
+      app.consolidationWidth = null;
+      app.strings = strings;
+      app.version = version;
+      app.results = {};
+      app.pages = [];
+      app.pageNo = 0;
+      app.mapLoadedPromises = [];
 
-      that.arcgis = new ArcGis(that.strings);
+      app.arcgis = new ArcGis(app.strings);
 
       if (this.mode == "results") {
-        that.showPoints = true;
+        app.showPoints = true;
       }
       else {
-        that.showPoints = false;
+        app.showPoints = false;
       }
 
       if (!this.offline) {
@@ -60,141 +60,164 @@ define([
       }
     }
 
+    // Init function for collection and results
     init(projectId, groupId) {
 
       document.getElementById("btn_login").innerHTML = this.strings.get("loading");
       this.projectId = projectId;
-      this.groupId = groupId;
-
       this.updateAttributes("project", this.projectId)
-      this.updateAttributes("group", this.groupId)
-
-
-      // Add a new element in the database
-      let that = this;
+      
+      if (app.mode != "project") {
+        this.groupId = groupId;
+        
+        if (app.mode == "collection" || app.mode == "results") {
+          this.updateAttributes("group", this.groupId)
+        }
+      }
+        
 
       if (!this.offline) {
         // Check if this project alreayd exists
-        this.arcgis.checkDataProject(that.projectId, (info) => {
-          that.projectAreaId = "[" + info.getObjectId().toFixed(0) + "]";
-          that.projectName = info.attributes["name"];
-          that.schoolName = info.attributes["school"];
-          that.content.init();
+        this.arcgis.checkDataProject(app.projectId, (info) => {
+          app.projectAreaId = "[" + info.getObjectId().toFixed(0) + "]";
+          app.projectName = info.attributes["name"];
+          app.schoolName = info.attributes["school"];
+          app.content.init();
 
         
           this.arcgis
             .calculateArea(this.projectAreaId, "project")
             .then((area) => {
-              that.projectArea = area.totalArea;
-              this.arcgis.checkData(that.projectId, that.groupId, (info) => {
-                if (info != null) {
-                  let data = info.data;
-                  //this.saveJSON(data)
-                  that.objectId = info.objectId;
-                  if (!info.newFeature) {
-                    that.loadInputs(data.attributes);
+              app.projectArea = area.totalArea;
+              if (app.mode == "collection" || app.mode == "results") {
+                this.arcgis.checkData(app.projectId, app.groupId, (info) => {
+                  if (info != null) {
+                    let data = info.data;
+                    //this.saveJSON(data)
+                    app.objectId = info.objectId;
+                    if (!info.newFeature) {
+                      app.loadInputs(data.attributes);
+                    }
                   }
-                }
-                this.initUI();
-                if (that.mode == "results") {
-                  /*
-                  Promise.allSettled(that.mapLoadedPromises).then(() => {
-                    console.log("All Maps loaded!")
-                    that.print.classList.remove("btn_disabled");
-                  })
-                  */
-                }
-              });
+                  this.initUI();
+                  if (app.mode == "results") {
+                    /*
+                    Promise.allSettled(app.mapLoadedPromises).then(() => {
+                      console.log("All Maps loaded!")
+                      app.print.classList.remove("btn_disabled");
+                    })
+                    */
+                  }
+                
+                });
+              }
             });
+            if (app.mode == "consolidation") {
+              this.arcgis.checkDataGroups(app.projectId, (data) => {
+                let dataGroups = app.parseGroups(data);
+                let occurences = app.countOccurence(dataGroups);
+                app.loadInputsGroup(dataGroups, occurences.count);
+                this.arcgis.checkData(app.projectId, app.groupId, (info) => {
+                  let data = info.data;
+                  app.objectId = info.objectId;
+                  if (!info.newFeature) {
+                    app.loadInputs(data.attributes);
+                  }
+    
+                  this.initUI();
+                });
+              });
+            }
 
         });
       } else {
 
-        that.content.init();
-        var data = JSON.parse(exampleData);
-        that.loadInputs(data.attributes);
+        app.content.init();
+
+        if (app.mode == "collection" || app.mode == "results") {
+          var data = JSON.parse(exampleData);
+          app.loadInputs(data.attributes);
+        }
 
         this.initUI();
 
       }
     }
 
+    // init function for project
     initProject(projectId) {
 
       document.getElementById("btn_login").innerHTML = this.strings.get("loading");
       this.projectId = projectId;
-
       this.updateAttributes("project", this.projectId)
 
       // Add a new element in the database
-      let that = this;
       if (!this.offline) {
-        this.arcgis.checkData(that.projectId, null, (info) => {
+        this.arcgis.checkData(app.projectId, null, (info) => {
           if (info != null) {
             let data = info.data;
-            that.projectName = data.attributes["name"];
-            that.schoolName = data.attributes["school"];
-            that.objectId = data.getObjectId();
-            that.projectAreaId = "[" + that.objectId.toFixed(0) + "]";
-            that.content.editProject();
+            app.projectName = data.attributes["name"];
+            app.schoolName = data.attributes["school"];
+            app.objectId = data.getObjectId();
+
+            app.projectAreaId = "[" + app.objectId.toFixed(0) + "]";
+            app.content.editProject();
             if (!info.newFeature) {
-              that.loadInputs(data.attributes);
+              app.loadInputs(data.attributes);
             }
             // Add the url for the collection
             var queryParams = new URLSearchParams(window.location.search);
             queryParams.set("mode", "collection");
             queryParams.delete("intern");
             let url = window.location.href.split("?")[0] + "?" + queryParams.toString();
-            domCtr.create("div", { className: "labelText", innerHTML: that.strings.get("link") + ": <a href="+url+" target=_blank>"+url+"</a>", style: "width: 100%; margin-bottom: 10px;"}, document.getElementById("textInfo_Erfassung"));
+            domCtr.create("div", { className: "labelText", innerHTML: app.strings.get("link") + ": <a href="+url+" target=_blank>"+url+"</a>", style: "width: 100%; margin-bottom: 10px;"}, document.getElementById("textInfo_Erfassung"));
             domCtr.create("div", { id: "qrcode"}, document.getElementById("textInfo_Erfassung"));
 
             new QRCode(document.getElementById("qrcode"), url);
 
           }
           else {
-            that.content.makeNewProject();
+            app.content.makeNewProject();
           }
           this.initUI();
         });
       } else {
-        that.content.makeNewProject();
+        app.content.makeNewProject();
         this.initUI();
       }
     }
 
+    // init function for consolidation
     initConsolidation(projectId) {
       document.getElementById("btn_login").innerHTML = this.strings.get("loading");
       this.projectId = projectId;
-      this.groupId = "all";
-
       this.updateAttributes("project", this.projectId)
 
-      let that = this;
+      this.groupId = "all";
+
 
       if (!this.offline) {
         // Check if this project alreayd exists
-        this.arcgis.checkDataProject(that.projectId, (info) => {
-          that.projectAreaId = "[" + info.getObjectId().toFixed(0) + "]";
-
-          that.projectName = info.attributes["name"];
-          that.schoolName = info.attributes["school"];
-
-          that.content.init();
+        this.arcgis.checkDataProject(app.projectId, (info) => {
+          app.projectAreaId = "[" + info.getObjectId().toFixed(0) + "]";
+          app.projectName = info.attributes["name"];
+          app.schoolName = info.attributes["school"];
+          app.content.init();
 
           this.arcgis
             .calculateArea(this.projectAreaId, "project")
             .then((area) => {
-              this.projectArea = area.totalArea;
+              app.projectArea = area.totalArea;
             });
-          this.arcgis.checkDataGroups(that.projectId, (data) => {
-            let dataGroups = that.parseGroups(data);
-            let occurences = that.countOccurence(dataGroups);
-            that.loadInputsGroup(dataGroups, occurences.count);
-            this.arcgis.checkData(that.projectId, that.groupId, (info) => {
+          this.arcgis.checkDataGroups(app.projectId, (data) => {
+            let dataGroups = app.parseGroups(data);
+            let occurences = app.countOccurence(dataGroups);
+            app.loadInputsGroup(dataGroups, occurences.count);
+            this.arcgis.checkData(app.projectId, app.groupId, (info) => {
               let data = info.data;
-              that.objectId = info.objectId;
+              app.objectId = info.objectId;
               if (!info.newFeature) {
-                that.loadInputs(data.attributes);
+                app.loadInputs(data.attributes);
               }
 
               this.initUI();
@@ -202,10 +225,11 @@ define([
           });
         });
       } else {
-        that.content.init();
+        app.content.init();
         this.initUI();
       }
     }
+
 
     initUI() {
       // destroy welcome page when app is started
@@ -214,31 +238,31 @@ define([
       /*
       console.log(Array.from(document.getElementsByClassName("esri-editor__feature-list-name")))
       Array.from(document.getElementsByClassName("esri-editor__feature-list-name")).forEach(function(item) {
-        item.innerHTML = item.innerHTML.replace("Feature", that.strings.get("feature"))
+        item.innerHTML = item.innerHTML.replace("Feature", app.strings.get("feature"))
      });
-      for (let i in that.pages) {
-        that.pages[i].page.style.display = "none"
+      for (let i in app.pages) {
+        app.pages[i].page.style.display = "none"
       }
       */
       this.pages[0].init(null);
       this.currentPage = 0;
       // TODO Warning if did not work!
-      if (that.projectId != "null") {
+      if (app.projectId != "null") {
         this.infoBox.innerHTML =
-        that.mode == "project"
-          ? that.projectName + ", " + that.schoolName + " <small>(" + that.projectId + ")</small>"
-          : that.projectName + ", " + that.schoolName + " <small>(" + that.projectId + ")</small>, " + this.strings.get("group") + ": " + this.groupId;
+        app.mode == "project"
+          ? app.projectName + ", " + app.schoolName + " <small>(" + app.projectId + ")</small>"
+          : app.projectName + ", " + app.schoolName + " <small>(" + app.projectId + ")</small>, " + this.strings.get("group") + ": " + this.groupId;
       }
       this.save.className = "btn1 btn_disabled";
       document.onkeydown = this.checkKey;
 
-      this.home.style.display = that.mode == "project" ? "none" : "block";
-      this.save.style.display = that.mode == "project" || that.mode == "results" ? "none" : "block";
-      this.next.style.display = that.mode == "project" && this.projectId == null ? "none" : "block";
-      this.back.style.display = that.mode == "project" ? "none" : "block";
+      this.home.style.display = app.mode == "project" ? "none" : "block";
+      this.save.style.display = app.mode == "project" || app.mode == "results" ? "none" : "block";
+      this.next.style.display = app.mode == "project" && this.projectId == null ? "none" : "block";
+      this.back.style.display = app.mode == "project" ? "none" : "block";
 
-      if (that.mode == "results") {
-        that.makeTitlePage();
+      if (app.mode == "results") {
+        app.makeTitlePage();
       }
     }
 
@@ -257,14 +281,14 @@ define([
         this.header
         );
 
-      if (that.mode == "results") {
+      if (app.mode == "results") {
         this.print = domCtr.create(
           "div",
           { id: "print", className: "btn1 btn_disabled", innerHTML: this.strings.get("printWait") },
           this.header
           );
           setTimeout(() => {
-            Promise.all(that.mapLoadedPromises).then(() => {
+            Promise.all(app.mapLoadedPromises).then(() => {
               this.print.innerHTML = this.strings.get("print")
               this.print.className = "btn1"
             })
@@ -336,7 +360,7 @@ define([
         {
           id: "pointsTotalInfo",
           className: "pointsInfo",
-          innerHTML: that.mode == "project" | !that.showPoints ? "" : this.strings.get("totalPoints") + ": 0",
+          innerHTML: app.mode == "project" | !app.showPoints ? "" : this.strings.get("totalPoints") + ": 0",
         },
         this.footerRight
       );
@@ -344,17 +368,17 @@ define([
     }
 
     saveData(callback) {
-      that.save.innerHTML = this.strings.get("saving");
-      let elements = that.getAllElements(false);
-      that.uploadData(elements).then((value) => {
-        that.save.innerHTML = this.strings.get("saved");
-        that.save.className = "btn1 btn_disabled";
+      app.save.innerHTML = this.strings.get("saving");
+      let elements = app.getAllElements(false);
+      app.uploadData(elements).then((value) => {
+        app.save.innerHTML = this.strings.get("saved");
+        app.save.className = "btn1 btn_disabled";
         callback()
       });
       /*
         .catch((reason) => {
-          that.save.innerHTML = "Save";
-          that.save.className = "btn1";
+          app.save.innerHTML = "Save";
+          app.save.className = "btn1";
           alert("Saving not successful");
           console.log(reason);
         });
@@ -363,7 +387,7 @@ define([
 
     clickHandler() {
 
-      if (that.mode == "results") {
+      if (app.mode == "results") {
 
         on(this.print, "click", () => {
          window.print();
@@ -403,7 +427,7 @@ define([
         this.next,
         "click",
         function (evt) {
-          if (that.mode == "project") {
+          if (app.mode == "project") {
             window.open(window.location.href + "?intern=true&mode=start", "_self")
 
           }
@@ -432,15 +456,15 @@ define([
     }
 
     addStartPage(title) {
-      let page = new Page(this, this.pages.length, this.pageContainer, title + " - " + that.strings.get(that.mode));
+      let page = new Page(this.pages.length, this.pageContainer, title + " - " + app.strings.get(app.mode));
 
       page.titleDiv.id = "startTitle";
       this.pages.push(page);
       this.loginPage = page;
 
-      if (that.mode == "results") {
+      if (app.mode == "results") {
        domCtr.create("div",
-          { class: "pageTitle title", id: "pointsTitle", innerHTML: that.strings.get("points") },
+          { class: "pageTitle title", id: "pointsTitle", innerHTML: app.strings.get("points") },
           page.page
         );
       }
@@ -450,11 +474,10 @@ define([
 
     addPage(title, args = {}) {
 
-      if (!args.version || args.version && args.version.includes(that.version)) {
+      if (!args.version || args.version && args.version.includes(app.version)) {
         let page;
-        if (that.mode == "consolidation") {
+        if (app.mode == "consolidation") {
           page = new Consolidation(
-            this,
             this.pages.length,
             this.pageContainer,
             title
@@ -478,30 +501,30 @@ define([
 
           domCtr.create(
             "div",
-            { class: "contentLink", innerHTML: (that.pageNo + 1) + ". " + title },
+            { class: "contentLink", innerHTML: (app.pageNo + 1) + ". " + title },
             page.pageOverview
           );
           page.pageOverview.addEventListener("click", () => {
-            this.goToPage(that.mode == "consolidation" ? pageNr + 1 : pageNr);
+            this.goToPage(app.mode == "consolidation" ? pageNr + 1 : pageNr);
           });
 
         }
-        that.pageNo = that.pageNo + 1;
+        app.pageNo = app.pageNo + 1;
         return page;
       }
     }
 
     addPageNormal(title, container) {
-      let page = new Page(this, this.pages.length, container, title);
+      let page = new Page(this.pages.length, container, title);
       this.pages.push(page);
       return page;
     }
 
     addFinalPage(title) {
-      if (that.mode != "results") {
-        let page = new Page(this, this.pages.length, this.pageContainer, title);
+      if (app.mode != "results") {
+        let page = new Page(this.pages.length, this.pageContainer, title);
         let element = domCtr.create("div", { id: "finalElement", className: "element final" }, page.page);
-        let final = domCtr.create("div", { id: "btn_final", className: "btn1", innerHTML: that.strings.get("results") }, element);
+        let final = domCtr.create("div", { id: "btn_final", className: "btn1", innerHTML: app.strings.get("results") }, element);
   
         on(final, "click", function (evt) {
           this.finalize();
@@ -515,7 +538,7 @@ define([
     }
 
     loadInputs(data) {
-      let elements = that.getAllElements(false);
+      let elements = app.getAllElements(false);
       let setterPromises = [];
       for (let item in data) {
 
@@ -528,9 +551,9 @@ define([
           }
         }
       }
-      if (that.mode == "results") {
+      if (app.mode == "results") {
         Promise.all(setterPromises).then(() => {
-          that.parseResults();
+          app.parseResults();
         })
       }
 
@@ -550,10 +573,10 @@ define([
 
     parseResults() {
       
-      for (let i in that.pages) {
-        let page = that.pages[i];
+      for (let i in app.pages) {
+        let page = app.pages[i];
 
-        if (i == 0 || page == that.lastPage) { continue }; // The first and last pages have no elements
+        if (i == 0 || page == app.lastPage) { continue }; // The first and last pages have no elements
         let points = 0;
         let maxPoints = 0;
         let minPoints = 0;
@@ -562,10 +585,10 @@ define([
           // 1. if it's a map element, get the ids
           if (element.type == "mapInput") {
             let layerData = { name: element.key, value: element.value, color: element.color, name_display: element.name_display };
-            if (!Object.keys(that.results).includes("mapLayers")) {
-              that.results.mapLayers = []
+            if (!Object.keys(app.results).includes("mapLayers")) {
+              app.results.mapLayers = []
             }
-            that.results.mapLayers.push(layerData);
+            app.results.mapLayers.push(layerData);
           }
 
           // 2. Read the points, and also the min and max points of this element
@@ -589,7 +612,7 @@ define([
         );
 
         let label = domCtr.create("div",
-          { class: "labelPoints", innerHTML: points + " " + that.strings.get("points") },
+          { class: "labelPoints", innerHTML: points + " " + app.strings.get("points") },
           pointBar
         );
 
@@ -669,7 +692,7 @@ define([
 
       }
       domCtr.create("div",
-          { class: "pageTitle title", innerHTML: that.strings.get("areas") },
+          { class: "pageTitle title", innerHTML: app.strings.get("areas") },
           this.loginPage.page
         );
 
@@ -677,11 +700,11 @@ define([
       this.loginPage.mapResults = domCtr.create("div", { className: "mapOverviewResultsMap" }, map);
       this.screenshotDiv = domCtr.create("img", { className: "screenshot" }, map);
       this.loginPage.legendResults = domCtr.create("div", { className: "mapOverviewResultsLegend" }, map);
-      that.arcgis.addMapResults(this.loginPage.mapResults, this.loginPage.legendResults, that.results.mapLayers, this.screenshotDiv)
+      app.arcgis.addMapResults(this.loginPage.mapResults, this.loginPage.legendResults, app.results.mapLayers, this.screenshotDiv)
     }
 
     loadInputsGroup(data, count) {
-      let elements = that.getAllElements(false);
+      let elements = app.getAllElements(false);
 
       for (let item in data) {
         if (Object.keys(elements).indexOf(item) > -1 && data[item] != null) {
@@ -691,7 +714,7 @@ define([
     }
 
     countOccurence(data) {
-      let elements = that.getAllElements(false);
+      let elements = app.getAllElements(false);
 
       let dataAll = {};
       let count = {};
@@ -730,20 +753,20 @@ define([
     }
 
     checkInputs() {
-      let elements = that.getAllElements(true);
+      let elements = app.getAllElements(true);
       if (Object.values(elements).every((elem) => elem.value != null)) {
-        that.lastPage.removeWarning();
-        that.uploadData(elements);
+        app.lastPage.removeWarning();
+        app.uploadData(elements);
       } else {
-        that.lastPage.addWarning(that.strings.get("warnFillAll"));
+        app.lastPage.addWarning(app.strings.get("warnFillAll"));
       }
     }
 
     finalize() {
-      that.saveData(() => {
-        that.lastPage.addWarning(that.strings.get("warnSaveSuccess"));
+      app.saveData(() => {
+        app.lastPage.addWarning(app.strings.get("warnSaveSuccess"));
         this.updateAttributes("mode", "results");
-          this.updateAttributes("group", that.groupId);
+          this.updateAttributes("group", app.groupId);
 
           window.open(window.location.href, "_self");
       })
@@ -751,9 +774,9 @@ define([
 
     getAllElements(checkIfSet) {
       let data = {};
-      for (let pageIndex in that.pages) {
-        let page = that.pages[pageIndex];
-        if (page != that.lastPage) {
+      for (let pageIndex in app.pages) {
+        let page = app.pages[pageIndex];
+        if (page != app.lastPage) {
           for (let elemIndex in page.elements) {
             let elem = page.elements[elemIndex];
             if (checkIfSet) {
@@ -778,7 +801,7 @@ define([
       let data = this.parseElements(elements);
 
       return new Promise((resolve, reject) => {
-        that.arcgis
+        app.arcgis
           .updateFeature(this.objectId, data)
           .then((value) => {
             resolve(value);
@@ -797,9 +820,9 @@ define([
       } else if (e.keyCode == "40") {
         // down arrow
       } else if (e.keyCode == "37") {
-        that.goToPage(that.currentPage - 1);
+        app.goToPage(app.currentPage - 1);
       } else if (e.keyCode == "39") {
-        that.goToPage(that.currentPage + 1);
+        app.goToPage(app.currentPage + 1);
       }
     }
 
@@ -807,9 +830,9 @@ define([
     makeTitlePage() {
       this.titlePage = domCtr.create("div", { id: "titlePage"});
       domCtr.place(this.titlePage, this.header, "before");
-      domCtr.create("div", { id: "title", innerHTML: that.strings.get("titlePdf") }, this.titlePage);
-      domCtr.create("div", { id: "school", className: "titleInfo", innerHTML:  that.strings.get("school") + ": " + that.schoolName}, this.titlePage);
-      domCtr.create("div", { id: "location", className: "titleInfo", innerHTML: that.strings.get("location") + ": " + that.projectName }, this.titlePage);
+      domCtr.create("div", { id: "title", innerHTML: app.strings.get("titlePdf") }, this.titlePage);
+      domCtr.create("div", { id: "school", className: "titleInfo", innerHTML:  app.strings.get("school") + ": " + app.schoolName}, this.titlePage);
+      domCtr.create("div", { id: "location", className: "titleInfo", innerHTML: app.strings.get("location") + ": " + app.projectName }, this.titlePage);
 
     }
 

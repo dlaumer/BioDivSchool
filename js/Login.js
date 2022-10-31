@@ -48,28 +48,28 @@ define([
     init(offline) {
       // Make new app
       this.offline = offline;
-      this.app = new App(this.offline, this.mode, this.strings, this.version, () => {
-        this.content = new Content(that);
-        that.content = this.content;
+      new App(this.offline, this.mode, this.strings, this.version, () => {
+        this.content = new Content();
+        app.content = this.content;
 
         this.createUI();
 
         if (this.offline) {
           if (this.mode == "consolidation") {
-            that.initConsolidation("1");
+            app.init("1", "all");
           }
           else if (this.mode == "project") {
-            that.initProject("1");
+            app.initProject("1");
           }
           else {
-            that.init("1", "a");
+            app.init("1", "a");
           }
         }
 
 
         if (this.mode == "consolidation") {
           if ( Object.keys(this.urlData).indexOf("project")  > -1) {
-            that.initConsolidation(this.urlData["project"]);
+            app.init(this.urlData["project"], "all");
             this.inputProjectId.value = this.urlData["project"]
 
           }
@@ -79,20 +79,20 @@ define([
         }
         else if (this.mode == "project") {
           if ( Object.keys(this.urlData).indexOf("project")  > -1) {
-            that.initProject(this.urlData["project"]);
+            app.initProject(this.urlData["project"]);
             this.inputProjectId.value = this.urlData["project"]
 
 
           }
           else {
-            that.initProject(null);
-            this.inputProjectId.value = that.strings.get("newProject");
+            app.initProject(null);
+            this.inputProjectId.value = app.strings.get("newProject");
           }
         }
         else {
           
           if (Object.keys(this.urlData).indexOf("group") > -1 && Object.keys(this.urlData).indexOf("project")  > -1) {
-            that.init(this.urlData["project"], this.urlData["group"]);
+            app.init(this.urlData["project"], this.urlData["group"]);
             this.inputProjectId.value = this.urlData["project"]
             this.inputGroupId.value = this.urlData["group"]
             this.inputGroupId.style.display = "block";
@@ -224,13 +224,13 @@ define([
         "click",
         function (evt) {
           if (this.mode == "consolidation") {
-            this.app.initConsolidation(this.inputProjectId.value);
+            app.init(this.inputProjectId.value, "all");
           }
           else if (this.mode == "project") {
-            this.app.initProject(this.inputProjectId.value);
+            app.initProject(this.inputProjectId.value);
           }
           else {
-            this.app.init(this.inputProjectId.value, this.inputGroupId.value);
+            app.init(this.inputProjectId.value, this.inputGroupId.value);
           }
         }.bind(this)
       );

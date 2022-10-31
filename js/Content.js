@@ -17,8 +17,7 @@ define([
   "biodivschool/Element",
 ], function (dom, domCtr, win, on, Page, Element) {
   return class Content {
-    constructor(app) {
-      this.app = app;
+    constructor() {
 
       this.groups = [
         { key: "a", label: "Gruppe a" },
@@ -144,9 +143,9 @@ define([
 
       
 
-      this.app.addStartPage("BioDivSchool");
+      app.addStartPage("BioDivSchool");
       /*Regionalität der Pflanzen*/
-      let page_regionalitaet = this.app.addPage("Regionalität der Pflanzen", {
+      let page_regionalitaet = app.addPage("Regionalität der Pflanzen", {
         pointsInfo: [0,10] });
 
       page_regionalitaet.addTextInfo({
@@ -283,7 +282,7 @@ define([
 
       
       /*Strukturelemente*/      
-      let page_strukturelemente = this.app.addPage("Strukturelemente", {
+      let page_strukturelemente = app.addPage("Strukturelemente", {
       pointsInfo: [10, 32]});
 
       page_strukturelemente.addTextInfo({        
@@ -1164,7 +1163,7 @@ define([
       });
 
       /*Pflege*/
-      let page_pflege = this.app.addPage("Pflege", {
+      let page_pflege = app.addPage("Pflege", {
       pointsInfo: [2,11]});
 
   
@@ -1603,7 +1602,7 @@ define([
       });
 
       /*Bauliche Massnahmen*/
-       let page_baumassnahmen = this.app.addPage("Bauliche Massnahmen", {
+       let page_baumassnahmen = app.addPage("Bauliche Massnahmen", {
        pointsInfo: [2,4]});
 
       page_baumassnahmen.addTextInfo({
@@ -1821,12 +1820,12 @@ define([
           }
       });      
 
-      this.app.addFinalPage("Ende");     
+      app.addFinalPage("Ende");     
     }
 
 
     makeNewProject() {
-      let page0 = this.app.addPage("Projekt Infos");
+      let page0 = app.addPage("Projekt Infos");
 
       let projektid = page0.addElement("simpleTextInput", "projectid", {
         text: "Projekt ID",
@@ -1886,13 +1885,13 @@ define([
         elements: [map]
       }]
 
-      this.app.addFinalPage("Ende");
+      app.addFinalPage("Ende");
 
     }
 
     
     editProject() {
-      let page0 = this.app.addPage("Projekt Infos");
+      let page0 = app.addPage("Projekt Infos");
 
       page0.addTextInfo({
         title: "Erfassung",
@@ -1914,13 +1913,13 @@ define([
         ` 
       });
 
-      this.app.addFinalPage("Ende");
+      app.addFinalPage("Ende");
 
     }
 
     
     makeContent2() {
-      let page0 = this.app.addPage("Allgemeine Infos");
+      let page0 = app.addPage("Allgemeine Infos");
       page0.addElement("simpleTextInput", "standort", {
         text: "Was ist der Name des Standorts?",
         placeholder: "Standort",
@@ -1954,7 +1953,7 @@ define([
         ],
       });
 
-      let page1 = this.app.addPage("Slider Test");
+      let page1 = app.addPage("Slider Test");
 
       page1.addElement("sliderInput", "slider1", {
         text: "How much of this?",
@@ -1975,11 +1974,11 @@ define([
         step: 2,
       });
 
-      let page2 = this.app.addPage("Page 2");
+      let page2 = app.addPage("Page 2");
       page2.addElement("mapInput", "gebiete", { text: "Zeichne die Gebiete" });
 
-      let page3 = this.app.addPage("Page 3");
-      let page4 = this.app.addFinalPage("Ende");
+      let page3 = app.addPage("Page 3");
+      let page4 = app.addFinalPage("Ende");
     }
   };
 });

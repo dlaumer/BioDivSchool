@@ -15,9 +15,7 @@ define([
   "biodivschool/Element",
 ], function (dom, domCtr, win, on, Element) {
   return class Page {
-    constructor(app, id, container, title) {     
-
-      this.app = app;
+    constructor(id, container, title) {     
       this.id = id;
       this.name = "page_" + id.toString();
       this.container = container;
@@ -33,7 +31,7 @@ define([
     init(prevPage) {
       if (prevPage !== null) {
         prevPage.page.className = "page";
-        this.page.style.display = that.mode == "consolidation" ? "none" : "block"
+        this.page.style.display = app.mode == "consolidation" ? "none" : "block"
 
       }
       this.page.className = "page active";
@@ -51,7 +49,7 @@ define([
         { id: this.name, className: "page" },
         this.container
       );
-      this.page.style.display = that.mode == "consolidation" ? "none" : "block"
+      this.page.style.display = app.mode == "consolidation" ? "none" : "block"
       this.titleDiv = domCtr.create(
         "div",
         { class: "pageTitle", innerHTML: this.title },
@@ -65,7 +63,7 @@ define([
         
     let elem = this.addElementNormal(type, key, args, this.page)
 
-    if (Object.keys(args).includes("version") && !args.version.includes(that.version)) {
+    if (Object.keys(args).includes("version") && !args.version.includes(app.version)) {
       elem.element.style.display = "none"
     }
     return elem
@@ -76,7 +74,7 @@ define([
     }
 
     addElementNormal(type, key, args, container) {
-      let elem = new Element(this.app, this, this.elements.length, container);
+      let elem = new Element(this, this.elements.length, container);
       elem.init(type, key, args);
       this.elements.push(elem);
       return elem;
@@ -104,7 +102,7 @@ define([
           }.bind(this));
         }
 
-        if (Object.keys(args).includes("version") && !args.version.includes(that.version)) {
+        if (Object.keys(args).includes("version") && !args.version.includes(app.version)) {
           textInfo.style.display = "none"
         }
 

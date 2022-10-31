@@ -14,8 +14,7 @@ define([
   "biodivschool/Element"
 ], function (dom, domCtr, win, on, Element) {
   return class Consolidation {
-    constructor(app, id, container, title) {
-      this.app = app;
+    constructor(id, container, title) {
       this.id = id;
       this.name = "page_" + id.toString();
       this.container = container;
@@ -48,7 +47,7 @@ define([
 
     addElement(type, key, args) {
 
-      let page = that.addPageNormal(this.title, this.container);
+      let page = app.addPageNormal(this.title, this.container);
 
       let consolidationContainer = domCtr.create("div", { className: "consolidationContainer"}, page.page);
 
@@ -60,10 +59,10 @@ define([
       let consolidationDiagramm = domCtr.create("div", { className: "consolidation", id: "consolidation_" + key, style: "display:none"}, consolidationArea);   
      
       this.groupDivs = {}
-      for (let i in that.content.groups) {
+      for (let i in app.content.groups) {
         let groupDivContainer = domCtr.create("div", { className: "groupDivContainer"}, consolidation);
-        domCtr.create("div", { className: "groupDivTitle", innerHTML: that.content.groups[i].label}, groupDivContainer);
-        this.groupDivs[that.content.groups[i].key] = domCtr.create("div", { className: "resultContainer", }, groupDivContainer);
+        domCtr.create("div", { className: "groupDivTitle", innerHTML: app.content.groups[i].label}, groupDivContainer);
+        this.groupDivs[app.content.groups[i].key] = domCtr.create("div", { className: "resultContainer", }, groupDivContainer);
 
         
       }
@@ -76,7 +75,7 @@ define([
       if (type != "mapInput") {
       let diagram = domCtr.create(
         "div",
-        { id: "diagram", className: "btn1", innerHTML: that.strings.get("diagram")},
+        { id: "diagram", className: "btn1", innerHTML: app.strings.get("diagram")},
         consolidationArea
       );
 
@@ -84,15 +83,15 @@ define([
         diagram,
         "click",
         function (evt) {
-          if (evt.target.innerHTML == that.strings.get("diagram")) {
+          if (evt.target.innerHTML == app.strings.get("diagram")) {
             consolidation.style.display = "none";
             consolidationDiagramm.style.display = "flex";
-            evt.target.innerHTML = that.strings.get("values");
+            evt.target.innerHTML = app.strings.get("values");
           }
           else {
             consolidation.style.display = "flex";
             consolidationDiagramm.style.display = "none";
-            evt.target.innerHTML = that.strings.get("diagram");
+            evt.target.innerHTML = app.strings.get("diagram");
           }
         }
       );
@@ -106,7 +105,7 @@ define([
 
     addWarning() {
       if (document.getElementById("warning") == null) {
-        this.element = domCtr.create("div", { id: "warning", className: "warning", innerHTML: that.strings.get("warnFillAll")}, this.page);  
+        this.element = domCtr.create("div", { id: "warning", className: "warning", innerHTML: app.strings.get("warnFillAll")}, this.page);  
       }
      
     }

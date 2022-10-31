@@ -52,8 +52,7 @@ define([
 
 ], function (dom, domCtr, win, on) {
   return class Element {
-    constructor(app, page, id, container) {
-      this.app = app;
+    constructor(page, id, container) {
       this.page = page;
       this.id = id;
       this.name = this.page.name + "_element_" + id.toString();
@@ -68,11 +67,12 @@ define([
       this.allowedValues = null; // Meaning all the values are allowed
       this.resultDiv = null;
       this.groupDivs = null;
+      this.measureNone = "";
 
       this.rules = null;
 
       this.elementWidth = 0;
-      if (that.mode == "consolidation") {
+      if (app.mode == "consolidation") {
         document.head.appendChild(style);
       }
       else {
@@ -87,8 +87,11 @@ define([
       this.key = key;
 
       this.element = domCtr.create("div", { id: this.name, className: "element inputElement" }, this.container);
-      if (that.mode == "results") {
-        this.element.style.display = "none"
+      if (app.mode == "results") {
+        //this.element.style.display = "none"
+      }
+      if (args.measure) {
+        this.measureNone = args.measure;
       }
       this.labelContainer = domCtr.create("div", { className: "labelContainer" }, this.element);
 
@@ -127,14 +130,12 @@ define([
         this.addTextInfo(args.textInfo);
       }
 
-      if (args.measure) {
-        this.measureNone = args.measure;
-      }
+     
     }
 
     addSimpleTextInput(args) {
       this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text }, this.labelContainer);
-      if (that.mode != "results") {
+      if (app.mode != "results") {
         this.input = domCtr.create("input", { className: "input inputField", placeholder: args.placeholder }, this.element);
 
         on(this.input, "change", function (evt) {
@@ -147,11 +148,13 @@ define([
         }.bind(this));
       }
       else {
-        this.input = domCtr.create("div", { className: " input", innerHTML: "" }, this.element)
+        this.input = domCtr.create("div", { className: " input", innerHTML: "" }, this.element);
+        this.resultDiv = domCtr.create("div", { className: "result", innerHTML: "<b>" + app.strings.get("result") + ":</b><br> n/a"}, this.input);
+        this.measureDiv = domCtr.create("div", { className: "measure", innerHTML: app.strings.get(this.measureNone)}, this.input)
       }
 
       this.setterUI = function (value) {
-        if (that.mode == "results") {
+        if (app.mode == "results") {
           this.setterUINonEdit(this.input, value)
         }
         else {
@@ -163,7 +166,7 @@ define([
 
     addDateTimeInput(args) {
       this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text }, this.labelContainer);
-      if (that.mode != "results") {
+      if (app.mode != "results") {
         this.input = domCtr.create("input", { id: "dateTime", type: "date", className: "input dateTimeInput" }, this.element);
 
         on(this.input, "input", function (evt) {
@@ -171,12 +174,14 @@ define([
         }.bind(this));
       }
       else {
-        this.input = domCtr.create("div", { className: "groupResult input", innerHTML: "" }, this.element)
+        this.input = domCtr.create("div", { className: "groupResult input", innerHTML: "" }, this.element);
+        this.resultDiv = domCtr.create("div", { className: "result", innerHTML: "<b>" + app.strings.get("result") + ":</b><br> n/a"}, this.input);
+        this.measureDiv = domCtr.create("div", { className: "measure", innerHTML: app.strings.get(this.measureNone)}, this.input)
       }
 
 
       this.setterUI = function (value) {
-        if (that.mode == "results") {
+        if (app.mode == "results") {
           this.setterUINonEdit(this.input, value)
         }
         else {
@@ -189,7 +194,7 @@ define([
     addDropdownInput(args) {
       this.allowedValues = []
       this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text }, this.labelContainer);
-      if (that.mode != "results") {
+      if (app.mode != "results") {
         this.input = domCtr.create("select", { className: "input inputField" }, this.element);
 
         domCtr.create("option", { value: "", selected: true, innerHTML: args.placeholder }, this.input);
@@ -199,6 +204,8 @@ define([
       }
       else {
         this.input = domCtr.create("div", { className: "groupResult input", innerHTML: "" }, this.element)
+        this.resultDiv = domCtr.create("div", { className: "result", innerHTML: "<b>" + app.strings.get("result") + ":</b><br> n/a"}, this.input);
+        this.measureDiv = domCtr.create("div", { className: "measure", innerHTML: app.strings.get(this.measureNone)}, this.input)
       }
 
       for (const i in args.options) {
@@ -243,7 +250,7 @@ define([
       }.bind(this));
 
       this.setterUI = function (value) {
-        if (that.mode == "results") {
+        if (app.mode == "results") {
           this.setterUINonEdit(this.input, value)
         }
         else {
@@ -256,7 +263,7 @@ define([
       this.allowedValues = []
       this.element.style.alignItems = "start;"
       this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text }, this.labelContainer);
-      if (that.mode != "results") {
+      if (app.mode != "results") {
         this.input = domCtr.create("div", { className: "input inputRows" }, this.element);
         for (const i in args.options) {
           let radioButtonContainer = domCtr.create("div", { className: "radioButtonContainer" }, this.input);
@@ -266,6 +273,8 @@ define([
       }
       else {
         this.input = domCtr.create("div", { className: "groupResult input", innerHTML: "" }, this.element);
+        this.resultDiv = domCtr.create("div", { className: "result", innerHTML: "<b>" + app.strings.get("result") + ":</b><br> n/a"}, this.input);
+        this.measureDiv = domCtr.create("div", { className: "measure", innerHTML: app.strings.get(this.measureNone)}, this.input)
 
       }
       for (const i in args.options) {
@@ -304,7 +313,7 @@ define([
       }.bind(this));
 
       this.setterUI = function (value) {
-        if (that.mode == "results") {
+        if (app.mode == "results") {
           this.setterUINonEdit(this.input, value)
         }
         else {
@@ -326,7 +335,7 @@ define([
       this.min = args.min;
       this.max = args.max;
       this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text }, this.labelContainer);
-      if (that.mode != "results") {
+      if (app.mode != "results") {
         this.sliderContainer = domCtr.create("div", { className: "input" }, this.element);
         this.sliderContainer2 = domCtr.create("div", { style: "width: 80%" }, this.sliderContainer);
         this.input = domCtr.create("input", { type: "range", className: "slider", min: args.min, max: args.max, value: (args.max - args.min) / 2, step: args.step }, this.sliderContainer2);
@@ -352,6 +361,8 @@ define([
       }
       else {
         this.input = domCtr.create("div", { className: "groupResult input", innerHTML: "" }, this.element)
+        this.resultDiv = domCtr.create("div", { className: "result", innerHTML: "<b>" + app.strings.get("result") + ":</b><br> n/a"}, this.input);
+        this.measureDiv = domCtr.create("div", { className: "measure", innerHTML: app.strings.get(this.measureNone)}, this.input)
       }
 
       if (args.points != null) {
@@ -376,7 +387,7 @@ define([
       
 
       this.setterUI = function (value) {
-        if (that.mode == "results") {
+        if (app.mode == "results") {
           this.setterUINonEdit(this.input, value + "%")
         }
         else {
@@ -401,19 +412,21 @@ define([
       this.editorContainer = domCtr.create("div", { id: this.name + "_editor", className: "editor" }, this.mapContainer);
       this.editor = domCtr.create("div", { id: this.name + "_editor" }, this.editorContainer);
       
-      this.linkInstructions = domCtr.create("div", { id: "linkInstructions", className: "labelText linkText", innerHTML: that.strings.get("instructions") }, this.editorContainer);
+      this.linkInstructions = domCtr.create("div", { id: "linkInstructions", className: "labelText linkText", innerHTML: app.strings.get("instructions") }, this.editorContainer);
       this.instructions = domCtr.create("div", { className: "expandable" }, this.element);
 
-      this.instructionsText = domCtr.create("div", {innerHTML: that.content.instructions, }, this.instructions);
-     this.instructionsClose =  domCtr.create("div", {className: "btn1", innerHTML: that.strings.get("close"), }, this.instructions);
+      this.instructionsText = domCtr.create("div", {innerHTML: app.content.instructions, }, this.instructions);
+     this.instructionsClose =  domCtr.create("div", {className: "btn1", innerHTML: app.strings.get("close"), }, this.instructions);
 
-     if (that.mode == "results") {
+     if (app.mode == "results") {
       //this.input.style = "width:100%";
       this.editorContainer.innerHTML = "";
       this.input.style = "width:50vw;";
       this.mapContainer.style = "justify-content: space-between;";
       this.editorContainer.style = "width:40%;";
       this.linkInstructions.display = "none";
+      this.resultDiv = domCtr.create("div", { className: "result", innerHTML: "<b>" + app.strings.get("result") + ":</b><br> n/a"}, this.editorContainer);
+      this.measureDiv = domCtr.create("div", { className: "measure" }, this.editorContainer)
     }
 
      on(this.instructionsClose, "click", function (evt) {
@@ -423,13 +436,13 @@ define([
         this.instructions.style.display = this.instructions.style.display == "" ? "flex" : "";
         this.instructions.scrollIntoView({behavior: "smooth", block: 'start'});
       }.bind(this));
-      if (!that.offline) {
-        that.arcgis.addMap(this.input.id, this.editor.id, this, (info) => {
+      if (!app.offline) {
+        app.arcgis.addMap(this.input.id, this.editor.id, this, (info) => {
           this.geometry = info.geometry;
           this.editorEsri = info.editor;
           this.projectAreaClass = info.projectArea;
           this.prototype = info.prototype;
-          //that.mapLoadedPromises.push(info.mapLoaded);
+          //app.mapLoadedPromises.push(info.mapLoaded);
           
         });
       }
@@ -461,15 +474,15 @@ define([
       }
 
       this.setterUI = function (value) {
-        if (that.mode == "results") {
+        if (app.mode == "results") {
           this.setterUINonEdit(this.input, value)
         }
       }
     }
 
     calculateRatioAndPoints(previousPoints, callback) {
-      if (!that.offline) {
-      that.arcgis.calculateArea(this.value, "geometry").then((info) => {
+      if (!app.offline) {
+      app.arcgis.calculateArea(this.value, "geometry").then((info) => {
         this.area = info.totalArea;
         this.areas = info.areas;
 
@@ -481,9 +494,9 @@ define([
             this.measure = this.measureNone ? this.measureNone : null;
           }
           else {
-            numRatio = this.area / this.app.projectArea;
+            numRatio = this.area / app.projectArea;
             if (numRatio > 1) {
-              alert(that.strings.get("alertAreSize"));
+              alert(app.strings.get("alertAreSize"));
             }
             for (let i in this.ratioStops) {
               if (numRatio < this.ratioStops[i].value) {
@@ -495,10 +508,10 @@ define([
               }
             }
           }
-          this.pointsInfo.innerHTML = that.showPoints ? "(" + that.strings.get("points") + ": " + this.points + ")": "";
-          if (that.mode == "results") {
+          this.pointsInfo.innerHTML = app.showPoints ? "(" + app.strings.get("points") + ": " + this.points + ")": "";
+          if (app.mode == "results") {
             this.resultDiv = domCtr.create("div", { className: "result" }, this.editorContainer);
-            this.resultDiv.innerHTML =  "<b>" + that.strings.get("result") + ":</b><br>" + that.strings.get("areaTotal") + ": " + this.area.toFixed(0) + " m2, " + that.strings.get("ratio") + ": " + (numRatio * 100).toFixed(2) + "%, " + that.strings.get("ratioBin") + ": " + this.ratio;
+            this.resultDiv.innerHTML =  "<b>" + app.strings.get("result") + ":</b><br>" + app.strings.get("areaTotal") + ": " + this.area.toFixed(0) + " m2, " + app.strings.get("ratio") + ": " + (numRatio * 100).toFixed(2) + "%, " + app.strings.get("ratioBin") + ": " + this.ratio;
           }
         }
         else if (this.ratioOptions) {
@@ -512,13 +525,13 @@ define([
             this.points = this.ratioOptions[0].points
             this.measure =this.ratioOptions[0].measure ? this.ratioOptions[6].measure : null;
 
-          } else if (numAreas < 5 && that.projectArea / 2 < maxArea) {
+          } else if (numAreas < 5 && app.projectArea / 2 < maxArea) {
 
             this.ratio = this.ratioOptions[1].label;
             this.points = this.ratioOptions[1].points
             this.measure =this.ratioOptions[1].measure ? this.ratioOptions[6].measure : null;
 
-          } else if (numAreas < 5 && that.projectArea / 2 >= maxArea) {
+          } else if (numAreas < 5 && app.projectArea / 2 >= maxArea) {
 
             this.ratio = this.ratioOptions[2].label;
             this.points = this.ratioOptions[2].points
@@ -526,7 +539,7 @@ define([
 
           }
 
-          else if (numAreas < 6 && 0.4 * that.projectArea < maxArea) {
+          else if (numAreas < 6 && 0.4 * app.projectArea < maxArea) {
 
             this.ratio = this.ratioOptions[3].label;
             this.points = this.ratioOptions[3].points
@@ -534,7 +547,7 @@ define([
 
           }
 
-          else if (numAreas < 6 && 0.4 * that.projectArea >= maxArea) {
+          else if (numAreas < 6 && 0.4 * app.projectArea >= maxArea) {
 
             this.ratio = this.ratioOptions[4].label;
             this.points = this.ratioOptions[4].points
@@ -542,7 +555,7 @@ define([
 
           }
 
-          else if (numAreas < 7 && 0.3 * that.projectArea < maxArea) {
+          else if (numAreas < 7 && 0.3 * app.projectArea < maxArea) {
 
             this.ratio = this.ratioOptions[5].label;
             this.points = this.ratioOptions[5].points
@@ -550,7 +563,7 @@ define([
 
           }
 
-          else if (numAreas < 7 && 0.3 * that.projectArea >= maxArea) {
+          else if (numAreas < 7 && 0.3 * app.projectArea >= maxArea) {
 
             this.ratio = this.ratioOptions[6].label;
             this.points = this.ratioOptions[6].points
@@ -563,21 +576,21 @@ define([
             this.measure =this.ratioOptions[6].measure ? this.ratioOptions[6].measure : null;
 
           }
-          this.pointsInfo.innerHTML = that.showPoints ? "(" + that.strings.get("points") + ": " + this.points + ")": "";
-          if (that.mode == "results") {
+          this.pointsInfo.innerHTML = app.showPoints ? "(" + app.strings.get("points") + ": " + this.points + ")": "";
+          if (app.mode == "results") {
             this.resultDiv = domCtr.create("div", { className: "result" }, this.editorContainer);
-            this.resultDiv.innerHTML =  "<b>" + that.strings.get("result") + ":</b><br>" + that.strings.get("areaTotal") + ": " + this.area.toFixed(0) + " m2, " + that.strings.get("ratioBin") + ": " + this.ratio ;
+            this.resultDiv.innerHTML =  "<b>" + app.strings.get("result") + ":</b><br>" + app.strings.get("areaTotal") + ": " + this.area.toFixed(0) + " m2, " + app.strings.get("ratioBin") + ": " + this.ratio ;
           }
         }
 
 
-        that.pointsTotal = that.pointsTotal - parseInt(previousPoints) + parseInt(this.points);
-        that.pointsTotalDiv.innerHTML = that.showPoints ? that.strings.get("totalPoints") + ": " + that.pointsTotal.toFixed(0) : "";
+        app.pointsTotal = app.pointsTotal - parseInt(previousPoints) + parseInt(this.points);
+        app.pointsTotalDiv.innerHTML = app.showPoints ? app.strings.get("totalPoints") + ": " + app.pointsTotal.toFixed(0) : "";
         callback();
 
       })
         .catch((error) => {
-          //alert(that.strings.get("alertArea"))
+          //alert(app.strings.get("alertArea"))
           console.log(error)
         });
       }
@@ -605,7 +618,7 @@ define([
     addFinalButton(args) {
       this.element = domCtr.create("div", { id: this.name, className: "element final" }, this.container);
       this.label = domCtr.create("div", { className: "labelText labelFinal", innerHTML: args.text }, this.element);
-      this.final = domCtr.create("div", { id: "btn_final", className: "btn1", innerHTML: that.strings.get("results") }, this.element);
+      this.final = domCtr.create("div", { id: "btn_final", className: "btn1", innerHTML: app.strings.get("results") }, this.element);
 
       on(this.final, "click", function (evt) {
         args.func();
@@ -617,61 +630,49 @@ define([
     setterUINonEdit(container, value) {
 
       if (this.type == "mapInput") {
-        if (that.mode == "consolidation") {
-          that.arcgis.addMap(container, null, this, (info)=> {
+        if (app.mode == "consolidation") {
+          app.arcgis.addMap(container, null, this, (info)=> {
             info.geometry.definitionExpression = "objectid in (" + value.substring(1, value.length - 1) + ")";
   
           });
         }
-       
-        
       }
       else {
+       
         if (this.resultDiv == null) {
-          this.resultDiv = domCtr.create("div", { className: "result", innerHTML: value }, container);
+          this.resultDiv = domCtr.create("div", { className: "result", innerHTML: value}, container);
         }
         else {
-          this.resultDiv.innerHTML = value;
-        }
-        if (that.mode == "results") {
-          this.resultDiv.innerHTML = "<b>" + that.strings.get("result") + ":</b><br>" + this.resultDiv.innerHTML;
+          this.resultDiv.innerHTML = "<b>" + app.strings.get("result") + ":</b><br>" + value;
         }
 
       }
       
 
-      if (that.mode == "results") {
-      
-        if (this.type == "mapInput") {
-          this.measureDiv = domCtr.create("div", { className: "measure" }, this.editorContainer)
-
-        }
-        else {
-          this.measureDiv = domCtr.create("div", { className: "measure" }, container)
-        }
+      if (app.mode == "results") {
 
         if (this.measure != null) {
-          this.measureDiv.innerHTML = that.strings.get(this.measure);
+          this.measureDiv.innerHTML = app.strings.get(this.measure);
         }
         
         // Hardcoded special measure rules...
         // TODO: Change to key!!!
         if (this.key == "grasduengen" && value == "Nein") {
-          let elements = that.getAllElements();
+          let elements = app.getAllElements();
           let elem33 = elements["duengen"];
-          elem33.measureDiv = this.measure;
+          elem33.measureDiv.innerHTML = app.strings.get(this.measure);
         }
         if (this.key == "mitteln") {
-          let elements = that.getAllElements();
+          let elements = app.getAllElements();
           let elem33gras = elements["grasduengen"];
           let elem33 = elements["duengen"];
-          elem33.measureDiv = this.measure;
-          elem33gras.measureDiv = this.measure;
+          elem33.measureDiv.innerHTML = app.strings.get(this.measure);
+          elem33gras.measureDiv.innerHTML = app.strings.get(this.measure);
         }
         if (this.key == "b_unkraut") {
-          let elements = that.getAllElements();
+          let elements = app.getAllElements();
           let elem32a = elements["a_unkraut"];
-          elem32a.measureDiv = this.measure;
+          elem32a.measureDiv.innerHTML = app.strings.get(this.measure);
         }
       }
     }
@@ -681,7 +682,7 @@ define([
     setter(value, saveData = true) {
       return new Promise((resolve, reject) => {
 
-        if (that.mode == "results" && value != null && value != "") {
+        if (app.mode == "results" && value != null && value != "") {
 
           this.element.style.display = "flex"
         }
@@ -698,8 +699,8 @@ define([
           if (this.hasPoints) {
             this.points = null;
             this.pointsInfo.innerHTML = "";
-            that.pointsTotal = that.pointsTotal - parseInt(previousPoints);
-            that.pointsTotalDiv.innerHTML = that.showPoints ? that.strings.get("totalPoints") + ": " + that.pointsTotal.toFixed(0) : "";
+            app.pointsTotal = app.pointsTotal - parseInt(previousPoints);
+            app.pointsTotalDiv.innerHTML = app.showPoints ? app.strings.get("totalPoints") + ": " + app.pointsTotal.toFixed(0) : "";
           }
           resolve();
         }
@@ -760,14 +761,14 @@ define([
 
               }
 
-              if (that.showPoints) {
-                this.pointsInfo.innerHTML = this.points == 1 ? "(" + this.points + " " + that.strings.get("point") + ")" : "(" + this.points + " " + that.strings.get("points") + ")";
+              if (app.showPoints) {
+                this.pointsInfo.innerHTML = this.points == 1 ? "(" + this.points + " " + app.strings.get("point") + ")" : "(" + this.points + " " + app.strings.get("points") + ")";
               }
 
 
 
-              that.pointsTotal = that.pointsTotal - parseInt(previousPoints) + parseInt(this.points);
-              that.pointsTotalDiv.innerHTML = that.showPoints ? that.strings.get("totalPoints") + ": " + that.pointsTotal.toFixed(0) : "";
+              app.pointsTotal = app.pointsTotal - parseInt(previousPoints) + parseInt(this.points);
+              app.pointsTotalDiv.innerHTML = app.showPoints ? app.strings.get("totalPoints") + ": " + app.pointsTotal.toFixed(0) : "";
               resolve();
             }
 
@@ -778,29 +779,29 @@ define([
         }
       }).then(() => {
 
-        if (saveData && that.mode != "project" && !that.offline) {
-          this.app.save.innerHTML = that.strings.get("saving")
-          this.app.save.className = "btn1"
+        if (saveData && app.mode != "project" && !app.offline) {
+          app.save.innerHTML = app.strings.get("saving")
+          app.save.className = "btn1"
           let data = this.getter();
           new Promise((resolve, reject) => {
-            that.arcgis
-              .updateFeature(that.objectId, data)
+            app.arcgis
+              .updateFeature(app.objectId, data)
               .then((value) => {
                 resolve(value);
               })
               .catch((reason) => {
                 reject(reason);
               }).then(() => {
-                this.app.save.innerHTML = that.strings.get("saved")
-                this.app.save.className = "btn1 btn_disabled"
+                app.save.innerHTML = app.strings.get("saved")
+                app.save.className = "btn1 btn_disabled"
               });
 
           });
         }
-        else if (that.mode == "project" && (this.key == "school" || this.key == "projectid" || this.key == "name" )) {
-          //that.arcgis.handleSignInOut();
+        else if (app.mode == "project" && (this.key == "school" || this.key == "projectid" || this.key == "name" )) {
+          //app.arcgis.handleSignInOut();
           this.map.prototype.attributes[this.key] = this.value;
-          this.map.prototype.attributes["owner"] = that.userNameEsri;
+          this.map.prototype.attributes["owner"] = app.userNameEsri;
         }
       })
 
@@ -817,8 +818,8 @@ define([
         }
       }
 
-      if (that.consolidationWidth == null) {
-        that.consolidationWidth = document.getElementById('consolidation_' + this.key).clientWidth;
+      if (app.consolidationWidth == null) {
+        app.consolidationWidth = document.getElementById('consolidation_' + this.key).clientWidth;
       }
 
       if (this.type != "mapInput") {
@@ -835,14 +836,12 @@ define([
           yaxis: {
             title: 'Anzahl',
           },
-          width: that.consolidationWidth,
+          width: app.consolidationWidth,
           hovermode: "x"
         };
         var data = [trace];
         Plotly.newPlot('consolidation_' + this.key, data, layout);
       }
-
-
 
     }
 
@@ -875,7 +874,7 @@ define([
     }
 
     hide() {
-      if (that.mode != "consolidation") {
+      if (app.mode != "consolidation") {
         this.element.style.display = "none";
       }
     }
