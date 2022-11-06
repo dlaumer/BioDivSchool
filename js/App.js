@@ -692,7 +692,7 @@ define([
 
       }
       domCtr.create("div",
-          { class: "pageTitle title", innerHTML: app.strings.get("areas") },
+          { class: "pageTitle title", id: "title_areas",innerHTML: app.strings.get("areas") },
           this.loginPage.page
         );
 

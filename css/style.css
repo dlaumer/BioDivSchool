@@ -172,8 +172,13 @@ body {
     height: 400px !important;
   }
 
-  .pageTitle  {page-break-before: always;}
 
+  #title_areas {
+    page-break-before: always;
+  }
+  .mapOverviewResults {
+    page-break-after: always;
+  }
   .inputElement {page-break-after: always;}
 
   #startTitle {
@@ -471,6 +476,8 @@ body {
 .result {
   background-color: var(--expandable);
   padding: 10px;
+  overflow: auto;
+  max-height: 100%;
 }
 
 .measure {
@@ -607,7 +614,6 @@ body {
 #diagram {
   height: fit-content;
   position: absolute;
-  bottom: 12%;
 }
 
 .btn2 {
@@ -665,7 +671,7 @@ body {
   justify-content: space-between;
   padding: 10px;
   background-color: var(--very_gray);
-  
+  overflow: auto;
 }
 
 .titleContainer {

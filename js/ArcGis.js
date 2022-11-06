@@ -698,7 +698,7 @@ define([
           }
         }
       });
-      if (app.mode != "project") {
+      if (app.mode == "results") {
 
         app.mapLoadedPromises.push(new Promise ((resolve, reject) => {
 
@@ -838,8 +838,8 @@ define([
         // MapView is now ready for display and can be used. Here we will
         // use goTo to view a particular location at a given zoom level and center
         view.goTo({
-          center: [8.222167506135465, 46.82443911582187],
-          zoom: 8,
+          center: [8.722167506135465, 47.32443911582187],
+          zoom: 9,
         });
       });
       return view;

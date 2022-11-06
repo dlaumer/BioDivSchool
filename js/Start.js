@@ -390,6 +390,10 @@ define([
         this.btn_collection.style.display = "none";
         this.btn_consolidation.style.display = "none";
         this.btn_project.style.display = "none"
+
+        //this.buttons.style.display = "flex";
+        //this.btn_collection.style.display = "block";
+        //this.btn_consolidation.style.display = "block";
         //start.removeFromAttributes("project");
       }
 

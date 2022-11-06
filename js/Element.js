@@ -510,7 +510,6 @@ define([
           }
           this.pointsInfo.innerHTML = app.showPoints ? "(" + app.strings.get("points") + ": " + this.points + ")": "";
           if (app.mode == "results") {
-            this.resultDiv = domCtr.create("div", { className: "result" }, this.editorContainer);
             this.resultDiv.innerHTML =  "<b>" + app.strings.get("result") + ":</b><br>" + app.strings.get("areaTotal") + ": " + this.area.toFixed(0) + " m2, " + app.strings.get("ratio") + ": " + (numRatio * 100).toFixed(2) + "%, " + app.strings.get("ratioBin") + ": " + this.ratio;
           }
         }
@@ -578,7 +577,6 @@ define([
           }
           this.pointsInfo.innerHTML = app.showPoints ? "(" + app.strings.get("points") + ": " + this.points + ")": "";
           if (app.mode == "results") {
-            this.resultDiv = domCtr.create("div", { className: "result" }, this.editorContainer);
             this.resultDiv.innerHTML =  "<b>" + app.strings.get("result") + ":</b><br>" + app.strings.get("areaTotal") + ": " + this.area.toFixed(0) + " m2, " + app.strings.get("ratioBin") + ": " + this.ratio ;
           }
         }
@@ -640,7 +638,7 @@ define([
       else {
        
         if (this.resultDiv == null) {
-          this.resultDiv = domCtr.create("div", { className: "result", innerHTML: value}, container);
+          domCtr.create("div", { className: "result", innerHTML: value}, container);
         }
         else {
           this.resultDiv.innerHTML = "<b>" + app.strings.get("result") + ":</b><br>" + value;
