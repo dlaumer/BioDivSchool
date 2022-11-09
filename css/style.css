@@ -12,6 +12,12 @@
 }
 */
 
+input[type='radio'], input[type='checkbox'] {
+  float: left;
+  width: 3mm;
+  height: 3mm;
+}
+
 input[type=checkbox]
 {
   /* Double-sized Checkboxes */
@@ -220,8 +226,24 @@ body {
   }
 }
 
+@media only screen and (max-height: 600px){
+
+  .footerStart {
+    height: 30% !important;
+  }
+  .mapOverview {
+    height: 60% !important;
+  }
+  #pageContainer {
+    height: 65% !important;
+}
+}
+
 @media only screen and (max-width: 600px) {
 
+  #userNameEsri {
+    display: none;
+  }
   .mapOverview {
     height: 60%;
     width: 100%;
@@ -600,6 +622,8 @@ body {
   cursor: pointer;
   display: block;
   height: fit-content;
+  overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 #save {
@@ -626,6 +650,8 @@ body {
   min-width: 20vw;
   cursor: pointer;
   display: block;
+  overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .btn2:hover, .btn2:active {

@@ -400,15 +400,14 @@ define([
     }
 
     unSelectProject() {
-      start.projectChosenDiv.innerHTML = start.strings.get("noProjectChosen");
-      start.buttons.style.display = "none";
-      start.removeFromAttributes("project");
-      start.projectSelected.className = "projects";
-      start.projectSelected = null;
-      start.viewOverview.goTo({
-        center: [8.222167506135465, 46.82443911582187],
-        zoom: 8,
-      });
+      if (start.projectSelected != null) {
+        start.projectChosenDiv.innerHTML = start.strings.get("noProjectChosen");
+        start.buttons.style.display = "none";
+        start.removeFromAttributes("project");
+        start.projectSelected.className = "projects";
+        start.projectSelected = null;
+      }
+      
     }
 
     // Handle all the interactions

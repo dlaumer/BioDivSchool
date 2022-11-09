@@ -827,8 +827,8 @@ define([
       homeButton.goToOverride = function (view) {
         start.unSelectProject();
         return view.goTo({
-          center: [8.222167506135465, 46.82443911582187],
-          zoom: 8,
+          center: [8.722167506135465, 47.32443911582187],
+          zoom: 9,
         });
       };
 
