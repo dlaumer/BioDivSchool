@@ -711,6 +711,7 @@ define([
          
         });
       }));
+    }
         callback({ projectArea: projectArea, geometry: geometry, editor: editor, /*mapLoaded: new Promise((resolve3, reject3) => {
           reactiveUtils.whenFalseOnce(view, "updating", () => {
             console.log("The map with id:" + element.key + " has loaded");
@@ -725,7 +726,7 @@ define([
         }) 
         */
       });
-      }
+      
        
     }
 
