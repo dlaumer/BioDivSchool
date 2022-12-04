@@ -267,7 +267,7 @@ define([
     }
 
     addProjectMap() {
-      this.viewOverview = this.arcgis.addMapOverview("mapOverviewMap");
+      [start.viewOverview, start.projectAreaPoint] = this.arcgis.addMapOverview("mapOverviewMap");
       this.arcgis.readFeatures("project").then((results) => {
         start.mapOverviewProject.innerHTML = "";
 
@@ -301,7 +301,8 @@ define([
           
           let item = domCtr.create(
             "div",
-            { className: "projects" },
+            { id: "project_" + results[i].attributes.projectid,
+              className: "projects" },
             start.mapOverviewProject
           );
          
@@ -354,18 +355,29 @@ define([
               start.unSelectProject();
             }
             else {
-              start.viewOverview.goTo(results[i].geometry);
+              //start.viewOverview.goTo(results[i].geometry);
+              let query = start.projectAreaPoint.createQuery()
+              query.where = "projectid in ('" + results[i].attributes.projectid + "')";
+              console.log(query.where)
+              start.projectAreaPoint.queryFeatures(query).then((results2) => {
+                start.viewOverview.goTo({
+                  center: [8.722167506135465, 47.32443911582187],
+                  zoom: 9,
+                });
+
+                start.viewOverview.popup.open({
+                  features: [results2.features[0]],  // array of graphics or a single graphic in an array
+                  location: results2.features[0].geometry.centroid
+                });              
+              })
+              
               start.selectProject(
                 results[i].attributes.projectid,
                 results[i].attributes.name, 
                 results[i].attributes.school,
                 results[i].attributes.owner,
               );
-              if (start.projectSelected !== null) {
-                start.projectSelected.className = "projects";
-              }
-              start.projectSelected = item;
-              item.className = "projects projects_active";
+              
             }
           });
         }
@@ -373,6 +385,12 @@ define([
     }
 
     selectProject(projectId, name, school, owner) {
+      // let item = document.getElementById("project_" + projectId);
+      // if (start.projectSelected !== null) {
+      //   start.projectSelected.className = "projects";
+      // }
+      // start.projectSelected = item;
+      // item.className = "projects projects_active";
       this.projectChosenDiv.innerHTML =
         this.strings.get("chosenProject") + ": " + name + ", " + school + " <small>(" + projectId + ")</small>" ;
 

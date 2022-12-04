@@ -48,7 +48,7 @@ define([
   Fullscreen,
   Legend, 
   LayerList,
-  reactiveUtils,
+  watchUtils,
   print, 
   PrintTemplate, 
   PrintParameters,
@@ -702,7 +702,7 @@ define([
 
         app.mapLoadedPromises.push(new Promise ((resolve, reject) => {
 
-        reactiveUtils.whenFalseOnce(view, "updating", () => {
+        watchUtils.whenFalseOnce(view, "updating", () => {
           console.log("The map with id:" + element.key + " has loaded");
           this.printMap(view).then((image) => {
             element.screenshot.src = image.url;
@@ -713,7 +713,7 @@ define([
       }));
     }
         callback({ projectArea: projectArea, geometry: geometry, editor: editor, /*mapLoaded: new Promise((resolve3, reject3) => {
-          reactiveUtils.whenFalseOnce(view, "updating", () => {
+          watchUtils.whenFalseOnce(view, "updating", () => {
             console.log("The map with id:" + element.key + " has loaded");
             view.takeScreenshot().then((screenshot) => {
               element.screenshot.src = screenshot.dataUrl;
@@ -763,6 +763,20 @@ define([
         },
       };
 
+      var customZoomAction = {
+        title: "Zoom to",
+        id: "custom-zoom",
+        className: "esri-icon-zoom-in-magnifying-glass"
+      };
+      var template = { // autocasts as new PopupTemplate()
+        title: "{name}",
+        content: "{school}",
+        actions: [customZoomAction]
+      };
+      template.overwriteActions = true;
+
+      
+
       let polygonSymbol = {
         type: "simple-fill", // autocasts as new SimpleFillSymbol()
         color: [75, 160, 0, 0.145],
@@ -772,7 +786,7 @@ define([
         portalItem: {
           id: this.links.projectLayerId,
         },
-
+        popupTemplate: template,
         editingEnabled: false,
         labelingInfo: [labelClass],
         renderer: {
@@ -787,7 +801,7 @@ define([
         portalItem: {
           id: this.links.projectLayerId,
         },
-
+        popupTemplate: template,
         editingEnabled: false,
         labelingInfo: [labelClass],
         renderer: {
@@ -827,6 +841,7 @@ define([
 
       homeButton.goToOverride = function (view) {
         start.unSelectProject();
+        view.popup.close();
         return view.goTo({
           center: [8.722167506135465, 47.32443911582187],
           zoom: 9,
@@ -834,7 +849,41 @@ define([
       };
 
       view.ui.add(homeButton, "top-left");
+      view.popup.on("trigger-action", function(evt) {
+        if(evt.action.id === "custom-zoom"){
+          let query = projectAreaPolygon.createQuery()
+          query.where = "objectid in (" + view.popup.viewModel.selectedFeature.attributes.OBJECTID + ")";
+          projectAreaPolygon.queryFeatures(query).then((results) => {
+            // If it already exists, load the existing values
+            if (results.features.length > 0) {
+              view.goTo(results.features[0])
 
+            } else {
+              alert("Dieses Projekt wurde nicht gefunden!");
+            }
+          });
+
+        }
+      });
+
+      watchUtils.whenTrue(view.popup,'visible', function(){
+        watchUtils.whenFalseOnce(view.popup,'visible', function(){
+          start.unSelectProject();
+        })
+      })
+
+      view.on("click", function (event) {
+        view.hitTest(event.screenPoint).then(function (response) {
+            if (response.results[0]) {
+              let query = projectAreaPolygon.createQuery()
+              query.where = "objectid in (" + response.results[0].graphic.attributes.OBJECTID + ")";
+              projectAreaPolygon.queryFeatures(query).then((results) => {
+                start.selectProject(results.features[0].attributes.projectid, results.features[0].attributes.name, results.features[0].attributes.school, results.features[0].attributes.owner)
+              })
+            } 
+        })
+      })
+  
       view.when(function () {
         // MapView is now ready for display and can be used. Here we will
         // use goTo to view a particular location at a given zoom level and center
@@ -843,7 +892,7 @@ define([
           zoom: 9,
         });
       });
-      return view;
+      return [view, projectAreaPoint];
     }
 
     addMapResults(containerMap, containerLegend, mapLayers, screenshotDiv) {
@@ -949,7 +998,7 @@ define([
       })
 
       app.mapLoadedPromises.push(new Promise ((resolve, reject) => {
-        reactiveUtils.whenFalseOnce(view, "updating", () => {
+        watchUtils.whenFalseOnce(view, "updating", () => {
           this.printMap(view).then((image) => {
             screenshotDiv.src = image.url;
             resolve();
