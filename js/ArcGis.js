@@ -506,7 +506,7 @@ define([
       // create DOM object
       let fullScreenBtn = domCtr.toDom("<div class='map-button esri-component esri-locate esri-widget--button esri-widget' role='button' title='Recenter'><span aria-hidden='true' role='presentation' class='esri-icon esri-icon-zoom-out-fixed'></span></div>");
       // add to view
-      view.ui.add(fullScreenBtn, "bottom-right");
+      view.ui.add(fullScreenBtn, "top-left");
       // add button click listener
       fullScreenBtn.addEventListener('click', () => {
         document.getElementById(containerMap).classList.toggle("fullscreen");
