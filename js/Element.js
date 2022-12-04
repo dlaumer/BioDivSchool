@@ -34,7 +34,7 @@ style.innerHTML = `
       
         .map  {
           width: 100% !important;
-          height: 70% !important;
+          height: 70%;
         }
       
         .editor {

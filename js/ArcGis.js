@@ -485,7 +485,7 @@ define([
       const fullscreen = new Fullscreen({
         view: view,
       });
-      view.ui.add(fullscreen, "bottom-right");
+      //view.ui.add(fullscreen, "bottom-right");
 
       const homeButton = new Home({
         view: view,
@@ -503,6 +503,14 @@ define([
 
       view.ui.add(homeButton, "top-left");
 
+      // create DOM object
+      let fullScreenBtn = domCtr.toDom("<div class='map-button esri-component esri-locate esri-widget--button esri-widget' role='button' title='Recenter'><span aria-hidden='true' role='presentation' class='esri-icon esri-icon-zoom-out-fixed'></span></div>");
+      // add to view
+      view.ui.add(fullScreenBtn, "bottom-right");
+      // add button click listener
+      fullScreenBtn.addEventListener('click', () => {
+        document.getElementById(containerMap).classList.toggle("fullscreen");
+      })
       const locate = new Locate({
         view: view,
         useHeadingEnabled: false,

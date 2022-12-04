@@ -675,7 +675,7 @@ body {
 
   overflow: auto;
   background-color: white;
-  z-index: 1;
+  z-index: -1;
   position: inherit;
   padding: 20px;
 
@@ -684,7 +684,7 @@ body {
 .active {
   width: 100% !important;
   height: 100% !important;
-  z-index: 99;
+  z-index: unset;
 }
 
 .pageTitle {
@@ -890,6 +890,16 @@ label {
   height: 100%;
   width: 70%;
 }
+
+.fullscreen {
+  position: fixed !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 1000000;
+  top: 0 !important;
+  right: 0 !important;
+}
+
 .screenshot {
   display: none;
 }
