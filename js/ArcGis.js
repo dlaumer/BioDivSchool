@@ -29,8 +29,9 @@ define([
   "esri/rest/support/PrintParameters",
   "esri/config",
   "dojo/dom-construct",
+  "esri/layers/support/FeatureTemplate",
 ], function (
-  Portal, 
+  Portal,
   OAuthInfo,
   esriId,
   Accessor,
@@ -46,55 +47,54 @@ define([
   Graphic,
   geometryEngine,
   Fullscreen,
-  Legend, 
+  Legend,
   LayerList,
   watchUtils,
-  print, 
-  PrintTemplate, 
+  print,
+  PrintTemplate,
   PrintParameters,
   esriConfig,
-  domCtr
+  domCtr,
+  FeatureTemplate
 ) {
   return class ArcGis {
     constructor(strings) {
-
       this.strings = strings;
       esriConfig.portalUrl = "https://swissparks.maps.arcgis.com/";
 
       this.signedIn = false;
       this.info = new OAuthInfo({
         appId: "1HVYw8T7xd77rBjt",
-        popup: false // the default
+        popup: false, // the default
       });
 
       esriId.registerOAuthInfos([this.info]);
 
       esriId
-      .checkSignInStatus(this.info.portalUrl + "/sharing")
-      .then(() => {
-        this.handleSignedIn();
-      })
-      .catch(() => {
-        this.handleSignedOut();
-      })
+        .checkSignInStatus(this.info.portalUrl + "/sharing")
+        .then(() => {
+          this.handleSignedIn();
+        })
+        .catch(() => {
+          this.handleSignedOut();
+        });
 
       this.createUI();
       this.clickHandler();
       this.links = {
-      //geometryLayerI: "3c34d04c41fd47d4b8852788c00e2f1f",    // Daniel
-      geometryLayerId: "c3fde87341cc4145a3fd47a9441cd19a",  //Christian
-      //dataLayerId: "51be950e7c1b4cbb8085c67a2c412868",    // Daniel   
-      dataLayerId: "d5acf5ac02b54c16925ac0aeca838e45",  //Christian
-      projectLayerId: "18ac6eb030ca46adac62874af52b17fc"
-      }
+        //geometryLayerI: "3c34d04c41fd47d4b8852788c00e2f1f",    // Daniel
+        geometryLayerId: "c3fde87341cc4145a3fd47a9441cd19a", //Christian
+        //dataLayerId: "51be950e7c1b4cbb8085c67a2c412868",    // Daniel
+        dataLayerId: "d5acf5ac02b54c16925ac0aeca838e45", //Christian
+        projectLayerId: "18ac6eb030ca46adac62874af52b17fc",
+      };
     }
 
     handleSignInOut() {
       if (this.signedIn) {
         esriId.destroyCredentials();
         window.location.reload();
-      }
-      else {
+      } else {
         esriId.getCredential(this.info.portalUrl + "/sharing");
       }
     }
@@ -102,14 +102,24 @@ define([
     handleSignedIn() {
       const portal = new Portal();
       portal.load().then(() => {
-        window.history.pushState({ path: window.location.href.substr(0, window.location.href.indexOf('#')) }, '', window.location.href.substr(0, window.location.href.indexOf('#')));
-        if ( document.getElementById("login")) {
-          document.getElementById("login").innerHTML = this.strings.get("logoutEsri");
-          document.getElementById("userNameEsri").innerHTML = portal.user.username;
+        window.history.pushState(
+          {
+            path: window.location.href.substr(
+              0,
+              window.location.href.indexOf("#")
+            ),
+          },
+          "",
+          window.location.href.substr(0, window.location.href.indexOf("#"))
+        );
+        if (document.getElementById("login")) {
+          document.getElementById("login").innerHTML =
+            this.strings.get("logoutEsri");
+          document.getElementById("userNameEsri").innerHTML =
+            portal.user.username;
           start.userNameEsri = portal.user.username;
           start.addProjectMap();
-        }
-        else {
+        } else {
           app.userNameEsri = portal.user.username;
         }
         this.signedIn = true;
@@ -118,11 +128,11 @@ define([
 
     handleSignedOut() {
       this.signedIn = false;
-      if ( document.getElementById("login")) {
-        document.getElementById("login").innerText = this.strings.get("loginEsri");
+      if (document.getElementById("login")) {
+        document.getElementById("login").innerText =
+          this.strings.get("loginEsri");
         start.userNameEsri = null;
-      }
-      else {
+      } else {
         app.userNameEsri = null;
       }
     }
@@ -397,7 +407,7 @@ define([
 
       return new Promise((resolve, reject) => {
         let totalArea = 0;
-        let areas = {}
+        let areas = {};
         var query = data.createQuery();
         query.where =
           "objectid in (" + objectIds.substring(1, objectIds.length - 1) + ")";
@@ -414,7 +424,7 @@ define([
                 totalArea += area;
               }
             }
-            resolve({totalArea:totalArea, areas: areas});
+            resolve({ totalArea: totalArea, areas: areas });
           })
           .catch((error) => {
             alert(error.message);
@@ -424,7 +434,6 @@ define([
     }
 
     addMap(containerMap, containerEditor, element, callback) {
-      
       let geometry;
       let editor;
       let prototype;
@@ -465,15 +474,212 @@ define([
           portalItem: {
             id: this.links.geometryLayerId,
           },
+          title: "Pflanzenart",
           definitionExpression: "objectid = 0",
           renderer: {
             type: "simple", // autocasts as new SimpleRenderer()
             symbol: {
               type: "simple-fill", // autocasts as new SimpleFillSymbol()
-              color:  [...element.color, 0.5],
+              color: [...element.color, 0.5],
             },
           },
+
+          formTemplate: {
+            // autocastable to FormTemplate
+            elements: [
+              {
+                // autocastable to FieldElement
+                type: "field",
+                fieldName: "Notes",
+                label: "Notizen",
+              },
+            ],
+          },
         });
+
+        if (element.key == "neophyten__geomoid") {
+          geometry.templates = [
+            new FeatureTemplate({
+              name: "Amerikanische Goldruten",
+              prototype: {
+                attributes: {
+                  Labels: "Amerikanische Goldruten",
+                },
+              },
+            }),
+            new FeatureTemplate({
+              name: "Ambrosia",
+              prototype: {
+                attributes: {
+                  Labels: "Ambrosia",
+                },
+              },
+            }),
+            new FeatureTemplate({
+              name: "Asiatische Staudenknöteriche",
+              prototype: {
+                attributes: {
+                  Labels: "Asiatische Staudenknöteriche",
+                },
+              },
+            }),
+            new FeatureTemplate({
+              name: "Drüsiges Springkraut",
+              prototype: {
+                attributes: {
+                  Labels: "Drüsiges Springkraut",
+                },
+              },
+            }),
+            new FeatureTemplate({
+              name: "Einjähriges Berufskraut",
+              prototype: {
+                attributes: {
+                  Labels: "Einjähriges Berufskraut",
+                },
+              },
+            }),
+            new FeatureTemplate({
+              name: "Kirschlorbeer",
+              prototype: {
+                attributes: {
+                  Labels: "Kirschlorbeer",
+                },
+              },
+            }),
+            new FeatureTemplate({
+              name: "Sommerflieder",
+              prototype: {
+                attributes: {
+                  Labels: "Sommerflieder",
+                },
+              },
+            }),
+            new FeatureTemplate({
+              name: "Götterbaum",
+              prototype: {
+                attributes: {
+                  Labels: "Götterbaum",
+                },
+              },
+            }),
+            new FeatureTemplate({
+              name: "Robinie",
+              prototype: {
+                attributes: {
+                  Labels: "Robinie",
+                },
+              },
+            }),
+          ];
+
+          geometry.formTemplate = {
+            // autocastable to FormTemplate
+            elements: [
+              {
+                // autocastable to FieldElement
+                type: "field",
+                fieldName: "Labels",
+                label: "Pflanzenart",
+                editable: false,
+              },
+              {
+                // autocastable to FieldElement
+                type: "field",
+                fieldName: "Notes",
+                label: "Notizen",
+              },
+            ],
+          };
+
+          geometry.renderer = {
+            type: "unique-value",
+            field: "Labels",
+            defaultSymbol: { type: "simple-fill" }, // autocasts as new SimpleFillSymbol()
+            uniqueValueInfos: [
+              {
+                // All features with value of "North" will be blue
+                value: "Amerikanische Goldruten",
+                symbol: {
+                  type: "simple-fill", // autocasts as new SimpleFillSymbol()
+                  color: "blue",
+                },
+              },
+              {
+                // All features with value of "North" will be blue
+                value: "Ambrosia",
+                symbol: {
+                  type: "simple-fill", // autocasts as new SimpleFillSymbol()
+                  color: "red",
+                },
+              },
+              {
+                // All features with value of "North" will be blue
+                value: "Amerikanische Goldruten",
+                symbol: {
+                  type: "simple-fill", // autocasts as new SimpleFillSymbol()
+                  color: "blue",
+                },
+              },
+              {
+                // All features with value of "North" will be blue
+                value: "Asiatische Staudenknöteriche",
+                symbol: {
+                  type: "simple-fill", // autocasts as new SimpleFillSymbol()
+                  color: "orange",
+                },
+              },
+              {
+                // All features with value of "North" will be blue
+                value: "Drüsiges Springkraut",
+                symbol: {
+                  type: "simple-fill", // autocasts as new SimpleFillSymbol()
+                  color: "green",
+                },
+              },
+              {
+                // All features with value of "North" will be blue
+                value: "Einjähriges Berufskraut",
+                symbol: {
+                  type: "simple-fill", // autocasts as new SimpleFillSymbol()
+                  color: "yellow",
+                },
+              },
+              {
+                // All features with value of "North" will be blue
+                value: "Kirschlorbeer",
+                symbol: {
+                  type: "simple-fill", // autocasts as new SimpleFillSymbol()
+                  color: "brown",
+                },
+              },
+              {
+                // All features with value of "North" will be blue
+                value: "Sommerflieder",
+                symbol: {
+                  type: "simple-fill", // autocasts as new SimpleFillSymbol()
+                  color: "black",
+                },
+              },
+              {
+                // All features with value of "North" will be blue
+                value: "Götterbaum",
+                symbol: {
+                  type: "simple-fill", // autocasts as new SimpleFillSymbol()
+                  color: "pink",
+                },
+              },
+              {
+                // All features with value of "North" will be blue
+                value: "Robinie",
+                symbol: {
+                  type: "simple-fill", // autocasts as new SimpleFillSymbol()
+                  color: "purple",
+                },
+              },
+            ],
+          };
+        }
         map.add(geometry);
       }
 
@@ -504,13 +710,15 @@ define([
       view.ui.add(homeButton, "top-left");
 
       // create DOM object
-      let fullScreenBtn = domCtr.toDom("<div class='map-button esri-component esri-locate esri-widget--button esri-widget' role='button' title='Recenter'><span aria-hidden='true' role='presentation' class='esri-icon esri-icon-zoom-out-fixed'></span></div>");
+      let fullScreenBtn = domCtr.toDom(
+        "<div class='map-button esri-component esri-locate esri-widget--button esri-widget' role='button' title='Recenter'><span aria-hidden='true' role='presentation' class='esri-icon esri-icon-zoom-out-fixed'></span></div>"
+      );
       // add to view
       view.ui.add(fullScreenBtn, "top-left");
       // add button click listener
-      fullScreenBtn.addEventListener('click', () => {
+      fullScreenBtn.addEventListener("click", () => {
         document.getElementById(containerMap).classList.toggle("fullscreen");
-      })
+      });
       const locate = new Locate({
         view: view,
         useHeadingEnabled: false,
@@ -537,7 +745,10 @@ define([
               projectArea.definitionExpression =
                 "objectid = " + editInfo.addedFeatures[0].objectId.toString();
               editor.layerInfos[0].addEnabled = false;
-              app.updateAttributes("project",editInfo.edits.addFeatures[0].attributes.projectid)
+              app.updateAttributes(
+                "project",
+                editInfo.edits.addFeatures[0].attributes.projectid
+              );
               location.reload();
             } else {
               alert(
@@ -597,25 +808,41 @@ define([
             // Pass in the configurations created above
           });
 
-          editor.viewModel.watch('state', function(state){
-            if(state === 'ready'){
-              setTimeout(function(){
-                let container = document.querySelector("#" + element.name + "_editor");
-                domCtr.place(container.querySelector('#linkInstructions'), container.querySelector('.esri-editor__header'), "after")
+          editor.viewModel.watch("state", function (state) {
+            if (state === "ready") {
+              setTimeout(function () {
+                let container = document.querySelector(
+                  "#" + element.name + "_editor"
+                );
+                domCtr.place(
+                  container.querySelector("#linkInstructions"),
+                  container.querySelector(".esri-editor__header"),
+                  "after"
+                );
 
-                  var actions = document.getElementsByClassName("esri-editor__feature-list-name");
-                Array.from(actions).forEach(function(ele){
-                  ele.innerHTML = ele.innerHTML.replace("Feature", app.strings.get("feature"))
+                var actions = document.getElementsByClassName(
+                  "esri-editor__feature-list-name"
+                );
+                Array.from(actions).forEach(function (ele) {
+                  ele.innerHTML = ele.innerHTML.replace(
+                    "Feature",
+                    app.strings.get("feature")
+                  );
                 });
               }, 50);
             }
-          })
+          });
 
           if (app.mode == "project") {
             projectArea.load().then(() => {
               prototype = projectArea.templates[0].prototype;
-              callback({ projectArea: projectArea, prototype: prototype,  geometry: null, editor: editor })
-            })
+              callback({
+                projectArea: projectArea,
+                prototype: prototype,
+                geometry: null,
+                editor: editor,
+              });
+            });
 
             let layerInfos;
             view.map.layers.forEach((layer) => {
@@ -657,28 +884,28 @@ define([
             if (app.projectAreaId != null) {
               layerInfos.addEnabled = false;
               //editor.startUpdateWorkflowAtFeatureEdit();
-            }
-            else {
+            } else {
               layerInfos.updateEnabled = false;
             }
 
             editor.layerInfos = [layerInfos];
-          }
-          else {
+          } else {
             if (geometry.definitionExpression == "objectid = 0") {
-              editor.layerInfos = [{
-                layer: geometry,
-                updateEnabled: false
-            }]
+              editor.layerInfos = [
+                {
+                  layer: geometry,
+                  updateEnabled: false,
+                },
+              ];
+            } else {
+              editor.layerInfos = [
+                {
+                  layer: geometry,
+                  updateEnabled: true,
+                },
+              ];
             }
-            else {
-              editor.layerInfos = [{
-                layer: geometry,
-                updateEnabled: true
-            }]
-            }
-            
-        }
+          }
 
           editor.watch(
             "activeWorkflow.numPendingFeatures",
@@ -707,20 +934,22 @@ define([
         }
       });
       if (app.mode == "results") {
-
-        app.mapLoadedPromises.push(new Promise ((resolve, reject) => {
-
-        watchUtils.whenFalseOnce(view, "updating", () => {
-          console.log("The map with id:" + element.key + " has loaded");
-          this.printMap(view).then((image) => {
-            element.screenshot.src = image.url;
-            resolve();
+        app.mapLoadedPromises.push(
+          new Promise((resolve, reject) => {
+            watchUtils.whenFalseOnce(view, "updating", () => {
+              console.log("The map with id:" + element.key + " has loaded");
+              this.printMap(view).then((image) => {
+                element.screenshot.src = image.url;
+                resolve();
+              });
+            });
           })
-         
-        });
-      }));
-    }
-        callback({ projectArea: projectArea, geometry: geometry, editor: editor, /*mapLoaded: new Promise((resolve3, reject3) => {
+        );
+      }
+      callback({
+        projectArea: projectArea,
+        geometry: geometry,
+        editor: editor /*mapLoaded: new Promise((resolve3, reject3) => {
           watchUtils.whenFalseOnce(view, "updating", () => {
             console.log("The map with id:" + element.key + " has loaded");
             view.takeScreenshot().then((screenshot) => {
@@ -732,14 +961,11 @@ define([
           });
           
         }) 
-        */
+        */,
       });
-      
-       
     }
 
     addMapOverview(containerMap) {
-
       let labelClass = {
         // autocasts as new LabelClass()
         symbol: {
@@ -774,16 +1000,15 @@ define([
       var customZoomAction = {
         title: "Zoom to",
         id: "custom-zoom",
-        className: "esri-icon-zoom-in-magnifying-glass"
+        className: "esri-icon-zoom-in-magnifying-glass",
       };
-      var template = { // autocasts as new PopupTemplate()
+      var template = {
+        // autocasts as new PopupTemplate()
         title: "{name}",
         content: "{school}",
-        actions: [customZoomAction]
+        actions: [customZoomAction],
       };
       template.overwriteActions = true;
-
-      
 
       let polygonSymbol = {
         type: "simple-fill", // autocasts as new SimpleFillSymbol()
@@ -847,6 +1072,8 @@ define([
         view: view,
       });
 
+      view.ui.add(new Locate({ view: view }), "top-left");
+
       homeButton.goToOverride = function (view) {
         start.unSelectProject();
         view.popup.close();
@@ -857,41 +1084,50 @@ define([
       };
 
       view.ui.add(homeButton, "top-left");
-      view.popup.on("trigger-action", function(evt) {
-        if(evt.action.id === "custom-zoom"){
-          let query = projectAreaPolygon.createQuery()
-          query.where = "objectid in (" + view.popup.viewModel.selectedFeature.attributes.OBJECTID + ")";
+      view.popup.on("trigger-action", function (evt) {
+        if (evt.action.id === "custom-zoom") {
+          let query = projectAreaPolygon.createQuery();
+          query.where =
+            "objectid in (" +
+            view.popup.viewModel.selectedFeature.attributes.OBJECTID +
+            ")";
           projectAreaPolygon.queryFeatures(query).then((results) => {
             // If it already exists, load the existing values
             if (results.features.length > 0) {
-              view.goTo(results.features[0])
-
+              view.goTo(results.features[0]);
             } else {
               alert("Dieses Projekt wurde nicht gefunden!");
             }
           });
-
         }
       });
 
-      watchUtils.whenTrue(view.popup,'visible', function(){
-        watchUtils.whenFalseOnce(view.popup,'visible', function(){
+      watchUtils.whenTrue(view.popup, "visible", function () {
+        watchUtils.whenFalseOnce(view.popup, "visible", function () {
           start.unSelectProject();
-        })
-      })
+        });
+      });
 
       view.on("click", function (event) {
         view.hitTest(event.screenPoint).then(function (response) {
-            if (response.results[0]) {
-              let query = projectAreaPolygon.createQuery()
-              query.where = "objectid in (" + response.results[0].graphic.attributes.OBJECTID + ")";
-              projectAreaPolygon.queryFeatures(query).then((results) => {
-                start.selectProject(results.features[0].attributes.projectid, results.features[0].attributes.name, results.features[0].attributes.school, results.features[0].attributes.owner)
-              })
-            } 
-        })
-      })
-  
+          if (response.results[0]) {
+            let query = projectAreaPolygon.createQuery();
+            query.where =
+              "objectid in (" +
+              response.results[0].graphic.attributes.OBJECTID +
+              ")";
+            projectAreaPolygon.queryFeatures(query).then((results) => {
+              start.selectProject(
+                results.features[0].attributes.projectid,
+                results.features[0].attributes.name,
+                results.features[0].attributes.school,
+                results.features[0].attributes.owner
+              );
+            });
+          }
+        });
+      });
+
       view.when(function () {
         // MapView is now ready for display and can be used. Here we will
         // use goTo to view a particular location at a given zoom level and center
@@ -941,18 +1177,20 @@ define([
               id: this.links.geometryLayerId,
             },
             title: mapLayers[i].name_display,
-            definitionExpression:  "objectid in (" + mapLayers[i].value.substring(1,mapLayers[i].value.length-1) + ")",
+            definitionExpression:
+              "objectid in (" +
+              mapLayers[i].value.substring(1, mapLayers[i].value.length - 1) +
+              ")",
             renderer: {
               type: "simple", // autocasts as new SimpleRenderer()
               symbol: {
                 type: "simple-fill", // autocasts as new SimpleFillSymbol()
-                color:  mapLayers[i].color,
+                color: mapLayers[i].color,
               },
             },
           });
           map.add(layer);
         }
-
       }
 
       let view = new MapView({
@@ -971,9 +1209,19 @@ define([
       });
       view.ui.add(basemapToggle, "top-right");
 
-      new Legend({view:view, style: {type:"card", layout: "side-by-side"}, container: containerLegend})
-      view.ui.add(new Expand({view:view, expanded: false, content: new LayerList({view:view})}), "top-right");
-
+      new Legend({
+        view: view,
+        style: { type: "card", layout: "side-by-side" },
+        container: containerLegend,
+      });
+      view.ui.add(
+        new Expand({
+          view: view,
+          expanded: false,
+          content: new LayerList({ view: view }),
+        }),
+        "top-right"
+      );
 
       const homeButton = new Home({
         view: view,
@@ -988,7 +1236,7 @@ define([
             });
           }
         );
-      };
+      }
       view.when(() => {
         if (app.projectAreaId == null) {
           locate.when(() => {
@@ -1003,44 +1251,53 @@ define([
             );
           }
         }
-      })
+      });
 
-      app.mapLoadedPromises.push(new Promise ((resolve, reject) => {
-        watchUtils.whenFalseOnce(view, "updating", () => {
-          this.printMap(view).then((image) => {
-            screenshotDiv.src = image.url;
-            resolve();
-          })
+      app.mapLoadedPromises.push(
+        new Promise((resolve, reject) => {
+          watchUtils.whenFalseOnce(view, "updating", () => {
+            this.printMap(view).then((image) => {
+              screenshotDiv.src = image.url;
+              resolve();
+            });
+          });
         })
-      }))
+      );
       return view;
     }
 
     printMap(view) {
       return new Promise((resolve, reject) => {
-
         // url to the print service
-        const url = "https://utility.arcgisonline.com/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task";
+        const url =
+          "https://utility.arcgisonline.com/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task";
 
         const template = new PrintTemplate({
           format: "png32",
           layout: "map-only",
           exportOptions: {
             width: 1600,
-            height: 900
+            height: 900,
           },
-          scalePreserved: false
+          scalePreserved: false,
         });
 
         const params = new PrintParameters({
           view: view,
-          template: template
+          template: template,
         });
 
         // print when this function is called
-        
-        print.execute(url, params).then((result) => {resolve(result)}).catch((err) => {alert("Exporting an image of the map did not work:   " + err)});
-      })
+
+        print
+          .execute(url, params)
+          .then((result) => {
+            resolve(result);
+          })
+          .catch((err) => {
+            alert("Exporting an image of the map did not work:   " + err);
+          });
+      });
     }
   };
 });
