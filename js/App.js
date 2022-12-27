@@ -77,6 +77,10 @@ define([
         
 
       if (!this.offline) {
+        
+        // Only used this to change some data on AGO
+        //this.arcgis.switchTextToKey();
+       
         // Check if this project alreayd exists
         this.arcgis.checkDataProject(app.projectId, (info) => {
           app.projectAreaId = "[" + info.getObjectId().toFixed(0) + "]";
@@ -541,7 +545,6 @@ define([
       let elements = app.getAllElements(false);
       let setterPromises = [];
       for (let item in data) {
-
         if (item in elements && data[item] != null) { 
           if (elements[item].checkAllowedValues(data[item])) {
             setterPromises.push(elements[item].setter(data[item], false).then(() => {

@@ -398,6 +398,65 @@ define([
       });
       // Create empty query, means to take all rows!
     }
+
+    // function to change several data in the table
+    updateFeatures(data) {
+      let featureClass = this.table;
+      
+      return new Promise((resolve, reject) => {
+        
+        // finally, upload the new data to ArcGIS Online
+        featureClass
+          .applyEdits({
+            updateFeatures: data,
+          })
+          .then((value) => {
+            // ToDo: Check for errors!
+            if (value.updateFeatureResults.error == null) {
+              resolve(value);
+            } else {
+              reject(value.updateFeatureResults.error);
+            }
+          })
+          .catch((reason) => {
+            reject(reason);
+          });
+
+        });
+    }
+
+    // Only temporary function used once to switch the value that was saved in the database. First we saved all the data, then we switched to only saving the keys
+    switchTextToKey() {
+      app.arcgis.init(() => {
+        app.arcgis.readFeatures("").then((results => {
+          console.log(results);
+          let elements = app.getAllElements(false);
+
+          for (let i in results) {  
+            console.log(results[i].attributes.objectId)
+            for (let j in results[i].attributes) {
+              if (results[i].attributes[j] != null) {
+                for (let k in elements) {
+                  //console.log(elements[k].key)
+                  //console.log(j)
+                  if (elements[k].type == "radioButtonInput" && elements[k].key == j && elements[k].pointsDict[results[i].attributes[j]] != null) {
+                    console.log(elements[k].pointsDict[results[i].attributes[j]].key)
+                    results[i].attributes[j] = elements[k].pointsDict[results[i].attributes[j]].key
+                  }
+                }
+
+              }
+            }
+          }
+          console.log(results);
+          app.arcgis.updateFeatures(results).then((response) => {
+            console.log(response);
+          })
+
+        }));
+      });
+    }
+
     // ToDo: Get projectId and not objectid!
     calculateArea(objectIds, database) {
       let data = this.geometry;

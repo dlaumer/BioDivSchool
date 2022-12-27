@@ -209,7 +209,7 @@ define([
       }
 
       for (const i in args.options) {
-        this.allowedValues.push(args.options[i].label); // ToDo: Change to key!
+        this.allowedValues.push(args.options[i].key);
       }
 
       if (args.points != null) {
@@ -243,7 +243,7 @@ define([
 
         }
         else {
-          this.setter(evt.target.options[evt.target.selectedIndex].innerHTML);
+          this.setter(evt.target.options[evt.target.selectedIndex].if.split("___")[1]); // get the key from the id
 
         }
 
@@ -254,7 +254,7 @@ define([
           this.setterUINonEdit(this.input, value)
         }
         else {
-          this.input.value = this.pointsDict[value].key
+          this.input.value = value;
         }
       }
     }
@@ -278,7 +278,7 @@ define([
 
       }
       for (const i in args.options) {
-        this.allowedValues.push(args.options[i].label); // ToDo: Change to key!
+        this.allowedValues.push(args.options[i].key);
       }
 
       if (args.points != null) {
@@ -308,7 +308,7 @@ define([
     
 
       on(this.input, "change", function (evt) {
-        this.setter(this.data[evt.target.id.split("___")[1]].label)
+        this.setter(evt.target.id.split("___")[1])
 
       }.bind(this));
 
@@ -323,7 +323,7 @@ define([
             }
           }
           else {
-            document.getElementById(this.key + "___" + this.pointsDict[value].key).checked = true;
+            document.getElementById(this.key + "___" + value).checked = true;
           }
         }
       }
@@ -754,8 +754,8 @@ define([
                 }
               }
               else {
-                this.points = this.pointsDict[this.value].points;
-                this.measure = this.pointsDict[this.value].measure ? this.pointsDict[this.value].measure : null;
+                this.points = this.data[this.value].points;
+                this.measure = this.data[this.value].measure ? this.data[this.value].measure : null;
 
               }
 
