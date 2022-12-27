@@ -2,7 +2,7 @@
 
 BioDivSchool Web App
 
-Lehrpersonen: Lehrpersonen (LP) lautet https://dlaumer.github.io/BioDivSchool/?intern=true.
+Lehrpersonen: Lehrpersonen (LP) lautet https://dlaumer.github.io/BioDivSchool/?admin=true.
 Schülerinnen und schüler, Öffentlichkeit: https://dlaumer.github.io/BioDivSchool
 
 ## Local installation
@@ -29,7 +29,7 @@ It consists of a list of projects on the left and a map on the right. When you c
 
 It has a login button on top right, which promts you to login to your ArcGIS Online account. If this login is successful, the list changes and seperates between the users projects and the other ones. 
 
-The internal page is loaded if `intern=true` is set in the url parameters. The only difference that then, the button to add a new project is visible. Also if you choose one of your projects, you can edit/delete this project. 
+The internal page is loaded if `admin=true` is set in the url parameters. The only difference that then, the button to add a new project is visible. Also if you choose one of your projects, you can edit/delete this project. 
 
 #### Project
 This is used to add/edit/delete a project. When adding, the UI is a bit different then when in edit/delete mode. When adding, the user is first prompted with a few text inputs and then the map is loaded to draw the project area. WIn edit and delete mode. the map is directly loaded.

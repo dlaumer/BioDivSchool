@@ -24,9 +24,9 @@ define([
       start.userNameEsri;
       let urlData = this.getJsonFromUrl();
 
-      this.intern = "false";
-      if (Object.keys(urlData).includes("intern")) {
-        this.intern = urlData["intern"];
+      this.admin = "false";
+      if (Object.keys(urlData).includes("admin")) {
+        this.admin = urlData["admin"];
       }
 
       this.lang = "de"
@@ -182,7 +182,7 @@ define([
 
       this.footerLeft = domCtr.create(
         "div",
-        { className: "footerLeft", style: this.intern == "true" ? "visibility: visible;" : "visibility: hidden;" },
+        { className: "footerLeft", style: this.admin == "true" ? "visibility: visible;" : "visibility: hidden;" },
         this.footer
       );
 
@@ -228,7 +228,7 @@ define([
           id: "btn_project",
           className: "btn2",
           innerHTML: this.strings.get("editProject"),
-          style: this.intern == "true" ? "min-width: 10vw;display: block;" : "min-width: 10vw;display: none;",
+          style: this.admin == "true" ? "min-width: 10vw;display: block;" : "min-width: 10vw;display: none;",
         },
         this.buttons
       );
@@ -250,7 +250,7 @@ define([
           id: "btn_consolidation",
           className: "btn2",
           innerHTML: this.strings.get("consolidation"),
-          style: "min-width: 10vw;",
+          style: this.admin == "true" ? "min-width: 10vw;display: block;" : "min-width: 10vw;display: none;",
         },
         this.buttons
       );
@@ -401,8 +401,8 @@ define([
       //if (start.userNameEsri == null || (start.userNameEsri != null && start.userNameEsri == owner)) {
         this.buttons.style.display = "flex";
         this.btn_collection.style.display = "block";
-        this.btn_consolidation.style.display = "block";
-        this.btn_project.style.display = this.intern == "true" ? "block" : "none"
+        this.btn_consolidation.style.display = this.admin == "true" ? "block" : "none"; 
+        this.btn_project.style.display = this.admin == "true" ? "block" : "none"
       }
       else {
         this.btn_collection.style.display = "none";

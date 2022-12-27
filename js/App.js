@@ -172,7 +172,7 @@ define([
             // Add the url for the collection
             var queryParams = new URLSearchParams(window.location.search);
             queryParams.set("mode", "collection");
-            queryParams.delete("intern");
+            queryParams.delete("admin");
             let url = window.location.href.split("?")[0] + "?" + queryParams.toString();
             domCtr.create("div", { className: "labelText", innerHTML: app.strings.get("link") + ": <a href="+url+" target=_blank>"+url+"</a>", style: "width: 100%; margin-bottom: 10px;"}, document.getElementById("textInfo_Erfassung"));
             domCtr.create("div", { id: "qrcode"}, document.getElementById("textInfo_Erfassung"));
@@ -432,7 +432,7 @@ define([
         "click",
         function (evt) {
           if (app.mode == "project") {
-            window.open(window.location.href + "?intern=true&mode=start", "_self")
+            window.open(window.location.href + "?admin=true&mode=start", "_self")
 
           }
           else {
