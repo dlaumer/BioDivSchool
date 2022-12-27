@@ -299,13 +299,28 @@ define([
 
         function addProject(i) {
           
+
+          let container = domCtr.create(
+            "div",
+            { id: "projectContainer_" + results[i].attributes.projectid,
+              className: "projectsContainer" },
+            start.mapOverviewProject
+          );
+
           let item = domCtr.create(
             "div",
             { id: "project_" + results[i].attributes.projectid,
               className: "projects" },
-            start.mapOverviewProject
+            container
           );
          
+          let infoContainer = domCtr.create(
+            "div",
+            { id: "infoContainer_" + results[i].attributes.projectid,
+          className: "infoContainer" },
+              item
+          );
+
           domCtr.create(
             "div",
             {
@@ -314,7 +329,7 @@ define([
               title: results[i].attributes.name,
               style: "width:30%",
             },
-            item
+            infoContainer
           );
           domCtr.create(
             "div",
@@ -324,7 +339,7 @@ define([
               title: results[i].attributes.school,
               style: "width:40%",
             },
-            item
+            infoContainer
           );
           let additionalInfo = domCtr.create(
             "div",
@@ -332,7 +347,7 @@ define([
               className: "projectElemCreation",
               style: "width:30%",
             },
-            item
+            infoContainer
           );
 
           let creationDate =  new Date(results[i].attributes.CreationDate);
@@ -358,7 +373,6 @@ define([
               //start.viewOverview.goTo(results[i].geometry);
               let query = start.projectAreaPoint.createQuery()
               query.where = "projectid in ('" + results[i].attributes.projectid + "')";
-              console.log(query.where)
               start.projectAreaPoint.queryFeatures(query).then((results2) => {
                 start.viewOverview.goTo({
                   center: [8.722167506135465, 47.32443911582187],
@@ -385,17 +399,25 @@ define([
     }
 
     selectProject(projectId, name, school, owner) {
-      // let item = document.getElementById("project_" + projectId);
-      // if (start.projectSelected !== null) {
-      //   start.projectSelected.className = "projects";
-      // }
-      // start.projectSelected = item;
-      // item.className = "projects projects_active";
+      let infoContainer = document.getElementById("infoContainer_" + projectId);
+      let item = document.getElementById("project_" + projectId);
+      if (start.projectSelected !== null) {
+        start.projectSelected.className = "projects";
+      }
+      start.projectSelected = item;
+      item.className = "projects projects_active";
       this.projectChosenDiv.innerHTML =
         this.strings.get("chosenProject") + ": " + name + ", " + school + " <small>(" + projectId + ")</small>" ;
 
-        start.buttons.style.display = "flex";
-        this.updateAttributes("project", projectId);
+      start.buttons.style.display = "flex";
+      this.updateAttributes("project", projectId);
+
+      if (item.offsetTop-this.mapOverviewProject.offsetTop > this.mapOverviewProject.offsetHeight) {
+        this.mapOverviewProject.scrollTop = item.offsetTop-this.mapOverviewProject.offsetTop;
+      }
+
+      domCtr.place(this.buttons, infoContainer, "after");
+      
 
       if (start.userNameEsri != null && start.userNameEsri == owner) {
       //if (start.userNameEsri == null || (start.userNameEsri != null && start.userNameEsri == owner)) {
@@ -424,6 +446,7 @@ define([
         start.removeFromAttributes("project");
         start.projectSelected.className = "projects";
         start.projectSelected = null;
+        start.viewOverview.popup.close();
       }
       
     }

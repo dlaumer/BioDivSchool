@@ -30,12 +30,23 @@ input[type=checkbox]
 :root {
   --gray: #bebebe;
   --very_gray: #f5f3f3;
-  --project: #4ba000;
-  --projectLight: #4ba000b0;
+  --project: #A2C367;
+  --projectLight: #A2C367b0;
   --expandable: #7fd63266;
   --highlight: #e0ca3c;
   --dark_gray: #4c4c4c;
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 7px;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--gray);
+  border-radius: 5px;
+}
+
 
 body {
   margin: 0;
@@ -275,12 +286,14 @@ body {
 }
 
 .projects:hover {
-  background-color: var(--projectLight);
+  background-color: var(--very_gray);
 }
 
 .projects_active{
   background-color: var(--project  ) !important;
   color: white !important;
+  height: 100px !important;
+  transition: all 0.2s linear;
 
 }
 
@@ -288,19 +301,32 @@ body {
   opacity: 1 !important;
 }
 
+.projectsContainer {
+  width: 100%;
+  border-top: 1px solid var(--very_gray);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .projects {
-  height: 50px;
+  height: 60px;
+  width: 90%;
+  font-size: min(2vmax, 18px);
+  cursor: pointer;
+  border-radius: 30px;
+  padding: 0 20px;
+  margin: 5px;
+  transition: all 0.2s linear;
+}
+
+.infoContainer {
+  height: 60px;
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  margin: 10px 0;
   align-items: center;
-  border: 1px solid black;
-  font-size: min(2vmax, 18px);
-  cursor: pointer;
-  padding: 0 10px;
-  background-color: var(--expandable);
 }
 
 .projectElem {
@@ -366,7 +392,6 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 0 10px;
-  background-color: var(--very_gray);
   font-size: min(2vmax, 18px);
   z-index: 100;
 }
@@ -521,7 +546,6 @@ body {
   position: absolute;
   bottom: 0;
   right: 0;
-  background-color: var(--very_gray);
   padding: 20px;
   font-size: min(2vmax, 18px);
 }
@@ -646,16 +670,16 @@ body {
 
 .btn2 {
   text-align: center;
-  background-color: transparent;
+  background-color: white;
   color: var(--dark_gray);
   border: 1px solid var(--dark_gray);
-  margin: 2%;
-  padding: 10px;
   min-width: 20vw;
   cursor: pointer;
   display: block;
   overflow: hidden;
-    text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  border-radius: 20px;
+  font-size: 16px;
 }
 
 .btn2:hover, .btn2:active {
