@@ -101,7 +101,19 @@ define([
         this.background
       );
 
+      this.header1 = domCtr.create(
+        "div",
+        { className: "header1" },
+        this.header
+      );
 
+      this.header2 = domCtr.create(
+        "div",
+        { className: "header2" },
+        this.header
+      );
+
+      
       this.settings = domCtr.create(
         "div",
         { className: "settings", style: "display:none" },
@@ -114,16 +126,33 @@ define([
           innerHTML: this.strings.get("title"),
           style: "font-size: min(5vmax, 30px)",
         },
-        this.header
+        this.header1
       );
 
-      this.userName = domCtr.create("div", { id: "userNameEsri" }, this.header);
+      this.userName = domCtr.create("div", { id: "userNameEsri" }, this.header1);
+
+      this.btn_project_new = domCtr.create(
+        "div",
+        {
+          id: "btn_project_new",
+          className: "btn1",
+          innerHTML: this.strings.get("newProject"),
+          style: this.admin == "true" ? "min-width: 10vw;display: block;" : "min-width: 10vw;display: none;",
+        },
+        this.header1
+      );
 
 
       this.settingsButton = domCtr.create(
         "div",
-        { id: "settings", className: "btn2", innerHTML: this.strings.get("settings") },
-        this.header
+        { id: "settings", className: "btn1", innerHTML: this.strings.get("settings") },
+        this.header2
+      );
+
+      this.login = domCtr.create(
+        "div",
+        { id: "login", className: "btn1", innerHTML: this.strings.get("loginEsri") },
+        this.header2
       );
 
       let elemVersion = domCtr.create("div", { className: "element" }, this.settings);
@@ -149,11 +178,7 @@ define([
         }
       }
 
-      this.login = domCtr.create(
-        "div",
-        { id: "login", className: "btn1", innerHTML: this.strings.get("loginEsri") },
-        this.header
-      );
+      
 
       this.mapOverview = domCtr.create(
         "div",
@@ -172,65 +197,20 @@ define([
         { id: "mapOverviewMap", className: "mapOverviewMap" },
         this.mapOverview
       );
-
-
-      this.footer = domCtr.create(
-        "div",
-        { className: "footerStart", style: "position:relative" },
-        this.background
-      );
-
-      this.footerLeft = domCtr.create(
-        "div",
-        { className: "footerLeft", style: this.admin == "true" ? "visibility: visible;" : "visibility: hidden;" },
-        this.footer
-      );
-
-
-      this.footerRight = domCtr.create(
-        "div",
-        { className: "footerRight" },
-        this.footer
-      );
-
-
-
-
-      this.projectChosenDiv = domCtr.create(
-        "div",
-        { className: "footerRightElement", innerHTML: this.strings.get("noProjectChosen") },
-        this.footerRight
-      );
-
+      
       this.buttons = domCtr.create(
         "div",
         { className: "footerRightElement", style: "display: none" },
-        this.footerRight
+        document.body
       );
-
-
-
-      this.btn_project_new = domCtr.create(
-        "div",
-        {
-          id: "btn_project_new",
-          className: "btn2",
-          innerHTML: this.strings.get("newProject"),
-          style: "min-width: 10vw;",
-        },
-        this.footerLeft
-      );
-
 
       this.btn_project = domCtr.create(
         "div",
         {
           id: "btn_project",
-          className: "btn2",
-          innerHTML: this.strings.get("editProject"),
-          style: this.admin == "true" ? "min-width: 10vw;display: block;" : "min-width: 10vw;display: none;",
+          innerHTML: "<img src= https://raw.githubusercontent.com/Esri/calcite-ui-icons/master/icons/pencil-square-16.svg>",
         },
-        this.buttons
+        document.body
       );
 
 
@@ -274,7 +254,7 @@ define([
         if (start.userNameEsri != null) {
           domCtr.create(
             "div",
-            { innerHTML: start.strings.get("myProjects") },
+            {className: "projectsTitle", innerHTML: start.strings.get("myProjects") },
             start.mapOverviewProject
           );
           // Read all the own projects
@@ -287,7 +267,7 @@ define([
         
         domCtr.create(
           "div",
-          { innerHTML: start.strings.get("projects") },
+          { className: "projectsTitle", innerHTML: start.strings.get("projects") },
           start.mapOverviewProject
         );
         // Read all the other projects
@@ -320,32 +300,94 @@ define([
           className: "infoContainer" },
               item
           );
+          
+          // City
+          let city = domCtr.create(
+            "div",
+            {
+              className: "projectElem",
+              style: "width:25%",
+            },
+            infoContainer
+          );
+          domCtr.create(
+            "div",
+            {
+              className: "projectElemLabel",
+              innerHTML: start.strings.get("location"),
+            },
+            city
+          );
+          domCtr.create(
+            "div",
+            {
+              className: "projectElemValue",
+              innerHTML: results[i].attributes.name,
+              title: results[i].attributes.name,
+            },
+            city
+          );
+
+          // School
+          let school = domCtr.create(
+            "div",
+            {
+              className: "projectElem",
+              style: "width:25%;border-right: 1px solid var(--gray);",
+            },
+            infoContainer
+          );
+          domCtr.create(
+            "div",
+            {
+              className: "projectElemLabel",
+              innerHTML: start.strings.get("school"),
+            },
+            school
+          );
+          domCtr.create(
+            "div",
+            {
+              className: "projectElemValue",
+              innerHTML: results[i].attributes.school,
+              title: results[i].attributes.school,
+            },
+            school
+          );
+          
+          // Add. info labels
+          let additionalInfoLabels = domCtr.create(
+            "div",
+            {
+              className: "projectElemCreation",
+              style: "width:20%",
+            },
+            infoContainer
+          );
 
           domCtr.create(
             "div",
             {
-              className: "projectElem",
-              innerHTML: results[i].attributes.name,
-              title: results[i].attributes.name,
-              style: "width:30%",
+              innerHTML: start.strings.get("date"),
+              className: "projectElemLabel"
             },
-            infoContainer
+            additionalInfoLabels
           );
           domCtr.create(
             "div",
             {
-              className: "projectElem",
-              innerHTML: results[i].attributes.school,
-              title: results[i].attributes.school,
-              style: "width:40%",
+              innerHTML: start.strings.get("author"),
+              className: "projectElemLabel"
             },
-            infoContainer
+            additionalInfoLabels
           );
+
+          // Add. Info
           let additionalInfo = domCtr.create(
             "div",
             {
               className: "projectElemCreation",
-              style: "width:30%",
+              style: "width:20%",
             },
             infoContainer
           );
@@ -355,6 +397,8 @@ define([
             "div",
             {
               innerHTML: creationDate.toISOString().slice(0, 10),
+              className: "projectElemLabel",
+              style: "font-weight: bold"
             },
             additionalInfo
           );
@@ -362,6 +406,8 @@ define([
             "div",
             {
               innerHTML: results[i].attributes.owner,
+              className: "projectElemLabel",
+              style: "font-weight: bold"
             },
             additionalInfo
           );
@@ -406,8 +452,6 @@ define([
       }
       start.projectSelected = item;
       item.className = "projects projects_active";
-      this.projectChosenDiv.innerHTML =
-        this.strings.get("chosenProject") + ": " + name + ", " + school + " <small>(" + projectId + ")</small>" ;
 
       start.buttons.style.display = "flex";
       this.updateAttributes("project", projectId);
@@ -417,7 +461,7 @@ define([
       }
 
       domCtr.place(this.buttons, infoContainer, "after");
-      
+      domCtr.place(this.btn_project, infoContainer, "last");
 
       if (start.userNameEsri != null && start.userNameEsri == owner) {
       //if (start.userNameEsri == null || (start.userNameEsri != null && start.userNameEsri == owner)) {
@@ -441,7 +485,6 @@ define([
 
     unSelectProject() {
       if (start.projectSelected != null) {
-        start.projectChosenDiv.innerHTML = start.strings.get("noProjectChosen");
         start.buttons.style.display = "none";
         start.removeFromAttributes("project");
         start.projectSelected.className = "projects";
