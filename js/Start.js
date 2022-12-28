@@ -411,7 +411,7 @@ define([
             },
             additionalInfo
           );
-          item.addEventListener("click", () => {
+          infoContainer.addEventListener("click", () => {
             if (start.projectSelected == item) {
               start.unSelectProject();
             }
