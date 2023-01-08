@@ -244,11 +244,9 @@ body {
 
 @media only screen and (max-height: 600px){
 
-  .footerStart {
-    height: 30% !important;
-  }
+ 
   .mapOverview {
-    height: 60% !important;
+    height: 100% !important;
   }
   #pageContainer {
     height: 65% !important;
@@ -261,7 +259,7 @@ body {
     display: none;
   }
   .mapOverview {
-    height: 60%;
+    height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -270,6 +268,7 @@ body {
   .mapOverviewMap {
     height: 100%;
     width: 100%;
+    position: absolute;
   }
   
   .mapOverviewProjects{
@@ -277,7 +276,12 @@ body {
     width: 100%;
     overflow: auto;
     padding: 10px;
-    
+    position: absolute;
+    z-index: 100;
+    background: white;
+    top: 300px;
+    border-radius: 20px;
+    box-shadow: 0px -5px 3px #00000029;
   }
   
 
@@ -293,6 +297,91 @@ body {
   margin-bottom: 20px;
 }
 
+.searchAndFilter {
+  height: 80px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+
+.filterContainer {
+  height: 40%;
+  min-width: 30% !important;
+  position: relative
+}
+
+.filter {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 30% !important;
+  z-index: 10;
+  transition: all 0.2s linear !important;
+}
+
+.filterPanel {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: white;
+  border-radius: 20px;
+  border: solid 1px;
+  transition: all 0.2s linear !important;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+}
+
+
+.filterPanelActive {
+  height: 180px !important;
+  transition: all 0.2s linear !important;
+
+}
+
+.btn_active{
+  background-color: var(--project  ) !important;
+  color: white !important;
+  width: calc(100% - 10px);
+  height: calc(100% - 5px);
+  top: 2.5px;
+  left: 5px;
+  transition: all 0.2s linear !important;
+  border: none !important;
+}
+
+.filterElement {
+  height: 30px;
+  font-size: min(max(2vmax, 12px),15px);
+    padding: 0 10px;
+    text-align: center;
+    border-radius: 20px;
+    margin: 2px 5px;
+}
+
+.filterElement:hover {
+    background-color: var(--very_gray);
+}
+
+.filterElementActive {
+  background-color: var(--project  ) !important;
+  color: white !important;
+}
+
+.search {
+  height: 40%;
+  width: 60%;
+  border-radius: 20px;
+  border: 1px solid var(--dark_gray);
+}
+
 .projects:hover {
   background-color: var(--very_gray);
 }
@@ -302,7 +391,6 @@ body {
   color: white !important;
   height: 100px !important;
   transition: all 0.2s linear;
-
 }
 
 .projects_active:hover {
@@ -310,6 +398,11 @@ body {
 }
 
 .projectsContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.projectContainer {
   width: 100%;
   border-top: 1px solid var(--gray);
   display: flex;
@@ -715,9 +808,10 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   border-radius: 20px;
-  font-size: min(max(2vmax, 12px),18px);
+  font-size: min(max(2vmax, 12px),15px);
   font-weight: bold;
   color: var(--medium_gray);
+  padding: 5px;
 }
 
 .btn2:hover, .btn2:active {

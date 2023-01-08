@@ -1047,8 +1047,8 @@ define([
       let pointSymbol = {
         type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
         style: "circle",
-        color: [75, 160, 0, 0.145],
-        size: "12px", // pixels
+        color: [112, 112, 112, 0.19],
+        size: "16px", // pixels
         outline: {
           // autocasts as new SimpleLineSymbol()
           color: "black",
@@ -1194,7 +1194,59 @@ define([
           center: [8.722167506135465, 47.32443911582187],
           zoom: 9,
         });
+
+        /*
+        
+        view.whenLayerView(projectAreaPoint).then(function (lview) {
+          watchUtils.whenFalseOnce(lview, "updating", function () {
+            // Set up a click event handler and retrieve the screen x, y coordinates
+            view.on("pointer-move", function (evt) {
+              var screenPoint = {
+                x: evt.x,
+                y: evt.y
+              };
+              
+
+              // the hitTest() checks to see if any graphics in the view
+              // intersect the given screen x, y coordinates
+              view.hitTest(screenPoint)
+                .then(function (response) {
+                  //changeCursor(response);
+                  //getGraphics(response);
+                });
+            });
+          });
+        });
+        */
       });
+      
+
+      function changeCursor(response) {
+        if (response.results.length > 0) {
+          document.getElementById("mapOverviewMap").style.cursor = "pointer";
+        } else {
+          document.getElementById("mapOverviewMap").style.cursor = "default";
+        }
+      }
+
+      function getGraphics(response) {
+        view.graphics.removeAll();
+        if (response.results.length > 0) {
+          var graphic = response.results[0].graphic;
+          graphic.symbol ={
+            type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
+            style: "circle",
+            color: [169, 240, 43, 0.35],
+            size: "16px", // pixels
+            outline: {
+              // autocasts as new SimpleLineSymbol()
+              color: "black",
+              width: 1, // points
+            },
+          }
+          view.graphics.add(graphic);
+        }
+      }
       return [view, projectAreaPoint];
     }
 
