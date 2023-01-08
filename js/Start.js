@@ -261,8 +261,6 @@ define([
       );
 
 
-      this.dragElement(this.mapOverviewProject);
-
 
       this.mapOverviewMap = domCtr.create(
         "div",
@@ -327,6 +325,48 @@ define([
       this.arcgis.readFeatures("project").then((results) => {
         start.mapOverviewProject.innerHTML = "";
 
+        // Top part with search and filter elements
+        start.draggable = domCtr.create(
+          "div",
+          {
+            id: "draggable",  
+            className: "draggable",
+          },
+          start.mapOverviewProject
+        );
+
+        
+
+      this.dragElement(this.draggable);
+      
+        start.draggableLine = domCtr.create(
+          "div",
+          {
+            className: "draggableLine",
+            style: "display:none"
+          },
+          start.draggable
+        );
+        
+        // Add the search button and filter
+        start.searchAndFilter = domCtr.create(
+          "div",
+          {
+            className: "searchAndFilter",
+          },
+          start.draggable
+        );
+
+        // Top part with search and filter elements
+        start.scrollable = domCtr.create(
+          "div",
+          {
+            className: "scrollable",
+          },
+          start.mapOverviewProject
+        );
+
+
         if (start.userNameEsri != null) {
           start.myProjectsTitle = domCtr.create(
             "div",
@@ -334,7 +374,7 @@ define([
               className: "projectsTitle",
               innerHTML: start.strings.get("myProjects"),
             },
-            start.mapOverviewProject
+            start.scrollable
           );
 
           start.myProjectsContainer = domCtr.create(
@@ -342,7 +382,7 @@ define([
             {
               className: "projectsContainer",
             },
-            start.mapOverviewProject
+            start.scrollable
           );
           // Read all the own projects
           for (let i in results) {
@@ -353,24 +393,18 @@ define([
           }
         }
 
+        
+
         domCtr.create(
           "div",
           {
             className: "projectsTitle",
             innerHTML: start.strings.get("projects"),
           },
-          start.mapOverviewProject
+          start.scrollable
         );
 
-        // Add the search button and filter
-        start.searchAndFilter = domCtr.create(
-          "div",
-          {
-            className: "searchAndFilter",
-          },
-          start.mapOverviewProject
-        );
-
+        
         let search = domCtr.create(
           "input",
           {
@@ -384,10 +418,6 @@ define([
           console.log(evt.target.value)
           filterProjects(evt.target.value)
         }.bind(this));
-
-        if (start.userNameEsri != null) {
-          domCtr.place(start.searchAndFilter, start.myProjectsTitle, "after");
-        }
 
         let filterContainer = domCtr.create(
           "div",
@@ -504,7 +534,7 @@ define([
           {
             className: "projectsContainer",
           },
-          start.mapOverviewProject
+          start.scrollable
         );
         // Read all the other projects
         for (let i in results) {
@@ -716,6 +746,10 @@ define([
     selectProject(projectId, name, school, owner) {
       let infoContainer = document.getElementById("infoContainer_" + projectId);
       let item = document.getElementById("project_" + projectId);
+
+      if (window.matchMedia('only screen and (max-width: 600px)').matches) {
+        start.mapOverviewProject.style.top = 0.15*window.innerHeight + "px";
+      }
       if (start.projectSelected !== null) {
         start.projectSelected.className = "projects";
       }
@@ -726,11 +760,11 @@ define([
       this.updateAttributes("project", projectId);
 
       if (
-        item.offsetTop - this.mapOverviewProject.offsetTop >
-        this.mapOverviewProject.offsetHeight
+        item.offsetTop - this.scrollable.offsetTop >
+        this.scrollable.offsetHeight
       ) {
-        this.mapOverviewProject.scrollTop =
-          item.offsetTop - this.mapOverviewProject.offsetTop;
+        this.scrollable.scrollTop =
+          item.offsetTop - this.scrollable.offsetTop;
       }
 
       domCtr.place(this.buttons, infoContainer, "after");
@@ -860,18 +894,11 @@ define([
         pos2 = 0,
         pos3 = 0,
         pos4 = 0;
-      if (document.getElementById(elmnt.id + "header")) {
-        /* if present, the header is where you move the DIV from:*/
-        document.getElementById(elmnt.id + "header").onmousedown =
-          dragMouseDown;
-        document.getElementById(elmnt.id + "header").ontouchstart =
-          dragMouseDown;
-      } else {
+     
         /* otherwise, move the DIV from anywhere inside the DIV:*/
         elmnt.addEventListener('touchstart', dragMouseDown);
         //elmnt.onmousedown = dragMouseDown;
 
-      }
 
       function dragMouseDown(e) {
         //console.log("dragMouseDown")
@@ -898,7 +925,11 @@ define([
         pos2 = pos4 - e.touches[0].clientY;
         pos4 = e.touches[0].clientY;
         // set the element's new position:
-        elmnt.style.top = elmnt.offsetTop - pos2 + "px";
+        let newTop = start.mapOverviewProject.offsetTop - pos2;
+        if (newTop > 0.15*window.innerHeight && newTop < 0.87*window.innerHeight) {
+          start.mapOverviewProject.style.top = start.mapOverviewProject.offsetTop - pos2 + "px";
+
+        }
       }
 
       function closeDragElement() {

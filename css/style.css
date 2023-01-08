@@ -62,7 +62,7 @@ body {
 }
 
 .mapOverview {
-  height: 90%;
+  height: 85%;
   width: 100%;
   display: flex;
 }
@@ -76,10 +76,18 @@ body {
 .mapOverviewProjects{
   height: 100%;
   width: 40%;
-  overflow: auto;
-  padding: 30px; 
+  display: flex;
+  flex-direction: column;
 }
 
+.draggable {
+  padding: 0 30px;
+}
+
+.scrollable {
+  overflow: auto;
+  padding: 0 30px;
+}
 
 .mapOverviewResults {
   height: 100%;
@@ -274,16 +282,24 @@ body {
   }
   
   .mapOverviewProjects{
-    height: 90%;
+    height: 85%;
     width: 100%;
-    overflow: auto;
-    padding: 10px;
     position: absolute;
     z-index: 100;
     background: white;
-    top: 300px;
+    top: 87%;
     border-radius: 20px;
     box-shadow: 0px -5px 3px #00000029;
+  }
+
+
+  
+  .draggableLine {
+    display: block !important;
+  }
+
+  #appTitle {
+    display: none;
   }
   
 
@@ -297,6 +313,15 @@ body {
   font-size: min(max(3vmax, 18px),28px);
   color: var(--medium_gray);
   margin-bottom: 20px;
+}
+
+.draggableLine {
+  height: 6px;
+  width: 40%;
+  border-radius: 10px;
+  background-color: var(--gray);
+  margin: auto;
+  margin-top: 5px;
 }
 
 .searchAndFilter {
