@@ -127,6 +127,7 @@ define([
       domCtr.create(
         "div",
         {
+          id: "appTitle",
           innerHTML: this.strings.get("title"),
           style: "font-size: min(5vmax, 30px)",
         },
@@ -260,7 +261,7 @@ define([
       );
 
 
-      this.dragElement(this.mapOverviewProject);
+      //this.dragElement(this.mapOverviewProject);
 
 
       this.mapOverviewMap = domCtr.create(
@@ -873,7 +874,7 @@ define([
       }
 
       function dragMouseDown(e) {
-        console.log("dragMouseDown")
+        //console.log("dragMouseDown")
         //e = e || window.event;
         //e.preventDefault();
         // get the mouse cursor position at startup:
@@ -888,8 +889,8 @@ define([
       }
 
       function elementDrag(e) {
-        console.log("elementDrag")
-        console.log(elmnt)
+        //console.log("elementDrag")
+        //console.log(elmnt)
 
         //e = e || window.event;
         //e.preventDefault();
@@ -901,7 +902,7 @@ define([
       }
 
       function closeDragElement() {
-        console.log("closeDragElement")
+        //console.log("closeDragElement")
 
         /* stop moving when mouse button is released:*/
         document.addEventListener('touchend', null);
