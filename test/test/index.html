@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>BioDivSchool App</title>
+
+  <!-- ArcGIS JavaScript API 4.21 stylesheet -->
+  <link rel="stylesheet" href="https://js.arcgis.com/4.22/esri/css/main.css">
+  <link rel="stylesheet" href="https://js.arcgis.com/4.22/dijit/themes/claro/claro.css" />
+  <!-- calcite-web -->
+  <link rel="stylesheet"
+    href="https://s3-us-west-1.amazonaws.com/patterns.esri.com/files/calcite-web/1.0.0-beta.31/css/calcite-web.min.css">
+  <script
+    src="https://s3-us-west-1.amazonaws.com/patterns.esri.com/files/calcite-web/1.0.0-beta.31/js/calcite-web.min.js"></script>
+
+  <link id="style_light" rel="stylesheet" title="biodivschool" href="css/style.css">
+  <script src='https://cdn.plot.ly/plotly-2.11.1.min.js'></script>
+  <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+  <script>
+    dojoConfig = {
+      has: {
+        "dojo-firebug": true,
+        "dojo-debug-messages": true
+      },
+      packages: [{
+        name: "biodivschool",
+        location: location.pathname.replace(/\/[^/]+$/, '') + "./js"
+      }],
+      parseOnLoad: false,
+      async: true
+    };
+  </script>
+  <!-- ArcGIS JavaScript API 4.21  -->
+  <script src="https://js.arcgis.com/4.22/"></script>
+  <!-- load app.js -->
+  <script>
+    require(["biodivschool/Start", "biodivschool/Login", "dojo/domReady!"], function (Start, Login) {
+
+      let urlData = getJsonFromUrl();
+      let mode = "start";
+      offline = false;
+      if (Object.keys(urlData).includes("mode")) {
+        mode = urlData.mode;
+      }
+      if (Object.keys(urlData).includes("offline")) {
+        offline = (urlData.offline === 'true');
+      }
+
+      if (mode == "start") {
+        var start = new Start(() => {
+          start.init(offline = offline);
+        });
+      }
+      else if (mode == "collection" || mode == "results" || mode == "consolidation" || mode == "project") {
+        var login = new Login(mode, () => {
+          login.init(offline); 
+        });
+      }
+
+
+
+      function getJsonFromUrl() {
+        var query = location.search.substr(1);
+        var result = {};
+        query.split("&").forEach(function (part) {
+          var item = part.split("=");
+          result[item[0]] = decodeURIComponent(item[1]);
+        });
+        return result;
+      }
+    });
+  </script>
+
+</head>
+
+<body class="claro">
+</body>
+
+</html>
