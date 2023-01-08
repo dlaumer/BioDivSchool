@@ -272,18 +272,21 @@ body {
   }
   
   .mapOverviewProjects{
-    height: 100%;
+    height: 60%;
     width: 100%;
     overflow: auto;
     padding: 10px;
     position: absolute;
     z-index: 100;
     background: white;
-    top: 300px;
+    bottom: 0;
     border-radius: 20px;
     box-shadow: 0px -5px 3px #00000029;
   }
   
+  #appTitle {
+    display: none;
+  }
 
   #footerBottom {
     height: 20%;

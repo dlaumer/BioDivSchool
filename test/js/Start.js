@@ -127,6 +127,7 @@ define([
       domCtr.create(
         "div",
         {
+          id: "appTitle",
           innerHTML: this.strings.get("title"),
           style: "font-size: min(5vmax, 30px)",
         },
@@ -260,7 +261,7 @@ define([
       );
 
 
-      this.dragElement(this.mapOverviewProject);
+      //this.dragElement(this.mapOverviewProject);
 
 
       this.mapOverviewMap = domCtr.create(
@@ -867,43 +868,48 @@ define([
           dragMouseDown;
       } else {
         /* otherwise, move the DIV from anywhere inside the DIV:*/
-        elmnt.ontouchstart = dragMouseDown;
-        elmnt.onmousedown = dragMouseDown;
+        elmnt.addEventListener('touchstart', dragMouseDown);
+        //elmnt.onmousedown = dragMouseDown;
 
       }
 
       function dragMouseDown(e) {
-        console.log(e)
-        e = e || window.event;
-        e.preventDefault();
+        //console.log("dragMouseDown")
+        //e = e || window.event;
+        //e.preventDefault();
         // get the mouse cursor position at startup:
-        pos4 = e.clientY;
-        document.ontouchend = closeDragElement;
-        document.onmouseup = closeDragElement;
+        pos4 = e.touches[0].clientY;
+        elmnt.addEventListener('touchend',closeDragElement)
+        //document.onmouseup = closeDragElement;
 
         // call a function whenever the cursor moves:
-        document.ontouchmove  = elementDrag;
-        document.onmousemove  = elementDrag;
+        elmnt.addEventListener('touchmove',elementDrag)
+        //document.onmousemove  = elementDrag;
 
       }
 
       function elementDrag(e) {
-        e = e || window.event;
-        e.preventDefault();
+        //console.log("elementDrag")
+        //console.log(elmnt)
+
+        //e = e || window.event;
+        //e.preventDefault();
         // calculate the new cursor position:
-        pos2 = pos4 - e.clientY;
-        pos4 = e.clientY;
+        pos2 = pos4 - e.touches[0].clientY;
+        pos4 = e.touches[0].clientY;
         // set the element's new position:
         elmnt.style.top = elmnt.offsetTop - pos2 + "px";
       }
 
       function closeDragElement() {
-        /* stop moving when mouse button is released:*/
-        document.ontouchend = null;
-        document.onmouseup = null;
+        //console.log("closeDragElement")
 
-        document.ontouchmove  = null;
-        document.onmousemove  = null;
+        /* stop moving when mouse button is released:*/
+        document.addEventListener('touchend', null);
+        //document.onmouseup = null;
+
+        document.addEventListener('touchmove', null);
+        //document.onmousemove  = null;
 
       }
     }
