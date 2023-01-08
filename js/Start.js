@@ -261,7 +261,7 @@ define([
       );
 
 
-      //this.dragElement(this.mapOverviewProject);
+      this.dragElement(this.mapOverviewProject);
 
 
       this.mapOverviewMap = domCtr.create(
