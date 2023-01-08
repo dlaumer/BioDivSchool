@@ -327,7 +327,7 @@ define([
         "div",
         {
           id: "btn_home",
-          className: "btn2",
+          className: "btn1",
           innerHTML: this.strings.get("home"),
           style: "min-width: 10vw;",
         },
@@ -343,7 +343,7 @@ define([
         "div",
         {
           id: "btn_back",
-          className: "btn2",
+          className: "btn1",
           innerHTML: this.strings.get("back"),
           style: "visibility:hidden",
         },
