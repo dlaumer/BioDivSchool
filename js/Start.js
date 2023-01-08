@@ -337,7 +337,7 @@ define([
 
         
 
-      this.dragElement(this.draggable);
+      //this.dragElement(this.draggable);
       
         start.draggableLine = domCtr.create(
           "div",
@@ -347,6 +347,8 @@ define([
           },
           start.draggable
         );
+
+
         
         // Add the search button and filter
         start.searchAndFilter = domCtr.create(
@@ -481,6 +483,17 @@ define([
           filterPanel
         );
  
+
+        on(start.draggableLine, "click", function (evt) {
+          if (start.mapOverviewProject.offsetTop > 0.50*window.innerHeight) {
+            start.mapOverviewProject.style.top = 0.15*window.innerHeight + "px";
+          }
+          else {
+            start.mapOverviewProject.style.top = 0.87*window.innerHeight + "px"; 
+          }
+
+        }.bind(this));
+
 
         on(btn_filter, "click", function (evt) {
           filterPanel.classList.toggle("filterPanelActive");
