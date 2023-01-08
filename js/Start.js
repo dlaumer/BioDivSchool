@@ -337,7 +337,7 @@ define([
 
         
 
-      //this.dragElement(this.draggable);
+      this.dragElement(this.draggable);
       
         start.draggableLine = domCtr.create(
           "div",
