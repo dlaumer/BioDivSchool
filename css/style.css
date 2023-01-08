@@ -54,7 +54,8 @@ html {
 }
 body {
   overflow-y: hidden !important;
-
+  position: fixed;
+  overflow: hidden;
   margin: 0;
   font-size: min(3vmax, 18px);
   overscroll-behavior: contain !important;
