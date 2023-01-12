@@ -299,6 +299,23 @@ body {
     box-shadow: 0px -5px 3px #00000029;
   }
 
+  .btn3PanelActive {
+    width: fit-content !important;
+  }
+
+  .iconLabel{
+    display: none !important;
+  }
+
+  .btn_label {
+    display: none !important;
+    margin: 0 !important;
+  }
+
+  .btn_icon {
+    margin: 0 !important;
+  }
+
 
   
   .draggableLine {
@@ -340,13 +357,13 @@ body {
 }
 
 
-.filterContainer {
+.btn3_container {
   height: 40%;
-  min-width: 30% !important;
+  min-width: 20% !important;
   position: relative
 }
 
-.filter {
+.btn3 {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -357,12 +374,12 @@ body {
   transition: all 0.2s linear !important;
 }
 
-.filterPanel {
+.btn3Panel {
   width: 100%;
   height: 100%;
   position: absolute;
   top: 0;
-  left: 0;
+  right: 0;
   background-color: white;
   border-radius: 20px;
   border: solid 1px;
@@ -371,13 +388,25 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: end;
+  z-index: 1;
 }
 
 
-.filterPanelActive {
-  height: 180px !important;
+.btn3PanelActive {
+  height: fit-content !important;
+  padding-top: 50px !important;
   transition: all 0.2s linear !important;
+  padding: 5px;
 
+}
+
+.panelElementContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  height: 30px;
+  padding: 0 10px;
+  margin: 2px 5px;
 }
 
 .btn_active{
@@ -389,22 +418,35 @@ body {
   left: 5px;
   transition: all 0.2s linear !important;
   border: none !important;
+  box-shadow: 0px 3px 6px #00000029 !important;
 }
 
-.filterElement {
+.nonselectableElement {
   height: 30px;
   font-size: min(max(2vmax, 12px),15px);
-    padding: 0 10px;
-    text-align: center;
-    border-radius: 20px;
-    margin: 2px 5px;
+  padding: 0 10px;
+  text-align: center;
+  border-radius: 20px;
+  margin: 2px 5px;
+  margin-top: 20px;
 }
 
-.filterElement:hover {
+.selectableElement {
+  height: 30px;
+  font-size: min(max(2vmax, 12px),15px);
+  padding: 0 10px;
+  text-align: center;
+  border-radius: 20px;
+  margin: 2px 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.selectableElement:hover {
     background-color: var(--very_gray);
 }
 
-.filterElementActive {
+.selectableElementActive {
   background-color: var(--project  ) !important;
   color: white !important;
 }
@@ -423,8 +465,9 @@ body {
 .projects_active{
   background-color: var(--project  ) !important;
   color: white !important;
-  height: 100px !important;
+  height: 120px !important;
   transition: all 0.2s linear;
+  box-shadow: 0px 3px 6px #00000029;
 }
 
 .projects_active:hover {
@@ -445,13 +488,18 @@ body {
 }
 
 .projects {
-  height: 60px;
+  height: 80px;
   width: 100%;
   font-size: min(2vmax, 18px);
   border-radius: 30px;
-  padding: 0 20px;
+  padding: 10px 20px;
   margin: 5px;
   transition: all 0.2s linear;
+  display: flex;
+}
+
+.infoButtonContainer {
+  width: 85%;
 }
 
 .infoContainer {
@@ -461,15 +509,27 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  align-items: center;
 }
 
+.borderElement {
+  border-right: 1px solid var(--gray);
+}
+
+.borderElementActive {
+  border-right: 1px solid white;
+}
+
+.projectElem {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
 .projectElemLabel {
   text-align: left;
   overflow: hidden; 
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: min(max(1vmax, 8px),12px);
+  font-size: min(max(1vmax, 10px),12px);
 }
 
 .projectElemValue {
@@ -479,6 +539,22 @@ body {
   white-space: nowrap;
   font-size: min(max(2vmax, 12px),18px);
   font-weight: bold;
+}
+
+
+.btnsContainer {
+  width: 15%;
+  margin: 10px 0 0 5px;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.btn_zoom_project {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
 }
 
 #splashScreen {
@@ -531,7 +607,7 @@ overscroll-behavior: contain !important;
   align-items: center;
   padding: 0 10px;
   background-color: var(--very_gray);
-  font-size: min(2vmax, 18px);
+  font-size: min(1.7vmax, 16px);
   z-index: 100;
   box-shadow: 0px 3px 6px #00000029;
 
@@ -547,6 +623,8 @@ overscroll-behavior: contain !important;
   display: flex;
   z-index: 100;
   box-shadow: 0px 3px 6px #00000029;
+  font-size: min(1.7vmax, 16px);
+
 }
 
 .header1 {
@@ -556,7 +634,6 @@ overscroll-behavior: contain !important;
   justify-content: space-between;
   align-items: center;
   padding: 0 10px;
-  font-size: min(2vmax, 18px);
 }
 
 .header2 {
@@ -566,12 +643,6 @@ overscroll-behavior: contain !important;
   justify-content: right;
   align-items: center;
   padding: 0 10px;
-  font-size: min(2vmax, 18px);
-}
-
-#userName {
-  color: var(--dark_gray);
-  padding: 0 20px;
 }
 
 .settings {
@@ -803,24 +874,56 @@ overscroll-behavior: contain !important;
 
 .btn1 {
   text-align: center;
-  background-color: transparent;
+  background-color: white;
   border: 1px solid black;
   padding: 10px;
   min-width: 10vw;
   max-width: 20vw;
   cursor: pointer;
   display: block;
-  height: fit-content;
   overflow: hidden;
-    text-overflow: ellipsis;
-    border-radius: 20px;
-    margin: 0 5px;
+  text-overflow: ellipsis;
+  border-radius: 20px;
+  display: flex;
+  font-weight: bold;
+}
+
+.btn_icon {
+  width: 20px;
+  margin: 0 10px;
+  pointer-events: none;
+  filter: invert(44%) sepia(4%) saturate(4%) hue-rotate(332deg) brightness(98%) contrast(91%);
+}
+.btn_icon_active {
+  filter: invert(100%);
+}
+
+.btn_label {
+  pointer-events: none;
 }
 
 #btn_project {
   display: none; 
+}
+
+.icon {
   width: 20px;
-  filter: invert(100%);
+  height: 20px;
+  filter: invert(82%) sepia(12%) saturate(1386%) hue-rotate(38deg) brightness(91%) contrast(83%);
+}
+
+.iconActive {
+  filter: invert(100%) ;
+}
+
+.iconLabel {
+  text-decoration: underline;
+  color: var(--project);
+  text-overflow: ellipsis;
+    width: 100%;
+}
+.iconLabelActive {
+  color: white;
 }
 
 #save {
@@ -852,6 +955,7 @@ overscroll-behavior: contain !important;
   font-weight: bold;
   color: var(--medium_gray);
   padding: 5px;
+  display: flex;
 }
 
 .btn2:hover, .btn2:active {
@@ -945,14 +1049,6 @@ overscroll-behavior: contain !important;
 
 .labelContainer {
   width: 56%
-}
-
-.labelText {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: left;
-  width: 100%;
 }
 
 .labelFinal {

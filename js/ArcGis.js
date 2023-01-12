@@ -115,7 +115,7 @@ define([
         if (document.getElementById("login")) {
           document.getElementById("login").innerHTML =
             this.strings.get("logoutEsri");
-          document.getElementById("userNameEsri").innerHTML =
+          document.getElementById("userName").innerHTML =
             portal.user.username;
           start.userNameEsri = portal.user.username;
           start.addProjectMap();

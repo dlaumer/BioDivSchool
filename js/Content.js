@@ -261,9 +261,9 @@ define([
         placeholder: "Auswählen",
          //points: "",
          options: [
-          { key: "0", label: "A" },
-          { key: "0", label: "B"},
-          { key: "-2", label: "C"},
+          { key: "0", points: 0, label: "A" },
+          { key: "1", points: 0, label: "B"},
+          { key: "2", points: -2, label: "C"},
         ],
         color: [147, 145, 98, 0.7],
         name_display : "Neophyten",
@@ -275,8 +275,8 @@ define([
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem10.rules = [{
         values: [
-          "eine Art von schädlichen gebietsfremden Pflanzen",
-          "mehr als eine Art von schädlichen gebietsfremden Pflanzen" ], 
+          "1",
+          "2" ], 
         elements: [elem10a, elem10b]
       }]
 
@@ -679,8 +679,8 @@ define([
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem14.rules = [{
         values: [
-          "Bäume in zwei deutlich unterschiedlichen Höhen vorhanden.",
-          "Bäume in drei deutlich unterschiedlichen Höhen vorhanden." ], 
+          "2",
+          "3" ], 
         elements: [elem14a, elem14b]
       }]
 
@@ -732,8 +732,8 @@ define([
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem15.rules = [{
         values: [
-          "1-3 Gruppen aus mindestens 5 Sträuchern vorhanden. Die meisten dieser Sträucher sind heimisch.",
-          "Mehr als 3 Gruppen aus mindestens 5 Sträuchern vorhanden. Die meisten dieser Sträucher sind heimisch." ], 
+          "2",
+          "3" ], 
         elements: [elem15a]
       }]
 
@@ -800,8 +800,8 @@ define([
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem16.rules = [{
         values: [
-          "Eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch.",
-          "Mehr als eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch."
+          "2",
+          "3"
         ], 
         elements: [elem16a, elem16b]
       }]

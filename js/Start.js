@@ -118,12 +118,6 @@ define([
         this.header
       );
 
-      this.settings = domCtr.create(
-        "div",
-        { className: "settings", style: "display:none" },
-        this.background
-      );
-
       domCtr.create(
         "div",
         {
@@ -134,119 +128,238 @@ define([
         this.header1
       );
 
-      this.userName = domCtr.create(
-        "div",
-        { id: "userNameEsri" },
-        this.header1
-      );
-
       this.btn_project_new = domCtr.create(
         "div",
         {
           id: "btn_project_new",
           className: "btn1",
-          innerHTML: this.strings.get("newProject"),
           style:
             this.admin == "true"
-              ? "min-width: 10vw;display: block;"
-              : "min-width: 10vw;display: none;",
+              ? "min-width: 30%;display: flex;"
+              : "min-width: 30%;display: none;",
         },
         this.header1
       );
 
-      this.settingsButton = domCtr.create(
+      domCtr.create(
+        "img",
+        {
+          className: "btn_icon",
+          src: "./img/Icons/Plus_black.svg",
+        },
+        this.btn_project_new
+      );
+      domCtr.create(
         "div",
         {
-          id: "settings",
-          className: "btn1",
+          className: "btn_label",
+          innerHTML: this.strings.get("newProject"),
+        },
+        this.btn_project_new
+      );
+
+
+      // Setting button
+      let settingsBtnContainer = domCtr.create(
+        "div",
+        {
+          className: "btn3_container",
+          style: "height: 60%;margin: 0 5px;"
+        },
+        start.header2
+      );
+
+      this.btn_settings = domCtr.create(
+        "div",
+        {
+          id: "btn_settings",
+          className: "btn3 btn1",
+        },
+        settingsBtnContainer
+      );
+
+      domCtr.create(
+        "img",
+        {
+          className: "btn_icon",
+          src: "./img/Icons/Settings_black.svg",
+        },
+        this.btn_settings
+      );
+      domCtr.create(
+        "div",
+        {
+          className: "btn_label",
           innerHTML: this.strings.get("settings"),
         },
-        this.header2
+        this.btn_settings
       );
 
-      this.login = domCtr.create(
+      start.settingsPanel = domCtr.create(
         "div",
         {
-          id: "login",
-          className: "btn1",
-          innerHTML: this.strings.get("loginEsri"),
+          className: "btn3Panel", 
         },
-        this.header2
-      );
-
-      let elemVersion = domCtr.create(
-        "div",
-        { className: "element" },
-        this.settings
-      );
-      this.label = domCtr.create(
-        "div",
-        { className: "labelText", innerHTML: this.strings.get("versionLabel") },
-        elemVersion
-      );
-      this.versionSelect = domCtr.create(
-        "select",
-        { className: "input inputField" },
-        elemVersion
+        settingsBtnContainer
       );
 
       domCtr.create(
-        "option",
+        "div",
+        { className: "nonselectableElement", innerHTML: this.strings.get("versionLabel") },
+        this.settingsPanel
+      );
+
+      let versionsContainer = domCtr.create(
+        "div",
         {
-          value: "short",
-          selected: this.version == "short" ? true : false,
+          className: "panelElementContainer"
+        },
+        this.settingsPanel
+      );
+
+      let shortElement = domCtr.create(
+        "div",
+        {
+          className: "selectableElement",
           innerHTML: this.strings.get("short"),
         },
-        this.versionSelect
+        versionsContainer
       );
-      domCtr.create(
-        "option",
+      let longElement = domCtr.create(
+        "div",
         {
-          value: "long",
-          selected: this.version == "long" ? true : false,
+          className: "selectableElement selectableElementActive",
           innerHTML: this.strings.get("long"),
         },
-        this.versionSelect
+        versionsContainer
       );
 
-      let elemLang = domCtr.create(
-        "div",
-        { className: "element" },
-        this.settings
-      );
-      this.label = domCtr.create(
-        "div",
-        { className: "labelText", innerHTML: this.strings.get("langLabel") },
-        elemLang
-      );
-      this.langSelect = domCtr.create(
-        "select",
-        { className: "input inputField" },
-        elemLang
-      );
-
-      for (const i in this.strings.languages) {
-        if (this.strings.languages[i] == this.lang) {
-          domCtr.create(
-            "option",
-            {
-              value: this.strings.languages[i],
-              selected: true,
-              innerHTML: this.strings.get(this.strings.languages[i]),
-            },
-            this.langSelect
-          );
-        } else {
-          domCtr.create(
-            "option",
-            {
-              value: this.strings.languages[i],
-              innerHTML: this.strings.get(this.strings.languages[i]),
-            },
-            this.langSelect
-          );
+      on(shortElement, "click", function (evt) {
+        if (!shortElement.classList.contains("selectableElementActive")) {
+          longElement.classList.toggle("selectableElementActive")
+          shortElement.classList.toggle("selectableElementActive")
+          start.updateAttributes("version", "short" );
         }
+        
+      });
+
+      on(longElement, "click", function (evt) {
+        if (!longElement.classList.contains("selectableElementActive")) {
+          longElement.classList.toggle("selectableElementActive")
+          shortElement.classList.toggle("selectableElementActive")
+          start.updateAttributes("version", "long" );
+        }
+      });
+      
+      domCtr.create(
+        "div",
+        { className: "nonselectableElement", innerHTML: this.strings.get("langLabel") },
+        this.settingsPanel
+      );
+
+      let langContainer = domCtr.create(
+        "div",
+        {
+          className: "panelElementContainer"
+        },
+        this.settingsPanel
+      );
+
+      let langElement = {};
+      for (const i in start.strings.languages) {
+        langElement[start.strings.languages[i]] = domCtr.create(
+          "div",
+          {
+            className: "selectableElement",
+            innerHTML: start.strings.languages[i],
+          },
+          langContainer
+        );
+        
+        if (start.strings.languages[i] == this.lang) {
+          langElement[start.strings.languages[i]].classList.toggle("selectableElementActive")
+        } 
+
       }
+
+      for (const i in start.strings.languages) {
+        
+
+        on(langElement[start.strings.languages[i]], "click", function (evt) {
+          for (const j in start.strings.languages) {
+            langElement[start.strings.languages[j]].classList.remove("selectableElementActive")
+          }
+          langElement[start.strings.languages[i]].classList.toggle("selectableElementActive")
+
+          start.updateAttributes(
+            "lang",
+            start.strings.languages[i]
+          );
+          window.open(window.location.href, "_self");
+        })
+      }
+
+      
+      // Login/User button!
+
+      let loginBtnContainer = domCtr.create(
+        "div",
+        {
+          className: "btn3_container",
+          style: "height: 60%;margin: 0 5px;"
+        },
+        start.header2
+      );
+
+      this.btn_login = domCtr.create(
+        "div",
+        {
+          id: "btn_login",
+          className: "btn3 btn1",
+        },
+        loginBtnContainer
+      );
+
+      
+      domCtr.create(
+        "img",
+        {
+          className: "btn_icon",
+          src: "./img/Icons/Logout_black.svg",
+        },
+        this.btn_login
+      );
+      domCtr.create(
+        "div",
+        {
+          id: "userName",
+          className: "btn_label",
+          innerHTML: this.strings.get("loginEsri"),
+        },
+        this.btn_login
+      );
+
+
+      start.loginPanel = domCtr.create(
+        "div",
+        {
+          className: "btn3Panel", 
+        },
+        loginBtnContainer
+      );
+
+      start.login = domCtr.create(
+        "div",
+        {id: "login", className: "selectableElement", innerHTML: this.strings.get("loginEsri") },
+        start.loginPanel
+      );
+
+      start.globeWebsite = domCtr.create(
+        "div",
+        { className: "selectableElement", innerHTML: "Globe Swiss" },
+        start.loginPanel
+      );
+
 
       this.mapOverview = domCtr.create(
         "div",
@@ -278,10 +391,29 @@ define([
         "div",
         {
           id: "btn_project",
-          innerHTML:
-            "<img src= https://raw.githubusercontent.com/Esri/calcite-ui-icons/master/icons/pencil-square-16.svg>",
+          className: "btn_zoom_project",
         },
         document.body
+      );
+
+      domCtr.create(
+        "div",
+        {
+          className: "icon",
+          style: "filter: invert(100%)",
+          innerHTML:
+            "<img src= ./img/Icons/Edit_black.svg>",
+        },
+        this.btn_project
+      );
+      domCtr.create(
+        "div",
+        {
+          style: "color:white",
+          className: "iconLabel projectElemLabel",
+          innerHTML: start.strings.get("edit")
+        },
+        this.btn_project
       );
 
       this.btn_collection = domCtr.create(
@@ -290,7 +422,7 @@ define([
           id: "btn_collection",
           className: "btn2",
           innerHTML: this.strings.get("collection"),
-          style: "min-width: 10vw;",
+          style: "min-width: 30%;",
         },
         this.buttons
       );
@@ -302,8 +434,8 @@ define([
           innerHTML: this.strings.get("consolidation"),
           style:
             this.admin == "true"
-              ? "min-width: 10vw;display: block;"
-              : "min-width: 10vw;display: none;",
+              ? "min-width: 30%;display: block;"
+              : "min-width: 30%;display: none;",
         },
         this.buttons
       );
@@ -313,7 +445,7 @@ define([
           id: "btn_results",
           className: "btn2",
           innerHTML: this.strings.get("results"),
-          style: "min-width: 10vw;",
+          style: "min-width: 30%; display:block",
         },
         this.buttons
       );
@@ -424,25 +556,43 @@ define([
         let filterContainer = domCtr.create(
           "div",
           {
-            className: "filterContainer", 
+            style: "min-width: 30% !important;",
+            className: "btn3_container", 
           },
           start.searchAndFilter
         );
 
-        let btn_filter = domCtr.create(
+        start.btn_filter = domCtr.create(
           "div",
           {
-            className: "filter btn2", 
-            innerHTML: start.strings.get("sort")
+            id: "btn_filter",
+            className: "btn3 btn2", 
           },
           filterContainer
         );
 
-        
-        let filterPanel = domCtr.create(
+        domCtr.create(
+          "img",
+          {
+            className: "btn_icon",
+            src: "./img/Icons/Sort_black.svg",
+          },
+          start.btn_filter
+        );
+        domCtr.create(
           "div",
           {
-            className: "filterPanel", 
+            className: "btn_label",
+            innerHTML: start.strings.get("sort")
+          },
+          start.btn_filter
+        );
+
+        
+        start.filterPanel = domCtr.create(
+          "div",
+          {
+            className: "btn3Panel", 
           },
           filterContainer
         );
@@ -450,37 +600,37 @@ define([
         let filterLocation = domCtr.create(
           "div",
           {
-            className: "filterElement filterElementActive", 
+            className: "selectableElement selectableElementActive", 
             innerHTML: start.strings.get("location")
           },
-          filterPanel
+          start.filterPanel
         );
 
         let filterSchool = domCtr.create(
           "div",
           {
-            className: "filterElement", 
+            className: "selectableElement", 
             innerHTML: start.strings.get("school")
           },
-          filterPanel
+          start.filterPanel
         );
 
         let filterDate = domCtr.create(
           "div",
           {
-            className: "filterElement", 
+            className: "selectableElement", 
             innerHTML: start.strings.get("date")
           },
-          filterPanel
+          start.filterPanel
         );
 
         let filterAuthor = domCtr.create(
           "div",
           {
-            className: "filterElement", 
+            className: "selectableElement", 
             innerHTML: start.strings.get("author")
           },
-          filterPanel
+          start.filterPanel
         );
  
 
@@ -494,50 +644,51 @@ define([
 
         }.bind(this));
 
+        on(start.btn_filter, "click", function (evt) {
+          start.filterPanel.classList.toggle("btn3PanelActive");
+          start.btn_filter.classList.toggle("btn_active");
+          start.btn_filter.querySelector('.btn_icon').classList.toggle("btn_icon_active");
 
-        on(btn_filter, "click", function (evt) {
-          filterPanel.classList.toggle("filterPanelActive");
-          btn_filter.classList.toggle("btn_active");
         }.bind(this));
 
 
         on(filterLocation, "click", function (evt) {
-          filterSchool.classList.remove("filterElementActive");
-          filterDate.classList.remove("filterElementActive");
-          filterAuthor.classList.remove("filterElementActive");
-          if (!filterLocation.classList.contains("filterElementActive")) {
-            filterLocation.classList.toggle("filterElementActive");
+          filterSchool.classList.remove("selectableElementActive");
+          filterDate.classList.remove("selectableElementActive");
+          filterAuthor.classList.remove("selectableElementActive");
+          if (!filterLocation.classList.contains("selectableElementActive")) {
+            filterLocation.classList.toggle("selectableElementActive");
             sortProjects("location");
           }
 
         }.bind(this));
 
         on(filterSchool, "click", function (evt) {
-          filterLocation.classList.remove("filterElementActive");
-          filterDate.classList.remove("filterElementActive");
-          filterAuthor.classList.remove("filterElementActive");
-          if (!filterSchool.classList.contains("filterElementActive")) {
-            filterSchool.classList.toggle("filterElementActive");
+          filterLocation.classList.remove("selectableElementActive");
+          filterDate.classList.remove("selectableElementActive");
+          filterAuthor.classList.remove("selectableElementActive");
+          if (!filterSchool.classList.contains("selectableElementActive")) {
+            filterSchool.classList.toggle("selectableElementActive");
             sortProjects("school");
           }
         }.bind(this));
 
         on(filterDate, "click", function (evt) {
-          filterSchool.classList.remove("filterElementActive");
-          filterLocation.classList.remove("filterElementActive");
-          filterAuthor.classList.remove("filterElementActive");
-          if (!filterDate.classList.contains("filterElementActive")) {
-            filterDate.classList.toggle("filterElementActive");
+          filterSchool.classList.remove("selectableElementActive");
+          filterLocation.classList.remove("selectableElementActive");
+          filterAuthor.classList.remove("selectableElementActive");
+          if (!filterDate.classList.contains("selectableElementActive")) {
+            filterDate.classList.toggle("selectableElementActive");
             sortProjects("date");
           }
         }.bind(this));
 
         on(filterAuthor, "click", function (evt) {
-          filterSchool.classList.remove("filterElementActive");
-          filterDate.classList.remove("filterElementActive");
-          filterLocation.classList.remove("filterElementActive");
-          if (!filterAuthor.classList.contains("filterElementActive")) {
-            filterAuthor.classList.toggle("filterElementActive");
+          filterSchool.classList.remove("selectableElementActive");
+          filterDate.classList.remove("selectableElementActive");
+          filterLocation.classList.remove("selectableElementActive");
+          if (!filterAuthor.classList.contains("selectableElementActive")) {
+            filterAuthor.classList.toggle("selectableElementActive");
             sortProjects("author");
           }
         }.bind(this));
@@ -604,13 +755,21 @@ define([
             container
           );
 
+          let infoButtonContainer = domCtr.create(
+            "div",
+            {
+              className: "infoButtonContainer borderElement",
+            },
+            item
+          );
+          
           let infoContainer = domCtr.create(
             "div",
             {
               id: "infoContainer_" + results[i].attributes.projectid,
               className: "infoContainer",
             },
-            item
+            infoButtonContainer
           );
 
           // City
@@ -644,8 +803,8 @@ define([
           let school = domCtr.create(
             "div",
             {
-              className: "projectElem",
-              style: "width:25%;border-right: 1px solid var(--gray);",
+              className: "projectElem borderElement",
+              style: "width:25%;",
             },
             infoContainer
           );
@@ -671,8 +830,8 @@ define([
           let additionalInfoLabels = domCtr.create(
             "div",
             {
-              className: "projectElemCreation",
-              style: "width:20%",
+              className: "projectElem",
+              style: "width:15%",
             },
             infoContainer
           );
@@ -698,8 +857,8 @@ define([
           let additionalInfo = domCtr.create(
             "div",
             {
-              className: "projectElemCreation",
-              style: "width:20%",
+              className: "projectElem",
+              style: "width:25%",
             },
             infoContainer
           );
@@ -723,6 +882,52 @@ define([
             },
             additionalInfo
           );
+
+          let btnsContainer = domCtr.create(
+            "div",
+            {
+              id: "btnsContainer_" +  results[i].attributes.projectid,
+              className: "btnsContainer",
+            },
+            item
+          );
+
+          let btn_zoom = domCtr.create(
+            "div",
+            {
+              className: "btn_zoom_project",
+            },
+            btnsContainer
+          );
+
+          domCtr.create(
+            "div",
+            {
+              className: "icon",
+              innerHTML:
+                "<img src= ./img/Icons/Zoom_black.svg>",
+            },
+            btn_zoom
+          );
+          domCtr.create(
+            "div",
+            {
+              className: "iconLabel projectElemLabel",
+              innerHTML: start.strings.get("zoom")
+            },
+            btn_zoom
+          );
+
+          on(btn_zoom, "click", (e) => {
+
+              start.viewOverview.goTo(results[i].geometry);
+              
+            
+            console.log("zoom");
+            e.stopPropagation();
+          })
+          
+
           infoContainer.addEventListener("click", () => {
             if (start.projectSelected == item) {
               start.unSelectProject();
@@ -759,6 +964,18 @@ define([
     selectProject(projectId, name, school, owner) {
       let infoContainer = document.getElementById("infoContainer_" + projectId);
       let item = document.getElementById("project_" + projectId);
+      let btnsContainer = document.getElementById("btnsContainer_" + projectId);
+
+      if (start.projectSelected) {
+        start.projectSelected.querySelector('.iconLabel').classList.toggle("iconLabelActive");
+        start.projectSelected.querySelector('.icon').classList.toggle("iconActive");
+        start.projectSelected.querySelector('.borderElement').classList.toggle("borderElementActive");
+      }
+      
+
+      item.querySelector('.iconLabel').classList.toggle("iconLabelActive");
+      item.querySelector('.icon').classList.toggle("iconActive");
+      item.querySelector('.borderElement').classList.toggle("borderElementActive");
 
       if (window.matchMedia('only screen and (max-width: 600px)').matches) {
         start.mapOverviewProject.style.top = 0.15*window.innerHeight + "px";
@@ -781,7 +998,7 @@ define([
       }
 
       domCtr.place(this.buttons, infoContainer, "after");
-      domCtr.place(this.btn_project, infoContainer, "last");
+      domCtr.place(this.btn_project, btnsContainer, "last");
 
       if (start.userNameEsri != null && start.userNameEsri == owner) {
         //if (start.userNameEsri == null || (start.userNameEsri != null && start.userNameEsri == owner)) {
@@ -790,7 +1007,7 @@ define([
         this.btn_consolidation.style.display =
           this.admin == "true" ? "block" : "none";
         this.btn_project.style.display =
-          this.admin == "true" ? "block" : "none";
+          this.admin == "true" ? "flex" : "none";
       } else {
         this.btn_collection.style.display = "none";
         this.btn_consolidation.style.display = "none";
@@ -805,11 +1022,18 @@ define([
 
     unSelectProject() {
       if (start.projectSelected != null) {
+        start.projectSelected.querySelector('.iconLabel').classList.toggle("iconLabelActive");
+        start.projectSelected.querySelector('.icon').classList.toggle("iconActive");
+        start.projectSelected.querySelector('.borderElement').classList.toggle("borderElementActive");
+
         start.buttons.style.display = "none";
         start.removeFromAttributes("project");
         start.projectSelected.className = "projects";
         start.projectSelected = null;
         start.viewOverview.popup.close();
+
+        start.btn_project.style.display = "none"
+        
       }
     }
 
@@ -817,32 +1041,46 @@ define([
     clickHandler() {
       let start = this;
 
-      on(this.login, "click", function (evt) {
+      on(this.btn_login, "click", function (evt) {
+        start.loginPanel.classList.toggle("btn3PanelActive");
+        start.btn_login.classList.toggle("btn_active");
+        start.btn_login.querySelector('.btn_icon').classList.toggle("btn_icon_active");
+
+      });
+      on(start.login, "click", function (evt) {
         start.arcgis.handleSignInOut();
       });
 
-      on(this.settingsButton, "click", function (evt) {
-        start.settings.style.display =
-          start.settings.style.display == "none" ? "block" : "none";
+      on(start.globeWebsite, "click", function (evt) {
+        window.open("https://www.globe-swiss.ch/de/Angebote/BioDivSchool/", "_blank");
       });
 
-      on(this.versionSelect, "change", function (evt) {
-        start.updateAttributes(
-          "version",
-          evt.target.options[evt.target.selectedIndex].value
-        );
+      
+
+      on(this.btn_settings, "click", function (evt) {
+          start.settingsPanel.classList.toggle("btn3PanelActive");
+          start.btn_settings.classList.toggle("btn_active");
+          start.btn_settings.querySelector('.btn_icon').classList.toggle("btn_icon_active");
       });
 
-      on(this.langSelect, "change", function (evt) {
-        start.updateAttributes(
-          "lang",
-          evt.target.options[evt.target.selectedIndex].value
-        );
-        window.open(
-          window.location.href.split("?")[0] + start.attributes,
-          "_self"
-        );
-      });
+      // Close sort and settings window whenever a click happens outside of those elements
+      on(window, "click", function (evt) {
+        if (evt.srcElement.id != "btn_settings" && start.settingsPanel.classList.contains("btn3PanelActive")) {
+          start.settingsPanel.classList.toggle("btn3PanelActive");
+          start.btn_settings.classList.toggle("btn_active");
+        };
+
+        if (evt.srcElement.id != "btn_login" && start.loginPanel.classList.contains("btn3PanelActive")) {
+          start.loginPanel.classList.toggle("btn3PanelActive");
+          start.btn_login.classList.toggle("btn_active");
+          
+        };
+
+        if (evt.srcElement.id != "btn_filter" && start.filterPanel.classList.contains("btn3PanelActive")) {
+          start.filterPanel.classList.toggle("btn3PanelActive");
+          start.btn_filter.classList.toggle("btn_active");
+        };
+      }.bind(this));
 
       on(
         this.btn_collection,
