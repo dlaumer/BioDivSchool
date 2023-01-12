@@ -93,7 +93,7 @@ body {
 
 .scrollable {
   overflow: auto;
-  padding: 0 30px;
+  padding: 0 15px;
 }
 
 .mapOverviewResults {
@@ -492,7 +492,7 @@ body {
   width: 100%;
   font-size: min(2vmax, 18px);
   border-radius: 30px;
-  padding: 10px 20px;
+  padding: 10px 10px;
   margin: 5px;
   transition: all 0.2s linear;
   display: flex;
