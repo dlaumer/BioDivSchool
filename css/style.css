@@ -973,7 +973,8 @@ overscroll-behavior: contain !important;
   width: 100%;
   height: 100%;
 
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   background-color: white;
   z-index: -1;
   position: inherit;
@@ -1001,7 +1002,6 @@ overscroll-behavior: contain !important;
   justify-content: space-between;
   padding: 10px;
   background-color: var(--very_gray);
-  overflow: auto;
 }
 
 .titleContainer {
@@ -1198,6 +1198,5 @@ label {
 
 .editor {
     width: 30%;
-    overflow: auto;
 }
 

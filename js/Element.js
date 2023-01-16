@@ -600,12 +600,22 @@ define([
       //this.label.innerHTML = this.label.innerHTML + "<br><br> <a onclick=expand()>sdsdd</a>" + args.linkText;
       this.link = domCtr.create("div", { className: "labelText linkText", innerHTML: args.linkText }, this.labelContainer);
       this.textInfo = domCtr.create("div", { className: "expandable", innerHTML: args.text, }, this.labelContainer);
-
+      this.replaceWithText(this.textInfo);
       on(this.link, "click", function (evt) {
         this.textInfo.style.display = this.textInfo.style.display == "" ? "flex" : "";
       }.bind(this));
     }
 
+    replaceWithText(elem) {
+      let elems = elem.querySelectorAll('.textual');
+      if (elems.length > 0) {
+        for (let i =0; i< elems.length; i++) {
+          elems[i].innerHTML = app.strings.get(elems[i].textContent)
+        }
+      }
+      
+    }
+    
     addTitle(args) {
 
       this.link = domCtr.create("div", { className: "elementTitle", innerHTML: args }, this.element);
@@ -638,10 +648,10 @@ define([
       else {
        
         if (this.resultDiv == null) {
-          domCtr.create("div", { className: "result", innerHTML: value}, container);
+          domCtr.create("div", { className: "result", innerHTML: this.data[value].label}, container);
         }
         else {
-          this.resultDiv.innerHTML = "<b>" + app.strings.get("result") + ":</b><br>" + value;
+          this.resultDiv.innerHTML = "<b>" + app.strings.get("result") + ":</b><br>" + this.data[value].label;
         }
 
       }
