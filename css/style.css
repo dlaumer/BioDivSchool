@@ -299,20 +299,12 @@ body {
     box-shadow: 0px -5px 3px #00000029;
   }
 
-  .btn3PanelActive {
-    width: fit-content !important;
-  }
-
   .iconLabel{
     display: none !important;
   }
 
   .btn_label {
-    display: none !important;
-    margin: 0 !important;
-  }
-
-  .btn_icon {
+    width: 0px !important;
     margin: 0 !important;
   }
 
@@ -359,17 +351,17 @@ body {
 
 .btn3_container {
   height: 40%;
-  min-width: 20% !important;
-  position: relative
+  position: relative;
+  transition: all 0.2s linear !important;
+
 }
 
 .btn3 {
   width: 100%;
   height: 100%;
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
-  min-width: 30% !important;
   z-index: 10;
   transition: all 0.2s linear !important;
 }
@@ -456,6 +448,7 @@ body {
   width: 60%;
   border-radius: 20px;
   border: 1px solid var(--dark_gray);
+  margin-right: 10px;
 }
 
 .projects:hover {
@@ -607,7 +600,7 @@ overscroll-behavior: contain !important;
   align-items: center;
   padding: 0 10px;
   background-color: var(--very_gray);
-  font-size: min(1.7vmax, 16px);
+  font-size: min(max(2vmax, 12px),15px);
   z-index: 100;
   box-shadow: 0px 3px 6px #00000029;
 
@@ -623,7 +616,7 @@ overscroll-behavior: contain !important;
   display: flex;
   z-index: 100;
   box-shadow: 0px 3px 6px #00000029;
-  font-size: min(1.7vmax, 16px);
+  font-size: min(max(2vmax, 12px),15px);
 
 }
 
@@ -831,6 +824,14 @@ overscroll-behavior: contain !important;
 }
 
 @media only screen and (max-width: 600px) {
+
+  .header1 {
+  width: 20% !important;
+  }
+
+  .header2 {
+    width: 80% !important;
+    }
   .footerRight {
     width: 100%;
     height: 60%;
@@ -876,9 +877,7 @@ overscroll-behavior: contain !important;
   text-align: center;
   background-color: white;
   border: 1px solid black;
-  padding: 10px;
-  min-width: 10vw;
-  max-width: 20vw;
+  padding: 0 10px;
   cursor: pointer;
   display: block;
   overflow: hidden;
@@ -900,6 +899,18 @@ overscroll-behavior: contain !important;
 
 .btn_label {
   pointer-events: none;
+  width: 120px;
+  transition: all 0.2s linear !important;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.btn_label_active {
+  display: flex !important;
+  transition: all 0.2s linear !important;
+  width: 120px !important;
 }
 
 #btn_project {
@@ -945,7 +956,6 @@ overscroll-behavior: contain !important;
   background-color: white;
   color: var(--dark_gray);
   border: 1px solid var(--dark_gray);
-  min-width: 20vw;
   cursor: pointer;
   display: block;
   overflow: hidden;
@@ -1017,7 +1027,7 @@ overscroll-behavior: contain !important;
 .linkText {
   color: var(--project);
   cursor: pointer;
-  width: 100vw;
+  width: 100%;
   padding: 10px;
 }
 
