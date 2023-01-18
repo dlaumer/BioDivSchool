@@ -784,7 +784,7 @@ overscroll-behavior: contain !important;
   bottom: 0;
   right: 0;
   padding: 20px;
-  font-size: min(2vmax, 18px);
+  font-size: min(max(2vmax, 12px),15px);
 }
 
 
@@ -874,10 +874,12 @@ overscroll-behavior: contain !important;
 
 
 .btn1 {
+  min-height: 60%;
+  min-width: 80px;
   text-align: center;
   background-color: white;
   border: 1px solid black;
-  padding: 0 10px;
+  padding: 10px;
   cursor: pointer;
   display: block;
   overflow: hidden;

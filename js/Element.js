@@ -646,12 +646,23 @@ define([
         }
       }
       else {
-       
         if (this.resultDiv == null) {
-          domCtr.create("div", { className: "result", innerHTML: this.data[value].label}, container);
+          if (value != '') {
+            domCtr.create("div", { className: "result", innerHTML: this.data[value].label}, container);
+
+          }
+          else {
+            domCtr.create("div", { className: "result", innerHTML: value}, container);
+          }
         }
         else {
-          this.resultDiv.innerHTML = "<b>" + app.strings.get("result") + ":</b><br>" + this.data[value].label;
+          if (value != '') {
+            this.resultDiv.innerHTML = "<b>" + app.strings.get("result") + ":</b><br>" + this.data[value].label;
+          }
+          else {
+            this.resultDiv.innerHTML = "<b>" + app.strings.get("result") + ":</b><br>" + value;
+          }
+
         }
 
       }
@@ -819,7 +830,7 @@ define([
 
 
       for (let i in values) {
-        if (this.groupDivs[i] && values[i] != null) {
+        if (this.groupDivs[i] && values[i] != null && values[i != '']) {
           this.setterUINonEdit(this.groupDivs[i], values[i])
 
 

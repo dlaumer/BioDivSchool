@@ -169,7 +169,7 @@ define([
         measure: "A08.0",
         ratio: {
           key: "wild_geomarearatio",
-          stops: [{points: 0, value: 0.25, measure: "A08.1"},{points:2, value:0.5, measure: "A08.2"},{points: 4, value:0.75, measure: "A08.3"},{points: 6, value:1, measure: "A08.4"}]
+          stops: [{points: 0, value: 0.10, measure: "A08.1"},{points:2, value:0.25, measure: "A08.2"},{points: 4, value:0.5, measure: "A08.3"},{points: 6, value:1, measure: "A08.4"}]
         },
         color: [74, 186, 27],
         name_display : "Heimische Pflanzen",
@@ -201,7 +201,7 @@ define([
           { key: "1", points: 1, label: "11 – 20 Arten", measure: "A09.2" },
           { key: "2", points: 2, label: "21 – 35 Arten", measure: "A09.3" },
           { key: "3", points: 4, label: "36 – 50 Arten", measure: "A09.4" },
-          { key: "4", points: 4, label: "mehr als 50 verschiedene Arten", measure: "A09.5" },
+          { key: "4", points: 6, label: "mehr als 50 verschiedene Arten", measure: "A09.5" },
         ],
         textInfo: {
             linkText: "Hinweise zur Bestimmung von Pflanzen",
@@ -347,7 +347,7 @@ define([
 
       //11_versieg_geomoid
       page_strukturelemente.addElement("mapInput", "versieg_geomoid", {
-        text: `11: Markiere versiegelte Flächen in der gezeigten Untersuchungsfläche.`,
+        text: `11: Markiere versiegelte Flächen in der gezeigten Untersuchungsfläche. Dazu gehören auch alle Gebäudeflächen.`,
         area: "versieg_area",
         measure: "A11.0",
         ratio: {
@@ -377,7 +377,7 @@ define([
         measure: "A12.0",
         ratio: {
           key: "rasen_area_ratio",
-          stops: [{points:2, value:0.25, measure: "A12.3"},{points:1, value: 0.5, measure: "A12.2",},{points:0, value:1, measure: "A12.1",}]
+          stops: [{points:2, value:0.15, measure: "A12.3"},{points:1, value: 0.4, measure: "A12.2",},{points:0, value:1, measure: "A12.1",}]
         },
         color: [46, 37, 72, 0.7],
         name_display : "Rasenflächen",
@@ -828,7 +828,7 @@ define([
           text: `
           <div class="textInfoElements">
           Kommen unterschiedliche Elemente wie Bäume, Sträucher sowie Kräuter, Gräser und Blumen alle an der gleichen Stelle vor, so finden auch mehr Lebewesen
-          einen Lebensraum mit Nahrung und Versteck. Deshalb ist es wichtig, dass Bäume, Sträucher und Kräuter an manchen Stellen zusammen vorkommen:
+          einen Lebensraum mit Nahrung und Versteck. Deshalb ist es wichtig, dass Bäume, Sträucher und Kräuter an manchen Stellen zusammen vorkommen: <br>
           Kräuter, Gräser und Blumen unter Bäumen
           <img src="img/Fotos_Hilfestellungen/H17_1_KrautschichtBaumschicht.jpg" alt="H17_1" width="100%">
           </div>
