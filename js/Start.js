@@ -556,7 +556,6 @@ define([
         let filterContainer = domCtr.create(
           "div",
           {
-            style: "min-width: 30% !important;",
             className: "btn3_container", 
           },
           start.searchAndFilter
@@ -648,6 +647,8 @@ define([
           start.filterPanel.classList.toggle("btn3PanelActive");
           start.btn_filter.classList.toggle("btn_active");
           start.btn_filter.querySelector('.btn_icon').classList.toggle("btn_icon_active");
+          start.btn_filter.querySelector('.btn_label').classList.toggle("btn_label_active");
+
 
         }.bind(this));
 
@@ -1045,6 +1046,8 @@ define([
         start.loginPanel.classList.toggle("btn3PanelActive");
         start.btn_login.classList.toggle("btn_active");
         start.btn_login.querySelector('.btn_icon').classList.toggle("btn_icon_active");
+        start.btn_login.querySelector('.btn_label').classList.toggle("btn_label_active");
+
 
       });
       on(start.login, "click", function (evt) {
@@ -1061,6 +1064,7 @@ define([
           start.settingsPanel.classList.toggle("btn3PanelActive");
           start.btn_settings.classList.toggle("btn_active");
           start.btn_settings.querySelector('.btn_icon').classList.toggle("btn_icon_active");
+          start.btn_settings.querySelector('.btn_label').classList.toggle("btn_label_active");
       });
 
       // Close sort and settings window whenever a click happens outside of those elements
@@ -1068,17 +1072,25 @@ define([
         if (evt.srcElement.id != "btn_settings" && start.settingsPanel.classList.contains("btn3PanelActive")) {
           start.settingsPanel.classList.toggle("btn3PanelActive");
           start.btn_settings.classList.toggle("btn_active");
+          start.btn_settings.querySelector('.btn_icon').classList.toggle("btn_icon_active");
+          start.btn_settings.querySelector('.btn_label').classList.toggle("btn_label_active");
+
         };
 
         if (evt.srcElement.id != "btn_login" && start.loginPanel.classList.contains("btn3PanelActive")) {
           start.loginPanel.classList.toggle("btn3PanelActive");
           start.btn_login.classList.toggle("btn_active");
+          start.btn_login.querySelector('.btn_icon').classList.toggle("btn_icon_active");
+          start.btn_login.querySelector('.btn_label').classList.toggle("btn_label_active");
+
           
         };
 
         if (evt.srcElement.id != "btn_filter" && start.filterPanel.classList.contains("btn3PanelActive")) {
           start.filterPanel.classList.toggle("btn3PanelActive");
           start.btn_filter.classList.toggle("btn_active");
+          start.btn_filter.querySelector('.btn_icon').classList.toggle("btn_icon_active");
+          start.btn_filter.querySelector('.btn_label').classList.toggle("btn_label_active");
         };
       }.bind(this));
 

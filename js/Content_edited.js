@@ -28,7 +28,7 @@ define([
         { key: "f", label: "Gruppe f" },
 
       ]
-
+      
       this.instructions = `
       Hinzufügen: <br>
       1.  Im Editor auf «Fläche hinzufügen» klicken <br>
@@ -137,6 +137,15 @@ define([
     - points (optional)
     - version
 
+
+    00.text
+
+    00.placeholder
+
+    00.option.0
+    00.option.1
+    00.option.3
+
     */
 
 
@@ -144,16 +153,17 @@ define([
       
 
       app.addStartPage("BioDivSchool");
-      /*Regionalität der Pflanzen*/
-      let page_regionalitaet = app.addPage("Regionalität der Pflanzen", {
+      /*01 Regionalität der Pflanzen*/
+      let page_regionalitaet = app.addPage("P01.title.1", {
         pointsInfo: [0,10] });
 
+      
       page_regionalitaet.addTextInfo({
-        title: "Heimische Wildpflanzen (08, 09)",
+        title: "P01.textInfo.1.title",
         textInfo: {
-          linkText: "Zusatzinfos",
-          text: `Alle Arten einer Region bilden zusammen ein Nahrungsnetz.<br>        
-          Heimische Pflanzen sind die Grundlage von Nahrungsnetzen. Deshalb sollte es möglichst viele Flächen mit heimischen Wildpflanzen geben.
+          linkText: "P01.textInfo.1.linkText",
+          text: `<div class='textual'>P01.textInfo.1.text.1</div><br>        
+          <div class='textual'>P01.textInfo.1.text.2</div>
           <img src="img/Fotos_Hilfestellungen/H01_1.png" alt="H01_1" width="100%">
           `,
         }, 
@@ -162,27 +172,25 @@ define([
 
       //08_wild_geomoid
       page_regionalitaet.addElement("mapInput", "wild_geomoid", {
-        text: `08: Auf welcher Fläche wachsen weitgehend nur heimische Wildpflanzen?
-            Markiere solche Flächen in der gezeigten Untersuchungsfläche.
-            Benutze dazu das Polygon-Werkzeug.`,
+        text: `E08.text`,
         area: "wild_geomarea",
         measure: "A08.0",
         ratio: {
           key: "wild_geomarearatio",
-          stops: [{points: 0, value: 0.10, measure: "A08.1"},{points:2, value:0.25, measure: "A08.2"},{points: 4, value:0.5, measure: "A08.3"},{points: 6, value:1, measure: "A08.4"}]
+          stops: [{points: 0, value: 0.25, measure: "A08.1"},{points:2, value:0.5, measure: "A08.2"},{points: 4, value:0.75, measure: "A08.3"},{points: 6, value:1, measure: "A08.4"}]
         },
         color: [74, 186, 27],
-        name_display : "Heimische Pflanzen",
+        name_display : "E08.name",
         points: "wild_points",
         textInfo: {
-          linkText: "Zusatzinfos",
+          linkText: "E08.textInfo.linkText",
           text: `<div class="textInfoElements"><img src="img/Fotos_Hilfestellungen/H08_1_heimische_Blumenstraeucher.jpg" alt="H08_1" width="100%">
-          Zu heimischen Wildpflanzen gehören Blumen, Sträucher und Bäume, die natürlich hier wachsen.
+          <div class='textual'>E08.textInfo.1.text.1</div>
           </div>
           <div class="textInfoElements">
-          Nicht dazu gehören:
+          <div class='textual'>E08.textInfo.1.text.2</div>
           <img src="img/Fotos_Hilfestellungen/H08_2_Sportrasen.jpg" alt="H08_2" width="100%">
-          Sportrasen und Wiesen mit Gras, das immer kürzer ist als 10 cm. Solche Flächen werden nicht zu Flächen mit heimischen Wildpflanzen gezählt.
+          <div class='textual'>E08.textInfo.1.text.2</div>
           </div>
           `,
         },
@@ -201,7 +209,7 @@ define([
           { key: "1", points: 1, label: "11 – 20 Arten", measure: "A09.2" },
           { key: "2", points: 2, label: "21 – 35 Arten", measure: "A09.3" },
           { key: "3", points: 4, label: "36 – 50 Arten", measure: "A09.4" },
-          { key: "4", points: 6, label: "mehr als 50 verschiedene Arten", measure: "A09.5" },
+          { key: "4", points: 4, label: "mehr als 50 verschiedene Arten", measure: "A09.5" },
         ],
         textInfo: {
             linkText: "Hinweise zur Bestimmung von Pflanzen",
@@ -281,7 +289,7 @@ define([
       }]
 
       
-      /*Strukturelemente*/      
+      /*02 Strukturelemente*/      
       let page_strukturelemente = app.addPage("Strukturelemente", {
       pointsInfo: [10, 32]});
 
@@ -347,7 +355,7 @@ define([
 
       //11_versieg_geomoid
       page_strukturelemente.addElement("mapInput", "versieg_geomoid", {
-        text: `11: Markiere versiegelte Flächen in der gezeigten Untersuchungsfläche. Dazu gehören auch alle Gebäudeflächen.`,
+        text: `11: Markiere versiegelte Flächen in der gezeigten Untersuchungsfläche.`,
         area: "versieg_area",
         measure: "A11.0",
         ratio: {
@@ -377,7 +385,7 @@ define([
         measure: "A12.0",
         ratio: {
           key: "rasen_area_ratio",
-          stops: [{points:2, value:0.15, measure: "A12.3"},{points:1, value: 0.4, measure: "A12.2",},{points:0, value:1, measure: "A12.1",}]
+          stops: [{points:2, value:0.25, measure: "A12.3"},{points:1, value: 0.5, measure: "A12.2",},{points:0, value:1, measure: "A12.1",}]
         },
         color: [46, 37, 72, 0.7],
         name_display : "Rasenflächen",
@@ -828,7 +836,7 @@ define([
           text: `
           <div class="textInfoElements">
           Kommen unterschiedliche Elemente wie Bäume, Sträucher sowie Kräuter, Gräser und Blumen alle an der gleichen Stelle vor, so finden auch mehr Lebewesen
-          einen Lebensraum mit Nahrung und Versteck. Deshalb ist es wichtig, dass Bäume, Sträucher und Kräuter an manchen Stellen zusammen vorkommen: <br>
+          einen Lebensraum mit Nahrung und Versteck. Deshalb ist es wichtig, dass Bäume, Sträucher und Kräuter an manchen Stellen zusammen vorkommen:
           Kräuter, Gräser und Blumen unter Bäumen
           <img src="img/Fotos_Hilfestellungen/H17_1_KrautschichtBaumschicht.jpg" alt="H17_1" width="100%">
           </div>
@@ -1162,7 +1170,7 @@ define([
           }
       });
 
-      /*Pflege*/
+      /*03 Pflege*/
       let page_pflege = app.addPage("Pflege", {
       pointsInfo: [2,11]});
 
@@ -1601,7 +1609,7 @@ define([
           }
       });
 
-      /*Bauliche Massnahmen*/
+      /*04 Bauliche Massnahmen*/
        let page_baumassnahmen = app.addPage("Bauliche Massnahmen", {
        pointsInfo: [2,4]});
 
