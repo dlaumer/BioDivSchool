@@ -308,8 +308,45 @@ body {
     margin: 0 !important;
   }
 
+  .projectElemLabel {
+    width: 100% !important;
+  }
 
+  .projectElemValue {
+    width: 100% !important;
+  }
+
+  .projectElemLabelDesktop {
+    display: none !important;
+  }
+
+  .projectElemLabelMobile {
+    display: block !important;
+
+  }
+
+  .citySchoolWrapper {
   
+    display: flex;
+    flex-direction: row !important;
+  }
+
+  .projectElem1 {
+    display: flex;
+    flex-direction: column !important;
+    justify-content: space-evenly;
+}
+
+  .projects {
+    background-color: var(--very_gray);
+    min-height: 70px !important;
+    padding: 5px !important;
+    
+  }
+
+  .projects_active {
+    height: 110px !important;
+  }
   .draggableLine {
     display: block !important;
   }
@@ -458,7 +495,7 @@ body {
 .projects_active{
   background-color: var(--project  ) !important;
   color: white !important;
-  height: 120px !important;
+  min-height: 120px;
   transition: all 0.2s linear;
   box-shadow: 0px 3px 6px #00000029;
 }
@@ -481,11 +518,11 @@ body {
 }
 
 .projects {
-  height: 80px;
+  min-height: 80px;
   width: 100%;
   font-size: min(2vmax, 18px);
   border-radius: 30px;
-  padding: 10px 10px;
+  padding: 10px;
   margin: 5px;
   transition: all 0.2s linear;
   display: flex;
@@ -512,12 +549,30 @@ body {
   border-right: 1px solid white;
 }
 
-.projectElem {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
+.citySchoolWrapper {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin: 5px 0;
+}
+
+.projectElem1 {
+  width: 100% !important;
+  display: flex;
+  flex-direction: row;
+
+}
+
+
+
+.projectElem2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 .projectElemLabel {
+  width: 50%;
   text-align: left;
   overflow: hidden; 
   text-overflow: ellipsis;
@@ -525,7 +580,16 @@ body {
   font-size: min(max(1vmax, 10px),12px);
 }
 
+.projectElemLabelMobile {
+  display: none;
+}
+
+.projectElemLabelDesktop {
+  width: 100% !important;
+}
+
 .projectElemValue {
+  width: 50%;
   text-align: left;
   overflow: hidden; 
   text-overflow: ellipsis;
@@ -875,7 +939,6 @@ overscroll-behavior: contain !important;
 
 .btn1 {
   min-height: 60%;
-  min-width: 80px;
   text-align: center;
   background-color: white;
   border: 1px solid black;
@@ -925,6 +988,11 @@ overscroll-behavior: contain !important;
   filter: invert(82%) sepia(12%) saturate(1386%) hue-rotate(38deg) brightness(91%) contrast(83%);
 }
 
+.icon2 {
+  width: 15px;
+  height: 15px;
+}
+
 .iconActive {
   filter: invert(100%) ;
 }
@@ -934,6 +1002,7 @@ overscroll-behavior: contain !important;
   color: var(--project);
   text-overflow: ellipsis;
     width: 100%;
+    text-align: center;
 }
 .iconLabelActive {
   color: white;

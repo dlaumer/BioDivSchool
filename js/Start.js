@@ -774,13 +774,22 @@ define([
           );
 
           // City
-          let city = domCtr.create(
+          let citySchoolWrapper = domCtr.create(
             "div",
             {
-              className: "projectElem",
-              style: "width:25%",
+              className: "citySchoolWrapper borderElement",
             },
             infoContainer
+          );
+
+          // City
+          let labelsContainer = domCtr.create(
+            "div",
+            {
+              className: "projectElem1",
+              style: "width:50%",
+            },
+            citySchoolWrapper
           );
           domCtr.create(
             "div",
@@ -788,26 +797,7 @@ define([
               className: "projectElemLabel",
               innerHTML: start.strings.get("location"),
             },
-            city
-          );
-          domCtr.create(
-            "div",
-            {
-              className: "projectElemValue",
-              innerHTML: results[i].attributes.name,
-              title: results[i].attributes.name,
-            },
-            city
-          );
-
-          // School
-          let school = domCtr.create(
-            "div",
-            {
-              className: "projectElem borderElement",
-              style: "width:25%;",
-            },
-            infoContainer
+            labelsContainer
           );
           domCtr.create(
             "div",
@@ -815,7 +805,28 @@ define([
               className: "projectElemLabel",
               innerHTML: start.strings.get("school"),
             },
-            school
+            labelsContainer
+          );
+         
+
+          // School
+          let citySchoolContainer = domCtr.create(
+            "div",
+            {
+              className: "projectElem1",
+              style: "width:50%;",
+            },
+            citySchoolWrapper
+          );
+          
+          domCtr.create(
+            "div",
+            {
+              className: "projectElemValue",
+              innerHTML: results[i].attributes.name,
+              title: results[i].attributes.name,
+            },
+            citySchoolContainer
           );
           domCtr.create(
             "div",
@@ -824,14 +835,14 @@ define([
               innerHTML: results[i].attributes.school,
               title: results[i].attributes.school,
             },
-            school
+            citySchoolContainer
           );
 
           // Add. info labels
           let additionalInfoLabels = domCtr.create(
             "div",
             {
-              className: "projectElem",
+              className: "projectElem2",
               style: "width:15%",
             },
             infoContainer
@@ -840,16 +851,37 @@ define([
           domCtr.create(
             "div",
             {
-              innerHTML: start.strings.get("date"),
-              className: "projectElemLabel",
+              innerHTML:
+                "<img src= ./img/Icons/Date_black.svg>",
+              className: "projectElemLabelMobile icon2",
             },
             additionalInfoLabels
           );
+
+          domCtr.create(
+            "div",
+            {
+              innerHTML: start.strings.get("date"),
+              className: "projectElemLabel projectElemLabelDesktop",
+            },
+            additionalInfoLabels
+          );
+
+          domCtr.create(
+            "div",
+            {
+              innerHTML:
+                "<img src= ./img/Icons/Author_black.svg>",
+              className: "projectElemLabelMobile icon2",
+            },
+            additionalInfoLabels
+          );
+
           domCtr.create(
             "div",
             {
               innerHTML: start.strings.get("author"),
-              className: "projectElemLabel",
+              className: "projectElemLabel projectElemLabelDesktop",
             },
             additionalInfoLabels
           );
@@ -858,7 +890,7 @@ define([
           let additionalInfo = domCtr.create(
             "div",
             {
-              className: "projectElem",
+              className: "projectElem2",
               style: "width:25%",
             },
             infoContainer
@@ -870,7 +902,7 @@ define([
             {
               innerHTML: creationDate.toISOString().slice(0, 10),
               className: "projectElemLabel",
-              style: "font-weight: bold",
+              style: "font-weight: bold;width:100% !important",
             },
             additionalInfo
           );
@@ -879,7 +911,7 @@ define([
             {
               innerHTML: results[i].attributes.owner,
               className: "projectElemLabel",
-              style: "font-weight: bold",
+              style: "font-weight: bold;width:100% !important",
             },
             additionalInfo
           );
@@ -970,13 +1002,22 @@ define([
       if (start.projectSelected) {
         start.projectSelected.querySelector('.iconLabel').classList.toggle("iconLabelActive");
         start.projectSelected.querySelector('.icon').classList.toggle("iconActive");
-        start.projectSelected.querySelector('.borderElement').classList.toggle("borderElementActive");
+        for  (let i=0; i < start.projectSelected.querySelectorAll('.borderElement').length;i++) {
+          start.projectSelected.querySelectorAll('.borderElement')[i].classList.toggle("borderElementActive");
+        }
+        for  (let i=0; i < start.projectSelected.querySelectorAll('.icon2').length;i++) {
+          start.projectSelected.querySelectorAll('.icon2')[i].classList.toggle("iconActive");
+        }
       }
       
-
       item.querySelector('.iconLabel').classList.toggle("iconLabelActive");
       item.querySelector('.icon').classList.toggle("iconActive");
-      item.querySelector('.borderElement').classList.toggle("borderElementActive");
+      for  (let i=0; i < item.querySelectorAll('.borderElement').length;i++) {
+        item.querySelectorAll('.borderElement')[i].classList.toggle("borderElementActive");
+      }
+      for (let i=0; i < item.querySelectorAll('.icon2').length;i++) {
+        item.querySelectorAll('.icon2')[i].classList.toggle("iconActive");
+      }
 
       if (window.matchMedia('only screen and (max-width: 600px)').matches) {
         start.mapOverviewProject.style.top = 0.15*window.innerHeight + "px";
@@ -1025,8 +1066,12 @@ define([
       if (start.projectSelected != null) {
         start.projectSelected.querySelector('.iconLabel').classList.toggle("iconLabelActive");
         start.projectSelected.querySelector('.icon').classList.toggle("iconActive");
-        start.projectSelected.querySelector('.borderElement').classList.toggle("borderElementActive");
-
+        for  (let i=0; i < start.projectSelected.querySelectorAll('.borderElement').length;i++) {
+          start.projectSelected.querySelectorAll('.borderElement')[i].classList.toggle("borderElementActive");
+        }
+        for  (let i=0; i < start.projectSelected.querySelectorAll('.icon2').length;i++) {
+          start.projectSelected.querySelectorAll('.icon2')[i].classList.toggle("iconActive");
+        }
         start.buttons.style.display = "none";
         start.removeFromAttributes("project");
         start.projectSelected.className = "projects";
