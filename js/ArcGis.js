@@ -739,6 +739,8 @@ define([
             ],
           };
         }
+
+        
         map.add(geometry);
       }
 

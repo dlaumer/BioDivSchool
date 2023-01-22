@@ -259,12 +259,6 @@ define([
       let elem10b = page_regionalitaet.addElement("mapInput", "neophyten__geomoid", {
         text: `10b: Markiere alle Standorte mit schädlichen gebietsfremden Pflanzen.`,
         placeholder: "Auswählen",
-         //points: "",
-         options: [
-          { key: "0", points: 0, label: "A" },
-          { key: "1", points: 0, label: "B"},
-          { key: "2", points: -2, label: "C"},
-        ],
         color: [147, 145, 98, 0.7],
         name_display : "Neophyten",
       });
@@ -1318,26 +1312,26 @@ define([
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem29a.rules = [{
         values: [
-          "Ja",
+          "0",
           ], 
         elements: [elem29d]
       }]
     
       elem29d.rules = [{
         values: [
-          "Talzone oder Hügelzone.",
+          "0",
           ], 
         elements: [elem29etal]
       },
       {
         values: [
-          "Bergzonen I oder II.",
+          "1",
           ], 
         elements: [elem29eberg1]
       },
       {
         values: [
-          "Bergzonen III oder IV.",
+          "2",
           ], 
         elements: [elem29eberg2]
       }]
@@ -1437,7 +1431,7 @@ define([
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem32a.rules = [{
         values: [
-          "Ja",
+          "0",
           ], 
         elements: [elem32b]
       }]     
@@ -1491,7 +1485,7 @@ define([
         measure: "A33.0",   
         options: [
           { key: "0",points: 0, label: "Mehr als die Hälfte des Bodens wird ohne Analyse des Bodens gedüngt.", measure: "A33.2"},
-          { key: "1",points: 2, label: "Weniger als die Hälfte des Bodens wird ohne Analyse des Bodens gedüngt.", measure: "A33.3"},      
+          { key: "1",points: 1, label: "Weniger als die Hälfte des Bodens wird ohne Analyse des Bodens gedüngt.", measure: "A33.3"},      
         ],
         points: "a_duengen_points",     
       });    
@@ -1527,13 +1521,13 @@ define([
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem33.rules = [{
         values: [
-          "Ja",
+          "0",
           ], 
         elements: [elem33gras, elem34]
       }] 
       elem33gras.rules = [{
         values: [
-          "Ja",
+          "0",
           ], 
         elements: [elem33a, elem34]
       }] 
@@ -1700,10 +1694,9 @@ define([
           linkText: "Zusatzinfos",
           text: `
           <div class="textInfoElements">
-          Grosse Glasflächen können tödlich für Vögel sein. 
-          Aufgeklebte Umrisse von Vögel schützen leider nur wenig.
+          Grosse Glasflächen können tödlich für Vögel sein. Aufgeklebte Umrisse von Vögel schützen leider nur wenig.<br>
+          Unwirksame Greifvogel-Umrisse<br>
           <img src="img/Fotos_Hilfestellungen/H40_1_Greifvogel_Umrisse.jpg" alt="H40_1" width="100%">
-          unwirksame Greifvogel-Umrisse<br>
           </div>
           <div class="textInfoElements">
           Wirksamer hingegen sind Streifenmuster:
@@ -1727,13 +1720,29 @@ define([
           { key: "1",points: 0, label: "Glasflächen mit aufgeklebten Umrissen von Vögeln.", measure: "A40.2" },
           { key: "2",points: 2, label: "Glasflächen mit aufgeklebten Vogelschutzstreifen. (Birdstripes)", measure: "A40.3" },
         ],
+         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
+         textInfo: {
+          linkText: "Zusatzinfos",
+          text: `
+          <div class="textInfoElements">
+          Grosse Glasflächen können tödlich für Vögel sein. Aufgeklebte Umrisse von Vögel schützen leider nur wenig.<br>
+          Unwirksame Greifvogel-Umrisse<br>
+          <img src="img/Fotos_Hilfestellungen/H40_1_Greifvogel_Umrisse.jpg" alt="H40_1" width="100%">
+          </div>
+          <div class="textInfoElements">
+          Wirksamer hingegen sind Streifenmuster:
+          <img src="img/Fotos_Hilfestellungen/H40_2_Vogelschutzstreifen.jpg" alt="H40_2" width="100%">
+          Glasfläche mit aufgeklebten Vogelschutzstreifen
+          </div>
+           `,
+          }
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
       elem40b.hide();
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem40a.rules = [{
-        values: ["Ja"], 
+        values: ["1"], 
         elements: [elem40b]
       }]
 
@@ -1784,7 +1793,7 @@ define([
        elem41b.hide();
        // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
        elem41a.rules = [{
-         values: ["Ja"], 
+         values: ["1"], 
          elements: [elem41b]
        }]
 
@@ -1797,7 +1806,7 @@ define([
         points: "schaechte_points",
         measure: "A42.1",
         options: [
-          { key: "0", points: 2, label: "Nein oder nur sehr wenige.", measure: "A42.1"},
+          { key: "0", points: 1, label: "Nein oder nur sehr wenige.", measure: "A42.1"},
           { key: "1", points: 0, label: "Ja", measure: "A42.2" },
         ],
          //bitte noch Hilfestellung/Zusatzinfos hinzufügen
