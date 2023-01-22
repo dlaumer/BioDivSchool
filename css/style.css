@@ -1279,5 +1279,6 @@ label {
 
 .editor {
     width: 30%;
+    overflow: scroll;
 }
 

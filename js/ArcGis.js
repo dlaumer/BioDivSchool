@@ -740,7 +740,134 @@ define([
           };
         }
 
-        
+        if (element.key == "a_wild_geomoid") {
+          geometry.templates = [
+            new FeatureTemplate({
+              name: "Gemüsebeete oder Wildblumen",
+              prototype: {
+                attributes: {
+                  Labels: "Gemüsebeete oder Wildblumen",
+                },
+              },
+            }),
+            new FeatureTemplate({
+              name: "Kies, Sand, Ruderalflächen",
+              prototype: {
+                attributes: {
+                  Labels: "Kies, Sand, Ruderalflächen",
+                },
+              },
+            }),
+            new FeatureTemplate({
+              name: "Hohes Gras",
+              prototype: {
+                attributes: {
+                  Labels: "Hohes Gras",
+                },
+              },
+            }),
+            new FeatureTemplate({
+              name: "Sträucher oder Hecken",
+              prototype: {
+                attributes: {
+                  Labels: "Sträucher oder Hecken",
+                },
+              },
+            }),
+            new FeatureTemplate({
+              name: "Heimische Bäume",
+              prototype: {
+                attributes: {
+                  Labels: "Heimische Bäume",
+                },
+              },
+            }),
+            new FeatureTemplate({
+              name: "Gewässer",
+              prototype: {
+                attributes: {
+                  Labels: "Gewässer",
+                },
+              },
+            }),
+          ];
+
+          geometry.formTemplate = {
+            // autocastable to FormTemplate
+            elements: [
+              {
+                // autocastable to FieldElement
+                type: "field",
+                fieldName: "Labels",
+                label: "Pflanzenart",
+                editable: false,
+              },
+              {
+                // autocastable to FieldElement
+                type: "field",
+                fieldName: "Notes",
+                label: "Notizen",
+              },
+            ],
+          };
+
+          geometry.renderer = {
+            type: "unique-value",
+            field: "Labels",
+            defaultSymbol: { type: "simple-fill" }, // autocasts as new SimpleFillSymbol()
+            uniqueValueInfos: [
+              {
+                // All features with value of "North" will be blue
+                value: "Gemüsebeete oder Wildblumen",
+                symbol: {
+                  type: "simple-fill", // autocasts as new SimpleFillSymbol()
+                  color: "blue",
+                },
+              },
+              {
+                // All features with value of "North" will be blue
+                value: "Kies, Sand, Ruderalflächen",
+                symbol: {
+                  type: "simple-fill", // autocasts as new SimpleFillSymbol()
+                  color: "red",
+                },
+              },
+              {
+                // All features with value of "North" will be blue
+                value: "Hohes Gras",
+                symbol: {
+                  type: "simple-fill", // autocasts as new SimpleFillSymbol()
+                  color: "yellow",
+                },
+              },
+              {
+                // All features with value of "North" will be blue
+                value: "Sträucher oder Hecken",
+                symbol: {
+                  type: "simple-fill", // autocasts as new SimpleFillSymbol()
+                  color: "orange",
+                },
+              },
+              {
+                // All features with value of "North" will be blue
+                value: "Heimische Bäume",
+                symbol: {
+                  type: "simple-fill", // autocasts as new SimpleFillSymbol()
+                  color: "green",
+                },
+              },
+              {
+                // All features with value of "North" will be blue
+                value: "Gewässer",
+                symbol: {
+                  type: "simple-fill", // autocasts as new SimpleFillSymbol()
+                  color: "blue",
+                },
+              }
+            ],
+          };
+
+        }
         map.add(geometry);
       }
 

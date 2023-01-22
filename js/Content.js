@@ -395,23 +395,23 @@ define([
       })
       //13a_wild_geomoid
       page_strukturelemente.addElement("mapInput", "a_wild_geomoid", {    
-        text: `13a: Markiere Flächen mit Gemüsebeeten und/oder Beeten mit Wildblumen in der gezeigten Untersuchungsfläche.`,
+        text: `13a: Markiere die verschiedenen Flächen in der gezeigten Untersuchungsfläche (siehe Liste).`,
         area: "wild_area",
         points: "a_wild_points",
         ratio: {
           key: "wild_arearatio",
           options: [
             { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden", measure: "A13.1" },
-            { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" , measure: "A13.2"},
-            { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche", measure: "A13.3" },
-            { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" ,measure: "A13.4"  },
-            { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche", measure: "A13.5"  },
-            { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" , measure: "A13.6" },
-            { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" , measure: "A13.7"  },
+            { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" , measure: "A13.2"},
+            { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche", measure: "A13.3" },
+            { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 20% der ganzen Untersuchungsfläche bedeckt" ,measure: "A13.4"  },
+            { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 20% der ganzen Untersuchungsfläche", measure: "A13.5"  },
+            { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 10% der ganzen Untersuchungsfläche bedeckt" , measure: "A13.6" },
+            { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 10% der ganzen Untersuchungsfläche" , measure: "A13.7"  },
           ]
         },
         color: [129, 0, 157, 0.7],
-        name_display : "Gemüsebeete oder Wildblumen",
+        name_display : "Verschiedene Pflanzenflächen",
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -424,34 +424,7 @@ define([
           Beet mit Wildblumen 
           <img src="img/Fotos_Hilfestellungen/H13a_2_Gartenbeet.jpg" alt="H13a_2" width="100%">
           
-          </div>        
-         `,
-        }
-      }); 
-
-
-      //13b_trocken_geomoid
-      page_strukturelemente.addElement("mapInput", "b_trocken_geomoid", {
-        text: `13b: Markiere Flächen mit Trockenstandorten wie Kies, Sand, Ruderalflächen in der gezeigten Untersuchungsfläche.`,
-        area: "trocken_area",
-        points: "trocken_points",
-        ratio: {
-          key: "trocken_arearatio",
-          options: [
-            { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden", measure: "A13.1" },
-            { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" , measure: "A13.2"},
-            { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche", measure: "A13.3" },
-            { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" ,measure: "A13.4"  },
-            { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche", measure: "A13.5"  },
-            { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" , measure: "A13.6" },
-            { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" , measure: "A13.7"  },
-          ]
-        },
-        color: [213, 226, 218, 0.7],
-        name_display : "Kies, Sand, Ruderalflächen",
-          textInfo: {
-          linkText: "Zusatzinfos",
-          text: `
+          </div>  
           
           <div class="textInfoElements">
           Beispiele von Trockenstandorten:
@@ -468,64 +441,10 @@ define([
           Flächen mit Geröll
           <img src="img/Fotos_Hilfestellungen/H13b_3_Geroell.jpg" alt="H13b_3" width="100%">
           </div>
-          
-         `,
-        }
-      }); 
-      
-      //13c_gras_geomoid
-      page_strukturelemente.addElement("mapInput", "c_gras_geomoid", {
-        text: `13c: Markiere in der gezeigten Untersuchungsfläche Flächen mit Wiesen dessen Gras mindestens einmal im Jahr höher als 10 cm ist.`,
-        area: "c_gras_area",
-        points: "c_gras_points",
-        ratio: {
-          key: "c_gras_arearatio",
-          options: [
-            { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden", measure: "A13.1" },
-            { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" , measure: "A13.2"},
-            { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche", measure: "A13.3" },
-            { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" ,measure: "A13.4"  },
-            { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche", measure: "A13.5"  },
-            { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" , measure: "A13.6" },
-            { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" , measure: "A13.7"  },
-          ]
-        },
-        color: [2, 199, 116, 0.7],
-        name_display : "Hohes Gras",
-          textInfo: {
-          linkText: "Zusatzinfos",
-          text: `
           <div class="textInfoElements">
           Blumenwiese
           <img src="img/Fotos_Hilfestellungen/H11a_3_Blumenwiese.jpg" alt="H11a_3" width="100%">
           </div>
-          `,
-        }
-      }); 
-
-
-      //13d_hecken_geomoid
-      page_strukturelemente.addElement("mapInput", "d_hecken_geomoid", {
-        text: `13d: Markiere in der gezeigten Untersuchungsfläche Flächen mit Sträuchern und/oder Hecken mit weitgehend heimischen Pflanzen.`,
-        area: "d_hecken_area",
-        points: "d_hecken_points",
-        ratio: {
-          key: "d_hecken_arearatio",
-          options: [
-            { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden", measure: "A13.1" },
-            { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" , measure: "A13.2"},
-            { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche", measure: "A13.3" },
-            { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" ,measure: "A13.4"  },
-            { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche", measure: "A13.5"  },
-            { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" , measure: "A13.6" },
-            { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" , measure: "A13.7"  },
-          ]
-        },
-        color: [185, 184, 106, 0.7],
-        name_display : "Sträucher oder Hecken",
-          textInfo: {
-          linkText: "Zusatzinfos",
-          text: `
           <div class="textInfoElements">
           Gruppe von heimischen Sträuchern
           <img src="img/Fotos_Hilfestellungen/H13d_1_GruppevonStraeuchern.jpg" alt="H13d_1" width="100%">
@@ -534,65 +453,10 @@ define([
           Hecke mit heimischen Sträuchern
           <img src="img/Fotos_Hilfestellungen/H13d_2_Hecke.jpg" alt="H13d_2" width="100%">
           </div>
-          `,
-        }
-      }); 
-
-
-      //13e_baeume_geomoid
-      page_strukturelemente.addElement("mapInput", "e_baeume_geomoid", {
-        text: `13e: Markiere in der gezeigten Untersuchungsfläche Flächen mit Bäumen, Baumgruppen oder Wald mit weitgehend heimischen Pflanzen.`,
-        area: "e_baeume_area",
-        points: "e_baeume_points",
-        ratio: {
-          key: "e_baeume_arearatio",
-          options: [
-            { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden", measure: "A13.1" },
-            { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" , measure: "A13.2"},
-            { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche", measure: "A13.3" },
-            { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" ,measure: "A13.4"  },
-            { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche", measure: "A13.5"  },
-            { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" , measure: "A13.6" },
-            { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" , measure: "A13.7"  },
-          ]
-        },
-        color: [195, 17, 64, 0.7],
-        name_display : "Heimische Bäume",
-          textInfo: {
-          linkText: "Zusatzinfos",
-          text: `
           <div class="textInfoElements">
           Heimische Bäume in deutlich unterschiedlichen Höhen
           <img src="img/Fotos_Hilfestellungen/H11a_1_Baeume.jpg" alt="H11a_1" width="100%">
           </div>
-          `,
-        }
-      }); 
-
-      
-             
-      //13f_wasser_geomoid
-      page_strukturelemente.addElement("mapInput", "f_wasser_geomoid", {
-        text: `13f: Markiere Wasserflächen in der gezeigten Untersuchungsfläche.`,
-        area: "f_wasser_area",
-        points: "f_wasser_points",
-        ratio: {
-          key: "f_wasser_arearatio",
-          options: [
-            { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden", measure: "A13.1" },
-            { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" , measure: "A13.2"},
-            { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche", measure: "A13.3" },
-            { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" ,measure: "A13.4"  },
-            { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche", measure: "A13.5"  },
-            { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" , measure: "A13.6" },
-            { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" , measure: "A13.7"  },
-          ]
-        },
-        color: [87, 72, 242, 0.7],
-        name_display : "Gewässer",
-          textInfo: {
-          linkText: "Zusatzinfos",
-          text: `
           <div class="textInfoElements">
           Tümpel
           <img src="img/Fotos_Hilfestellungen/H11a_5_Tuempel.jpg" alt="H11a_5" width="100%">
@@ -601,9 +465,9 @@ define([
           Kleines Bächlein
           <img src="img/Fotos_Hilfestellungen/H13f_2_kleinesBaechlein.jpg" alt="H13f_2" width="100%">
           </div>
-          `,
-          }
-      });
+         `,
+        }
+      }); 
 
    
       page_strukturelemente.addTextInfo({

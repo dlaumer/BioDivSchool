@@ -524,13 +524,13 @@ define([
             this.points = this.ratioOptions[0].points
             this.measure =this.ratioOptions[0].measure ? this.ratioOptions[6].measure : null;
 
-          } else if (numAreas < 5 && app.projectArea / 2 < maxArea) {
+          } else if (numAreas < 5 && 0.3 * app.projectArea < maxArea) {
 
             this.ratio = this.ratioOptions[1].label;
             this.points = this.ratioOptions[1].points
             this.measure =this.ratioOptions[1].measure ? this.ratioOptions[6].measure : null;
 
-          } else if (numAreas < 5 && app.projectArea / 2 >= maxArea) {
+          } else if (numAreas < 5 && 0.3 * app.projectArea >= maxArea) {
 
             this.ratio = this.ratioOptions[2].label;
             this.points = this.ratioOptions[2].points
@@ -538,7 +538,7 @@ define([
 
           }
 
-          else if (numAreas < 6 && 0.4 * app.projectArea < maxArea) {
+          else if (numAreas < 6 && 0.2 * app.projectArea < maxArea) {
 
             this.ratio = this.ratioOptions[3].label;
             this.points = this.ratioOptions[3].points
@@ -546,7 +546,7 @@ define([
 
           }
 
-          else if (numAreas < 6 && 0.4 * app.projectArea >= maxArea) {
+          else if (numAreas < 6 && 0.2 * app.projectArea >= maxArea) {
 
             this.ratio = this.ratioOptions[4].label;
             this.points = this.ratioOptions[4].points
@@ -554,7 +554,7 @@ define([
 
           }
 
-          else if (numAreas < 7 && 0.3 * app.projectArea < maxArea) {
+          else if (numAreas < 7 && 0.1 * app.projectArea < maxArea) {
 
             this.ratio = this.ratioOptions[5].label;
             this.points = this.ratioOptions[5].points
@@ -562,7 +562,7 @@ define([
 
           }
 
-          else if (numAreas < 7 && 0.3 * app.projectArea >= maxArea) {
+          else if (numAreas < 7 && 0.1 * app.projectArea >= maxArea) {
 
             this.ratio = this.ratioOptions[6].label;
             this.points = this.ratioOptions[6].points
