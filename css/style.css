@@ -423,7 +423,7 @@ body {
 
 .btn3PanelActive {
   height: fit-content !important;
-  padding-top: 50px !important;
+  padding-top: min(max(2vmax, 12px),15px);
   transition: all 0.2s linear !important;
   padding: 5px;
 
@@ -654,7 +654,8 @@ overscroll-behavior: contain !important;
 
 #header {
   height: 10%;
-  min-height: 50px;
+  min-height: 60px;
+  max-height: 120px;
   position: relative;
   width: 100%;
   top: 0;
@@ -672,7 +673,8 @@ overscroll-behavior: contain !important;
 
 .header {
   height: 10%;
-  min-height: 50px;
+  min-height: 60px;
+  max-height: 120px;
   position: relative;
   width: 100%;
   top: 0;

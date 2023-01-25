@@ -169,7 +169,7 @@ define([
         measure: "A08.0",
         ratio: {
           key: "wild_geomarearatio",
-          stops: [{points: 0, value: 0.10, measure: "A08.1"},{points:2, value:0.25, measure: "A08.2"},{points: 4, value:0.5, measure: "A08.3"},{points: 6, value:1, measure: "A08.4"}]
+          stops: [{points: 0, value: 0.25, measure: "A08.1"},{points:2, value:0.50, measure: "A08.2"},{points: 4, value:0.75, measure: "A08.3"},{points: 6, value:1, measure: "A08.4"}]
         },
         color: [74, 186, 27],
         name_display : "Heimische Pflanzen",
@@ -351,13 +351,6 @@ define([
         color: [64, 9, 105, 0.7],
         name_display : "Versiegelte Flächen",
         points: "versieg_points",
-          textInfo: {
-          linkText: "Zusatzinfos",
-          text: `
-          -
-          `,
-        }
-
       }); 
 
       page_strukturelemente.addTextInfo({
@@ -371,7 +364,7 @@ define([
         measure: "A12.0",
         ratio: {
           key: "rasen_area_ratio",
-          stops: [{points:2, value:0.15, measure: "A12.3"},{points:1, value: 0.4, measure: "A12.2",},{points:0, value:1, measure: "A12.1",}]
+          stops: [{points:2, value:0.25, measure: "A12.3"},{points:1, value: 0.5, measure: "A12.2",},{points:0, value:1, measure: "A12.1",}]
         },
         color: [46, 37, 72, 0.7],
         name_display : "Rasenflächen",
@@ -390,30 +383,10 @@ define([
 
 
       page_strukturelemente.addTextInfo({
-        title: "Vielfalt der Flächen (13a, 13b, 13c, 13d, 13e, 13f)",
-        text: "Verschiedene Flächen bieten verschiedenen Lebewesen Lebensraum und Nahrung. Je mehr verschiedenartige Flächen, desto mehr verschiedene Arten gibt es."
-      })
-      //13a_wild_geomoid
-      page_strukturelemente.addElement("mapInput", "a_wild_geomoid", {    
-        text: `13a: Markiere die verschiedenen Flächen in der gezeigten Untersuchungsfläche (siehe Liste).`,
-        area: "wild_area",
-        points: "a_wild_points",
-        ratio: {
-          key: "wild_arearatio",
-          options: [
-            { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden", measure: "A13.1" },
-            { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" , measure: "A13.2"},
-            { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche", measure: "A13.3" },
-            { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 20% der ganzen Untersuchungsfläche bedeckt" ,measure: "A13.4"  },
-            { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 20% der ganzen Untersuchungsfläche", measure: "A13.5"  },
-            { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 10% der ganzen Untersuchungsfläche bedeckt" , measure: "A13.6" },
-            { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 10% der ganzen Untersuchungsfläche" , measure: "A13.7"  },
-          ]
-        },
-        color: [129, 0, 157, 0.7],
-        name_display : "Verschiedene Pflanzenflächen",
-          textInfo: {
-          linkText: "Zusatzinfos",
+        title: "Vielfalt der Flächen (13)",
+        text: "Verschiedene Flächen bieten verschiedenen Lebewesen Lebensraum und Nahrung. Je mehr verschiedenartige Flächen, desto mehr verschiedene Arten gibt es.",
+        textInfo: {
+          linkText: "Beispiele von verschiedenen Flächen",
           text: `
           <div class="textInfoElements">
           Gemüsebeet
@@ -467,6 +440,27 @@ define([
           </div>
          `,
         }
+      })
+      //13a_wild_geomoid
+      page_strukturelemente.addElement("mapInput", "a_wild_geomoid", {    
+        text: `13: Markiere alle vorhandenen Flächen-Elemente in der gezeigten Untersuchungsfläche. Klicken auf «Fläche hinzufügen» zeigt die Liste mit Flächen-Elementen. `,
+        area: "wild_area",
+        points: "a_wild_points",
+        ratio: {
+          key: "wild_arearatio",
+          options: [
+            { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden", measure: "A13.1" },
+            { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche (= Arealfläche - Gebäudefläche) bedeckt" , measure: "A13.2"},
+            { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche", measure: "A13.3" },
+            { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" ,measure: "A13.4"  },
+            { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche", measure: "A13.5"  },
+            { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" , measure: "A13.6" },
+            { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" , measure: "A13.7"  },
+          ]
+        },
+        color: [129, 0, 157, 0.7],
+        name_display : "Verschiedene Pflanzenflächen",
+          
       }); 
 
    
@@ -1080,7 +1074,7 @@ define([
 
       //29a_maehen
       let elem29a = page_pflege.addElement("radioButtonInput", "a_maehen", {
-        text: "29a: Es wird jeweils nicht die ganze Grasfläche zum gleichen Zeitpunkt geschnitten. Verschiedene Grasflächen werden zu unterschiedlichen Zeitpunkten geschnitten.",
+        text: "29a: Es wird jeweils die ganze Grasfläche zum gleichen Zeitpunkt geschnitten. Alle Grasflächen werden gleichzeitig geschnitten.",
         placeholder: "Auswählen",
         points: "a_maehen_points",
         options: [
@@ -1106,8 +1100,8 @@ define([
         placeholder: "Auswählen",
         points: "c_maehen_points",
         options: [
-          { key: "0", points: 1, label: "Ja", measure: "A29c.1"  },
-          { key: "1", points: 0, label: "Nein", measure: "A29.P"  },
+          { key: "1", points: 1, label: "Ja", measure: "A29c.1"  },
+          { key: "0", points: 0, label: "Nein", measure: "A29.P"  },
         ],
       });
     
@@ -1176,7 +1170,7 @@ define([
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem29a.rules = [{
         values: [
-          "0",
+          "1",
           ], 
         elements: [elem29d]
       }]
@@ -1582,7 +1576,7 @@ define([
         options: [
           { key: "0",points: 0, label: "Glasflächen ohne Vogelschutz.", measure: "A40.2" },
           { key: "1",points: 0, label: "Glasflächen mit aufgeklebten Umrissen von Vögeln.", measure: "A40.2" },
-          { key: "2",points: 2, label: "Glasflächen mit aufgeklebten Vogelschutzstreifen. (Birdstripes)", measure: "A40.3" },
+          { key: "2",points: 1, label: "Glasflächen mit aufgeklebten Vogelschutzstreifen. (Birdstripes)", measure: "A40.3" },
         ],
          //bitte noch Hilfestellung/Zusatzinfos hinzufügen
          textInfo: {
@@ -1670,7 +1664,7 @@ define([
         points: "schaechte_points",
         measure: "A42.1",
         options: [
-          { key: "0", points: 1, label: "Nein oder nur sehr wenige.", measure: "A42.1"},
+          { key: "0", points: 2, label: "Nein oder nur sehr wenige.", measure: "A42.1"},
           { key: "1", points: 0, label: "Ja", measure: "A42.2" },
         ],
          //bitte noch Hilfestellung/Zusatzinfos hinzufügen
