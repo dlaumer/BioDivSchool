@@ -993,8 +993,14 @@ define([
             view: view,
             container: containerEditor,
 
-            // Pass in the configurations created above
           });
+
+          editor.loadLocale = () => {  editor.messages = { ...editor.messages, 
+            selectTemplate: app.strings.get("selectTemplate"), 
+            editFeatures: app.strings.get("editFeatures"), 
+            editFeature: app.strings.get("editFeature"), 
+            addFeature: app.strings.get("addFeature"), 
+           };};
 
           editor.viewModel.watch("state", function (state) {
             if (state === "ready") {
@@ -1008,27 +1014,6 @@ define([
                   "after"
                 );
 
-                // ToDo: Move to listener when this page is active!
-                var headings = document.getElementsByClassName(
-                  "esri-widget__heading"
-                );
-                Array.from(headings).forEach(function (ele) {
-                  ele.innerHTML = ele.innerHTML.replace(
-                    "Feature-Typ",
-                    app.strings.get("featureType")
-                  );
-                });
-                
-                var actions = document.getElementsByClassName(
-                  "esri-editor__feature-list-name"
-                );
-
-                Array.from(actions).forEach(function (ele) {
-                  ele.innerHTML = ele.innerHTML.replace(
-                    "Feature",
-                    app.strings.get("feature")
-                  );
-                });
               }, 50);
             }
           });
