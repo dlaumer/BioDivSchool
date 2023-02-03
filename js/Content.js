@@ -446,6 +446,7 @@ define([
         text: `13: Markiere alle vorhandenen Flächen-Elemente in der gezeigten Untersuchungsfläche. Klicken auf «Fläche hinzufügen» zeigt die Liste mit Flächen-Elementen. `,
         area: "wild_area",
         points: "a_wild_points",
+        measure: "A13.0",
         ratio: {
           key: "wild_arearatio",
           options: [
