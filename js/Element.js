@@ -426,7 +426,8 @@ define([
       this.editorContainer.style = "width:40%;";
       this.linkInstructions.display = "none";
       this.resultDiv = domCtr.create("div", { className: "result", innerHTML: "<b>" + app.strings.get("result") + ":</b><br> n/a"}, this.editorContainer);
-      this.measureDiv = domCtr.create("div", { className: "measure" }, this.editorContainer)
+      this.measureDiv = domCtr.create("div", { className: "measure", innerHTML: app.strings.get(this.measureNone)}, this.editorContainer)
+
     }
 
      on(this.instructionsClose, "click", function (evt) {
@@ -656,7 +657,7 @@ define([
           }
         }
         else {
-          if (value != '') {
+          if (value != '' && (this.type == "radioButtonInput" || this.type == "dropdownInput")) {
             this.resultDiv.innerHTML = "<b>" + app.strings.get("result") + ":</b><br>" + this.data[value].label;
           }
           else {
@@ -675,8 +676,7 @@ define([
         }
         
         // Hardcoded special measure rules...
-        // TODO: Change to key!!!
-        if (this.key == "grasduengen" && value == "Nein") {
+        if (this.key == "grasduengen" && value == "1") {
           let elements = app.getAllElements();
           let elem33 = elements["duengen"];
           elem33.measureDiv.innerHTML = app.strings.get(this.measure);
