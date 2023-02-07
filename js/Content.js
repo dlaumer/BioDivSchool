@@ -225,6 +225,7 @@ define([
         text: "10: Gibt es im Untersuchungsgebiet schädliche gebietsfremde Pflanzen?",
         placeholder: "Auswählen",
         points: "neophyten_points",
+        measure: "A10.0",
         options: [
           { key: "0", points: 2, label: "keine",  measure: "A10.1" },
           { key: "1", points: 0, label: "eine Art von schädlichen gebietsfremden Pflanzen", measure: "A10.2"},
@@ -257,7 +258,7 @@ define([
 
       //10b_neophyten__geomoid - Liste und Points tbd
       let elem10b = page_regionalitaet.addElement("mapInput", "neophyten__geomoid", {
-        text: `10b: Markiere alle Standorte mit schädlichen gebietsfremden Pflanzen.`,
+        text: `10b: Markiere alle Standorte mit schädlichen gebietsfremden Pflanzen und wähle alle Arten von Neophyten aus, die im Untersuchungsgebiet vorkommen. Das Dokument mit den Zusatzinfos zeigt dir die häufigsten und schädlichsten Neophyten.`,
         placeholder: "Auswählen",
         color: [147, 145, 98, 0.7],
         name_display : "Neophyten",
@@ -441,14 +442,14 @@ define([
          `,
         }
       })
-      //13a_wild_geomoid
-      page_strukturelemente.addElement("mapInput", "a_wild_geomoid", {    
+      //13_flaechen_geomoid
+      page_strukturelemente.addElement("mapInput", "flaechen_geomoid", {    
         text: `13: Markiere alle vorhandenen Flächen-Elemente in der gezeigten Untersuchungsfläche. Klicken auf «Fläche hinzufügen» zeigt die Liste mit Flächen-Elementen. `,
-        area: "wild_area",
-        points: "a_wild_points",
+        area: "flaechen_area",
+        points: "flaechen_points",
         measure: "A13.0",
         ratio: {
-          key: "wild_arearatio",
+          key: "flaechen_arearatio",
           options: [
             { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden", measure: "A13.1" },
             { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche (= Arealfläche - Gebäudefläche) bedeckt" , measure: "A13.2"},
@@ -849,7 +850,7 @@ define([
         text: "22: Gibt es auf der Untersuchungsfläche künstliche Nisthilfen für Vögel?",
         placeholder: "Auswählen",
         points: "voegel_points",
-        measure: "A20.1", 
+        measure: "A22.0", 
         options: [
           { key: "0", points: 0, label: "Keine künstliche Nisthilfen für Vögel vorhanden.", measure: "A22.1"  },
           { key: "1", points: 1, label: "1-3 künstliche Nisthilfen für Vögel vorhanden.", measure: "A22.2"  },
@@ -878,6 +879,7 @@ define([
         text: "23: Gibt es auf der Untersuchungsfläche künstliche Nisthilfen für kleine Säugetiere?",
         placeholder: "Auswählen",
         points: "saeuger_points",
+        measure: "A23.0", 
         options: [
           { key: "0", points: 0, label: "Keine künstliche Nisthilfen für kleine Säugetiere vorhanden.", measure: "A23.1"  },
           { key: "1", points: 1, label: "1-3 künstliche Nisthilfen für kleine Säugetiere vorhanden.", measure: "A23.2"  },
@@ -944,11 +946,12 @@ define([
         text: "25: Gibt es stehende Gewässer auf der Untersuchungsfläche?",
         placeholder: "Auswählen",
         points: "stehgew_points",
+        measure: "A25.0", 
         options: [
           { key: "0", points: 0, label: "Keine stehenden Gewässer vorhanden.", measure: "A25.1" },
-          { key: "1", points: 1, label: "Fläche mit stehenden Gewässern  insgesamt etwa so gross wie 1 Autoparkplatz.", measure: "A25.2" },
-          { key: "2", points: 2, label: "Fläche mit stehenden Gewässern  insgesamt etwa so gross wie 2 Autoparkplätze.", measure: "A25.2" },
-          { key: "4", points: 4, label: "Fläche mit stehenden Gewässern  insgesamt grösser als 2 Autoparkplätze.", measure: "A25.3" },
+          { key: "1", points: 2, label: "Fläche mit stehenden Gewässern  insgesamt etwa so gross wie 1 Autoparkplatz.", measure: "A25.2" },
+          { key: "2", points: 4, label: "Fläche mit stehenden Gewässern  insgesamt etwa so gross wie 2 Autoparkplätze.", measure: "A25.2" },
+          { key: "4", points: 6, label: "Fläche mit stehenden Gewässern  insgesamt grösser als 2 Autoparkplätze.", measure: "A25.3" },
         ],
           textInfo: {
           linkText: "Zusatzinfos",
@@ -970,6 +973,7 @@ define([
         text: "26: Gibt es Fliessgewässer auf der Untersuchungsfläche?",
         placeholder: "Auswählen",
         points: "fliessgew_points",
+        measure: "A26.0", 
         options: [
           { key: "0" ,points: 0, label: "Keine Fliessgewässer oder nur Fliessgewässer kürzer als 3 Meter vorhanden.", measure: "A26.1" },
           { key: "1" ,points: 6, label: "Ein oder mehrere Fliessgewässer von insgesamt mehr als 3 Meter Länge vorhanden.", measure: "A26.2" },
@@ -1066,21 +1070,25 @@ define([
 
       //Info
       page_pflege.addTextInfo({
-        text: `
-        <div class="textInfoElements">
-        Je weniger das Gras gemäht wird, desto besser können sich Pflanzen durch Samen fortpflanzen. Häufiges Mähen stört oder tötet zahlreiche Kleintiere wie Insekten und kleine Säugetiere.
-        </div>
-        `
+        textInfo: {
+          linkText: "Markiere alle Aussagen, die auf Mähen von Gras zutreffen:",
+          text: `
+          <div class="textInfoElements">
+          Je weniger das Gras gemäht wird, desto besser können sich Pflanzen durch Samen fortpflanzen. Häufiges Mähen stört oder tötet zahlreiche Kleintiere wie Insekten und kleine Säugetiere.
+          </div>
+          `
+        }
       }) 
 
       //29a_maehen
       let elem29a = page_pflege.addElement("radioButtonInput", "a_maehen", {
-        text: "29a: Es wird jeweils die ganze Grasfläche zum gleichen Zeitpunkt geschnitten. Alle Grasflächen werden gleichzeitig geschnitten.",
+        text: "29a: Es wird jeweils nicht die ganze Grasfläche zum gleichen Zeitpunkt geschnitten. Verschiedene Grasflächen werden zu unterschiedlichen Zeitpunkten geschnitten.",
         placeholder: "Auswählen",
+        measure: "A29.0",
         points: "a_maehen_points",
         options: [
-          { key: "0", points: 1, label: "Ja", measure: "A29a.1" },
-          { key: "1", points: 0, label: "Nein", measure: "A29.P" },
+          { key: "0", points: 0, label: "Ja", measure: "A29a.1" },
+          { key: "1", points: 1, label: "Nein", measure: "A29.P" },
         ],
       });
 
@@ -1088,6 +1096,7 @@ define([
        page_pflege.addElement("radioButtonInput", "b_maehen", {
         text: "29b: Wie oft wird ein grosser Teil des Grases zwischen April und Oktober im Durchschnitt pro Monat geschnitten?",
         placeholder: "Auswählen",
+        measure: "A29.0",
         points: "b_maehen_points",
         options: [
           { key: "0", points: 1, label: "einmal oder weniger", measure: "A29b.1"  },
@@ -1099,6 +1108,7 @@ define([
        page_pflege.addElement("radioButtonInput", "c_maehen", {
         text: "29c: Ein Teil der Grasfläche wird jedes Jahr gar nicht geschnitten. Das kann jedes Jahr ein anderer Teil sein. ",
         placeholder: "Auswählen",
+        measure: "A29.0",
         points: "c_maehen_points",
         options: [
           { key: "1", points: 1, label: "Ja", measure: "A29c.1"  },
@@ -1136,6 +1146,7 @@ define([
         text: "29e: [Tal- und Hügelzone] Gibt es Grasflächen (grösser als vier Autoparkplätze), die erst nach dem 15. Juni geschnitten werden?",
         placeholder: "Auswählen",
         points: "e_schnitt_points",
+        measure: "A29.0",
         options: [
           { key: "0", points: 2, label: "Ja", measure: "A29e.1"  },
           { key: "1", points: 0, label: "Nein", measure: "A29.P"  },
@@ -1147,6 +1158,7 @@ define([
         text: "29e: [Bergzonen I und II] Gibt es Grasflächen (grösser als vier Autoparkplätze), die erst nach dem 1. Juli geschnitten werden?",
         placeholder: "Auswählen",
         points: "e_schnitt_points",
+        measure: "A29.0",
         options: [
           { key: "0", points: 2, label: "Ja", measure: "A29e.1"  },
           { key: "1", points: 0, label: "Nein", measure: "A29.P"  },
@@ -1157,6 +1169,7 @@ define([
        let elem29eberg2 = page_pflege.addElement("radioButtonInput", "e_berg2_schnitt", {
         text: "29e: [Bergzonen III und IV] Gibt es Grasflächen (grösser als vier Autoparkplätze), die erst nach dem 15. Juli geschnitten werden?",
         placeholder: "Auswählen",
+        measure: "A29.0",
         points: "e_schnitt_points",
         options: [
           { key: "0", points: 2, label: "Ja", measure: "A29e.1"  },
@@ -1168,14 +1181,33 @@ define([
       elem29etal.hide();
       elem29eberg1.hide();
       elem29eberg2.hide();
-      // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
+      // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden: @Dani: habe verändert: Falls bei 29a «nein» -> 29d/e auch zeigen
       elem29a.rules = [{
         values: [
           "1",
           ], 
         elements: [elem29d]
+      },
+      {
+        values: [
+          "1",
+          ], 
+        elements: [elem29etal]
+      },
+      {
+        values: [
+          "1",
+          ], 
+        elements: [elem29eberg1]
+      },
+      {
+        values: [
+          "1",
+          ], 
+        elements: [elem29eberg2]
       }]
     
+      //@Dani: gell diese Regel ist nötig!?
       elem29d.rules = [{
         values: [
           "0",
@@ -1227,12 +1259,13 @@ define([
         max: 100,
         step: 0.1,
         stops: [{points:3, value:5, measure: "A31.1"},{points:2, value:50, measure: "A31.2"},{points:1, value:75, measure: "A31.3"},{points:0,value:100, measure: "A31.3"}],
+        measure: "A31.0",
         points: "bekaempfung_points",
           textInfo: {
-          linkText: "Zusatzinfos",
-          text: `
-          Ökologische Mittel bestehen aus Stoffen, die ähnlich so auch in der Natur vorkommen. Andere ökologische Mittel bekämpfen Schädlinge durch natürliche Gegenspieler. Beispielsweise gibt es Schlupfwespen, die gefrässige Raupen abtöten.
-          `,
+            linkText: "Zusatzinfos",
+            text: `
+            Ökologische Mittel bestehen aus Stoffen, die ähnlich so auch in der Natur vorkommen. Andere ökologische Mittel bekämpfen Schädlinge durch natürliche Gegenspieler. Beispielsweise gibt es Schlupfwespen, die gefrässige Raupen abtöten.
+            `,
           }
       });
      
@@ -1247,7 +1280,7 @@ define([
         placeholder: "Auswählen",
         measure: "A32.0", 
         options: [
-          { key: "0", points: 0, label: "Ja" }, // TODO: Add measure
+          { key: "0", points: 0, label: "Ja" }, // TODO: Add measure  siehe Fragen im Drehbuch!!!
           { key: "1", points: 4, label: "Nein", measure: "A32.1"  },
         ],
         points: "a_unkraut_points",
@@ -1268,7 +1301,7 @@ define([
           <img src="img/Fotos_Hilfestellungen/H32_2_HitzeGeraete.jpg" alt="H32_2" width="100%">
           </div>
           `
-        },
+        }
       });
 
        //32b_unkraut
@@ -1294,6 +1327,9 @@ define([
           ], 
         elements: [elem32b]
       }]     
+
+
+      //@Dani Weitere Regeln des Drehbuiches; bitte hier
      
 
     
@@ -1496,6 +1532,7 @@ define([
         text: "38: Gibt es Fassaden mit einer Begrünung?",
         placeholder: "Auswählen",
         points: "fassaden_points",
+        measure: "A38.0",
         options: [
           { key: "0", points: 0, label: "Keine oder nur vereinzelt Fassadenbegrünung.", measure: "A38.1" },
           { key: "1", points: 1, label: "Fassaden von einer Fläche von insgesamt mindestens zwei Autoparkplätzen ist begrünt.", measure: "A38.2" },
@@ -1546,7 +1583,7 @@ define([
         measure: "A40.0",
         options: [
           { key: "0",points: 2, label: "Nein", measure: "A40.1" },
-          { key: "1",points: 0, label: "Ja" },
+          { key: "1",points: 0, label: "Ja" },  //Falls Ja, dann kein Auswertungssatz
         ],
          //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
@@ -1566,14 +1603,24 @@ define([
           }
       });
 
-      //Item 40b sollte nur eingeblendet werden, wenn zuvor Item 40a mit Ja beantwortet wurde.
+      //Item 40b sollte nur eingeblendet werden, wenn zuvor Item 40a mit Ja beantwortet wurde.     
+      elem40b.hide();  
+      elem40a.rules = [{
+        values: [
+          "0",
+          ], 
+        elements: [elem40b]
+      }] 
+     
+
+
 
       //40b_glasschutz
       let elem40b = page_baumassnahmen.addElement("radioButtonInput", "b_glasschutz", {
         text: "40b: Wie werden die Vögel vor diesen Glasscheiben geschützt?",
         placeholder: "Auswählen",
         points: "b_glasschutz_points",
-        measure: "A40.2",
+        measure: "A40.0",
         options: [
           { key: "0",points: 0, label: "Glasflächen ohne Vogelschutz.", measure: "A40.2" },
           { key: "1",points: 0, label: "Glasflächen mit aufgeklebten Umrissen von Vögeln.", measure: "A40.2" },
@@ -1611,10 +1658,10 @@ define([
         text: "41a: Gibt es auf dem Untersuchungsgebiet Lichtquellen, die jeden Tag bis spät in die Nacht leuchten?",
         placeholder: "Auswählen",
         points: "a_licht_points",
-        measure: "A41.1",
+        measure: "A41.0",
         options: [
           { key: "0",points: 2, label: "Nein", measure: "A41.1" },
-          { key: "1",points: 0, label: "Ja" },
+          { key: "1",points: 0, label: "Ja" }, //Falls Ja, dann kein Auswertungssatz
         ],
         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
@@ -1635,26 +1682,41 @@ define([
       });
 
       //Item 41b sollte nur eingeblendet werden, wenn zuvor Item 41a mit Ja beantwortet wurde.
+      elem41b.hide();  
+      elem41a.rules = [{
+        values: [
+          "0",
+          ], 
+        elements: [elemelem41b]
+      }] 
 
       //41b_lichtart
       let elem41b = page_baumassnahmen.addElement("radioButtonInput", "b_lichtart", {
         text: "41b: Wie leuchten diesen Lichtquellen?",
         placeholder: "Auswählen",
         points: "b_lichtart_points",
-        measure: "A41.2",
+        measure: "A41.0",
         options: [
           { key: "0",points: 0, label: "Einige Lichtquellen strahlen auch nach oben ab, beispielsweise zur Beleuchtung des Gebäudes.", measure: "A41.2"},
           { key: "1",points: 1, label: "Gelbliche Lichtquellen, die fast nur nach unten strahlen, beispielsweise Wegbeleuchtung.", measure: "A41.3"},
         ],
-      });
-
-       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
-       elem41b.hide();
-       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
-       elem41a.rules = [{
-         values: ["1"], 
-         elements: [elem41b]
-       }]
+        //bitte noch Hilfestellung/Zusatzinfos hinzufügen
+          textInfo: {
+          linkText: "Zusatzinfos",
+          text: `
+          <div class="textInfoElements">
+          Zahlreiche Lebewesen sind aktiv in der Nacht. Viele von diesen Lebewesen kreisen um künstliche Lichtquellen und sterben schliesslich. Lichtquellen sollten deshalb nicht nach oben abstrahlen:
+          <img src="img/Fotos_Hilfestellungen/H41_1.png" alt="H41_1" width="100%">
+          Schädliche Ausrichtung von Lichtquellen
+          </div> 
+          <div class="textInfoElements">                   
+          Auch ist gelbliches bis warm-weisses Licht von LED-Lampen weniger schädlich, als bläuliches Licht.
+          <img src="img/Fotos_Hilfestellungen/H41_2.png" alt="H41_2" width="100%">
+          Schädlichkeit verschiedener Lichtquellen
+          </div>
+           `,
+          }
+      });  
 
        
 
@@ -1663,7 +1725,7 @@ define([
         text: "42: Gibt es auf dem Untersuchungsgebiet Wasserschächte oder Lichtschächte, in denen Tiere gefangen bleiben?",
         placeholder: "Auswählen",
         points: "schaechte_points",
-        measure: "A42.1",
+        measure: "A42.0",
         options: [
           { key: "0", points: 2, label: "Nein oder nur sehr wenige.", measure: "A42.1"},
           { key: "1", points: 0, label: "Ja", measure: "A42.2" },
