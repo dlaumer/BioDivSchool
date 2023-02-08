@@ -157,7 +157,7 @@ define([
           <img src="img/Fotos_Hilfestellungen/H01_1.png" alt="H01_1" width="100%">
           `,
         }, 
-        version: ["long"]
+        version: ["all"]
       })
 
       //08_wild_geomoid
@@ -186,7 +186,7 @@ define([
           </div>
           `,
         },
-        version: ["long"]
+        version: ["all"]
       });  
 
 
@@ -213,7 +213,7 @@ define([
                   <li><a target="_blank", href="https://plantnet.org/">PlantNet</a></li>
                 </ul>`,
         },
-        version: ["long"]
+        version: ["all"]
       });
 
       page_regionalitaet.addTextInfo({
@@ -243,7 +243,7 @@ define([
             <br>
             Beilage: <a href="./content/Praxishilfe_invasive_Neophyten_ANJF_20_ZH.pdf" target="_blank">Neophytenarten</a>`,
         },
-        version: ["long"]
+        version: ["all"]
       });
 
 
@@ -256,7 +256,7 @@ define([
           { key: "0", points: -1, label: "kleiner als ein Parkplatz für ein Auto ", measure: "A10.2" },
           { key: "1", points: -2, label: "grösser als ein Parkplatz für ein Auto ",  measure: "A10.2" },
         ],
-        version: ["long"]
+        version: ["all"]
       });
 
       //10b_neophyten__geomoid - Liste und Points tbd
@@ -265,7 +265,7 @@ define([
         placeholder: "Auswählen",
         color: [147, 145, 98, 0.7],
         name_display : "Neophyten",
-        version: ["short"]
+        version: ["long"]
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
@@ -317,7 +317,7 @@ define([
           Verschiedene Strukturelemente bieten verschiedenen Lebewesen Lebensraum und Nahrung. Je mehr verschiedene Strukturelemente, desto mehr verschiedene Arten gibt es auf einer Fläche."
           `
         }, 
-        version: ["long"]
+        version: ["all"]
       })
 
       page_strukturelemente.addTextInfo({
@@ -356,7 +356,7 @@ define([
         color: [64, 9, 105, 0.7],
         name_display : "Versiegelte Flächen",
         points: "versieg_points",
-        version: ["long"]
+        version: ["all"]
       }); 
 
       page_strukturelemente.addTextInfo({
@@ -384,7 +384,7 @@ define([
           </div>
            `,
         },
-        version: ["long"]
+        version: ["all"]
       }); 
 
 
@@ -467,7 +467,7 @@ define([
         },
         color: [129, 0, 157, 0.7],
         name_display : "Verschiedene Pflanzenflächen",
-        version: ["short"]          
+        version: ["long"]          
       }); 
 
    
@@ -506,7 +506,7 @@ define([
           </div>
           `,
           },
-          version: ["long"]       
+          version: ["all"]       
       });
 
       //[Falls bei 14 eine der beiden Optionen mit mehr als einem Baum angekreuzt wird, dann Fragen 14a und 14b einblenden:] gelöst durch mehrere Schnittmengen
@@ -520,7 +520,7 @@ define([
           { key: "0", points: 1, label: "Ja", measure: "A14.4" },
           { key: "1", points: 0, label: "Nein", measure: "A14.5"  },
         ],
-        version: ["long"]   
+        version: ["all"]   
       });
 
        //14b_baeume
@@ -532,7 +532,7 @@ define([
           { key: "0", points: 2, label: "Ja", measure: "A14.6"},
           { key: "1", points: 0, label: "Nein", measure: "A14.7"},
         ],
-        version: ["long"]   
+        version: ["all"]   
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
@@ -574,7 +574,7 @@ define([
           </div>
           `,
           },
-          version: ["long"]
+          version: ["all"]
       });
 
       //[Falls bei 15 eine der beiden Optionen mit Gruppen von Sträuchern angekreuzt wird, dann Fragen 15a einblenden:]
@@ -588,7 +588,7 @@ define([
           { key: "0", points: 2, label: "Ja", measure: "A15.4"},
           { key: "1", points: 0, label: "Nein", measure: "A15.5"},
         ],
-        version: ["long"]
+        version: ["all"]
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
@@ -631,7 +631,7 @@ define([
           </div>
           `,
           },
-          version: ["long"]
+          version: ["all"]
       });
 
       //[Falls bei 16 eine der beiden Optionen mit Hecken mit heimischen Sträuchern angekreuzt wird, dann Fragen 16a und 16b einblenden:]
@@ -644,7 +644,7 @@ define([
           { key: "0", points: 2, label: "Ja", measure: "A16.4" },
           { key: "1", points: 0, label: "Nein", measure: "A16.5" },
         ],
-        version: ["long"]
+        version: ["all"]
       });
 
       //16b_hecken
@@ -656,7 +656,7 @@ define([
           { key: "0", points: 1, label: "Ja", measure: "A16.6" },
           { key: "1", points: 0, label: "Nein", measure: "A16.7" },
         ],
-        version: ["long"]
+        version: ["all"]
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
@@ -711,7 +711,7 @@ define([
           </div>
           `,
           },
-          version: ["short"]
+          version: ["long"]
       });
 
     
@@ -754,7 +754,7 @@ define([
           </div>
           `,
           },
-          version: ["long"]
+          version: ["all"]
       });
 
        
@@ -788,7 +788,7 @@ define([
           </div>
           `,
           },
-          version: ["long"]
+          version: ["all"]
       });
 
      
@@ -823,7 +823,7 @@ define([
           </div>
           `,
           },
-          version: ["long"]
+          version: ["all"]
       });
 
       page_strukturelemente.addTextInfo({
@@ -858,7 +858,7 @@ define([
           </div>
           `,
           },
-          version: ["long"]
+          version: ["all"]
       });
   
       //22_voegel
@@ -888,7 +888,7 @@ define([
           </div>
           `,
           },
-          version: ["long"]
+          version: ["all"]
       });
 
       //23_saeuger
@@ -922,7 +922,7 @@ define([
           </div>
           `,
           },
-          version: ["long"]
+          version: ["all"]
       });
      
   
@@ -957,7 +957,7 @@ define([
           </div>
           `,
           },
-          version: ["long"]
+          version: ["all"]
       });
 
       //25_stehgew
@@ -985,7 +985,7 @@ define([
           </div>
           `,
           },
-          version: ["long"]
+          version: ["all"]
       });
 
       //26_fliessgew
@@ -1010,7 +1010,7 @@ define([
           </div>
           `,
           },
-          version: ["long"]
+          version: ["all"]
       });
 
      
@@ -1038,7 +1038,7 @@ define([
           </div>
           `,
           },
-          version: ["short"]
+          version: ["long"]
       });
 
       /*Pflege*/
@@ -1088,7 +1088,7 @@ define([
           </div>
           `
         },
-        version: ["long"]
+        version: ["all"]
       }) 
 
       //Info
@@ -1113,7 +1113,7 @@ define([
           { key: "0", points: 0, label: "Ja", measure: "A29a.1" },
           { key: "1", points: 1, label: "Nein", measure: "A29.P" },
         ],
-        version: ["long"]
+        version: ["all"]
       });
 
        //29b_maehen
@@ -1126,7 +1126,7 @@ define([
           { key: "0", points: 1, label: "einmal oder weniger", measure: "A29b.1"  },
           { key: "1", points: -2, label: "zweimal oder öfter", measure: "A29.P"  },
         ],
-        version: ["long"]
+        version: ["all"]
       });
 
        //29c_maehen
@@ -1139,7 +1139,7 @@ define([
           { key: "1", points: 1, label: "Ja", measure: "A29c.1"  },
           { key: "0", points: 0, label: "Nein", measure: "A29.P"  },
         ],
-        version: ["short"]
+        version: ["long"]
       });
     
 
@@ -1163,7 +1163,7 @@ define([
           </div>
           `,
         },
-        version: ["short"]
+        version: ["long"]
       });
 
       //[Je nach gewählter Zone wird in 29e nur die entsprechende Frage zum Anklicken angezeigt:]
@@ -1178,7 +1178,7 @@ define([
           { key: "0", points: 2, label: "Ja", measure: "A29e.1"  },
           { key: "1", points: 0, label: "Nein", measure: "A29.P"  },
         ],
-        version: ["short"]
+        version: ["long"]
       });
 
        //29eberg1
@@ -1191,7 +1191,7 @@ define([
           { key: "0", points: 2, label: "Ja", measure: "A29e.1"  },
           { key: "1", points: 0, label: "Nein", measure: "A29.P"  },
         ],
-        version: ["short"]
+        version: ["long"]
       });
 
        //29eberg2
@@ -1204,7 +1204,7 @@ define([
           { key: "0", points: 2, label: "Ja", measure: "A29e.1"  },
           { key: "1", points: 0, label: "Nein", measure: "A29.P"  },
         ],
-        version: ["short"]
+        version: ["long"]
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
@@ -1276,7 +1276,7 @@ define([
           Chemische Pestizide sind Mittel, die oft nicht nur so genannte Schädlinge töten, sondern oft auch zahlreiche harmlose oder sogar nützliche Lebewesen. Oft bleiben Pestizide lange im Boden. Auch gelangen Pestizide mit Regenwasser in Gewässer.
           `,
           },
-          version: ["long"]
+          version: ["all"]
       });
       //Chemische Pestizide werden kaum eingesetzt. <5%	2
       //5.1-66%	1
@@ -1298,7 +1298,7 @@ define([
             Ökologische Mittel bestehen aus Stoffen, die ähnlich so auch in der Natur vorkommen. Andere ökologische Mittel bekämpfen Schädlinge durch natürliche Gegenspieler. Beispielsweise gibt es Schlupfwespen, die gefrässige Raupen abtöten.
             `,
           },
-          version: ["short"]
+          version: ["long"]
       });
      
       //32_unkraut
@@ -1334,7 +1334,7 @@ define([
           </div>
           `
         },
-        version: ["long"]
+        version: ["all"]
       });
 
        //32b_unkraut
@@ -1348,7 +1348,7 @@ define([
           { key: "2", points: 2, label: "Weniger als 25 % der gesamten Unkrautbekämpfung erfolgt mit chemischen Mitteln, so genannten Herbiziden.", measure: "A32.4"  },
         ],
         points: "b_unkraut_points",
-        version: ["short"]
+        version: ["long"]
       });
       
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
@@ -1380,7 +1380,7 @@ define([
           { key: "0",points: 0, label: "Ja" },
           { key: "1",points: 0, label: "Nein", measure: "A33.0"},      
         ],
-        version: ["long"]          
+        version: ["all"]          
       });
 
       //Falls Ja, dann Items 33_grasduengen und 34er, Falls Nein, dann weiter mit Item 35 (Laub) 
@@ -1403,7 +1403,7 @@ define([
           </div>
           `
         },
-        version: ["long"]       
+        version: ["all"]       
       });
 
       //Falls Ja, dann Items und 33a_duengen und 34, Falls Nein, dann weiter mit Item 35 (Laub)
@@ -1419,7 +1419,7 @@ define([
           { key: "1",points: 1, label: "Weniger als die Hälfte des Bodens wird ohne Analyse des Bodens gedüngt.", measure: "A33.3"},      
         ],
         points: "a_duengen_points",
-        version: ["short"]    
+        version: ["long"]    
       });    
   
 
@@ -1441,7 +1441,7 @@ define([
           Mineralische Düngemittel helfen zwar den Pflanzen, vernachlässigen aber Bodenlebewesen. Auch kann Mineraldünger zu einem chemischen Ungleichgewicht von Nährstoffen im Boden führen. Überschüssiger Mineraldünger wird zudem mit dem Regenwasser in Gewässer geschwemmt. In Gewässer kann Mineraldünger zu übermässigem Algenwachstum führen.
           `,
           },
-          version: ["short"]
+          version: ["long"]
       });
 
     
@@ -1493,7 +1493,7 @@ define([
           </div>
           `,
           },
-        version: ["long"]  
+        version: ["all"]  
       });
 
  
@@ -1524,7 +1524,7 @@ define([
           </div>
           `,
           },
-          version: ["long"] 
+          version: ["all"] 
       });
 
       /*Bauliche Massnahmen*/
@@ -1560,7 +1560,7 @@ define([
           </div>
           `,
           },
-          version: ["long"] 
+          version: ["all"] 
       });
 
     
@@ -1580,7 +1580,7 @@ define([
           Begrünte Fassaden bieten Lebensraum für Krabbeltiere und Vögel. Begrünte Fassaden schützen auch vor Kälte und Hitze.
           `,
           },
-        version: ["long"] 
+        version: ["all"] 
       });
 
       page_baumassnahmen.addTextInfo({
@@ -1604,7 +1604,7 @@ define([
           Ein Kräuter- oder Gemüsegarten sorgt nur dann für mehr Artenvielfalt, wenn er biologisch bearbeitet wird. Bei Einsatz von chemischen Pestiziden, Herbiziden und Mineraldünger schadet dies der Artenvielfalt hingegen.
           `,
           },
-          version: ["long"]
+          version: ["all"]
       });
 
       page_baumassnahmen.addTextInfo({
@@ -1637,7 +1637,7 @@ define([
           </div>
            `,
           },
-          version: ["long"]
+          version: ["all"]
       });
 
       //Item 40b sollte nur eingeblendet werden, wenn zuvor Item 40a mit Ja beantwortet wurde.     
@@ -1678,7 +1678,7 @@ define([
           </div>
            `,
           },
-          version: ["long"]
+          version: ["all"]
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
@@ -1715,7 +1715,7 @@ define([
           </div>
            `,
           },
-          version: ["long"] 
+          version: ["all"] 
       });
 
       //Item 41b sollte nur eingeblendet werden, wenn zuvor Item 41a mit Ja beantwortet wurde.
@@ -1752,7 +1752,7 @@ define([
           </div>
            `,
           },
-          version: ["short"]
+          version: ["long"]
       });  
 
        
@@ -1784,7 +1784,7 @@ define([
           </div>
            `,
           },
-          version: ["long"] 
+          version: ["all"] 
       });      
 
       app.addFinalPage("Ende");     
