@@ -1640,17 +1640,6 @@ define([
           version: ["all"]
       });
 
-      //Item 40b sollte nur eingeblendet werden, wenn zuvor Item 40a mit Ja beantwortet wurde.     
-      elem40b.hide();  
-      elem40a.rules = [{
-        values: [
-          "0",
-          ], 
-        elements: [elem40b]
-      }] 
-     
-
-
 
       //40b_glasschutz
       let elem40b = page_baumassnahmen.addElement("radioButtonInput", "b_glasschutz", {
@@ -1681,11 +1670,12 @@ define([
           version: ["all"]
       });
 
+
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
       elem40b.hide();
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem40a.rules = [{
-        values: ["1"], 
+        values: ["0"], 
         elements: [elem40b]
       }]
 
