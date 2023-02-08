@@ -212,7 +212,8 @@ define([
                   <li><a target = "_blank" href = "https://floraincognita.com">Flora Incognita</a></li>
                   <li><a target="_blank", href="https://plantnet.org/">PlantNet</a></li>
                 </ul>`,
-        }
+        },
+        version: ["long"]
       });
 
       page_regionalitaet.addTextInfo({
@@ -241,7 +242,8 @@ define([
             </ul>
             <br>
             Beilage: <a href="./content/Praxishilfe_invasive_Neophyten_ANJF_20_ZH.pdf" target="_blank">Neophytenarten</a>`,
-        }
+        },
+        version: ["long"]
       });
 
 
@@ -254,6 +256,7 @@ define([
           { key: "0", points: -1, label: "kleiner als ein Parkplatz für ein Auto ", measure: "A10.2" },
           { key: "1", points: -2, label: "grösser als ein Parkplatz für ein Auto ",  measure: "A10.2" },
         ],
+        version: ["long"]
       });
 
       //10b_neophyten__geomoid - Liste und Points tbd
@@ -262,6 +265,7 @@ define([
         placeholder: "Auswählen",
         color: [147, 145, 98, 0.7],
         name_display : "Neophyten",
+        version: ["short"]
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
@@ -352,6 +356,7 @@ define([
         color: [64, 9, 105, 0.7],
         name_display : "Versiegelte Flächen",
         points: "versieg_points",
+        version: ["long"]
       }); 
 
       page_strukturelemente.addTextInfo({
@@ -378,8 +383,8 @@ define([
           Sportrasen und Wiesen mit Gras, das immer kürzer ist als 10 cm. Solche Rasenflächen sind sehr arm an verschiedenen Lebewesen."
           </div>
            `,
-        }
-
+        },
+        version: ["long"]
       }); 
 
 
@@ -462,7 +467,7 @@ define([
         },
         color: [129, 0, 157, 0.7],
         name_display : "Verschiedene Pflanzenflächen",
-          
+        version: ["short"]          
       }); 
 
    
@@ -500,7 +505,8 @@ define([
           heimische Bäume in deutlich unterschiedlichen Höhen
           </div>
           `,
-          }       
+          },
+          version: ["long"]       
       });
 
       //[Falls bei 14 eine der beiden Optionen mit mehr als einem Baum angekreuzt wird, dann Fragen 14a und 14b einblenden:] gelöst durch mehrere Schnittmengen
@@ -514,6 +520,7 @@ define([
           { key: "0", points: 1, label: "Ja", measure: "A14.4" },
           { key: "1", points: 0, label: "Nein", measure: "A14.5"  },
         ],
+        version: ["long"]   
       });
 
        //14b_baeume
@@ -525,6 +532,7 @@ define([
           { key: "0", points: 2, label: "Ja", measure: "A14.6"},
           { key: "1", points: 0, label: "Nein", measure: "A14.7"},
         ],
+        version: ["long"]   
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
@@ -565,7 +573,8 @@ define([
           
           </div>
           `,
-          }
+          },
+          version: ["long"]
       });
 
       //[Falls bei 15 eine der beiden Optionen mit Gruppen von Sträuchern angekreuzt wird, dann Fragen 15a einblenden:]
@@ -579,6 +588,7 @@ define([
           { key: "0", points: 2, label: "Ja", measure: "A15.4"},
           { key: "1", points: 0, label: "Nein", measure: "A15.5"},
         ],
+        version: ["long"]
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
@@ -590,9 +600,7 @@ define([
           "3" ], 
         elements: [elem15a]
       }]
-
-
-     
+    
       page_strukturelemente.addTextInfo({
         title: "Hecken (16)", 
       })       
@@ -622,7 +630,8 @@ define([
           <img src="img/Fotos_Hilfestellungen/H16_1_Kirschlorbeer.jpg" alt="H16_1" width="100%">          
           </div>
           `,
-          }
+          },
+          version: ["long"]
       });
 
       //[Falls bei 16 eine der beiden Optionen mit Hecken mit heimischen Sträuchern angekreuzt wird, dann Fragen 16a und 16b einblenden:]
@@ -635,6 +644,7 @@ define([
           { key: "0", points: 2, label: "Ja", measure: "A16.4" },
           { key: "1", points: 0, label: "Nein", measure: "A16.5" },
         ],
+        version: ["long"]
       });
 
       //16b_hecken
@@ -646,6 +656,7 @@ define([
           { key: "0", points: 1, label: "Ja", measure: "A16.6" },
           { key: "1", points: 0, label: "Nein", measure: "A16.7" },
         ],
+        version: ["long"]
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
@@ -699,7 +710,8 @@ define([
           <img src="img/Fotos_Hilfestellungen/H17_4_alle3Schichten.jpg" alt="H17_4" width="100%"> 
           </div>
           `,
-          }
+          },
+          version: ["short"]
       });
 
     
@@ -741,7 +753,8 @@ define([
           Ruderalflächen bieten ein Zuhause für ganz spezielle Pflanzen und Tiere.
           </div>
           `,
-          } 
+          },
+          version: ["long"]
       });
 
        
@@ -774,7 +787,8 @@ define([
           <img src="img/Fotos_Hilfestellungen/H19_2_Trockenmauer.jpg" alt="H19_2" width="100%">
           </div>
           `,
-          } 
+          },
+          version: ["long"]
       });
 
      
@@ -808,7 +822,8 @@ define([
           Totholz und abgestorbene Bäume sind der Lebensraum für zahlreiche Insekten, Pilze und Moose.                    
           </div>
           `,
-          }
+          },
+          version: ["long"]
       });
 
       page_strukturelemente.addTextInfo({
@@ -842,7 +857,8 @@ define([
           <img src="img/Fotos_Hilfestellungen/H21_2_Lebensturm.jpg" alt="H21_2" width="100%">          
           </div>
           `,
-          }
+          },
+          version: ["long"]
       });
   
       //22_voegel
@@ -871,7 +887,8 @@ define([
           <img src="img/Fotos_Hilfestellungen/H22_2_NisthilfeSchwalben.jpg" alt="H22_2" width="100%">          
           </div>
           `,
-          }
+          },
+          version: ["long"]
       });
 
       //23_saeuger
@@ -904,7 +921,8 @@ define([
           <img src="img/Fotos_Hilfestellungen/H23_3_VersteckSiebenschlaefer.jpg" alt="H23_3" width="100%">          
           </div>
           `,
-          }
+          },
+          version: ["long"]
       });
      
   
@@ -938,7 +956,8 @@ define([
           <img src="img/Fotos_Hilfestellungen/H24_2_Moorwiese.jpg" alt="H24_2" width="100%">
           </div>
           `,
-          }
+          },
+          version: ["long"]
       });
 
       //25_stehgew
@@ -965,7 +984,8 @@ define([
           <img src="img/Fotos_Hilfestellungen/H11a_5_Tuempel.jpg" alt="H11a_5" width="100%">
           </div>
           `,
-          }
+          },
+          version: ["long"]
       });
 
       //26_fliessgew
@@ -989,7 +1009,8 @@ define([
           <img src="img/Fotos_Hilfestellungen/H13f_2_kleinesBaechlein.jpg" alt="H13f_2" width="100%">       
           </div>
           `,
-          }
+          },
+          version: ["long"]
       });
 
      
@@ -1016,7 +1037,8 @@ define([
           Zahlreiche Lebewesen können in überbauten Gebieten nicht überleben.
           </div>
           `,
-          }
+          },
+          version: ["short"]
       });
 
       /*Pflege*/
@@ -1065,7 +1087,8 @@ define([
           <img src="img/Fotos_Hilfestellungen/H28_5_Balkenmaeher.jpg" alt="H28_5" width="100%">          
           </div>
           `
-        }
+        },
+        version: ["long"]
       }) 
 
       //Info
@@ -1090,6 +1113,7 @@ define([
           { key: "0", points: 0, label: "Ja", measure: "A29a.1" },
           { key: "1", points: 1, label: "Nein", measure: "A29.P" },
         ],
+        version: ["long"]
       });
 
        //29b_maehen
@@ -1102,6 +1126,7 @@ define([
           { key: "0", points: 1, label: "einmal oder weniger", measure: "A29b.1"  },
           { key: "1", points: -2, label: "zweimal oder öfter", measure: "A29.P"  },
         ],
+        version: ["long"]
       });
 
        //29c_maehen
@@ -1114,6 +1139,7 @@ define([
           { key: "1", points: 1, label: "Ja", measure: "A29c.1"  },
           { key: "0", points: 0, label: "Nein", measure: "A29.P"  },
         ],
+        version: ["short"]
       });
     
 
@@ -1136,7 +1162,8 @@ define([
           <iframe src='https://map.geo.admin.ch/embed.html?topic=blw&lang=de&bgLayer=ch.swisstopo.pixelkarte-farbe&catalogNodes=887,947&layers=ch.kantone.cadastralwebmap-farbe,ch.swisstopo.swissboundaries3d-gemeinde-flaeche.fill,ch.swisstopo.swissboundaries3d-kanton-flaeche.fill,ch.blw.landwirtschaftliche-zonengrenzen&layers_opacity=0.15,1,1,0.75&layers_visibility=false,false,false,true&E=2759000.00&N=1222000.00&zoom=1' width='100%' height='250' frameborder='0' style='border:0' allow='geolocation'></iframe>
           </div>
           `,
-        }
+        },
+        version: ["short"]
       });
 
       //[Je nach gewählter Zone wird in 29e nur die entsprechende Frage zum Anklicken angezeigt:]
@@ -1151,6 +1178,7 @@ define([
           { key: "0", points: 2, label: "Ja", measure: "A29e.1"  },
           { key: "1", points: 0, label: "Nein", measure: "A29.P"  },
         ],
+        version: ["short"]
       });
 
        //29eberg1
@@ -1163,6 +1191,7 @@ define([
           { key: "0", points: 2, label: "Ja", measure: "A29e.1"  },
           { key: "1", points: 0, label: "Nein", measure: "A29.P"  },
         ],
+        version: ["short"]
       });
 
        //29eberg2
@@ -1175,6 +1204,7 @@ define([
           { key: "0", points: 2, label: "Ja", measure: "A29e.1"  },
           { key: "1", points: 0, label: "Nein", measure: "A29.P"  },
         ],
+        version: ["short"]
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
@@ -1245,7 +1275,8 @@ define([
           text: `
           Chemische Pestizide sind Mittel, die oft nicht nur so genannte Schädlinge töten, sondern oft auch zahlreiche harmlose oder sogar nützliche Lebewesen. Oft bleiben Pestizide lange im Boden. Auch gelangen Pestizide mit Regenwasser in Gewässer.
           `,
-          }
+          },
+          version: ["long"]
       });
       //Chemische Pestizide werden kaum eingesetzt. <5%	2
       //5.1-66%	1
@@ -1266,7 +1297,8 @@ define([
             text: `
             Ökologische Mittel bestehen aus Stoffen, die ähnlich so auch in der Natur vorkommen. Andere ökologische Mittel bekämpfen Schädlinge durch natürliche Gegenspieler. Beispielsweise gibt es Schlupfwespen, die gefrässige Raupen abtöten.
             `,
-          }
+          },
+          version: ["short"]
       });
      
       //32_unkraut
@@ -1301,7 +1333,8 @@ define([
           <img src="img/Fotos_Hilfestellungen/H32_2_HitzeGeraete.jpg" alt="H32_2" width="100%">
           </div>
           `
-        }
+        },
+        version: ["long"]
       });
 
        //32b_unkraut
@@ -1315,6 +1348,7 @@ define([
           { key: "2", points: 2, label: "Weniger als 25 % der gesamten Unkrautbekämpfung erfolgt mit chemischen Mitteln, so genannten Herbiziden.", measure: "A32.4"  },
         ],
         points: "b_unkraut_points",
+        version: ["short"]
       });
       
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
@@ -1345,7 +1379,8 @@ define([
         options: [
           { key: "0",points: 0, label: "Ja" },
           { key: "1",points: 0, label: "Nein", measure: "A33.0"},      
-        ],          
+        ],
+        version: ["long"]          
       });
 
       //Falls Ja, dann Items 33_grasduengen und 34er, Falls Nein, dann weiter mit Item 35 (Laub) 
@@ -1367,7 +1402,8 @@ define([
           In Böden mit wenig Nährstoffen ist die Artenvielfalt erstaunlicher Weise viel höher als in nährstoffreichen Böden. Düngemittel sind nichts Anderes als Nährstoffe für Pflanzen. Deshalb fördern Düngemittel oft das Wachstum von nur einigen wenigen Pflanzenarten.
           </div>
           `
-        },       
+        },
+        version: ["long"]       
       });
 
       //Falls Ja, dann Items und 33a_duengen und 34, Falls Nein, dann weiter mit Item 35 (Laub)
@@ -1382,7 +1418,8 @@ define([
           { key: "0",points: 0, label: "Mehr als die Hälfte des Bodens wird ohne Analyse des Bodens gedüngt.", measure: "A33.2"},
           { key: "1",points: 1, label: "Weniger als die Hälfte des Bodens wird ohne Analyse des Bodens gedüngt.", measure: "A33.3"},      
         ],
-        points: "a_duengen_points",     
+        points: "a_duengen_points",
+        version: ["short"]    
       });    
   
 
@@ -1403,7 +1440,8 @@ define([
           text: `
           Mineralische Düngemittel helfen zwar den Pflanzen, vernachlässigen aber Bodenlebewesen. Auch kann Mineraldünger zu einem chemischen Ungleichgewicht von Nährstoffen im Boden führen. Überschüssiger Mineraldünger wird zudem mit dem Regenwasser in Gewässer geschwemmt. In Gewässer kann Mineraldünger zu übermässigem Algenwachstum führen.
           `,
-          }
+          },
+          version: ["short"]
       });
 
     
@@ -1442,7 +1480,6 @@ define([
           { key: "1", points: 1, label: "Vereinzelt wird Laub bewusst belassen.", measure: "A35.2" },
           { key: "2", points: 2, label: "Es werden bewusst zahlreiche Laubhaufen erstellt.", measure: "A35.3" },
         ],
-          //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -1455,8 +1492,8 @@ define([
           <img src="img/Fotos_Hilfestellungen/H35_1 Laubhaufen.jpg" alt="H35_1" width="100%">
           </div>
           `,
-          }
-        
+          },
+        version: ["long"]  
       });
 
  
@@ -1475,7 +1512,6 @@ define([
           { key: "1", points: 1, label: "Vereinzelt werden alte Samenstände bewusst belassen.", measure: "A36.2" },
           { key: "2", points: 2, label: "Die meisten Samenstände werden bewusst belassen.", measure: "A36.3" },
         ],
-        //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -1487,7 +1523,8 @@ define([
           <img src="img/Fotos_Hilfestellungen/H36_1 alte Samenstaende.jpg" alt="H36_1" width="100%">          
           </div>
           `,
-          }
+          },
+          version: ["long"] 
       });
 
       /*Bauliche Massnahmen*/
@@ -1511,7 +1548,6 @@ define([
           { key: "3", points: 1, label: "Mehr als die Hälfte der Flachdächer ist begrünt, enthält aber keine Sandflächen oder Totholz.", measure: "A37.3" },
           { key: "4", points: 2, label: "Mehr als die Hälfte der Flachdächer ist begrünt und enthält auch Sandflächen oder Totholz.", measure: "A37.4" },
         ],
-          //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -1523,7 +1559,8 @@ define([
           <img src="img/Fotos_Hilfestellungen/H37_1_Flachdach.jpg" alt="H37_1" width="100%">          
           </div>
           `,
-          }
+          },
+          version: ["long"] 
       });
 
     
@@ -1537,13 +1574,13 @@ define([
           { key: "0", points: 0, label: "Keine oder nur vereinzelt Fassadenbegrünung.", measure: "A38.1" },
           { key: "1", points: 1, label: "Fassaden von einer Fläche von insgesamt mindestens zwei Autoparkplätzen ist begrünt.", measure: "A38.2" },
         ],
-        //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
           Begrünte Fassaden bieten Lebensraum für Krabbeltiere und Vögel. Begrünte Fassaden schützen auch vor Kälte und Hitze.
           `,
-          }
+          },
+        version: ["long"] 
       });
 
       page_baumassnahmen.addTextInfo({
@@ -1561,13 +1598,13 @@ define([
           { key: "0",points: 0, label: "Nein", measure: "A39.1" },
           { key: "1",points: 1, label: "Ja", measure: "A39.2" },
         ],
-          //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
           Ein Kräuter- oder Gemüsegarten sorgt nur dann für mehr Artenvielfalt, wenn er biologisch bearbeitet wird. Bei Einsatz von chemischen Pestiziden, Herbiziden und Mineraldünger schadet dies der Artenvielfalt hingegen.
           `,
-          }
+          },
+          version: ["long"]
       });
 
       page_baumassnahmen.addTextInfo({
@@ -1585,7 +1622,6 @@ define([
           { key: "0",points: 2, label: "Nein", measure: "A40.1" },
           { key: "1",points: 0, label: "Ja" },  //Falls Ja, dann kein Auswertungssatz
         ],
-         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -1600,7 +1636,8 @@ define([
           Glasfläche mit aufgeklebten Vogelschutzstreifen
           </div>
            `,
-          }
+          },
+          version: ["long"]
       });
 
       //Item 40b sollte nur eingeblendet werden, wenn zuvor Item 40a mit Ja beantwortet wurde.     
@@ -1626,7 +1663,6 @@ define([
           { key: "1",points: 0, label: "Glasflächen mit aufgeklebten Umrissen von Vögeln.", measure: "A40.2" },
           { key: "2",points: 1, label: "Glasflächen mit aufgeklebten Vogelschutzstreifen. (Birdstripes)", measure: "A40.3" },
         ],
-         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
          textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -1641,7 +1677,8 @@ define([
           Glasfläche mit aufgeklebten Vogelschutzstreifen
           </div>
            `,
-          }
+          },
+          version: ["long"]
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
@@ -1663,7 +1700,6 @@ define([
           { key: "0",points: 2, label: "Nein", measure: "A41.1" },
           { key: "1",points: 0, label: "Ja" }, //Falls Ja, dann kein Auswertungssatz
         ],
-        //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -1678,7 +1714,8 @@ define([
           Schädlichkeit verschiedener Lichtquellen
           </div>
            `,
-          }
+          },
+          version: ["long"] 
       });
 
       //Item 41b sollte nur eingeblendet werden, wenn zuvor Item 41a mit Ja beantwortet wurde.
@@ -1700,7 +1737,6 @@ define([
           { key: "0",points: 0, label: "Einige Lichtquellen strahlen auch nach oben ab, beispielsweise zur Beleuchtung des Gebäudes.", measure: "A41.2"},
           { key: "1",points: 1, label: "Gelbliche Lichtquellen, die fast nur nach unten strahlen, beispielsweise Wegbeleuchtung.", measure: "A41.3"},
         ],
-        //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -1715,7 +1751,8 @@ define([
           Schädlichkeit verschiedener Lichtquellen
           </div>
            `,
-          }
+          },
+          version: ["short"]
       });  
 
        
@@ -1730,7 +1767,6 @@ define([
           { key: "0", points: 2, label: "Nein oder nur sehr wenige.", measure: "A42.1"},
           { key: "1", points: 0, label: "Ja", measure: "A42.2" },
         ],
-         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -1747,7 +1783,8 @@ define([
           Ausstiegshilfen ermöglichen runtergefallenen Tieren, sich wieder aus dem Schacht zu befreien.
           </div>
            `,
-          }
+          },
+          version: ["long"] 
       });      
 
       app.addFinalPage("Ende");     
