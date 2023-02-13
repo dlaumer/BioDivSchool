@@ -60,7 +60,7 @@ define([
   return class ArcGis {
     constructor(strings) {
       this.strings = strings;
-      esriConfig.portalUrl = "https://swissparks.maps.arcgis.com/";
+      esriConfig.portalUrl = "https://globe-swiss.maps.arcgis.com/";
 
       this.signedIn = false;
       this.info = new OAuthInfo({
@@ -83,10 +83,10 @@ define([
       this.clickHandler();
       this.links = {
         //geometryLayerI: "3c34d04c41fd47d4b8852788c00e2f1f",    // Daniel
-        geometryLayerId: "c3fde87341cc4145a3fd47a9441cd19a", //Christian
+        geometryLayerId: "2106076234904e29980c1d20aa317e98", //Christian
         //dataLayerId: "51be950e7c1b4cbb8085c67a2c412868",    // Daniel
-        dataLayerId: "d5acf5ac02b54c16925ac0aeca838e45", //Christian
-        projectLayerId: "18ac6eb030ca46adac62874af52b17fc",
+        dataLayerId: "3e5de63361774b82a560150dab5cdd68", //Christian
+        projectLayerId: "28aa4770fce5454d830bc51e53f12c07",
       };
     }
 
