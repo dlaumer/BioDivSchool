@@ -54,99 +54,100 @@ define([
 
 
     init() {
-        this.makeContent();
+      this.makeContent();
     }
 
 
     // Start the login screen
     makeContent() {
-    /*
-    ==========
-    Elements
-    ==========
-
-    simpleTextInput
-    ---------------
-    - text
-    - placeholder
-    - textInfo (optional)
-        - linkText
-        - text
-    - version
-
-
-    dateTimeInput
-    --------------
-    - text
-    - textInfo (optional)
-        - linkText
-        - text
-    - version
-
-    dropdownInput
-    --------------
-    - text
-    - placeholder
-    - points (optional)
-    - options
-        - key (points as string!)
-        - label
-    - textInfo (optional)
-        - linkText
-        - text
-    - version
-    
-
-    radioButtonInput
-    ------------------
-    - text
-    - points (optional)
-    - options
-        - key (points as string!)
-        - label
-    - textInfo (optional)
-        - linkText
-        - text
-    - version
-
-
-    sliderInput
-    -----------
-    - text
-    - min
-    - max
-    - step
-    - points
-    - stops
-    - textInfo (optional)
-        - linkText
-        - text
-    - version
-
-
-    mapInput
-    --------
-    - text
-    - textInfo (optional)
-        - linkText
-        - text
-    - area (optional)
-    - ratio (optional)
-      - key
-      - stops
-    - points (optional)
-    - version
-
-    */
-
-
-
+      /*
+      ==========
+      Elements
+      ==========
+  
+      simpleTextInput
+      ---------------
+      - text
+      - placeholder
+      - textInfo (optional)
+          - linkText
+          - text
+      - version
+  
+  
+      dateTimeInput
+      --------------
+      - text
+      - textInfo (optional)
+          - linkText
+          - text
+      - version
+  
+      dropdownInput
+      --------------
+      - text
+      - placeholder
+      - points (optional)
+      - options
+          - key (points as string!)
+          - label
+      - textInfo (optional)
+          - linkText
+          - text
+      - version
       
+  
+      radioButtonInput
+      ------------------
+      - text
+      - points (optional)
+      - options
+          - key (points as string!)
+          - label
+      - textInfo (optional)
+          - linkText
+          - text
+      - version
+  
+  
+      sliderInput
+      -----------
+      - text
+      - min
+      - max
+      - step
+      - points
+      - stops
+      - textInfo (optional)
+          - linkText
+          - text
+      - version
+  
+  
+      mapInput
+      --------
+      - text
+      - textInfo (optional)
+          - linkText
+          - text
+      - area (optional)
+      - ratio (optional)
+        - key
+        - stops
+      - points (optional)
+      - version
+  
+      */
+
+
+
+
 
       app.addStartPage("BioDivSchool");
       /*Regionalität der Pflanzen*/
       let page_regionalitaet = app.addPage("Regionalität der Pflanzen", {
-        pointsInfo: [0,10] });
+        pointsInfo: [0, 10]
+      });
 
       page_regionalitaet.addTextInfo({
         title: "Heimische Wildpflanzen (08, 09)",
@@ -156,8 +157,8 @@ define([
           Heimische Pflanzen sind die Grundlage von Nahrungsnetzen. Deshalb sollte es möglichst viele Flächen mit heimischen Wildpflanzen geben.
           <img src="img/Fotos_Hilfestellungen/H01_1.png" alt="H01_1" width="100%">
           `,
-        }, 
-        version: ["long"]
+        },
+        version: ["all"]
       })
 
       //08_wild_geomoid
@@ -169,10 +170,10 @@ define([
         measure: "A08.0",
         ratio: {
           key: "wild_geomarearatio",
-          stops: [{points: 0, value: 0.25, measure: "A08.1"},{points:2, value:0.50, measure: "A08.2"},{points: 4, value:0.75, measure: "A08.3"},{points: 6, value:1, measure: "A08.4"}]
+          stops: [{ points: 0, value: 0.25, measure: "A08.1" }, { points: 2, value: 0.50, measure: "A08.2" }, { points: 4, value: 0.75, measure: "A08.3" }, { points: 6, value: 1, measure: "A08.4" }]
         },
         color: [74, 186, 27],
-        name_display : "Heimische Pflanzen",
+        name_display: "Heimische Pflanzen",
         points: "wild_points",
         textInfo: {
           linkText: "Zusatzinfos",
@@ -186,8 +187,8 @@ define([
           </div>
           `,
         },
-        version: ["long"]
-      });  
+        version: ["all"]
+      });
 
 
       //09_arten
@@ -197,42 +198,44 @@ define([
         points: "arten_points",
         measure: "A09.0",
         options: [
-          { key: "0", points: 0, label: "weniger als 10 verschiedene Arten", measure: "A09.1"},
+          { key: "0", points: 0, label: "weniger als 10 verschiedene Arten", measure: "A09.1" },
           { key: "1", points: 1, label: "11 – 20 Arten", measure: "A09.2" },
           { key: "2", points: 2, label: "21 – 35 Arten", measure: "A09.3" },
           { key: "3", points: 4, label: "36 – 50 Arten", measure: "A09.4" },
           { key: "4", points: 6, label: "mehr als 50 verschiedene Arten", measure: "A09.5" },
         ],
         textInfo: {
-            linkText: "Hinweise zur Bestimmung von Pflanzen",
-            text: `Benutze zur Bestimmung von Pflanzen ein Bestimmungsbuch mit farbigen Bildern.
+          linkText: "Hinweise zur Bestimmung von Pflanzen",
+          text: `Benutze zur Bestimmung von Pflanzen ein Bestimmungsbuch mit farbigen Bildern.
                 Oder fotografiere die Pflanze. Bestimme dann deine Pflanze mit <a target = "_blank", href = "https://identify.plantnet.org/de">identify.plantnet.org</a>
                 oder verwende eine der folgenden beiden Apps:<br>
                 <ul>
                   <li><a target = "_blank" href = "https://floraincognita.com">Flora Incognita</a></li>
                   <li><a target="_blank", href="https://plantnet.org/">PlantNet</a></li>
                 </ul>`,
-        }
+        },
+        version: ["all"]
       });
 
       page_regionalitaet.addTextInfo({
         title: "Schädliche gebietsfremde Pflanzen (invasive Neophyten)  (10, 10a, 10b)",
       })
 
-  
+
       //10_neophyten
       let elem10 = page_regionalitaet.addElement("radioButtonInput", "neophyten", {
         text: "10: Gibt es im Untersuchungsgebiet schädliche gebietsfremde Pflanzen?",
         placeholder: "Auswählen",
         points: "neophyten_points",
+        measure: "A10.0",
         options: [
-          { key: "0", points: 2, label: "keine",  measure: "A10.1" },
-          { key: "1", points: 0, label: "eine Art von schädlichen gebietsfremden Pflanzen", measure: "A10.2"},
-          { key: "2", points: -2, label: "mehr als eine Art von schädlichen gebietsfremden Pflanzen",  measure: "A10.2"},
+          { key: "0", points: 2, label: "keine", measure: "A10.1" },
+          { key: "1", points: 0, label: "eine Art von schädlichen gebietsfremden Pflanzen", measure: "A10.2" },
+          { key: "2", points: -2, label: "mehr als eine Art von schädlichen gebietsfremden Pflanzen", measure: "A10.2" },
         ],
         textInfo: {
-            linkText: "Zusatzinfos",
-            text: `Gebietsfremde Pflanzen sind Pflanzen, die natürlicher Weise nicht hier wachsen. Sie werden Neophyten genannt. Die meisten Neophyten sind harmlos. Es gibt aber Neophyten, die Probleme bereiten. Solche Neophyten sind schädlich.
+          linkText: "Zusatzinfos",
+          text: `Gebietsfremde Pflanzen sind Pflanzen, die natürlicher Weise nicht hier wachsen. Sie werden Neophyten genannt. Die meisten Neophyten sind harmlos. Es gibt aber Neophyten, die Probleme bereiten. Solche Neophyten sind schädlich.
             Die wichtigsten schädlichen Neophyten findest du unter:<br>
             <ul>
               <li><a target = "_blank" href = "https://www.neophyt.ch">neophyt.ch</a></li>
@@ -240,7 +243,8 @@ define([
             </ul>
             <br>
             Beilage: <a href="./content/Praxishilfe_invasive_Neophyten_ANJF_20_ZH.pdf" target="_blank">Neophytenarten</a>`,
-        }
+        },
+        version: ["all"]
       });
 
 
@@ -251,16 +255,18 @@ define([
         points: "neophytenmenge_points",
         options: [
           { key: "0", points: -1, label: "kleiner als ein Parkplatz für ein Auto ", measure: "A10.2" },
-          { key: "1", points: -2, label: "grösser als ein Parkplatz für ein Auto ",  measure: "A10.2" },
+          { key: "1", points: -2, label: "grösser als ein Parkplatz für ein Auto ", measure: "A10.2" },
         ],
+        version: ["all"]
       });
 
       //10b_neophyten__geomoid - Liste und Points tbd
       let elem10b = page_regionalitaet.addElement("mapInput", "neophyten__geomoid", {
-        text: `10b: Markiere alle Standorte mit schädlichen gebietsfremden Pflanzen.`,
+        text: `10b: Markiere alle Standorte mit schädlichen gebietsfremden Pflanzen und wähle alle Arten von Neophyten aus, die im Untersuchungsgebiet vorkommen. Das Dokument mit den Zusatzinfos zeigt dir die häufigsten und schädlichsten Neophyten.`,
         placeholder: "Auswählen",
         color: [147, 145, 98, 0.7],
-        name_display : "Neophyten",
+        name_display: "Neophyten",
+        version: ["long"]
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
@@ -270,16 +276,17 @@ define([
       elem10.rules = [{
         values: [
           "1",
-          "2" ], 
+          "2"],
         elements: [elem10a, elem10b]
       }]
 
-      
-      /*Strukturelemente*/      
-      let page_strukturelemente = app.addPage("Strukturelemente", {
-      pointsInfo: [10, 32]});
 
-      page_strukturelemente.addTextInfo({        
+      /*Strukturelemente*/
+      let page_strukturelemente = app.addPage("Strukturelemente", {
+        pointsInfo: [10, 32]
+      });
+
+      page_strukturelemente.addTextInfo({
         textInfo: {
           linkText: "Zusatzinfos",
           text: `
@@ -311,8 +318,8 @@ define([
           </div>        
           Verschiedene Strukturelemente bieten verschiedenen Lebewesen Lebensraum und Nahrung. Je mehr verschiedene Strukturelemente, desto mehr verschiedene Arten gibt es auf einer Fläche."
           `
-        }, 
-        version: ["long"]
+        },
+        version: ["all"]
       })
 
       page_strukturelemente.addTextInfo({
@@ -323,8 +330,8 @@ define([
 
         textInfo: {
           linkText: "Beispiele von versiegelten Flächen",
-        text:
-        `
+          text:
+            `
         <div class= textInfoElements>
           Überall, wo Gebäude stehen:
           Asphalt, Teer
@@ -337,7 +344,7 @@ define([
           `
         }
       })
-      
+
 
       //11_versieg_geomoid
       page_strukturelemente.addElement("mapInput", "versieg_geomoid", {
@@ -346,30 +353,31 @@ define([
         measure: "A11.0",
         ratio: {
           key: "versieg_arearatio",
-          stops: [{points:4, value: 0.33, measure: "A11.3"},{points:2, value: 0.5, measure: "A11.2"},{points:1, value: 0.66, measure: "A11.1"},{points:6, value:1, measure: "A11.1"}]
+          stops: [{ points: 4, value: 0.33, measure: "A11.3" }, { points: 2, value: 0.5, measure: "A11.2" }, { points: 1, value: 0.66, measure: "A11.1" }, { points: 6, value: 1, measure: "A11.1" }]
         },
         color: [64, 9, 105, 0.7],
-        name_display : "Versiegelte Flächen",
+        name_display: "Versiegelte Flächen",
         points: "versieg_points",
-      }); 
+        version: ["all"]
+      });
 
       page_strukturelemente.addTextInfo({
         title: "Rasenflächen  (12)",
       })
 
       //12_rasen_geomoid
-      page_strukturelemente.addElement("mapInput", "rasen_geomoid", {      
+      page_strukturelemente.addElement("mapInput", "rasen_geomoid", {
         text: `12: Markiere Flächen mit Rasen in der gezeigten Untersuchungsfläche.`,
         area: "rasen_area",
         measure: "A12.0",
         ratio: {
           key: "rasen_area_ratio",
-          stops: [{points:2, value:0.25, measure: "A12.3"},{points:1, value: 0.5, measure: "A12.2",},{points:0, value:1, measure: "A12.1",}]
+          stops: [{ points: 2, value: 0.25, measure: "A12.3" }, { points: 1, value: 0.5, measure: "A12.2", }, { points: 0, value: 1, measure: "A12.1", }]
         },
         color: [46, 37, 72, 0.7],
-        name_display : "Rasenflächen",
+        name_display: "Rasenflächen",
         points: "rasen_points",
-          textInfo: {
+        textInfo: {
           linkText: "Zusatzinfos",
           text: `
           <div class="textInfoElements">
@@ -377,9 +385,9 @@ define([
           Sportrasen und Wiesen mit Gras, das immer kürzer ist als 10 cm. Solche Rasenflächen sind sehr arm an verschiedenen Lebewesen."
           </div>
            `,
-        }
-
-      }); 
+        },
+        version: ["all"]
+      });
 
 
       page_strukturelemente.addTextInfo({
@@ -441,47 +449,47 @@ define([
          `,
         }
       })
-      //13a_wild_geomoid
-      page_strukturelemente.addElement("mapInput", "a_wild_geomoid", {    
+      //13_flaechen_geomoid
+      page_strukturelemente.addElement("mapInput", "flaechen_geomoid", {
         text: `13: Markiere alle vorhandenen Flächen-Elemente in der gezeigten Untersuchungsfläche. Klicken auf «Fläche hinzufügen» zeigt die Liste mit Flächen-Elementen. `,
-        area: "wild_area",
-        points: "a_wild_points",
+        area: "flaechen_area",
+        points: "flaechen_points",
         measure: "A13.0",
         ratio: {
-          key: "wild_arearatio",
+          key: "flaechen_arearatio",
           options: [
             { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden", measure: "A13.1" },
-            { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche (= Arealfläche - Gebäudefläche) bedeckt" , measure: "A13.2"},
+            { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche (= Arealfläche - Gebäudefläche) bedeckt", measure: "A13.2" },
             { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche", measure: "A13.3" },
-            { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" ,measure: "A13.4"  },
-            { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche", measure: "A13.5"  },
-            { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" , measure: "A13.6" },
-            { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" , measure: "A13.7"  },
+            { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt", measure: "A13.4" },
+            { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche", measure: "A13.5" },
+            { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt", measure: "A13.6" },
+            { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche", measure: "A13.7" },
           ]
         },
         color: [129, 0, 157, 0.7],
-        name_display : "Verschiedene Pflanzenflächen",
-          
-      }); 
+        name_display: "Verschiedene Pflanzenflächen",
+        version: ["long"]
+      });
 
-   
+
       page_strukturelemente.addTextInfo({
-        title: "Baumschicht (14)", 
+        title: "Baumschicht (14)",
       })
-    
+
       //14_baeume
-      let elem14 = page_strukturelemente.addElement("radioButtonInput", "baeume", {      
+      let elem14 = page_strukturelemente.addElement("radioButtonInput", "baeume", {
         text: "14: Gibt es auf der Untersuchungsfläche Bäume?",
         placeholder: "Auswählen",
         points: "baeume_points",
         measure: "A14.0",
         options: [
-          { key: "0", points: 0, label: "Keine Bäume vorhanden, die höher als 4 - 5 Meter sind." , measure: "A14.1"},
-          { key: "1", points: 1, label: "Nur 1 Baum vorhanden oder alle Bäume etwa gleich hoch." , measure: "A14.2"},
-          { key: "2", points: 2, label: "Bäume in zwei deutlich unterschiedlichen Höhen vorhanden." , measure: "A14.3"},
-          { key: "3", points: 3, label: "Bäume in drei deutlich unterschiedlichen Höhen vorhanden." , measure: "A14.3"},
+          { key: "0", points: 0, label: "Keine Bäume vorhanden, die höher als 4 - 5 Meter sind.", measure: "A14.1" },
+          { key: "1", points: 1, label: "Nur 1 Baum vorhanden oder alle Bäume etwa gleich hoch.", measure: "A14.2" },
+          { key: "2", points: 2, label: "Bäume in zwei deutlich unterschiedlichen Höhen vorhanden.", measure: "A14.3" },
+          { key: "3", points: 3, label: "Bäume in drei deutlich unterschiedlichen Höhen vorhanden.", measure: "A14.3" },
         ],
-          textInfo: {
+        textInfo: {
           linkText: "Zusatzinfos",
           text: `
           <div class="textInfoElements">
@@ -499,7 +507,8 @@ define([
           heimische Bäume in deutlich unterschiedlichen Höhen
           </div>
           `,
-          }       
+        },
+        version: ["all"]
       });
 
       //[Falls bei 14 eine der beiden Optionen mit mehr als einem Baum angekreuzt wird, dann Fragen 14a und 14b einblenden:] gelöst durch mehrere Schnittmengen
@@ -511,19 +520,21 @@ define([
         points: "a_baeume_points",
         options: [
           { key: "0", points: 1, label: "Ja", measure: "A14.4" },
-          { key: "1", points: 0, label: "Nein", measure: "A14.5"  },
+          { key: "1", points: 0, label: "Nein", measure: "A14.5" },
         ],
+        version: ["all"]
       });
 
-       //14b_baeume
-       let elem14b = page_strukturelemente.addElement("radioButtonInput", "b_baeume", {
+      //14b_baeume
+      let elem14b = page_strukturelemente.addElement("radioButtonInput", "b_baeume", {
         text: "14b: Haben mindestens zwei der Bäume einen Umfang von mehr als 2 Metern?",
         placeholder: "Auswählen",
         points: "b_baeume_points",
         options: [
-          { key: "0", points: 2, label: "Ja", measure: "A14.6"},
-          { key: "1", points: 0, label: "Nein", measure: "A14.7"},
+          { key: "0", points: 2, label: "Ja", measure: "A14.6" },
+          { key: "1", points: 0, label: "Nein", measure: "A14.7" },
         ],
+        version: ["all"]
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
@@ -533,15 +544,15 @@ define([
       elem14.rules = [{
         values: [
           "2",
-          "3" ], 
+          "3"],
         elements: [elem14a, elem14b]
       }]
 
 
       page_strukturelemente.addTextInfo({
-        title: "Sträucher ohne Hecken (15)", 
+        title: "Sträucher ohne Hecken (15)",
       })
-      
+
       //15_straeucher
       let elem15 = page_strukturelemente.addElement("radioButtonInput", "straeucher", {
         text: "15: Gibt es auf der Untersuchungsfläche Gruppen aus mindestens 5 Sträuchern?",
@@ -549,12 +560,12 @@ define([
         points: "straeucher_points",
         measure: "A15.0",
         options: [
-          { key: "0", points: 0, label: "Keine Sträucher oder nur vereinzelte Sträucher vorhanden.", measure: "A15.1"},
+          { key: "0", points: 0, label: "Keine Sträucher oder nur vereinzelte Sträucher vorhanden.", measure: "A15.1" },
           { key: "1", points: 0, label: "Überwiegend nicht-heimische Sträucher vorhanden.", measure: "A15.2" },
-          { key: "2", points: 1, label: "1-3 Gruppen aus mindestens 5 Sträuchern vorhanden. Die meisten dieser Sträucher sind heimisch.", measure: "A15.3"},
-          { key: "3", points: 3, label: "Mehr als 3 Gruppen aus mindestens 5 Sträuchern vorhanden. Die meisten dieser Sträucher sind heimisch.", measure: "A15.3"},
+          { key: "2", points: 1, label: "1-3 Gruppen aus mindestens 5 Sträuchern vorhanden. Die meisten dieser Sträucher sind heimisch.", measure: "A15.3" },
+          { key: "3", points: 3, label: "Mehr als 3 Gruppen aus mindestens 5 Sträuchern vorhanden. Die meisten dieser Sträucher sind heimisch.", measure: "A15.3" },
         ],
-          textInfo: {
+        textInfo: {
           linkText: "Zusatzinfos",
           text: `
           <div class="textInfoElements">
@@ -564,20 +575,22 @@ define([
           
           </div>
           `,
-          }
+        },
+        version: ["all"]
       });
 
       //[Falls bei 15 eine der beiden Optionen mit Gruppen von Sträuchern angekreuzt wird, dann Fragen 15a einblenden:]
 
-       //15a_straeucher
-       let elem15a = page_strukturelemente.addElement("radioButtonInput", "a_straeucher", {
+      //15a_straeucher
+      let elem15a = page_strukturelemente.addElement("radioButtonInput", "a_straeucher", {
         text: "15a: Insgesamt mehr als 5 verschiedene heimische Straucharten.",
         placeholder: "Auswählen",
         points: "a_straeucher_points",
         options: [
-          { key: "0", points: 2, label: "Ja", measure: "A15.4"},
-          { key: "1", points: 0, label: "Nein", measure: "A15.5"},
+          { key: "0", points: 2, label: "Ja", measure: "A15.4" },
+          { key: "1", points: 0, label: "Nein", measure: "A15.5" },
         ],
+        version: ["all"]
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
@@ -586,15 +599,13 @@ define([
       elem15.rules = [{
         values: [
           "2",
-          "3" ], 
+          "3"],
         elements: [elem15a]
       }]
 
-
-     
       page_strukturelemente.addTextInfo({
-        title: "Hecken (16)", 
-      })       
+        title: "Hecken (16)",
+      })
 
       //16_hecken
       let elem16 = page_strukturelemente.addElement("radioButtonInput", "hecken", {
@@ -603,12 +614,12 @@ define([
         points: "hecken_points",
         measure: "A16.0",
         options: [
-          { key: "0", points: 0, label: "Keine Hecke vorhanden.", measure: "A16.1"},
-          { key: "1", points: 0, label: "Hecken vorhanden. Die Hecken bestehen aber überwiegend aus nicht-heimische Sträuchern.", measure: "A16.2"},
+          { key: "0", points: 0, label: "Keine Hecke vorhanden.", measure: "A16.1" },
+          { key: "1", points: 0, label: "Hecken vorhanden. Die Hecken bestehen aber überwiegend aus nicht-heimische Sträuchern.", measure: "A16.2" },
           { key: "2", points: 1, label: "Eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch.", measure: "A16.3" },
-          { key: "3", points: 3, label: "Mehr als eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch.", measure: "A16.3"},
-       ],
-          textInfo: {
+          { key: "3", points: 3, label: "Mehr als eine Hecke von mindestens 4 Meter Länge. Die meisten der Sträucher der Hecke sind heimisch.", measure: "A16.3" },
+        ],
+        textInfo: {
           linkText: "Zusatzinfos",
           text: `
           <div class="textInfoElements">
@@ -621,7 +632,8 @@ define([
           <img src="img/Fotos_Hilfestellungen/H16_1_Kirschlorbeer.jpg" alt="H16_1" width="100%">          
           </div>
           `,
-          }
+        },
+        version: ["all"]
       });
 
       //[Falls bei 16 eine der beiden Optionen mit Hecken mit heimischen Sträuchern angekreuzt wird, dann Fragen 16a und 16b einblenden:]
@@ -634,6 +646,7 @@ define([
           { key: "0", points: 2, label: "Ja", measure: "A16.4" },
           { key: "1", points: 0, label: "Nein", measure: "A16.5" },
         ],
+        version: ["all"]
       });
 
       //16b_hecken
@@ -645,6 +658,7 @@ define([
           { key: "0", points: 1, label: "Ja", measure: "A16.6" },
           { key: "1", points: 0, label: "Nein", measure: "A16.7" },
         ],
+        version: ["all"]
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
@@ -655,14 +669,14 @@ define([
         values: [
           "2",
           "3"
-        ], 
+        ],
         elements: [elem16a, elem16b]
       }]
 
 
       page_strukturelemente.addTextInfo({
-        title: "Vielfalt an einem Ort (17)", 
-      })  
+        title: "Vielfalt an einem Ort (17)",
+      })
 
       //17_vielfalt
       page_strukturelemente.addElement("radioButtonInput", "vielfalt", {
@@ -676,7 +690,7 @@ define([
           { key: "2", points: 2, label: "Bäume, Sträucher und heimische Kräuter, Blumen oder Gräser kommen alle zusammen an einer Stelle vor.", measure: "A17.3" },
           { key: "3", points: 4, label: "Bäume, Sträucher und heimische Kräuter, Blumen oder Gräser kommen alle zusammen an mehr als einer Stelle vor.", measure: "A17.4" },
         ],
-          textInfo: {
+        textInfo: {
           linkText: "Zusatzinfos",
           text: `
           <div class="textInfoElements">
@@ -698,13 +712,14 @@ define([
           <img src="img/Fotos_Hilfestellungen/H17_4_alle3Schichten.jpg" alt="H17_4" width="100%"> 
           </div>
           `,
-          }
+        },
+        version: ["long"]
       });
 
-    
+
       page_strukturelemente.addTextInfo({
-        title: "Ruderalflächen (18)", 
-      }) 
+        title: "Ruderalflächen (18)",
+      })
 
       //18_ruderal
       page_strukturelemente.addElement("radioButtonInput", "ruderal", {
@@ -719,7 +734,7 @@ define([
           { key: "3", points: 2, label: "Ruderalfläche ist insgesamt etwa so gross wie vier Autoparkplätze.", measure: "A18.4" },
           { key: "4", points: 3, label: "Ruderalfläche ist insgesamt grösser als vier Autoparkplätze.", measure: "A18.5" },
         ],
-          textInfo: {
+        textInfo: {
           linkText: "Zusatzinfos",
           text: `
           <div class="textInfoElements">
@@ -740,13 +755,14 @@ define([
           Ruderalflächen bieten ein Zuhause für ganz spezielle Pflanzen und Tiere.
           </div>
           `,
-          } 
+        },
+        version: ["all"]
       });
 
-       
+
       page_strukturelemente.addTextInfo({
-        title: "Trockenmauern, Steinhaufen (19)", 
-      }) 
+        title: "Trockenmauern, Steinhaufen (19)",
+      })
 
       //19_mauern
       page_strukturelemente.addElement("radioButtonInput", "mauern", {
@@ -760,7 +776,7 @@ define([
           { key: "2", points: 2, label: "2 Trockenmauern oder Steinhaufen vorhanden.", measure: "A19.2" },
           { key: "3", points: 4, label: "Mehr als 2 Trockenmauern oder Steinhaufen vorhanden.", measure: "A19.3" },
         ],
-          textInfo: {
+        textInfo: {
           linkText: "Zusatzinfos",
           text: `
           <div class="textInfoElements">
@@ -773,13 +789,14 @@ define([
           <img src="img/Fotos_Hilfestellungen/H19_2_Trockenmauer.jpg" alt="H19_2" width="100%">
           </div>
           `,
-          } 
+        },
+        version: ["all"]
       });
 
-     
+
       page_strukturelemente.addTextInfo({
-        title: "Asthaufen, Totholz (20)", 
-      }) 
+        title: "Asthaufen, Totholz (20)",
+      })
 
       //20_totholz
       page_strukturelemente.addElement("radioButtonInput", "totholz", {
@@ -789,11 +806,11 @@ define([
         measure: "A20.0",
         options: [
           { key: "0", points: 0, label: "Keine Asthaufen, abgestorbene Bäume oder Totholz vorhanden.", measure: "A20.1" },
-          { key: "1", points: 1, label: "1 Asthaufen, abgestorbener Baum oder Totholzelement vorhanden.", measure: "A20.2"  },
-          { key: "2", points: 2, label: "2 Asthaufen, abgestorbene Bäume oder Totholzelemente vorhanden.", measure: "A20.2"  },
-          { key: "3", points: 4, label: "Mehr als 2 Asthaufen, abgestorbene Bäume oder Totholzelemente vorhanden.", measure: "A20.3"  },
+          { key: "1", points: 1, label: "1 Asthaufen, abgestorbener Baum oder Totholzelement vorhanden.", measure: "A20.2" },
+          { key: "2", points: 2, label: "2 Asthaufen, abgestorbene Bäume oder Totholzelemente vorhanden.", measure: "A20.2" },
+          { key: "3", points: 4, label: "Mehr als 2 Asthaufen, abgestorbene Bäume oder Totholzelemente vorhanden.", measure: "A20.3" },
         ],
-          textInfo: {
+        textInfo: {
           linkText: "Zusatzinfos",
           text: `
           <div class="textInfoElements">          
@@ -807,25 +824,26 @@ define([
           Totholz und abgestorbene Bäume sind der Lebensraum für zahlreiche Insekten, Pilze und Moose.                    
           </div>
           `,
-          }
+        },
+        version: ["all"]
       });
 
       page_strukturelemente.addTextInfo({
-        title: "Künstliche Nisthilfen (21, 22, 23)", 
-      }) 
+        title: "Künstliche Nisthilfen (21, 22, 23)",
+      })
 
       //21_insekten
       page_strukturelemente.addElement("radioButtonInput", "insekten", {
         text: "21: Gibt es auf der Untersuchungsfläche künstliche Nisthilfen für Insekten?",
         placeholder: "Auswählen",
         points: "insekten_points",
-        measure: "A21.0", 
+        measure: "A21.0",
         options: [
           { key: "0", points: 0, label: "Keine künstliche Nisthilfen für Insekten vorhanden.", measure: "A21.1" },
-          { key: "1", points: 1, label: "1-3 künstliche Nisthilfen für Insekten vorhanden.", measure: "A21.2"  },
-          { key: "2", points: 2, label: "Mehr als 3 künstliche Nisthilfen für Insekten vorhanden.", measure: "A21.3"  },
+          { key: "1", points: 1, label: "1-3 künstliche Nisthilfen für Insekten vorhanden.", measure: "A21.2" },
+          { key: "2", points: 2, label: "Mehr als 3 künstliche Nisthilfen für Insekten vorhanden.", measure: "A21.3" },
         ],
-          textInfo: {
+        textInfo: {
           linkText: "Zusatzinfos",
           text: `
           <div class="textInfoElements">
@@ -841,21 +859,22 @@ define([
           <img src="img/Fotos_Hilfestellungen/H21_2_Lebensturm.jpg" alt="H21_2" width="100%">          
           </div>
           `,
-          }
+        },
+        version: ["all"]
       });
-  
+
       //22_voegel
       page_strukturelemente.addElement("radioButtonInput", "voegel", {
         text: "22: Gibt es auf der Untersuchungsfläche künstliche Nisthilfen für Vögel?",
         placeholder: "Auswählen",
         points: "voegel_points",
-        measure: "A20.1", 
+        measure: "A22.0",
         options: [
-          { key: "0", points: 0, label: "Keine künstliche Nisthilfen für Vögel vorhanden.", measure: "A22.1"  },
-          { key: "1", points: 1, label: "1-3 künstliche Nisthilfen für Vögel vorhanden.", measure: "A22.2"  },
-          { key: "2", points: 2, label: "Mehr als 3 künstliche Nisthilfen für Vögel vorhanden.", measure: "A22.3"  },
+          { key: "0", points: 0, label: "Keine künstliche Nisthilfen für Vögel vorhanden.", measure: "A22.1" },
+          { key: "1", points: 1, label: "1-3 künstliche Nisthilfen für Vögel vorhanden.", measure: "A22.2" },
+          { key: "2", points: 2, label: "Mehr als 3 künstliche Nisthilfen für Vögel vorhanden.", measure: "A22.3" },
         ],
-          textInfo: {
+        textInfo: {
           linkText: "Zusatzinfos",
           text: `
           <div class="textInfoElements">
@@ -870,7 +889,8 @@ define([
           <img src="img/Fotos_Hilfestellungen/H22_2_NisthilfeSchwalben.jpg" alt="H22_2" width="100%">          
           </div>
           `,
-          }
+        },
+        version: ["all"]
       });
 
       //23_saeuger
@@ -878,12 +898,13 @@ define([
         text: "23: Gibt es auf der Untersuchungsfläche künstliche Nisthilfen für kleine Säugetiere?",
         placeholder: "Auswählen",
         points: "saeuger_points",
+        measure: "A23.0",
         options: [
-          { key: "0", points: 0, label: "Keine künstliche Nisthilfen für kleine Säugetiere vorhanden.", measure: "A23.1"  },
-          { key: "1", points: 1, label: "1-3 künstliche Nisthilfen für kleine Säugetiere vorhanden.", measure: "A23.2"  },
-          { key: "2", points: 2, label: "Mehr als 3 künstliche Nisthilfen für kleine Säugetiere vorhanden.", measure: "A23.3"  },
+          { key: "0", points: 0, label: "Keine künstliche Nisthilfen für kleine Säugetiere vorhanden.", measure: "A23.1" },
+          { key: "1", points: 1, label: "1-3 künstliche Nisthilfen für kleine Säugetiere vorhanden.", measure: "A23.2" },
+          { key: "2", points: 2, label: "Mehr als 3 künstliche Nisthilfen für kleine Säugetiere vorhanden.", measure: "A23.3" },
         ],
-          textInfo: {
+        textInfo: {
           linkText: "Zusatzinfos",
           text: `
           <div class="textInfoElements">
@@ -902,26 +923,27 @@ define([
           <img src="img/Fotos_Hilfestellungen/H23_3_VersteckSiebenschlaefer.jpg" alt="H23_3" width="100%">          
           </div>
           `,
-          }
+        },
+        version: ["all"]
       });
-     
-  
+
+
       page_strukturelemente.addTextInfo({
-        title: "Gewässer und Feuchtflächen (24, 25, 26)", 
-      }) 
+        title: "Gewässer und Feuchtflächen (24, 25, 26)",
+      })
 
       //24_feuchtfl
       page_strukturelemente.addElement("radioButtonInput", "feuchtfl", {
         text: "24: Gibt es Feuchtflächen auf der Untersuchungsfläche?",
         placeholder: "Auswählen",
         points: "feuchtfl_points",
-        measure: "A24.0", 
+        measure: "A24.0",
         options: [
-          { key: "0",points: 0, label: "Keine Feuchtflächen vorhanden.", measure: "A24.1" },
-          { key: "1",points: 2, label: "Feuchtflächen insgesamt etwa so gross wie ein Autoparkplatz.", measure: "A24.2"},
-          { key: "2",points: 4, label: "Feuchtflächen insgesamt grösser als ein Autoparkplatz.", measure: "A24.3" },
+          { key: "0", points: 0, label: "Keine Feuchtflächen vorhanden.", measure: "A24.1" },
+          { key: "1", points: 2, label: "Feuchtflächen insgesamt etwa so gross wie ein Autoparkplatz.", measure: "A24.2" },
+          { key: "2", points: 4, label: "Feuchtflächen insgesamt grösser als ein Autoparkplatz.", measure: "A24.3" },
         ],
-          textInfo: {
+        textInfo: {
           linkText: "Zusatzinfos",
           text: `
           <div class="textInfoElements">
@@ -936,7 +958,8 @@ define([
           <img src="img/Fotos_Hilfestellungen/H24_2_Moorwiese.jpg" alt="H24_2" width="100%">
           </div>
           `,
-          }
+        },
+        version: ["all"]
       });
 
       //25_stehgew
@@ -944,13 +967,14 @@ define([
         text: "25: Gibt es stehende Gewässer auf der Untersuchungsfläche?",
         placeholder: "Auswählen",
         points: "stehgew_points",
+        measure: "A25.0",
         options: [
           { key: "0", points: 0, label: "Keine stehenden Gewässer vorhanden.", measure: "A25.1" },
-          { key: "1", points: 1, label: "Fläche mit stehenden Gewässern  insgesamt etwa so gross wie 1 Autoparkplatz.", measure: "A25.2" },
-          { key: "2", points: 2, label: "Fläche mit stehenden Gewässern  insgesamt etwa so gross wie 2 Autoparkplätze.", measure: "A25.2" },
-          { key: "4", points: 4, label: "Fläche mit stehenden Gewässern  insgesamt grösser als 2 Autoparkplätze.", measure: "A25.3" },
+          { key: "1", points: 2, label: "Fläche mit stehenden Gewässern  insgesamt etwa so gross wie 1 Autoparkplatz.", measure: "A25.2" },
+          { key: "2", points: 4, label: "Fläche mit stehenden Gewässern  insgesamt etwa so gross wie 2 Autoparkplätze.", measure: "A25.2" },
+          { key: "4", points: 6, label: "Fläche mit stehenden Gewässern  insgesamt grösser als 2 Autoparkplätze.", measure: "A25.3" },
         ],
-          textInfo: {
+        textInfo: {
           linkText: "Zusatzinfos",
           text: `
           <div class="textInfoElements">
@@ -962,7 +986,8 @@ define([
           <img src="img/Fotos_Hilfestellungen/H11a_5_Tuempel.jpg" alt="H11a_5" width="100%">
           </div>
           `,
-          }
+        },
+        version: ["all"]
       });
 
       //26_fliessgew
@@ -970,11 +995,12 @@ define([
         text: "26: Gibt es Fliessgewässer auf der Untersuchungsfläche?",
         placeholder: "Auswählen",
         points: "fliessgew_points",
+        measure: "A26.0",
         options: [
-          { key: "0" ,points: 0, label: "Keine Fliessgewässer oder nur Fliessgewässer kürzer als 3 Meter vorhanden.", measure: "A26.1" },
-          { key: "1" ,points: 6, label: "Ein oder mehrere Fliessgewässer von insgesamt mehr als 3 Meter Länge vorhanden.", measure: "A26.2" },
+          { key: "0", points: 0, label: "Keine Fliessgewässer oder nur Fliessgewässer kürzer als 3 Meter vorhanden.", measure: "A26.1" },
+          { key: "1", points: 6, label: "Ein oder mehrere Fliessgewässer von insgesamt mehr als 3 Meter Länge vorhanden.", measure: "A26.2" },
         ],
-          textInfo: {
+        textInfo: {
           linkText: "Zusatzinfos",
           text: `
           <div class="textInfoElements">
@@ -985,13 +1011,14 @@ define([
           <img src="img/Fotos_Hilfestellungen/H13f_2_kleinesBaechlein.jpg" alt="H13f_2" width="100%">       
           </div>
           `,
-          }
+        },
+        version: ["all"]
       });
 
-     
+
       page_strukturelemente.addTextInfo({
-        title: "Umgebung (27)", 
-      }) 
+        title: "Umgebung (27)",
+      })
 
       //27_umgebung
       page_strukturelemente.addElement("radioButtonInput", "umgebung", {
@@ -1000,11 +1027,11 @@ define([
         points: "umgebung_points",
         measure: "A27.0",
         options: [
-          { key: "0",points: 0, label: "Die Untersuchungsfläche ist zu ungefähr drei Viertel oder mehr umgeben von intensiver Landwirtschaft oder überbautem Gebiet.", measure: "A27.1" },
-          { key: "1",points: 1, label: "Die Untersuchungsfläche ist zu einem Viertel bis zu drei Viertel umgeben von intensiver Landwirtschaft oder überbautem Gebiet.", measure: "A27.2" },
-          { key: "2",points: 4, label: "Die Untersuchungsfläche ist zu weniger als einem Viertel umgeben von intensiver Landwirtschaft oder überbautem Gebiet.", measure: "A27.3" },
+          { key: "0", points: 0, label: "Die Untersuchungsfläche ist zu ungefähr drei Viertel oder mehr umgeben von intensiver Landwirtschaft oder überbautem Gebiet.", measure: "A27.1" },
+          { key: "1", points: 1, label: "Die Untersuchungsfläche ist zu einem Viertel bis zu drei Viertel umgeben von intensiver Landwirtschaft oder überbautem Gebiet.", measure: "A27.2" },
+          { key: "2", points: 4, label: "Die Untersuchungsfläche ist zu weniger als einem Viertel umgeben von intensiver Landwirtschaft oder überbautem Gebiet.", measure: "A27.3" },
         ],
-          textInfo: {
+        textInfo: {
           linkText: "Zusatzinfos",
           text: `
           <div class="textInfoElements">
@@ -1012,17 +1039,19 @@ define([
           Zahlreiche Lebewesen können in überbauten Gebieten nicht überleben.
           </div>
           `,
-          }
+        },
+        version: ["long"]
       });
 
       /*Pflege*/
       let page_pflege = app.addPage("Pflege", {
-      pointsInfo: [2,11]});
+        pointsInfo: [2, 11]
+      });
 
-  
+
       page_pflege.addTextInfo({
-        title: "Mähen von Rasen und Wiesen OHNE Sportrasen (28, 29)", 
-      }) 
+        title: "Mähen von Rasen und Wiesen OHNE Sportrasen (28, 29)",
+      })
 
       //28_geraet
       page_pflege.addElement("sliderInput", "geraet", {
@@ -1030,7 +1059,7 @@ define([
         min: 0,
         max: 100,
         step: 0.1,
-        stops: [{points: 0, value:20, measure: "A28.1"},{points:1, value:50, measure: "A28.2"},{points:2, value:80, measure: "A28.2"},{points:3, value:100, measure: "A28.3"}], 
+        stops: [{ points: 0, value: 20, measure: "A28.1" }, { points: 1, value: 50, measure: "A28.2" }, { points: 2, value: 80, measure: "A28.2" }, { points: 3, value: 100, measure: "A28.3" }],
         measure: "A28.0",
         points: "geraet_points",
       });
@@ -1061,51 +1090,61 @@ define([
           <img src="img/Fotos_Hilfestellungen/H28_5_Balkenmaeher.jpg" alt="H28_5" width="100%">          
           </div>
           `
-        }
-      }) 
+        },
+        version: ["all"]
+      })
 
       //Info
       page_pflege.addTextInfo({
-        text: `
-        <div class="textInfoElements">
-        Je weniger das Gras gemäht wird, desto besser können sich Pflanzen durch Samen fortpflanzen. Häufiges Mähen stört oder tötet zahlreiche Kleintiere wie Insekten und kleine Säugetiere.
-        </div>
-        `
-      }) 
+        textInfo: {
+          linkText: "Markiere alle Aussagen, die auf Mähen von Gras zutreffen:",
+          text: `
+          <div class="textInfoElements">
+          Je weniger das Gras gemäht wird, desto besser können sich Pflanzen durch Samen fortpflanzen. Häufiges Mähen stört oder tötet zahlreiche Kleintiere wie Insekten und kleine Säugetiere.
+          </div>
+          `
+        }
+      })
 
       //29a_maehen
       let elem29a = page_pflege.addElement("radioButtonInput", "a_maehen", {
-        text: "29a: Es wird jeweils die ganze Grasfläche zum gleichen Zeitpunkt geschnitten. Alle Grasflächen werden gleichzeitig geschnitten.",
+        text: "29a: Es wird jeweils nicht die ganze Grasfläche zum gleichen Zeitpunkt geschnitten. Verschiedene Grasflächen werden zu unterschiedlichen Zeitpunkten geschnitten.",
         placeholder: "Auswählen",
+        measure: "A29.0",
         points: "a_maehen_points",
         options: [
-          { key: "0", points: 1, label: "Ja", measure: "A29a.1" },
-          { key: "1", points: 0, label: "Nein", measure: "A29.P" },
+          { key: "0", points: 0, label: "Ja", measure: "A29a.1" },
+          { key: "1", points: 1, label: "Nein", measure: "A29.P" },
         ],
+        version: ["all"]
       });
 
-       //29b_maehen
-       page_pflege.addElement("radioButtonInput", "b_maehen", {
+      //29b_maehen
+      page_pflege.addElement("radioButtonInput", "b_maehen", {
         text: "29b: Wie oft wird ein grosser Teil des Grases zwischen April und Oktober im Durchschnitt pro Monat geschnitten?",
         placeholder: "Auswählen",
+        measure: "A29.0",
         points: "b_maehen_points",
         options: [
-          { key: "0", points: 1, label: "einmal oder weniger", measure: "A29b.1"  },
-          { key: "1", points: -2, label: "zweimal oder öfter", measure: "A29.P"  },
+          { key: "0", points: 1, label: "einmal oder weniger", measure: "A29b.1" },
+          { key: "1", points: -2, label: "zweimal oder öfter", measure: "A29.P" },
         ],
+        version: ["all"]
       });
 
-       //29c_maehen
-       page_pflege.addElement("radioButtonInput", "c_maehen", {
+      //29c_maehen
+      page_pflege.addElement("radioButtonInput", "c_maehen", {
         text: "29c: Ein Teil der Grasfläche wird jedes Jahr gar nicht geschnitten. Das kann jedes Jahr ein anderer Teil sein. ",
         placeholder: "Auswählen",
+        measure: "A29.0",
         points: "c_maehen_points",
         options: [
-          { key: "1", points: 1, label: "Ja", measure: "A29c.1"  },
-          { key: "0", points: 0, label: "Nein", measure: "A29.P"  },
+          { key: "1", points: 1, label: "Ja", measure: "A29c.1" },
+          { key: "0", points: 0, label: "Nein", measure: "A29.P" },
         ],
+        version: ["long"]
       });
-    
+
 
       //29d_zone
       let elem29d = page_pflege.addElement("radioButtonInput", "d_zone", {
@@ -1126,7 +1165,8 @@ define([
           <iframe src='https://map.geo.admin.ch/embed.html?topic=blw&lang=de&bgLayer=ch.swisstopo.pixelkarte-farbe&catalogNodes=887,947&layers=ch.kantone.cadastralwebmap-farbe,ch.swisstopo.swissboundaries3d-gemeinde-flaeche.fill,ch.swisstopo.swissboundaries3d-kanton-flaeche.fill,ch.blw.landwirtschaftliche-zonengrenzen&layers_opacity=0.15,1,1,0.75&layers_visibility=false,false,false,true&E=2759000.00&N=1222000.00&zoom=1' width='100%' height='250' frameborder='0' style='border:0' allow='geolocation'></iframe>
           </div>
           `,
-        }
+        },
+        version: ["long"]
       });
 
       //[Je nach gewählter Zone wird in 29e nur die entsprechende Frage zum Anklicken angezeigt:]
@@ -1136,84 +1176,110 @@ define([
         text: "29e: [Tal- und Hügelzone] Gibt es Grasflächen (grösser als vier Autoparkplätze), die erst nach dem 15. Juni geschnitten werden?",
         placeholder: "Auswählen",
         points: "e_schnitt_points",
+        measure: "A29.0",
         options: [
-          { key: "0", points: 2, label: "Ja", measure: "A29e.1"  },
-          { key: "1", points: 0, label: "Nein", measure: "A29.P"  },
+          { key: "0", points: 2, label: "Ja", measure: "A29e.1" },
+          { key: "1", points: 0, label: "Nein", measure: "A29.P" },
         ],
+        version: ["long"]
       });
 
-       //29eberg1
-       let elem29eberg1 = page_pflege.addElement("radioButtonInput", "e_berg1_schnitt", {
+      //29eberg1
+      let elem29eberg1 = page_pflege.addElement("radioButtonInput", "e_berg1_schnitt", {
         text: "29e: [Bergzonen I und II] Gibt es Grasflächen (grösser als vier Autoparkplätze), die erst nach dem 1. Juli geschnitten werden?",
         placeholder: "Auswählen",
         points: "e_schnitt_points",
+        measure: "A29.0",
         options: [
-          { key: "0", points: 2, label: "Ja", measure: "A29e.1"  },
-          { key: "1", points: 0, label: "Nein", measure: "A29.P"  },
+          { key: "0", points: 2, label: "Ja", measure: "A29e.1" },
+          { key: "1", points: 0, label: "Nein", measure: "A29.P" },
         ],
+        version: ["long"]
       });
 
-       //29eberg2
-       let elem29eberg2 = page_pflege.addElement("radioButtonInput", "e_berg2_schnitt", {
+      //29eberg2
+      let elem29eberg2 = page_pflege.addElement("radioButtonInput", "e_berg2_schnitt", {
         text: "29e: [Bergzonen III und IV] Gibt es Grasflächen (grösser als vier Autoparkplätze), die erst nach dem 15. Juli geschnitten werden?",
         placeholder: "Auswählen",
+        measure: "A29.0",
         points: "e_schnitt_points",
         options: [
-          { key: "0", points: 2, label: "Ja", measure: "A29e.1"  },
-          { key: "1", points: 0, label: "Nein", measure: "A29.P"  },
+          { key: "0", points: 2, label: "Ja", measure: "A29e.1" },
+          { key: "1", points: 0, label: "Nein", measure: "A29.P" },
         ],
+        version: ["long"]
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
       elem29etal.hide();
       elem29eberg1.hide();
       elem29eberg2.hide();
-      // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
+      // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden: @Dani: habe verändert: Falls bei 29a «nein» -> 29d/e auch zeigen
       elem29a.rules = [{
         values: [
           "1",
-          ], 
+        ],
         elements: [elem29d]
-      }]
-    
-      elem29d.rules = [{
+      },
+      {
         values: [
-          "0",
-          ], 
+          "1",
+        ],
         elements: [elem29etal]
       },
       {
         values: [
           "1",
-          ], 
+        ],
+        elements: [elem29eberg1]
+      },
+      {
+        values: [
+          "1",
+        ],
+        elements: [elem29eberg2]
+      }]
+
+      //@Dani: gell diese Regel ist nötig!?
+      elem29d.rules = [{
+        values: [
+          "0",
+        ],
+        elements: [elem29etal]
+      },
+      {
+        values: [
+          "1",
+        ],
         elements: [elem29eberg1]
       },
       {
         values: [
           "2",
-          ], 
+        ],
         elements: [elem29eberg2]
       }]
 
       page_pflege.addTextInfo({
-        title: "Schädlingsregulierung (30, 31)", 
-      }) 
-      
+        title: "Schädlingsregulierung (30, 31)",
+      })
+
       //30_pestizide
       page_pflege.addElement("sliderInput", "pestizide", {
         text: "30: Auf welcher Fläche werden chemische Pestizide  zur Schädlingsbekämpfung eingesetzt?<br>Stelle mit dem Regler ein, wie gross der Anteil dieser Fläche an der gesamten unbebauten Untersuchungsfläche ist:",
         min: 0,
         max: 100,
         step: 0.1,
-        stops: [{points: 2, value: 5, measure: "A30.1"},{points:1, value:66, measure: "A30.2"},{points:0, value:100, measure: "A30.3"}],
-        measure: "A30.0", 
+        stops: [{ points: 2, value: 5, measure: "A30.1" }, { points: 1, value: 66, measure: "A30.2" }, { points: 0, value: 100, measure: "A30.3" }],
+        measure: "A30.0",
         points: "pestizide_points",
-          textInfo: {
+        textInfo: {
           linkText: "Zusatzinfos",
           text: `
           Chemische Pestizide sind Mittel, die oft nicht nur so genannte Schädlinge töten, sondern oft auch zahlreiche harmlose oder sogar nützliche Lebewesen. Oft bleiben Pestizide lange im Boden. Auch gelangen Pestizide mit Regenwasser in Gewässer.
           `,
-          }
+        },
+        version: ["all"]
       });
       //Chemische Pestizide werden kaum eingesetzt. <5%	2
       //5.1-66%	1
@@ -1226,29 +1292,31 @@ define([
         min: 0,
         max: 100,
         step: 0.1,
-        stops: [{points:3, value:5, measure: "A31.1"},{points:2, value:50, measure: "A31.2"},{points:1, value:75, measure: "A31.3"},{points:0,value:100, measure: "A31.3"}],
+        stops: [{ points: 3, value: 5, measure: "A31.1" }, { points: 2, value: 50, measure: "A31.2" }, { points: 1, value: 75, measure: "A31.3" }, { points: 0, value: 100, measure: "A31.3" }],
+        measure: "A31.0",
         points: "bekaempfung_points",
-          textInfo: {
+        textInfo: {
           linkText: "Zusatzinfos",
           text: `
-          Ökologische Mittel bestehen aus Stoffen, die ähnlich so auch in der Natur vorkommen. Andere ökologische Mittel bekämpfen Schädlinge durch natürliche Gegenspieler. Beispielsweise gibt es Schlupfwespen, die gefrässige Raupen abtöten.
-          `,
-          }
+            Ökologische Mittel bestehen aus Stoffen, die ähnlich so auch in der Natur vorkommen. Andere ökologische Mittel bekämpfen Schädlinge durch natürliche Gegenspieler. Beispielsweise gibt es Schlupfwespen, die gefrässige Raupen abtöten.
+            `,
+        },
+        version: ["long"]
       });
-     
+
       //32_unkraut
       page_pflege.addTextInfo({
-        title: "Unkrautregulierung (32)",       
-      }) 
+        title: "Unkrautregulierung (32)",
+      })
 
       //32a_unkraut
       let elem32a = page_pflege.addElement("radioButtonInput", "a_unkraut", {
         text: "32a: Werden Unkräuter oder unerwünschte Pflanzen überhaupt regelmässig bekämpft?",
         placeholder: "Auswählen",
-        measure: "A32.0", 
+        measure: "A32.0",
         options: [
-          { key: "0", points: 0, label: "Ja" }, // TODO: Add measure
-          { key: "1", points: 4, label: "Nein", measure: "A32.1"  },
+          { key: "0", points: 0, label: "Ja" }, // TODO: Add measure  siehe Fragen im Drehbuch!!!
+          { key: "1", points: 4, label: "Nein", measure: "A32.1" },
         ],
         points: "a_unkraut_points",
         textInfo: {
@@ -1269,47 +1337,53 @@ define([
           </div>
           `
         },
+        version: ["all"]
       });
 
-       //32b_unkraut
-       let elem32b = page_pflege.addElement("radioButtonInput", "b_unkraut", {
+      //32b_unkraut
+      let elem32b = page_pflege.addElement("radioButtonInput", "b_unkraut", {
         text: "32b: Wie werden Unkräuter oder unerwünschte Pflanzen zur Hauptsache bekämpft?",
         placeholder: "Auswählen",
-        measure: "A32.0", 
+        measure: "A32.0",
         options: [
           { key: "0", points: 0, label: "Mehr als 75 % der gesamten Unkrautbekämpfung erfolgt mit chemischen Mitteln, so genannten Herbiziden.", measure: "A32.2" },
-          { key: "1", points: 1, label: "25 - 75 % der gesamten Unkrautbekämpfung erfolgt mit chemischen Mitteln, so genannten Herbiziden.", measure: "A32.3"  },
-          { key: "2", points: 2, label: "Weniger als 25 % der gesamten Unkrautbekämpfung erfolgt mit chemischen Mitteln, so genannten Herbiziden.", measure: "A32.4"  },
+          { key: "1", points: 1, label: "25 - 75 % der gesamten Unkrautbekämpfung erfolgt mit chemischen Mitteln, so genannten Herbiziden.", measure: "A32.3" },
+          { key: "2", points: 2, label: "Weniger als 25 % der gesamten Unkrautbekämpfung erfolgt mit chemischen Mitteln, so genannten Herbiziden.", measure: "A32.4" },
         ],
         points: "b_unkraut_points",
+        version: ["long"]
       });
-      
+
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
       elem32b.hide();
-      
+
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem32a.rules = [{
         values: [
           "0",
-          ], 
+        ],
         elements: [elem32b]
-      }]     
-     
+      }]
 
-    
+
+      //@Dani Weitere Regeln des Drehbuiches; bitte hier
+
+
+
       page_pflege.addTextInfo({
-        title: "Düngen (33, 34)",          
-      }) 
+        title: "Düngen (33, 34)",
+      })
 
       //33_duengen
       let elem33 = page_pflege.addElement("radioButtonInput", "duengen", {
         text: "33: Ist die gesamte Grasfläche (Wiesen, Rasen inklusive Sportrasen) grösser als die Fläche für zwei Autoparkplätze?",
         placeholder: "Auswählen",
-        measure: "A33.0",     
+        measure: "A33.0",
         options: [
-          { key: "0",points: 0, label: "Ja" },
-          { key: "1",points: 0, label: "Nein", measure: "A33.0"},      
-        ],          
+          { key: "0", points: 0, label: "Ja" },
+          { key: "1", points: 0, label: "Nein", measure: "A33.0" },
+        ],
+        version: ["all"]
       });
 
       //Falls Ja, dann Items 33_grasduengen und 34er, Falls Nein, dann weiter mit Item 35 (Laub) 
@@ -1319,10 +1393,10 @@ define([
       let elem33gras = page_pflege.addElement("radioButtonInput", "grasduengen", {
         text: "33gras: Werden Grasflächen (Wiesen, Rasen inklusive Sportrasen) gedüngt?",
         placeholder: "Auswählen",
-        measure: "A33.0",    
+        measure: "A33.0",
         options: [
-          { key: "0",points: 0, label: "Ja" },
-          { key: "1",points: 4, label: "Nein", measure: "A33.1" },      
+          { key: "0", points: 0, label: "Ja" },
+          { key: "1", points: 4, label: "Nein", measure: "A33.1" },
         ],
         textInfo: {
           linkText: "Zusatzinfos",
@@ -1331,35 +1405,37 @@ define([
           In Böden mit wenig Nährstoffen ist die Artenvielfalt erstaunlicher Weise viel höher als in nährstoffreichen Böden. Düngemittel sind nichts Anderes als Nährstoffe für Pflanzen. Deshalb fördern Düngemittel oft das Wachstum von nur einigen wenigen Pflanzenarten.
           </div>
           `
-        },       
+        },
+        version: ["all"]
       });
 
       //Falls Ja, dann Items und 33a_duengen und 34, Falls Nein, dann weiter mit Item 35 (Laub)
 
-      
+
       //33a_duengen
       let elem33a = page_pflege.addElement("radioButtonInput", "a_duengen", {
         text: "33a: Wie werden Grasflächen (Wiesen, Rasen inklusive Sportrasen) gedüngt?",
         placeholder: "Auswählen",
-        measure: "A33.0",   
+        measure: "A33.0",
         options: [
-          { key: "0",points: 0, label: "Mehr als die Hälfte des Bodens wird ohne Analyse des Bodens gedüngt.", measure: "A33.2"},
-          { key: "1",points: 1, label: "Weniger als die Hälfte des Bodens wird ohne Analyse des Bodens gedüngt.", measure: "A33.3"},      
+          { key: "0", points: 0, label: "Mehr als die Hälfte des Bodens wird ohne Analyse des Bodens gedüngt.", measure: "A33.2" },
+          { key: "1", points: 1, label: "Weniger als die Hälfte des Bodens wird ohne Analyse des Bodens gedüngt.", measure: "A33.3" },
         ],
-        points: "a_duengen_points",     
-      });    
-  
+        points: "a_duengen_points",
+        version: ["long"]
+      });
+
 
 
       //34_mitteln
       let elem34 = page_pflege.addElement("radioButtonInput", "mitteln", {
         text: "34: Mit welchen Mitteln werden Grasflächen (Wiesen, Rasen inklusive Sportrasen) gedüngt?",
         placeholder: "Auswählen",
-        measure: "A34.0", 
+        measure: "A34.0",
         options: [
-          { key: "0",points: 0, label: "Mehr als ein Drittel der Düngemittel sind mineralischer Dünger oder Torf.", measure: "A34.1" },
-          { key: "1",points: 1, label: "Mehr als die Hälfte der Düngemittel sind organischer Dünger wie Jauche, Mist oder Mulch oder Bio-Knospenprodukte.", measure: "A34.2" },  
-          { key: "2",points: 2, label: "Mehr als die Hälfte der Düngemittel ist eigener Kompost.", measure: "A34.3" },      
+          { key: "0", points: 0, label: "Mehr als ein Drittel der Düngemittel sind mineralischer Dünger oder Torf.", measure: "A34.1" },
+          { key: "1", points: 1, label: "Mehr als die Hälfte der Düngemittel sind organischer Dünger wie Jauche, Mist oder Mulch oder Bio-Knospenprodukte.", measure: "A34.2" },
+          { key: "2", points: 2, label: "Mehr als die Hälfte der Düngemittel ist eigener Kompost.", measure: "A34.3" },
         ],
         points: "mitteln_points",
         textInfo: {
@@ -1367,34 +1443,35 @@ define([
           text: `
           Mineralische Düngemittel helfen zwar den Pflanzen, vernachlässigen aber Bodenlebewesen. Auch kann Mineraldünger zu einem chemischen Ungleichgewicht von Nährstoffen im Boden führen. Überschüssiger Mineraldünger wird zudem mit dem Regenwasser in Gewässer geschwemmt. In Gewässer kann Mineraldünger zu übermässigem Algenwachstum führen.
           `,
-          }
+        },
+        version: ["long"]
       });
 
-    
+
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
       elem33gras.hide();
-      elem33a.hide();    
+      elem33a.hide();
       elem34.hide();
 
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem33.rules = [{
         values: [
           "0",
-          ], 
+        ],
         elements: [elem33gras, elem34]
-      }] 
+      }]
       elem33gras.rules = [{
         values: [
           "0",
-          ], 
+        ],
         elements: [elem33a, elem34]
-      }] 
+      }]
 
       page_pflege.addTextInfo({
-        title: "Laub (35)", 
-      }) 
-      
+        title: "Laub (35)",
+      })
+
       //35_laub
       page_pflege.addElement("radioButtonInput", "laub", {
         text: "35: Was passiert im Herbst mit dem Laub?",
@@ -1406,8 +1483,7 @@ define([
           { key: "1", points: 1, label: "Vereinzelt wird Laub bewusst belassen.", measure: "A35.2" },
           { key: "2", points: 2, label: "Es werden bewusst zahlreiche Laubhaufen erstellt.", measure: "A35.3" },
         ],
-          //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          textInfo: {
+        textInfo: {
           linkText: "Zusatzinfos",
           text: `
           <div class="textInfoElements">
@@ -1419,14 +1495,14 @@ define([
           <img src="img/Fotos_Hilfestellungen/H35_1 Laubhaufen.jpg" alt="H35_1" width="100%">
           </div>
           `,
-          }
-        
+        },
+        version: ["all"]
       });
 
- 
+
       page_pflege.addTextInfo({
-        title: "Alte Samenstände (36)", 
-      }) 
+        title: "Alte Samenstände (36)",
+      })
 
       //36_samen
       page_pflege.addElement("radioButtonInput", "samen", {
@@ -1439,8 +1515,7 @@ define([
           { key: "1", points: 1, label: "Vereinzelt werden alte Samenstände bewusst belassen.", measure: "A36.2" },
           { key: "2", points: 2, label: "Die meisten Samenstände werden bewusst belassen.", measure: "A36.3" },
         ],
-        //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          textInfo: {
+        textInfo: {
           linkText: "Zusatzinfos",
           text: `
           <div class="textInfoElements">
@@ -1451,16 +1526,18 @@ define([
           <img src="img/Fotos_Hilfestellungen/H36_1 alte Samenstaende.jpg" alt="H36_1" width="100%">          
           </div>
           `,
-          }
+        },
+        version: ["all"]
       });
 
       /*Bauliche Massnahmen*/
-       let page_baumassnahmen = app.addPage("Bauliche Massnahmen", {
-       pointsInfo: [2,4]});
+      let page_baumassnahmen = app.addPage("Bauliche Massnahmen", {
+        pointsInfo: [2, 4]
+      });
 
       page_baumassnahmen.addTextInfo({
-        title: "Begrünung von Dach oder Fassaden (37, 38)", 
-      }) 
+        title: "Begrünung von Dach oder Fassaden (37, 38)",
+      })
 
       //37_fldacher
       page_baumassnahmen.addElement("radioButtonInput", "fldacher", {
@@ -1475,8 +1552,7 @@ define([
           { key: "3", points: 1, label: "Mehr als die Hälfte der Flachdächer ist begrünt, enthält aber keine Sandflächen oder Totholz.", measure: "A37.3" },
           { key: "4", points: 2, label: "Mehr als die Hälfte der Flachdächer ist begrünt und enthält auch Sandflächen oder Totholz.", measure: "A37.4" },
         ],
-          //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          textInfo: {
+        textInfo: {
           linkText: "Zusatzinfos",
           text: `
           <div class="textInfoElements">
@@ -1487,32 +1563,34 @@ define([
           <img src="img/Fotos_Hilfestellungen/H37_1_Flachdach.jpg" alt="H37_1" width="100%">          
           </div>
           `,
-          }
+        },
+        version: ["all"]
       });
 
-    
+
       //38_fassaden
       page_baumassnahmen.addElement("radioButtonInput", "fassaden", {
         text: "38: Gibt es Fassaden mit einer Begrünung?",
         placeholder: "Auswählen",
         points: "fassaden_points",
+        measure: "A38.0",
         options: [
           { key: "0", points: 0, label: "Keine oder nur vereinzelt Fassadenbegrünung.", measure: "A38.1" },
           { key: "1", points: 1, label: "Fassaden von einer Fläche von insgesamt mindestens zwei Autoparkplätzen ist begrünt.", measure: "A38.2" },
         ],
-        //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          textInfo: {
+        textInfo: {
           linkText: "Zusatzinfos",
           text: `
           Begrünte Fassaden bieten Lebensraum für Krabbeltiere und Vögel. Begrünte Fassaden schützen auch vor Kälte und Hitze.
           `,
-          }
+        },
+        version: ["all"]
       });
 
       page_baumassnahmen.addTextInfo({
-        title: "Kräuter- oder Gemüsegarten (39)", 
-      }) 
-     
+        title: "Kräuter- oder Gemüsegarten (39)",
+      })
+
       //39_kraeuter
       page_baumassnahmen.addElement("radioButtonInput", "kraeuter", {
         title: "",
@@ -1521,22 +1599,22 @@ define([
         points: "kraeuter_points",
         measure: "A39.0",
         options: [
-          { key: "0",points: 0, label: "Nein", measure: "A39.1" },
-          { key: "1",points: 1, label: "Ja", measure: "A39.2" },
+          { key: "0", points: 0, label: "Nein", measure: "A39.1" },
+          { key: "1", points: 1, label: "Ja", measure: "A39.2" },
         ],
-          //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          textInfo: {
+        textInfo: {
           linkText: "Zusatzinfos",
           text: `
           Ein Kräuter- oder Gemüsegarten sorgt nur dann für mehr Artenvielfalt, wenn er biologisch bearbeitet wird. Bei Einsatz von chemischen Pestiziden, Herbiziden und Mineraldünger schadet dies der Artenvielfalt hingegen.
           `,
-          }
+        },
+        version: ["all"]
       });
 
       page_baumassnahmen.addTextInfo({
-        title: "Fallen für Tiere (40a, 40b, 41a, 41b, 42)", 
-      }) 
-      
+        title: "Fallen für Tiere (40a, 40b, 41a, 41b, 42)",
+      })
+
       //40a_glas
       let elem40a = page_baumassnahmen.addElement("radioButtonInput", "a_glas", {
         title: "",
@@ -1545,11 +1623,10 @@ define([
         points: "a_glas_points",
         measure: "A40.0",
         options: [
-          { key: "0",points: 2, label: "Nein", measure: "A40.1" },
-          { key: "1",points: 0, label: "Ja" },
+          { key: "0", points: 2, label: "Nein", measure: "A40.1" },
+          { key: "1", points: 0, label: "Ja" },  //Falls Ja, dann kein Auswertungssatz
         ],
-         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          textInfo: {
+        textInfo: {
           linkText: "Zusatzinfos",
           text: `
           <div class="textInfoElements">
@@ -1563,24 +1640,23 @@ define([
           Glasfläche mit aufgeklebten Vogelschutzstreifen
           </div>
            `,
-          }
+        },
+        version: ["all"]
       });
 
-      //Item 40b sollte nur eingeblendet werden, wenn zuvor Item 40a mit Ja beantwortet wurde.
 
       //40b_glasschutz
       let elem40b = page_baumassnahmen.addElement("radioButtonInput", "b_glasschutz", {
         text: "40b: Wie werden die Vögel vor diesen Glasscheiben geschützt?",
         placeholder: "Auswählen",
         points: "b_glasschutz_points",
-        measure: "A40.2",
+        measure: "A40.0",
         options: [
-          { key: "0",points: 0, label: "Glasflächen ohne Vogelschutz.", measure: "A40.2" },
-          { key: "1",points: 0, label: "Glasflächen mit aufgeklebten Umrissen von Vögeln.", measure: "A40.2" },
-          { key: "2",points: 1, label: "Glasflächen mit aufgeklebten Vogelschutzstreifen. (Birdstripes)", measure: "A40.3" },
+          { key: "0", points: 0, label: "Glasflächen ohne Vogelschutz.", measure: "A40.2" },
+          { key: "1", points: 0, label: "Glasflächen mit aufgeklebten Umrissen von Vögeln.", measure: "A40.2" },
+          { key: "2", points: 1, label: "Glasflächen mit aufgeklebten Vogelschutzstreifen. (Birdstripes)", measure: "A40.3" },
         ],
-         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-         textInfo: {
+        textInfo: {
           linkText: "Zusatzinfos",
           text: `
           <div class="textInfoElements">
@@ -1594,30 +1670,31 @@ define([
           Glasfläche mit aufgeklebten Vogelschutzstreifen
           </div>
            `,
-          }
+        },
+        version: ["all"]
       });
+
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
       elem40b.hide();
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem40a.rules = [{
-        values: ["1"], 
+        values: ["0"],
         elements: [elem40b]
       }]
 
-   
+
       //41a_licht
       let elem41a = page_baumassnahmen.addElement("radioButtonInput", "a_licht", {
         text: "41a: Gibt es auf dem Untersuchungsgebiet Lichtquellen, die jeden Tag bis spät in die Nacht leuchten?",
         placeholder: "Auswählen",
         points: "a_licht_points",
-        measure: "A41.1",
+        measure: "A41.0",
         options: [
-          { key: "0",points: 2, label: "Nein", measure: "A41.1" },
-          { key: "1",points: 0, label: "Ja" },
+          { key: "0", points: 2, label: "Nein", measure: "A41.1" },
+          { key: "1", points: 0, label: "Ja" }, //Falls Ja, dann kein Auswertungssatz
         ],
-        //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          textInfo: {
+        textInfo: {
           linkText: "Zusatzinfos",
           text: `
           <div class="textInfoElements">
@@ -1631,45 +1708,62 @@ define([
           Schädlichkeit verschiedener Lichtquellen
           </div>
            `,
-          }
+        },
+        version: ["all"]
       });
 
-      //Item 41b sollte nur eingeblendet werden, wenn zuvor Item 41a mit Ja beantwortet wurde.
 
       //41b_lichtart
       let elem41b = page_baumassnahmen.addElement("radioButtonInput", "b_lichtart", {
         text: "41b: Wie leuchten diesen Lichtquellen?",
         placeholder: "Auswählen",
         points: "b_lichtart_points",
-        measure: "A41.2",
+        measure: "A41.0",
         options: [
-          { key: "0",points: 0, label: "Einige Lichtquellen strahlen auch nach oben ab, beispielsweise zur Beleuchtung des Gebäudes.", measure: "A41.2"},
-          { key: "1",points: 1, label: "Gelbliche Lichtquellen, die fast nur nach unten strahlen, beispielsweise Wegbeleuchtung.", measure: "A41.3"},
+          { key: "0", points: 0, label: "Einige Lichtquellen strahlen auch nach oben ab, beispielsweise zur Beleuchtung des Gebäudes.", measure: "A41.2" },
+          { key: "1", points: 1, label: "Gelbliche Lichtquellen, die fast nur nach unten strahlen, beispielsweise Wegbeleuchtung.", measure: "A41.3" },
         ],
+        textInfo: {
+          linkText: "Zusatzinfos",
+          text: `
+          <div class="textInfoElements">
+          Zahlreiche Lebewesen sind aktiv in der Nacht. Viele von diesen Lebewesen kreisen um künstliche Lichtquellen und sterben schliesslich. Lichtquellen sollten deshalb nicht nach oben abstrahlen:
+          <img src="img/Fotos_Hilfestellungen/H41_1.png" alt="H41_1" width="100%">
+          Schädliche Ausrichtung von Lichtquellen
+          </div> 
+          <div class="textInfoElements">                   
+          Auch ist gelbliches bis warm-weisses Licht von LED-Lampen weniger schädlich, als bläuliches Licht.
+          <img src="img/Fotos_Hilfestellungen/H41_2.png" alt="H41_2" width="100%">
+          Schädlichkeit verschiedener Lichtquellen
+          </div>
+           `,
+        },
+        version: ["long"]
       });
 
-       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
-       elem41b.hide();
-       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
-       elem41a.rules = [{
-         values: ["1"], 
-         elements: [elem41b]
-       }]
 
-       
+      //Item 41b sollte nur eingeblendet werden, wenn zuvor Item 41a mit Ja beantwortet wurde.
+      elem41b.hide();
+      elem41a.rules = [{
+        values: [
+          "0",
+        ],
+        elements: [elemelem41b]
+      }]
+
+
 
       //42_schaechte
       page_baumassnahmen.addElement("radioButtonInput", "schaechte", {
         text: "42: Gibt es auf dem Untersuchungsgebiet Wasserschächte oder Lichtschächte, in denen Tiere gefangen bleiben?",
         placeholder: "Auswählen",
         points: "schaechte_points",
-        measure: "A42.1",
+        measure: "A42.0",
         options: [
-          { key: "0", points: 2, label: "Nein oder nur sehr wenige.", measure: "A42.1"},
+          { key: "0", points: 2, label: "Nein oder nur sehr wenige.", measure: "A42.1" },
           { key: "1", points: 0, label: "Ja", measure: "A42.2" },
         ],
-         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
-          textInfo: {
+        textInfo: {
           linkText: "Zusatzinfos",
           text: `
           <div class="textInfoElements">
@@ -1685,10 +1779,11 @@ define([
           Ausstiegshilfen ermöglichen runtergefallenen Tieren, sich wieder aus dem Schacht zu befreien.
           </div>
            `,
-          }
-      });      
+        },
+        version: ["all"]
+      });
 
-      app.addFinalPage("Ende");     
+      app.addFinalPage("Ende");
     }
 
 
@@ -1709,10 +1804,10 @@ define([
       name.hide();
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       projektid.rules = [{
-        values: [null], 
+        values: [null],
         elements: [name]
       }]
-      
+
 
       let school = page0.addElement("simpleTextInput", "school", {
         text: "Schule",
@@ -1723,13 +1818,13 @@ define([
       school.hide();
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       name.rules = [{
-        values: [null], 
+        values: [null],
         elements: [school]
       }]
 
-      let map = page0.addElement("mapInput", "gebiete", { 
-        color: [255,0, 0, 0.7],
-        name_display : "Untersuchungsgebiet",
+      let map = page0.addElement("mapInput", "gebiete", {
+        color: [255, 0, 0, 0.7],
+        name_display: "Untersuchungsgebiet",
         text: `Zeichne die Untersuchungsfläche ein:<br> <br> 
 
         1. Finde deinen Standort mit dem entsprechendem Button in der Karte. Unter Umständen muss dazu in der Systemeinstellung der Ortungsdienst für den verwendeten Browser aktiviert werden. <br>
@@ -1739,7 +1834,7 @@ define([
         5. Esc-Taste drücken, um zur Normalansicht zurückzukehren. <br>
         6. Klicke auf "Hinzufügen" um eingezeichnete Fläche hinzuzufügen. <br>
 
-        ` 
+        `
       });
       projektid.map = map;
       name.map = map;
@@ -1749,7 +1844,7 @@ define([
       map.element.style.visibility = "hidden";
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       school.rules = [{
-        values: [null], 
+        values: [null],
         elements: [map]
       }]
 
@@ -1757,20 +1852,20 @@ define([
 
     }
 
-    
+
     editProject() {
       let page0 = app.addPage("Projekt Infos");
 
       page0.addTextInfo({
         title: "Erfassung",
       })
-     
+
       page0.addTextInfo({
         title: "Projekt bearbeiten",
       })
-      page0.addElement("mapInput", "gebiete", { 
-        color: [255,0, 0, 0.7],
-        name_display : "Untersuchungsgebiet",
+      page0.addElement("mapInput", "gebiete", {
+        color: [255, 0, 0, 0.7],
+        name_display: "Untersuchungsgebiet",
         text: `Bearbeite dein Projekt:<br> 
 
         1. Klicke auf "Feature bearbeiten". <br>
@@ -1778,14 +1873,14 @@ define([
         3. Ändere die Form der Projektfläche oder die Attribute (ID, Ort, Schule). <br>
         4. Klicke auf Aktualisieren. <br>
         5. Falls du dein Projekt löschen willst, klicke auf Löschen.
-        ` 
+        `
       });
 
       app.addFinalPage("Ende");
 
     }
 
-    
+
     makeContent2() {
       let page0 = app.addPage("Allgemeine Infos");
       page0.addElement("simpleTextInput", "standort", {
@@ -1806,9 +1901,9 @@ define([
           { key: "2", label: "Test 2" },
         ],
         textInfo: {
-            linkText: "Click here to know more",
-            text: "Now you know more!",
-          }
+          linkText: "Click here to know more",
+          text: "Now you know more!",
+        }
       });
       page0.addElement("radioButtonInput", "radioButtonTest", {
         text: "Radio Buttons",
