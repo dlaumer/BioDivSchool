@@ -58,15 +58,27 @@ define([
   FeatureTemplate
 ) {
   return class ArcGis {
-    constructor(strings) {
+    constructor(editMode, strings, callback) {
+      this.editMode = editMode;
       this.strings = strings;
       esriConfig.portalUrl = "https://globe-swiss.maps.arcgis.com/";
 
       this.signedIn = false;
       this.info = new OAuthInfo({
-        appId: "1HVYw8T7xd77rBjt",
+        appId: "FtOdvl6jxebClqoJ",
         popup: false, // the default
       });
+
+      this.links = {
+        //geometryLayerI: "3c34d04c41fd47d4b8852788c00e2f1f",    // Daniel
+        geometryLayerId: "2106076234904e29980c1d20aa317e98", //Christian
+        geometryViewLayerID: "7426e05330d147c78052dffb482140ac",
+        //dataLayerId: "51be950e7c1b4cbb8085c67a2c412868",    // Daniel
+        dataLayerId: "3e5de63361774b82a560150dab5cdd68", //Christian
+        dataViewLayerId: "3d01293c42d448989196387cca6b8dc4",
+        projectLayerId: "28aa4770fce5454d830bc51e53f12c07",
+        projectViewLayerId: "570211cfaa664d79ac66425f9490bd5c"
+      };
 
       esriId.registerOAuthInfos([this.info]);
 
@@ -74,20 +86,16 @@ define([
         .checkSignInStatus(this.info.portalUrl + "/sharing")
         .then(() => {
           this.handleSignedIn();
+          callback();
         })
         .catch(() => {
           this.handleSignedOut();
+          callback();
         });
 
       this.createUI();
       this.clickHandler();
-      this.links = {
-        //geometryLayerI: "3c34d04c41fd47d4b8852788c00e2f1f",    // Daniel
-        geometryLayerId: "2106076234904e29980c1d20aa317e98", //Christian
-        //dataLayerId: "51be950e7c1b4cbb8085c67a2c412868",    // Daniel
-        dataLayerId: "3e5de63361774b82a560150dab5cdd68", //Christian
-        projectLayerId: "28aa4770fce5454d830bc51e53f12c07",
-      };
+      
     }
 
     handleSignInOut() {
@@ -123,6 +131,11 @@ define([
           app.userNameEsri = portal.user.username;
         }
         this.signedIn = true;
+      })
+      .catch(() => {
+        esriId.destroyCredentials();
+        window.location.reload();
+        alert("This user is not allowed to edit the data")
       });
     }
 
@@ -145,7 +158,7 @@ define([
     init(callback) {
       this.table = new FeatureLayer({
         portalItem: {
-          id: this.links.dataLayerId,
+          id: this.editMode?this.links.dataLayerId:this.links.dataViewLayerId,
         },
       });
       this.table
@@ -165,7 +178,7 @@ define([
     initGeo(callback) {
       this.geometry = new FeatureLayer({
         portalItem: {
-          id: this.links.geometryLayerId,
+          id: this.editMode?this.links.geometryLayerId:this.links.geometryViewLayerId,
         },
       });
       this.geometry
@@ -185,7 +198,7 @@ define([
     initProject(callback) {
       this.project = new FeatureLayer({
         portalItem: {
-          id: this.links.projectLayerId,
+          id: this.editMode?this.links.projectLayerId:this.links.projectViewLayerId,
         },
       });
       this.project
@@ -423,6 +436,45 @@ define([
           });
 
         });
+    }
+
+    deleteProject(objectId) {
+      objectId = objectId.substring(1, objectId.length - 1);
+      let featureClass = this.project;
+      
+      return new Promise((resolve, reject) => {
+        featureClass
+          .queryFeatures({
+            objectIds: [objectId],
+            outFields: ["*"],
+            returnGeometry: false,
+          })
+          // then take re existing entry and edit it
+          .then((results) => {
+            if (results.features.length > 0) {
+              let editFeature = results.features[0];
+              
+              // finally, upload the new data to ArcGIS Online
+              featureClass
+                .applyEdits({
+                  deleteFeatures: [editFeature],
+                })
+                .then((value) => {
+                  // ToDo: Check for errors!
+                  if (value.deleteFeatureResults.error == null) {
+                    resolve(value);
+                  } else {
+                    reject(value.deleteFeatureResults.error);
+                  }
+                })
+                .catch((reason) => {
+                  reject(reason);
+                });
+            } else {
+              reject("Object not found");
+            }
+          });
+      });
     }
 
     // Only temporary function used once to switch the value that was saved in the database. First we saved all the data, then we switched to only saving the keys
@@ -1202,7 +1254,7 @@ define([
 
       let projectAreaPoint = new FeatureLayer({
         portalItem: {
-          id: this.links.projectLayerId,
+          id: this.links.projectViewLayerId,
         },
         popupTemplate: template,
         editingEnabled: false,
@@ -1217,7 +1269,7 @@ define([
 
       let projectAreaPolygon = new FeatureLayer({
         portalItem: {
-          id: this.links.projectLayerId,
+          id: this.links.projectViewLayerId,
         },
         popupTemplate: template,
         editingEnabled: false,
@@ -1379,7 +1431,7 @@ define([
     addMapResults(containerMap, containerLegend, mapLayers, screenshotDiv) {
       let projectArea = new FeatureLayer({
         portalItem: {
-          id: this.links.projectLayerId,
+          id: this.links.projectViewLayerId,
         },
 
         editingEnabled: true,
@@ -1411,7 +1463,7 @@ define([
         if (mapLayers[i].value != null && mapLayers[i].value != "") {
           let layer = new FeatureLayer({
             portalItem: {
-              id: this.links.geometryLayerId,
+              id: this.links.geometryViewLayerId,
             },
             title: mapLayers[i].name_display,
             definitionExpression:

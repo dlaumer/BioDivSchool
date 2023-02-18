@@ -53,14 +53,15 @@ define([
     init(offline) {
       this.offline = offline;
       this.createUI();
-      this.arcgis = new ArcGis(this.strings);
-      if (!this.offline) {
-        this.arcgis.initProject(() => {
-          this.projectSelected = null;
-          this.addProjectMap();
-          this.clickHandler();
-        });
-      }
+      this.arcgis = new ArcGis(false, this.strings, () => {
+        if (!this.offline) {
+          this.arcgis.initProject(() => {
+            this.projectSelected = null;
+            this.addProjectMap();
+            this.clickHandler();
+          });
+        }
+      });
     }
 
     createSplashScreen() {

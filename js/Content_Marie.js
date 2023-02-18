@@ -28,7 +28,7 @@ define([
         { key: "f", label: "Gruppe f" },
 
       ]
-      
+
       this.instructions = `
       Hinzufügen: <br>
       1.  Im Editor auf «Fläche hinzufügen» klicken <br>
@@ -137,15 +137,6 @@ define([
     - points (optional)
     - version
 
-
-    00.text
-
-    00.placeholder
-
-    00.option.0
-    00.option.1
-    00.option.3
-
     */
 
 
@@ -153,17 +144,16 @@ define([
       
 
       app.addStartPage("BioDivSchool");
-      /*01 Regionalität der Pflanzen*/
-      let page_regionalitaet = app.addPage("P01.title.1", {
+      /*Regionalität der Pflanzen*/
+      let page_regionalitaet = app.addPage("Regionalität der Pflanzen", {
         pointsInfo: [0,10] });
 
-      
       page_regionalitaet.addTextInfo({
-        title: "P01.textInfo.1.title",
+        title: "Heimische Wildpflanzen (08, 09)",
         textInfo: {
-          linkText: "P01.textInfo.1.linkText",
-          text: `<div class='textual'>P01.textInfo.1.text.1</div><br>        
-          <div class='textual'>P01.textInfo.1.text.2</div>
+          linkText: "Zusatzinfos",
+          text: `Alle Arten einer Region bilden zusammen ein Nahrungsnetz.<br>        
+          Heimische Pflanzen sind die Grundlage von Nahrungsnetzen. Deshalb sollte es möglichst viele Flächen mit heimischen Wildpflanzen geben.
           <img src="img/Fotos_Hilfestellungen/H01_1.png" alt="H01_1" width="100%">
           `,
         }, 
@@ -172,25 +162,27 @@ define([
 
       //08_wild_geomoid
       page_regionalitaet.addElement("mapInput", "wild_geomoid", {
-        text: `E08.text`,
+        text: `08: Auf welcher Fläche wachsen weitgehend nur heimische Wildpflanzen?
+            Markiere solche Flächen in der gezeigten Untersuchungsfläche.
+            Benutze dazu das Polygon-Werkzeug.`,
         area: "wild_geomarea",
         measure: "A08.0",
         ratio: {
           key: "wild_geomarearatio",
-          stops: [{points: 0, value: 0.25, measure: "A08.1"},{points:2, value:0.5, measure: "A08.2"},{points: 4, value:0.75, measure: "A08.3"},{points: 6, value:1, measure: "A08.4"}]
+          stops: [{points: 0, value: 0.25, measure: "A08.1"},{points:2, value:0.50, measure: "A08.2"},{points: 4, value:0.75, measure: "A08.3"},{points: 6, value:1, measure: "A08.4"}]
         },
         color: [74, 186, 27],
-        name_display : "E08.name",
+        name_display : "Heimische Pflanzen",
         points: "wild_points",
         textInfo: {
-          linkText: "E08.textInfo.linkText",
+          linkText: "Zusatzinfos",
           text: `<div class="textInfoElements"><img src="img/Fotos_Hilfestellungen/H08_1_heimische_Blumenstraeucher.jpg" alt="H08_1" width="100%">
-          <div class='textual'>E08.textInfo.1.text.1</div>
+          Zu heimischen Wildpflanzen gehören Blumen, Sträucher und Bäume, die natürlich hier wachsen.
           </div>
           <div class="textInfoElements">
-          <div class='textual'>E08.textInfo.1.text.2</div>
+          Nicht dazu gehören:
           <img src="img/Fotos_Hilfestellungen/H08_2_Sportrasen.jpg" alt="H08_2" width="100%">
-          <div class='textual'>E08.textInfo.1.text.2</div>
+          Sportrasen und Wiesen mit Gras, das immer kürzer ist als 10 cm. Solche Flächen werden nicht zu Flächen mit heimischen Wildpflanzen gezählt.
           </div>
           `,
         },
@@ -209,7 +201,7 @@ define([
           { key: "1", points: 1, label: "11 – 20 Arten", measure: "A09.2" },
           { key: "2", points: 2, label: "21 – 35 Arten", measure: "A09.3" },
           { key: "3", points: 4, label: "36 – 50 Arten", measure: "A09.4" },
-          { key: "4", points: 4, label: "mehr als 50 verschiedene Arten", measure: "A09.5" },
+          { key: "4", points: 6, label: "mehr als 50 verschiedene Arten", measure: "A09.5" },
         ],
         textInfo: {
             linkText: "Hinweise zur Bestimmung von Pflanzen",
@@ -267,12 +259,6 @@ define([
       let elem10b = page_regionalitaet.addElement("mapInput", "neophyten__geomoid", {
         text: `10b: Markiere alle Standorte mit schädlichen gebietsfremden Pflanzen.`,
         placeholder: "Auswählen",
-         //points: "",
-         options: [
-          { key: "0", points: 0, label: "A" },
-          { key: "1", points: 0, label: "B"},
-          { key: "2", points: -2, label: "C"},
-        ],
         color: [147, 145, 98, 0.7],
         name_display : "Neophyten",
       });
@@ -289,7 +275,7 @@ define([
       }]
 
       
-      /*02 Strukturelemente*/      
+      /*Strukturelemente*/      
       let page_strukturelemente = app.addPage("Strukturelemente", {
       pointsInfo: [10, 32]});
 
@@ -355,7 +341,7 @@ define([
 
       //11_versieg_geomoid
       page_strukturelemente.addElement("mapInput", "versieg_geomoid", {
-        text: `11: Markiere versiegelte Flächen in der gezeigten Untersuchungsfläche.`,
+        text: `11: Markiere versiegelte Flächen in der gezeigten Untersuchungsfläche. Dazu gehören auch alle Gebäudeflächen.`,
         area: "versieg_area",
         measure: "A11.0",
         ratio: {
@@ -365,13 +351,6 @@ define([
         color: [64, 9, 105, 0.7],
         name_display : "Versiegelte Flächen",
         points: "versieg_points",
-          textInfo: {
-          linkText: "Zusatzinfos",
-          text: `
-          -
-          `,
-        }
-
       }); 
 
       page_strukturelemente.addTextInfo({
@@ -404,30 +383,10 @@ define([
 
 
       page_strukturelemente.addTextInfo({
-        title: "Vielfalt der Flächen (13a, 13b, 13c, 13d, 13e, 13f)",
-        text: "Verschiedene Flächen bieten verschiedenen Lebewesen Lebensraum und Nahrung. Je mehr verschiedenartige Flächen, desto mehr verschiedene Arten gibt es."
-      })
-      //13a_wild_geomoid
-      page_strukturelemente.addElement("mapInput", "a_wild_geomoid", {    
-        text: `13a: Markiere Flächen mit Gemüsebeeten und/oder Beeten mit Wildblumen in der gezeigten Untersuchungsfläche.`,
-        area: "wild_area",
-        points: "a_wild_points",
-        ratio: {
-          key: "wild_arearatio",
-          options: [
-            { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden", measure: "A13.1" },
-            { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" , measure: "A13.2"},
-            { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche", measure: "A13.3" },
-            { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" ,measure: "A13.4"  },
-            { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche", measure: "A13.5"  },
-            { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" , measure: "A13.6" },
-            { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" , measure: "A13.7"  },
-          ]
-        },
-        color: [129, 0, 157, 0.7],
-        name_display : "Gemüsebeete oder Wildblumen",
-          textInfo: {
-          linkText: "Zusatzinfos",
+        title: "Vielfalt der Flächen (13)",
+        text: "Verschiedene Flächen bieten verschiedenen Lebewesen Lebensraum und Nahrung. Je mehr verschiedenartige Flächen, desto mehr verschiedene Arten gibt es.",
+        textInfo: {
+          linkText: "Beispiele von verschiedenen Flächen",
           text: `
           <div class="textInfoElements">
           Gemüsebeet
@@ -438,34 +397,7 @@ define([
           Beet mit Wildblumen 
           <img src="img/Fotos_Hilfestellungen/H13a_2_Gartenbeet.jpg" alt="H13a_2" width="100%">
           
-          </div>        
-         `,
-        }
-      }); 
-
-
-      //13b_trocken_geomoid
-      page_strukturelemente.addElement("mapInput", "b_trocken_geomoid", {
-        text: `13b: Markiere Flächen mit Trockenstandorten wie Kies, Sand, Ruderalflächen in der gezeigten Untersuchungsfläche.`,
-        area: "trocken_area",
-        points: "trocken_points",
-        ratio: {
-          key: "trocken_arearatio",
-          options: [
-            { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden", measure: "A13.1" },
-            { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" , measure: "A13.2"},
-            { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche", measure: "A13.3" },
-            { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" ,measure: "A13.4"  },
-            { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche", measure: "A13.5"  },
-            { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" , measure: "A13.6" },
-            { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" , measure: "A13.7"  },
-          ]
-        },
-        color: [213, 226, 218, 0.7],
-        name_display : "Kies, Sand, Ruderalflächen",
-          textInfo: {
-          linkText: "Zusatzinfos",
-          text: `
+          </div>  
           
           <div class="textInfoElements">
           Beispiele von Trockenstandorten:
@@ -482,64 +414,10 @@ define([
           Flächen mit Geröll
           <img src="img/Fotos_Hilfestellungen/H13b_3_Geroell.jpg" alt="H13b_3" width="100%">
           </div>
-          
-         `,
-        }
-      }); 
-      
-      //13c_gras_geomoid
-      page_strukturelemente.addElement("mapInput", "c_gras_geomoid", {
-        text: `13c: Markiere in der gezeigten Untersuchungsfläche Flächen mit Wiesen dessen Gras mindestens einmal im Jahr höher als 10 cm ist.`,
-        area: "c_gras_area",
-        points: "c_gras_points",
-        ratio: {
-          key: "c_gras_arearatio",
-          options: [
-            { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden", measure: "A13.1" },
-            { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" , measure: "A13.2"},
-            { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche", measure: "A13.3" },
-            { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" ,measure: "A13.4"  },
-            { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche", measure: "A13.5"  },
-            { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" , measure: "A13.6" },
-            { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" , measure: "A13.7"  },
-          ]
-        },
-        color: [2, 199, 116, 0.7],
-        name_display : "Hohes Gras",
-          textInfo: {
-          linkText: "Zusatzinfos",
-          text: `
           <div class="textInfoElements">
           Blumenwiese
           <img src="img/Fotos_Hilfestellungen/H11a_3_Blumenwiese.jpg" alt="H11a_3" width="100%">
           </div>
-          `,
-        }
-      }); 
-
-
-      //13d_hecken_geomoid
-      page_strukturelemente.addElement("mapInput", "d_hecken_geomoid", {
-        text: `13d: Markiere in der gezeigten Untersuchungsfläche Flächen mit Sträuchern und/oder Hecken mit weitgehend heimischen Pflanzen.`,
-        area: "d_hecken_area",
-        points: "d_hecken_points",
-        ratio: {
-          key: "d_hecken_arearatio",
-          options: [
-            { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden", measure: "A13.1" },
-            { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" , measure: "A13.2"},
-            { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche", measure: "A13.3" },
-            { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" ,measure: "A13.4"  },
-            { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche", measure: "A13.5"  },
-            { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" , measure: "A13.6" },
-            { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" , measure: "A13.7"  },
-          ]
-        },
-        color: [185, 184, 106, 0.7],
-        name_display : "Sträucher oder Hecken",
-          textInfo: {
-          linkText: "Zusatzinfos",
-          text: `
           <div class="textInfoElements">
           Gruppe von heimischen Sträuchern
           <img src="img/Fotos_Hilfestellungen/H13d_1_GruppevonStraeuchern.jpg" alt="H13d_1" width="100%">
@@ -548,65 +426,10 @@ define([
           Hecke mit heimischen Sträuchern
           <img src="img/Fotos_Hilfestellungen/H13d_2_Hecke.jpg" alt="H13d_2" width="100%">
           </div>
-          `,
-        }
-      }); 
-
-
-      //13e_baeume_geomoid
-      page_strukturelemente.addElement("mapInput", "e_baeume_geomoid", {
-        text: `13e: Markiere in der gezeigten Untersuchungsfläche Flächen mit Bäumen, Baumgruppen oder Wald mit weitgehend heimischen Pflanzen.`,
-        area: "e_baeume_area",
-        points: "e_baeume_points",
-        ratio: {
-          key: "e_baeume_arearatio",
-          options: [
-            { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden", measure: "A13.1" },
-            { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" , measure: "A13.2"},
-            { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche", measure: "A13.3" },
-            { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" ,measure: "A13.4"  },
-            { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche", measure: "A13.5"  },
-            { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" , measure: "A13.6" },
-            { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" , measure: "A13.7"  },
-          ]
-        },
-        color: [195, 17, 64, 0.7],
-        name_display : "Heimische Bäume",
-          textInfo: {
-          linkText: "Zusatzinfos",
-          text: `
           <div class="textInfoElements">
           Heimische Bäume in deutlich unterschiedlichen Höhen
           <img src="img/Fotos_Hilfestellungen/H11a_1_Baeume.jpg" alt="H11a_1" width="100%">
           </div>
-          `,
-        }
-      }); 
-
-      
-             
-      //13f_wasser_geomoid
-      page_strukturelemente.addElement("mapInput", "f_wasser_geomoid", {
-        text: `13f: Markiere Wasserflächen in der gezeigten Untersuchungsfläche.`,
-        area: "f_wasser_area",
-        points: "f_wasser_points",
-        ratio: {
-          key: "f_wasser_arearatio",
-          options: [
-            { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden", measure: "A13.1" },
-            { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche bedeckt" , measure: "A13.2"},
-            { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche", measure: "A13.3" },
-            { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" ,measure: "A13.4"  },
-            { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche", measure: "A13.5"  },
-            { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" , measure: "A13.6" },
-            { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" , measure: "A13.7"  },
-          ]
-        },
-        color: [87, 72, 242, 0.7],
-        name_display : "Gewässer",
-          textInfo: {
-          linkText: "Zusatzinfos",
-          text: `
           <div class="textInfoElements">
           Tümpel
           <img src="img/Fotos_Hilfestellungen/H11a_5_Tuempel.jpg" alt="H11a_5" width="100%">
@@ -615,9 +438,31 @@ define([
           Kleines Bächlein
           <img src="img/Fotos_Hilfestellungen/H13f_2_kleinesBaechlein.jpg" alt="H13f_2" width="100%">
           </div>
-          `,
-          }
-      });
+         `,
+        }
+      })
+      //13a_wild_geomoid
+      page_strukturelemente.addElement("mapInput", "a_wild_geomoid", {    
+        text: `13: Markiere alle vorhandenen Flächen-Elemente in der gezeigten Untersuchungsfläche. Klicken auf «Fläche hinzufügen» zeigt die Liste mit Flächen-Elementen. `,
+        area: "wild_area",
+        points: "a_wild_points",
+        measure: "A13.0",
+        ratio: {
+          key: "wild_arearatio",
+          options: [
+            { key: "0", points: 0, label: "weniger als 3 Strukturelemente vorhanden", measure: "A13.1" },
+            { key: "1", points: 1, label: "3-4 Strukturelemente, wovon eines der Strukturelemente mehr als die Hälfte der ganzen Untersuchungsfläche (= Arealfläche - Gebäudefläche) bedeckt" , measure: "A13.2"},
+            { key: "2", points: 2, label: "3-4 Strukturelemente, keines der Strukturelemente bedeckt mehr als die Hälfte der ganzen Untersuchungsfläche", measure: "A13.3" },
+            { key: "3", points: 4, label: "5 Strukturelemente, wovon eines der Strukturelemente mehr als 40% der ganzen Untersuchungsfläche bedeckt" ,measure: "A13.4"  },
+            { key: "4", points: 6, label: "5 Strukturelemente, keines der Strukturelemente bedeckt mehr als 40% der ganzen Untersuchungsfläche", measure: "A13.5"  },
+            { key: "5", points: 7, label: "6 Strukturelemente, wovon eines der Strukturelemente mehr als 30% der ganzen Untersuchungsfläche bedeckt" , measure: "A13.6" },
+            { key: "6", points: 8, label: "6 Strukturelemente, keines der Strukturelemente bedeckt mehr als 30% der ganzen Untersuchungsfläche" , measure: "A13.7"  },
+          ]
+        },
+        color: [129, 0, 157, 0.7],
+        name_display : "Verschiedene Pflanzenflächen",
+          
+      }); 
 
    
       page_strukturelemente.addTextInfo({
@@ -836,7 +681,7 @@ define([
           text: `
           <div class="textInfoElements">
           Kommen unterschiedliche Elemente wie Bäume, Sträucher sowie Kräuter, Gräser und Blumen alle an der gleichen Stelle vor, so finden auch mehr Lebewesen
-          einen Lebensraum mit Nahrung und Versteck. Deshalb ist es wichtig, dass Bäume, Sträucher und Kräuter an manchen Stellen zusammen vorkommen:
+          einen Lebensraum mit Nahrung und Versteck. Deshalb ist es wichtig, dass Bäume, Sträucher und Kräuter an manchen Stellen zusammen vorkommen: <br>
           Kräuter, Gräser und Blumen unter Bäumen
           <img src="img/Fotos_Hilfestellungen/H17_1_KrautschichtBaumschicht.jpg" alt="H17_1" width="100%">
           </div>
@@ -1170,7 +1015,7 @@ define([
           }
       });
 
-      /*03 Pflege*/
+      /*Pflege*/
       let page_pflege = app.addPage("Pflege", {
       pointsInfo: [2,11]});
 
@@ -1230,7 +1075,7 @@ define([
 
       //29a_maehen
       let elem29a = page_pflege.addElement("radioButtonInput", "a_maehen", {
-        text: "29a: Es wird jeweils nicht die ganze Grasfläche zum gleichen Zeitpunkt geschnitten. Verschiedene Grasflächen werden zu unterschiedlichen Zeitpunkten geschnitten.",
+        text: "29a: Es wird jeweils die ganze Grasfläche zum gleichen Zeitpunkt geschnitten. Alle Grasflächen werden gleichzeitig geschnitten.",
         placeholder: "Auswählen",
         points: "a_maehen_points",
         options: [
@@ -1256,8 +1101,8 @@ define([
         placeholder: "Auswählen",
         points: "c_maehen_points",
         options: [
-          { key: "0", points: 1, label: "Ja", measure: "A29c.1"  },
-          { key: "1", points: 0, label: "Nein", measure: "A29.P"  },
+          { key: "1", points: 1, label: "Ja", measure: "A29c.1"  },
+          { key: "0", points: 0, label: "Nein", measure: "A29.P"  },
         ],
       });
     
@@ -1326,26 +1171,26 @@ define([
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem29a.rules = [{
         values: [
-          "Ja",
+          "1",
           ], 
         elements: [elem29d]
       }]
     
       elem29d.rules = [{
         values: [
-          "Talzone oder Hügelzone.",
+          "0",
           ], 
         elements: [elem29etal]
       },
       {
         values: [
-          "Bergzonen I oder II.",
+          "1",
           ], 
         elements: [elem29eberg1]
       },
       {
         values: [
-          "Bergzonen III oder IV.",
+          "2",
           ], 
         elements: [elem29eberg2]
       }]
@@ -1445,7 +1290,7 @@ define([
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem32a.rules = [{
         values: [
-          "Ja",
+          "0",
           ], 
         elements: [elem32b]
       }]     
@@ -1499,7 +1344,7 @@ define([
         measure: "A33.0",   
         options: [
           { key: "0",points: 0, label: "Mehr als die Hälfte des Bodens wird ohne Analyse des Bodens gedüngt.", measure: "A33.2"},
-          { key: "1",points: 2, label: "Weniger als die Hälfte des Bodens wird ohne Analyse des Bodens gedüngt.", measure: "A33.3"},      
+          { key: "1",points: 1, label: "Weniger als die Hälfte des Bodens wird ohne Analyse des Bodens gedüngt.", measure: "A33.3"},      
         ],
         points: "a_duengen_points",     
       });    
@@ -1535,13 +1380,13 @@ define([
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem33.rules = [{
         values: [
-          "Ja",
+          "0",
           ], 
         elements: [elem33gras, elem34]
       }] 
       elem33gras.rules = [{
         values: [
-          "Ja",
+          "0",
           ], 
         elements: [elem33a, elem34]
       }] 
@@ -1609,7 +1454,7 @@ define([
           }
       });
 
-      /*04 Bauliche Massnahmen*/
+      /*Bauliche Massnahmen*/
        let page_baumassnahmen = app.addPage("Bauliche Massnahmen", {
        pointsInfo: [2,4]});
 
@@ -1708,10 +1553,9 @@ define([
           linkText: "Zusatzinfos",
           text: `
           <div class="textInfoElements">
-          Grosse Glasflächen können tödlich für Vögel sein. 
-          Aufgeklebte Umrisse von Vögel schützen leider nur wenig.
+          Grosse Glasflächen können tödlich für Vögel sein. Aufgeklebte Umrisse von Vögel schützen leider nur wenig.<br>
+          Unwirksame Greifvogel-Umrisse<br>
           <img src="img/Fotos_Hilfestellungen/H40_1_Greifvogel_Umrisse.jpg" alt="H40_1" width="100%">
-          unwirksame Greifvogel-Umrisse<br>
           </div>
           <div class="textInfoElements">
           Wirksamer hingegen sind Streifenmuster:
@@ -1733,15 +1577,31 @@ define([
         options: [
           { key: "0",points: 0, label: "Glasflächen ohne Vogelschutz.", measure: "A40.2" },
           { key: "1",points: 0, label: "Glasflächen mit aufgeklebten Umrissen von Vögeln.", measure: "A40.2" },
-          { key: "2",points: 2, label: "Glasflächen mit aufgeklebten Vogelschutzstreifen. (Birdstripes)", measure: "A40.3" },
+          { key: "2",points: 1, label: "Glasflächen mit aufgeklebten Vogelschutzstreifen. (Birdstripes)", measure: "A40.3" },
         ],
+         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
+         textInfo: {
+          linkText: "Zusatzinfos",
+          text: `
+          <div class="textInfoElements">
+          Grosse Glasflächen können tödlich für Vögel sein. Aufgeklebte Umrisse von Vögel schützen leider nur wenig.<br>
+          Unwirksame Greifvogel-Umrisse<br>
+          <img src="img/Fotos_Hilfestellungen/H40_1_Greifvogel_Umrisse.jpg" alt="H40_1" width="100%">
+          </div>
+          <div class="textInfoElements">
+          Wirksamer hingegen sind Streifenmuster:
+          <img src="img/Fotos_Hilfestellungen/H40_2_Vogelschutzstreifen.jpg" alt="H40_2" width="100%">
+          Glasfläche mit aufgeklebten Vogelschutzstreifen
+          </div>
+           `,
+          }
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
       elem40b.hide();
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem40a.rules = [{
-        values: ["Ja"], 
+        values: ["1"], 
         elements: [elem40b]
       }]
 
@@ -1792,7 +1652,7 @@ define([
        elem41b.hide();
        // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
        elem41a.rules = [{
-         values: ["Ja"], 
+         values: ["1"], 
          elements: [elem41b]
        }]
 

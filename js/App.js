@@ -33,8 +33,6 @@ define([
       app.pageNo = 0;
       app.mapLoadedPromises = [];
 
-      app.arcgis = new ArcGis(app.strings);
-
       if (this.mode == "results") {
         app.showPoints = true;
       }
@@ -42,22 +40,31 @@ define([
         app.showPoints = false;
       }
 
-      if (!this.offline) {
-        this.arcgis.init(() => {
-          this.arcgis.initGeo(() => {
-            this.arcgis.initProject(() => {
-              this.createUI();
-              this.clickHandler();
-              
-              callback();
+      if (this.mode == "collection"||this.mode == "consolidation"||this.mode == "project") {
+        app.editMode = true
+      }
+      else {
+        app.editMode = false
+      }
+
+      app.arcgis = new ArcGis(app.editMode, app.strings, () => {
+        if (!this.offline) {
+          this.arcgis.init(() => {
+            this.arcgis.initGeo(() => {
+              this.arcgis.initProject(() => {
+                this.createUI();
+                this.clickHandler();
+                
+                callback();
+              });
             });
           });
-        });
-      } else {
-        this.createUI();
-        this.clickHandler();
-        callback();
-      }
+        } else {
+          this.createUI();
+          this.clickHandler();
+          callback();
+        }
+      });
     }
 
     // Init function for collection and results
@@ -178,7 +185,7 @@ define([
             domCtr.create("div", { id: "qrcode"}, document.getElementById("textInfo_Erfassung"));
 
             new QRCode(document.getElementById("qrcode"), url);
-
+            this.delete.classList.remove("btn_disabled")
           }
           else {
             app.content.makeNewProject();
@@ -299,6 +306,14 @@ define([
           }, 1000);
           this.save.style.display = "none !important";
       }
+
+      if (app.mode == "project") {
+        this.delete = domCtr.create(
+          "div",
+          { id: "delete", className: "btn1 btn_disabled", innerHTML: this.strings.get("delete") },
+          this.header
+          );
+      }
         
       
        
@@ -396,6 +411,21 @@ define([
         on(this.print, "click", () => {
          window.print();
         });
+      }
+
+      if (app.mode == "project") {
+
+        on(this.delete, "click", () => {
+          if (confirm(app.strings.get("deleteConfirm"))) {
+            app.arcgis.deleteProject(app.projectAreaId).then(() => {
+              this.updateAttributes("mode", "start");
+              this.removeAttributes("group");
+              window.open(window.location.href, "_self")
+            });
+          }
+
+          
+         });
       }
             
 

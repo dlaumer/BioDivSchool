@@ -34,6 +34,8 @@ values;Werte;Chiffres;Values;
 warnFillAll;Bitte zuerst alle Felder ausfüllen!;Veuillez d'abord remplir tous les champs !;Please fill in all the elements first!;
 warnSaveSuccess;Die Daten wurden erfolgreich gespeichert;Les données ont été enregistrées avec succès;The data was saved successfully!;
 editProject;Projekt bearbeiten/löschen;Editer/effacer projet;Edit/delete project;
+delete;Löschen;Effacer;Delete;
+deleteConfirm;Willst du dieses Projekt wirklich löschen?;Effacer le projet?;Do you really want to delete this project?;
 edit;Bearbeiten;Editer;Edit;
 noProjectChosen;Kein Projekt ausgewählt;Aucun projet sélectionné;No project selected;
 loginEsri;Einloggen;Connecter;Login;
