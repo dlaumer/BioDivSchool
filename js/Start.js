@@ -523,7 +523,7 @@ define([
           for (let i in results) {
             if (results[i].attributes.owner == start.userNameEsri) {
               let container = addProject(i, this.myProjectsContainer);
-              this.projects[results[i].attributes.projectid] = {container:container, projectid: results[i].attributes.projectid, location: results[i].attributes.name, school: results[i].attributes.school, date: results[i].attributes.CreationDate, author: results[i].attributes.owner};
+              this.projects[results[i].attributes.OBJECTID] = {container:container ,projectid: results[i].attributes.OBJECTID, location: results[i].attributes.name, school: results[i].attributes.school, date: results[i].attributes.CreationDate, author: results[i].attributes.owner};
             }
           }
         }
@@ -706,7 +706,7 @@ define([
         for (let i in results) {
           if (results[i].attributes.owner != start.userNameEsri) {
             let container = addProject(i, start.allProjectsContainer);
-            this.projects[results[i].attributes.projectid] = {container:container, projectid: results[i].attributes.projectid, location: results[i].attributes.name, school: results[i].attributes.school, date: results[i].attributes.CreationDate, author: results[i].attributes.owner};
+            this.projects[results[i].attributes.OBJECTID] = {container:container, projectid: results[i].attributes.OBJECTID, location: results[i].attributes.name, school: results[i].attributes.school, date: results[i].attributes.CreationDate, author: results[i].attributes.owner};
           }
         }
 
@@ -742,7 +742,7 @@ define([
           let container = domCtr.create(
             "div",
             {
-              id: results[i].attributes.projectid + "_" + results[i].attributes.name + "_" + results[i].attributes.school,
+              id: results[i].attributes.OBJECTID + "_" + results[i].attributes.name + "_" + results[i].attributes.school,
               className: "projectContainer",
             },
             cont
@@ -751,7 +751,7 @@ define([
           let item = domCtr.create(
             "div",
             {
-              id: "project_" + results[i].attributes.projectid,
+              id: "project_" + results[i].attributes.OBJECTID,
               className: "projects",
             },
             container
@@ -768,7 +768,7 @@ define([
           let infoContainer = domCtr.create(
             "div",
             {
-              id: "infoContainer_" + results[i].attributes.projectid,
+              id: "infoContainer_" + results[i].attributes.OBJECTID,
               className: "infoContainer",
             },
             infoButtonContainer
@@ -920,7 +920,7 @@ define([
           let btnsContainer = domCtr.create(
             "div",
             {
-              id: "btnsContainer_" +  results[i].attributes.projectid,
+              id: "btnsContainer_" +  results[i].attributes.OBJECTID,
               className: "btnsContainer",
             },
             item
@@ -969,7 +969,7 @@ define([
               //start.viewOverview.goTo(results[i].geometry);
               let query = start.projectAreaPoint.createQuery();
               query.where =
-                "projectid in ('" + results[i].attributes.projectid + "')";
+                "objectid in ('" + results[i].attributes.OBJECTID + "')";
               start.projectAreaPoint.queryFeatures(query).then((results2) => {
                 start.viewOverview.goTo({
                   center: [8.722167506135465, 47.32443911582187],
@@ -983,7 +983,7 @@ define([
               });
 
               start.selectProject(
-                results[i].attributes.projectid,
+                results[i].attributes.OBJECTID,
                 results[i].attributes.name,
                 results[i].attributes.school,
                 results[i].attributes.owner

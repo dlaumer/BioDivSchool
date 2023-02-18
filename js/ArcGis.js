@@ -281,7 +281,7 @@ define([
       let featureClass = this.project;
 
       var query = featureClass.createQuery();
-      query.where = "projectid= '" + projectId + "'";
+      query.where = "objectid= '" + projectId + "'";
 
       featureClass.queryFeatures(query).then((results) => {
         // If it already exists, load the existing values
@@ -987,7 +987,7 @@ define([
               editor.layerInfos[0].addEnabled = false;
               app.updateAttributes(
                 "project",
-                editInfo.edits.addFeatures[0].attributes.projectid
+                editInfo.edits.addFeatures[0].attributes.OBJECTID
               );
               location.reload();
             } else {
@@ -1355,7 +1355,7 @@ define([
               ")";
             projectAreaPolygon.queryFeatures(query).then((results) => {
               start.selectProject(
-                results.features[0].attributes.projectid,
+                results.features[0].attributes.OBJECTID,
                 results.features[0].attributes.name,
                 results.features[0].attributes.school,
                 results.features[0].attributes.owner
