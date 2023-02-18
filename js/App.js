@@ -507,7 +507,7 @@ define([
     }
 
     addPage(title, args = {}) {
-
+      title = app.strings.get(title);
       if (!args.version || args.version && args.version.includes(app.version)) {
         let page;
         if (app.mode == "consolidation") {
@@ -549,12 +549,14 @@ define([
     }
 
     addPageNormal(title, container) {
+      
       let page = new Page(this.pages.length, container, title);
       this.pages.push(page);
       return page;
     }
 
     addFinalPage(title) {
+      title = app.strings.get(title);
       if (app.mode != "results") {
         let page = new Page(this.pages.length, this.pageContainer, title);
         let element = domCtr.create("div", { id: "finalElement", className: "element final" }, page.page);
@@ -845,6 +847,16 @@ define([
       });
     }
 
+    replaceWithText(elem) {
+      let elems = elem.querySelectorAll('.textual');
+      if (elems.length > 0) {
+        for (let i = 0; i < elems.length; i++) {
+          elems[i].innerHTML = app.strings.get(elems[i].textContent)
+          //elems[i].innerHTML = elems[i].textContent
+        }
+      }
+
+    }
     checkKey(e) {
       e = e || window.event;
 

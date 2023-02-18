@@ -82,8 +82,16 @@ define([
 
     addTextInfo(args) {
 
+      args.title =args.title? app.strings.get(args.title):null;
+      args.text =args.text? app.strings.get(args.text):null;
 
-        let textInfo = domCtr.create("div", { id: "textInfo_" + args.title, className: args.title? "element titleContainer":"element"}, this.page);
+      if (args.textInfo) {
+        args.textInfo.text =args.textInfo.text? app.strings.get(args.textInfo.text):null;
+        args.textInfo.linkText =args.textInfo.linkText? app.strings.get(args.textInfo.linkText):null;
+      }
+      
+
+      let textInfo = domCtr.create("div", { id: "textInfo_" + args.title, className: args.title? "element titleContainer":"element"}, this.page);
         if (args.title) {
           domCtr.create("div", { className: "elementTitle", innerHTML: args.title}, textInfo);
 
@@ -105,6 +113,8 @@ define([
         if (Object.keys(args).includes("version") && !args.version.includes(app.version)) {
           textInfo.style.display = "none"
         }
+
+        app.replaceWithText(textInfo);
 
         return {element:textInfo, type: "textInfo"};
     }

@@ -61,7 +61,7 @@ define([
       this.groupDivs = {}
       for (let i in app.content.groups) {
         let groupDivContainer = domCtr.create("div", { className: "groupDivContainer"}, consolidation);
-        domCtr.create("div", { className: "groupDivTitle", innerHTML: app.content.groups[i].label}, groupDivContainer);
+        domCtr.create("div", { className: "groupDivTitle", innerHTML: app.strings.get(app.content.groups[i].label)}, groupDivContainer);
         this.groupDivs[app.content.groups[i].key] = domCtr.create("div", { className: "resultContainer", }, groupDivContainer);
 
         

@@ -175,7 +175,7 @@ define([
       for (const i in options) {
         domCtr.create(
           "option",
-          { value: options[i].key, innerHTML: options[i].label },
+          { value: options[i].key, innerHTML: app.strings.get(options[i].label) },
           this.inputGroupId
         );
       }

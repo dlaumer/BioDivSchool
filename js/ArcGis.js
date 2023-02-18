@@ -72,7 +72,7 @@ define([
       this.links = {
         //geometryLayerI: "3c34d04c41fd47d4b8852788c00e2f1f",    // Daniel
         geometryLayerId: "2106076234904e29980c1d20aa317e98", //Christian
-        geometryViewLayerID: "7426e05330d147c78052dffb482140ac",
+        geometryViewLayerId: "7426e05330d147c78052dffb482140ac",
         //dataLayerId: "51be950e7c1b4cbb8085c67a2c412868",    // Daniel
         dataLayerId: "3e5de63361774b82a560150dab5cdd68", //Christian
         dataViewLayerId: "3d01293c42d448989196387cca6b8dc4",
@@ -135,7 +135,7 @@ define([
       .catch(() => {
         esriId.destroyCredentials();
         window.location.reload();
-        alert("This user is not allowed to edit the data")
+        alert(this.strings.get("notAllowed"))
       });
     }
 
@@ -169,7 +169,7 @@ define([
         .catch((error) => {
           console.log(error);
           alert(
-            "The connection to the database could not be established: " +
+            "The connection to the database could not be established: " + this.table.id + " " + 
               error.toString()
           );
         });
@@ -189,7 +189,7 @@ define([
         .catch((error) => {
           console.log(error);
           alert(
-            "The connection to the database could not be established: " +
+            "The connection to the database could not be established: " + this.editMode?this.links.geometryLayerId:this.links.geometryViewLayerId + " " + 
               error.toString()
           );
         });
@@ -209,7 +209,7 @@ define([
         .catch((error) => {
           console.log(error);
           alert(
-            "The connection to the database could not be established: " +
+            "The connection to the database could not be established: " + this.project.id + " " + 
               error.toString()
           );
         });

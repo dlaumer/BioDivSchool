@@ -68,3 +68,4 @@ selectTemplate; Flächen-Element auswählen; Sélectionner l'élément de surfac
 editFeatures;Flächen bearbeiten;Editer surfaces;Edit areas;
 editFeature;Fläche bearbeiten;Editer surface;Edit area;
 addFeature;Fläche hinzufügen;Ajouter surface;Add area;
+notAllowed;Mit diesem Account sind sie nicht autorisiert, am BioDivSchool-Projekt teilzunehmen.;Avec ce compte, ils ne sont pas autorisés à participer au projet BioDivSchool.;With this account they are not authorized to participate in the BioDivSchool project.;

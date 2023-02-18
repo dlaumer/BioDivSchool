@@ -42,6 +42,20 @@ define([
                   reader.readAsText(blob);
               })
             }))
+
+            promises.push(new Promise((resolve, reject) => {
+              window.fetch("content/mainContent.csv").then(response => response.blob())
+              .then(blob => {
+                  const reader = new FileReader();
+                  var this2 = this;
+                  reader.onload = function (e) {
+                      const text = e.target.result;
+                      this2.csvToArray(text);
+                      resolve()
+                  };
+                  reader.readAsText(blob);
+              })
+            }))
   
           }
           return promises
@@ -84,12 +98,19 @@ define([
       }
 
       get(stringID) {
+
         if (Object.keys(this.data).includes(stringID)) {
-          return this.data[stringID][this.lang]
+          let string = this.data[stringID][this.lang];
+          if (string[0] == `"`) {string = string.substring(1)}
+          if (string[string.length-1] == `"`) {string = string.substring(0,string.length - 1)}
+          return string
 
         }
         else if (stringID == "") {
           return ""
+        }
+        else if (stringID.includes("textual")) {
+          return stringID
         }
         else {
           alert("There is a missing string: " + stringID)
