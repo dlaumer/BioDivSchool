@@ -1737,7 +1737,7 @@ define([
 
       let projektid = page0.addElement("simpleTextInput", "projectid", {
         text: "P05.project.text.1",
-        placeholder: " PLZ_NachnameLehrperson_Jahr",
+        placeholder: "P05.project.placeholder",
       });
 
       let name = page0.addElement("simpleTextInput", "name", {
@@ -1771,9 +1771,7 @@ define([
       let map = page0.addElement("mapInput", "gebiete", { 
         color: [255, 0, 0, 0.7],
         name_display: "P05.gebiete.nameDisplay",
-        text: `
-        P05.gebiete.text
-        ` 
+        text: "P05.gebiete.text" 
       });
       projektid.map = map;
       name.map = map;
@@ -1805,9 +1803,7 @@ define([
       page0.addElement("mapInput", "gebiete", { 
         color: [255, 0, 0, 0.7],
         name_display: "P06.nameDisplay",
-        text: `
-        P06.text
-        ` 
+        text: "P06.text"
       });
 
       app.addFinalPage("P06.finalPage");

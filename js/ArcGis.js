@@ -218,15 +218,24 @@ define([
     // function to add one row to the table
     checkData(projectId, groupId, callback) {
       let featureClass = this.table;
+      if (projectId == "null") {
+        callback(null)
+        return;
+      }
       if (app.mode == "project") {
         featureClass = this.project;
+        var query = featureClass.createQuery();
+        query.where = "objectid= '" + projectId + "'"
       }
 
-      var query = featureClass.createQuery();
-      query.where =
-        groupId == null
-          ? "projectid= '" + projectId + "'"
-          : "projectid= '" + projectId + "' AND gruppe= '" + groupId + "'";
+      else {
+        var query = featureClass.createQuery();
+        query.where =
+          groupId == null
+            ? "projectid= '" + projectId + "'"
+            : "projectid= '" + projectId + "' AND gruppe= '" + groupId + "'";
+      }
+     
 
       featureClass.queryFeatures(query).then((results) => {
         // If it already exists, load the existing values
@@ -987,7 +996,7 @@ define([
               editor.layerInfos[0].addEnabled = false;
               app.updateAttributes(
                 "project",
-                editInfo.edits.addFeatures[0].attributes.OBJECTID
+                editInfo.addedFeatures[0].objectId
               );
               location.reload();
             } else {

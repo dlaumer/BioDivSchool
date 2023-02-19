@@ -728,9 +728,7 @@ define([
         function sortProjects(sortBy) {
           let tempProjects = Object.values(start.projects);
           
-          console.log(tempProjects)
           tempProjects.sort((a, b) => (a[sortBy] > b[sortBy]) ? 1 : ((b[sortBy] > a[sortBy]) ? -1 : 0));
-          console.log(tempProjects)
           let order = 0;
           for (let j in tempProjects) {
             tempProjects[j].container.style.order = order;

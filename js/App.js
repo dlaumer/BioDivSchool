@@ -181,8 +181,8 @@ define([
             queryParams.set("mode", "collection");
             queryParams.delete("admin");
             let url = window.location.href.split("?")[0] + "?" + queryParams.toString();
-            domCtr.create("div", { className: "labelText", innerHTML: app.strings.get("link") + ": <a href="+url+" target=_blank>"+url+"</a>", style: "width: 100%; margin-bottom: 10px;"}, document.getElementById("textInfo_Erfassung"));
-            domCtr.create("div", { id: "qrcode"}, document.getElementById("textInfo_Erfassung"));
+            domCtr.create("div", { className: "labelText", innerHTML: app.strings.get("link") + ": <a href="+url+" target=_blank>"+url+"</a>", style: "width: 100%; margin-bottom: 10px;"}, document.getElementById("textInfo_" + app.strings.get("P06.title.1")));
+            domCtr.create("div", { id: "qrcode"}, document.getElementById("textInfo_" + app.strings.get("P06.title.1")));
 
             new QRCode(document.getElementById("qrcode"), url);
             this.delete.classList.remove("btn_disabled")
