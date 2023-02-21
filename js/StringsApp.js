@@ -106,7 +106,7 @@ define([
           return string
 
         }
-        else if (stringID == "") {
+        else if (stringID == ""  || stringID == null) {
           return ""
         }
         else if (stringID.includes("textual")) {

@@ -625,7 +625,7 @@ define([
       }.bind(this));
     }
 
-  
+
     addTitle(args) {
 
       this.link = domCtr.create("div", { className: "elementTitle", innerHTML: args }, this.element);
@@ -657,21 +657,24 @@ define([
       }
       else {
         let val = null;
-        if (this.type == "sliderInput" && value != '') {
-          val = value;
-        }
-        else {
-          val = this.data[value].label
-        }
-        if (this.resultDiv == null) {
-            domCtr.create("div", { className: "result", innerHTML: val}, container);
-        }
-        else {
-          if (value != '' && (this.type == "radioButtonInput" || this.type == "dropdownInput")) {
-            this.resultDiv.innerHTML = "<b>" + app.strings.get("result") + ":</b><br>" + val;
+        if (value != "") {
+          if (this.type == "sliderInput" && value != '') {
+            val = value;
+          }
+          else {
+            val = this.data[value].label
+          }
+          if (this.resultDiv == null) {
+            domCtr.create("div", { className: "result", innerHTML: val }, container);
+          }
+          else {
+            if (value != '' && (this.type == "radioButtonInput" || this.type == "dropdownInput")) {
+              this.resultDiv.innerHTML = "<b>" + app.strings.get("result") + ":</b><br>" + val;
 
+            }
+          }
         }
-      }
+
 
       }
 
@@ -805,7 +808,7 @@ define([
         }
       }).then(() => {
 
-        if (saveData && app.mode != "project" && !app.offline) {
+        if (saveData && app.mode != "project" && app.mode != "results" && !app.offline) {
           app.save.innerHTML = app.strings.get("saving")
           app.save.className = "btn1"
           let data = this.getter();

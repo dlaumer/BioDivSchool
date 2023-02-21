@@ -559,10 +559,10 @@ define([
       let prototype;
       let projectArea = new FeatureLayer({
         portalItem: {
-          id: this.links.projectLayerId,
+          id: this.editMode?this.links.projectLayerId:this.links.projectViewLayerId,
         },
 
-        editingEnabled: true,
+        editingEnabled: app.mode=="results"?false:true,
         renderer: {
           type: "simple", // autocasts as new SimpleRenderer()
           symbol: {
@@ -592,7 +592,7 @@ define([
         projectArea.editingEnabled = false;
         geometry = new FeatureLayer({
           portalItem: {
-            id: this.links.geometryLayerId,
+            id: this.editMode?this.links.geometryLayerId:this.links.geometryViewLayerId,
           },
           title: "Pflanzenart",
           definitionExpression: "objectid = 0",
@@ -801,7 +801,7 @@ define([
           };
         }
 
-        if (element.key == "a_wild_geomoid") {
+        if (element.key == "flaechen_geomoid") {
           geometry.templates = [
             new FeatureTemplate({
               name: "Gemüsebeete oder Wildblumen",
@@ -1443,7 +1443,6 @@ define([
           id: this.links.projectViewLayerId,
         },
 
-        editingEnabled: true,
         renderer: {
           type: "simple", // autocasts as new SimpleRenderer()
           symbol: {

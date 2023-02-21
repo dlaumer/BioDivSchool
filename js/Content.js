@@ -261,8 +261,8 @@ define([
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem10.rules = [{
         values: [
-          "1",
-          "2"], 
+          "E10.options.label.0",
+          "E10.options.label.1"], 
         elements: [elem10a, elem10b]
       }]
 
@@ -568,8 +568,8 @@ define([
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem15.rules = [{
         values: [
-          "2",
-          "3"], 
+          "E15.options.label.2",
+          "E15.options.label.3"], 
         elements: [elem15a]
       }]
 
@@ -635,8 +635,8 @@ define([
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem16.rules = [{
         values: [
-          "2",
-          "3"], 
+          "E16.options.label.2",
+          "E16.options.label.3"], 
         elements: [elem16a, elem16b]
       }]
 
@@ -1168,25 +1168,25 @@ define([
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem29a.rules = [{
         values: [
-          "1",
+          "E29a.options.label.1",
         ],
         elements: [elem29d]
       },
       {
         values: [
-          "1",
+          "E29a.options.label.1",
         ],
         elements: [elem29etal]
       },
       {
         values: [
-          "1",
+          "E29a.options.label.1",
         ],
         elements: [elem29eberg1]
       },
       {
         values: [
-          "1",
+          "E29a.options.label.1",
         ],
         elements: [elem29eberg2]
       }]
@@ -1194,19 +1194,19 @@ define([
       //@Dani: gell diese Regel ist nötig!?
       elem29d.rules = [{
         values: [
-          "0",
+          "E29d.options.label.0",
         ],
         elements: [elem29etal]
       },
       {
         values: [
-          "1",
+          "E29d.options.label.1",
         ],
         elements: [elem29eberg1]
       },
       {
         values: [
-          "2",
+          "E29d.options.label.2",
         ],
         elements: [elem29eberg2]
       }]
@@ -1308,7 +1308,7 @@ define([
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem32a.rules = [{
         values: [
-          "0",
+          "E32a.options.label.0",
           ], 
         elements: [elem32b]
       }]     
@@ -1400,13 +1400,13 @@ define([
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem33.rules = [{
         values: [
-          "0",
+          "E33duengen.options.label.0",
           ], 
         elements: [elem33gras, elem34]
       }] 
       elem33gras.rules = [{
         values: [
-          "0",
+          "E33gras.options.label.0",
           ], 
         elements: [elem33a, elem34]
       }] 
@@ -1625,7 +1625,7 @@ define([
       elem40b.hide();
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem40a.rules = [{
-        values: ["0"], 
+        values: ["E40a.options.label.0"], 
         elements: [elem40b]
       }]
 
@@ -1692,7 +1692,7 @@ define([
        elem41b.hide();
        // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
        elem41a.rules = [{
-         values: ["0"], 
+         values: ["E41a.options.label.0"], 
          elements: [elem41b]
        }]
 
