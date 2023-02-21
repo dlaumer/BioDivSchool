@@ -839,7 +839,7 @@ define([
 
 
       for (let i in values) {
-        if (this.groupDivs[i] && values[i] != null && values[i != '']) {
+        if (this.groupDivs[i] && values[i] != null && values[i] != '') {
           this.setterUINonEdit(this.groupDivs[i], values[i])
 
 

@@ -70,6 +70,7 @@ define([
       let elem = page.addElementNormal(type, key, args, consolidationContainer);
       
       elem.element.style.width = "40%";
+      elem.element.style.overflow = "scroll";
       elem.groupDivs = this.groupDivs;
 
       if (type != "mapInput") {
