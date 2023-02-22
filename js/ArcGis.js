@@ -528,6 +528,11 @@ define([
       return new Promise((resolve, reject) => {
         let totalArea = 0;
         let areas = {};
+        if (objectIds == "") {
+          resolve({ totalArea: totalArea, areas: areas });
+          return;
+        }
+
         var query = data.createQuery();
         query.where =
           "objectid in (" + objectIds.substring(1, objectIds.length - 1) + ")";
@@ -1034,9 +1039,16 @@ define([
             if (editInfo.deletedFeatures[0].objectId != -1) {
               let newValue = JSON.parse(element.value);
               for (let i = 0; i < editInfo.deletedFeatures.length; i++) {
-                newValue.pop(editInfo.deletedFeatures[i].objectId);
+                const index = newValue.indexOf(editInfo.deletedFeatures[i].objectId);
+                newValue.splice(index, 1);
               }
-              element.setter(JSON.stringify(newValue));
+              if (newValue.length == 0) {
+                element.setter(null);
+
+              }
+              else {
+                element.setter(JSON.stringify(newValue));
+              }
             } else {
               alert(
                 "Saving not possible: " +

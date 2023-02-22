@@ -120,11 +120,23 @@ define([
       );
 
       domCtr.create(
+        "lord-icon",
+        {
+          id: "icon",
+          src: "https://cdn.lordicon.com/adiugfir.json",
+          trigger: "hover",
+          colors: "primary:#121331,secondary:#a2c367",
+          style: "width:70px;height:70px"
+        },
+        this.header1
+      );
+
+      domCtr.create(
         "div",
         {
           id: "appTitle",
           innerHTML: this.strings.get("title"),
-          style: "font-size: min(5vmax, 30px)",
+          style: "font-size: min(5vmax, 30px);padding: 0 10px;",
         },
         this.header1
       );
@@ -199,7 +211,7 @@ define([
       start.settingsPanel = domCtr.create(
         "div",
         {
-          className: "btn3Panel", 
+          className: "btn3Panel",
         },
         settingsBtnContainer
       );
@@ -239,19 +251,19 @@ define([
         if (!shortElement.classList.contains("selectableElementActive")) {
           longElement.classList.toggle("selectableElementActive")
           shortElement.classList.toggle("selectableElementActive")
-          start.updateAttributes("version", "short" );
+          start.updateAttributes("version", "short");
         }
-        
+
       });
 
       on(longElement, "click", function (evt) {
         if (!longElement.classList.contains("selectableElementActive")) {
           longElement.classList.toggle("selectableElementActive")
           shortElement.classList.toggle("selectableElementActive")
-          start.updateAttributes("version", "long" );
+          start.updateAttributes("version", "long");
         }
       });
-      
+
       domCtr.create(
         "div",
         { className: "nonselectableElement", innerHTML: this.strings.get("langLabel") },
@@ -276,15 +288,15 @@ define([
           },
           langContainer
         );
-        
+
         if (start.strings.languages[i] == this.lang) {
           langElement[start.strings.languages[i]].classList.toggle("selectableElementActive")
-        } 
+        }
 
       }
 
       for (const i in start.strings.languages) {
-        
+
 
         on(langElement[start.strings.languages[i]], "click", function (evt) {
           for (const j in start.strings.languages) {
@@ -300,7 +312,7 @@ define([
         })
       }
 
-      
+
       // Login/User button!
 
       let loginBtnContainer = domCtr.create(
@@ -321,7 +333,7 @@ define([
         loginBtnContainer
       );
 
-      
+
       domCtr.create(
         "img",
         {
@@ -344,20 +356,20 @@ define([
       start.loginPanel = domCtr.create(
         "div",
         {
-          className: "btn3Panel", 
+          className: "btn3Panel",
         },
         loginBtnContainer
       );
 
       start.login = domCtr.create(
         "div",
-        {id: "login", className: "selectableElement", innerHTML: this.strings.get("loginEsri") },
+        { id: "login", className: "selectableElement", innerHTML: this.strings.get("loginEsri") },
         start.loginPanel
       );
 
       start.globeWebsite = domCtr.create(
         "div",
-        { className: "selectableElement", innerHTML: "Globe Swiss" },
+        { className: "selectableElement", innerHTML: "GLOBE Swiss" },
         start.loginPanel
       );
 
@@ -462,16 +474,16 @@ define([
         start.draggable = domCtr.create(
           "div",
           {
-            id: "draggable",  
+            id: "draggable",
             className: "draggable",
           },
           start.mapOverviewProject
         );
 
-        
 
-      this.dragElement(this.draggable);
-      
+
+        this.dragElement(this.draggable);
+
         start.draggableLine = domCtr.create(
           "div",
           {
@@ -482,7 +494,7 @@ define([
         );
 
 
-        
+
         // Add the search button and filter
         start.searchAndFilter = domCtr.create(
           "div",
@@ -523,12 +535,12 @@ define([
           for (let i in results) {
             if (results[i].attributes.owner == start.userNameEsri) {
               let container = addProject(i, this.myProjectsContainer);
-              this.projects[results[i].attributes.OBJECTID] = {container:container ,projectid: results[i].attributes.OBJECTID, location: results[i].attributes.name, school: results[i].attributes.school, date: results[i].attributes.CreationDate, author: results[i].attributes.owner};
+              this.projects[results[i].attributes.OBJECTID] = { container: container, projectid: results[i].attributes.OBJECTID, location: results[i].attributes.name, school: results[i].attributes.school, date: results[i].attributes.CreationDate, author: results[i].attributes.owner };
             }
           }
         }
 
-        
+
 
         domCtr.create(
           "div",
@@ -539,11 +551,11 @@ define([
           start.scrollable
         );
 
-        
+
         let search = domCtr.create(
           "input",
           {
-            className: "search", 
+            className: "search",
             placeholder: start.strings.get("search"),
           },
           start.searchAndFilter
@@ -557,7 +569,7 @@ define([
         let filterContainer = domCtr.create(
           "div",
           {
-            className: "btn3_container", 
+            className: "btn3_container",
           },
           start.searchAndFilter
         );
@@ -566,7 +578,7 @@ define([
           "div",
           {
             id: "btn_filter",
-            className: "btn3 btn2", 
+            className: "btn3 btn2",
           },
           filterContainer
         );
@@ -588,11 +600,11 @@ define([
           start.btn_filter
         );
 
-        
+
         start.filterPanel = domCtr.create(
           "div",
           {
-            className: "btn3Panel", 
+            className: "btn3Panel",
           },
           filterContainer
         );
@@ -600,7 +612,7 @@ define([
         let filterLocation = domCtr.create(
           "div",
           {
-            className: "selectableElement selectableElementActive", 
+            className: "selectableElement selectableElementActive",
             innerHTML: start.strings.get("location")
           },
           start.filterPanel
@@ -609,7 +621,7 @@ define([
         let filterSchool = domCtr.create(
           "div",
           {
-            className: "selectableElement", 
+            className: "selectableElement",
             innerHTML: start.strings.get("school")
           },
           start.filterPanel
@@ -618,7 +630,7 @@ define([
         let filterDate = domCtr.create(
           "div",
           {
-            className: "selectableElement", 
+            className: "selectableElement",
             innerHTML: start.strings.get("date")
           },
           start.filterPanel
@@ -627,19 +639,19 @@ define([
         let filterAuthor = domCtr.create(
           "div",
           {
-            className: "selectableElement", 
+            className: "selectableElement",
             innerHTML: start.strings.get("author")
           },
           start.filterPanel
         );
- 
+
 
         on(start.draggableLine, "click", function (evt) {
-          if (start.mapOverviewProject.offsetTop > 0.50*window.innerHeight) {
-            start.mapOverviewProject.style.top = 0.15*window.innerHeight + "px";
+          if (start.mapOverviewProject.offsetTop > 0.50 * window.innerHeight) {
+            start.mapOverviewProject.style.top = 0.15 * window.innerHeight + "px";
           }
           else {
-            start.mapOverviewProject.style.top = 0.87*window.innerHeight + "px"; 
+            start.mapOverviewProject.style.top = 0.87 * window.innerHeight + "px";
           }
 
         }.bind(this));
@@ -706,7 +718,7 @@ define([
         for (let i in results) {
           if (results[i].attributes.owner != start.userNameEsri) {
             let container = addProject(i, start.allProjectsContainer);
-            this.projects[results[i].attributes.OBJECTID] = {container:container, projectid: results[i].attributes.OBJECTID, location: results[i].attributes.name, school: results[i].attributes.school, date: results[i].attributes.CreationDate, author: results[i].attributes.owner};
+            this.projects[results[i].attributes.OBJECTID] = { container: container, projectid: results[i].attributes.OBJECTID, location: results[i].attributes.name, school: results[i].attributes.school, date: results[i].attributes.CreationDate, author: results[i].attributes.owner };
           }
         }
 
@@ -727,7 +739,7 @@ define([
 
         function sortProjects(sortBy) {
           let tempProjects = Object.values(start.projects);
-          
+
           tempProjects.sort((a, b) => (a[sortBy] > b[sortBy]) ? 1 : ((b[sortBy] > a[sortBy]) ? -1 : 0));
           let order = 0;
           for (let j in tempProjects) {
@@ -762,7 +774,7 @@ define([
             },
             item
           );
-          
+
           let infoContainer = domCtr.create(
             "div",
             {
@@ -806,7 +818,7 @@ define([
             },
             labelsContainer
           );
-         
+
 
           // School
           let citySchoolContainer = domCtr.create(
@@ -817,7 +829,7 @@ define([
             },
             citySchoolWrapper
           );
-          
+
           domCtr.create(
             "div",
             {
@@ -918,7 +930,7 @@ define([
           let btnsContainer = domCtr.create(
             "div",
             {
-              id: "btnsContainer_" +  results[i].attributes.OBJECTID,
+              id: "btnsContainer_" + results[i].attributes.OBJECTID,
               className: "btnsContainer",
             },
             item
@@ -952,13 +964,13 @@ define([
 
           on(btn_zoom, "click", (e) => {
 
-              start.viewOverview.goTo(results[i].geometry);
-              
-            
+            start.viewOverview.goTo(results[i].geometry);
+
+
             console.log("zoom");
             e.stopPropagation();
           })
-          
+
 
           infoContainer.addEventListener("click", () => {
             if (start.projectSelected == item) {
@@ -1001,25 +1013,25 @@ define([
       if (start.projectSelected) {
         start.projectSelected.querySelector('.iconLabel').classList.toggle("iconLabelActive");
         start.projectSelected.querySelector('.icon').classList.toggle("iconActive");
-        for  (let i=0; i < start.projectSelected.querySelectorAll('.borderElement').length;i++) {
+        for (let i = 0; i < start.projectSelected.querySelectorAll('.borderElement').length; i++) {
           start.projectSelected.querySelectorAll('.borderElement')[i].classList.toggle("borderElementActive");
         }
-        for  (let i=0; i < start.projectSelected.querySelectorAll('.icon2').length;i++) {
+        for (let i = 0; i < start.projectSelected.querySelectorAll('.icon2').length; i++) {
           start.projectSelected.querySelectorAll('.icon2')[i].classList.toggle("iconActive");
         }
       }
-      
+
       item.querySelector('.iconLabel').classList.toggle("iconLabelActive");
       item.querySelector('.icon').classList.toggle("iconActive");
-      for  (let i=0; i < item.querySelectorAll('.borderElement').length;i++) {
+      for (let i = 0; i < item.querySelectorAll('.borderElement').length; i++) {
         item.querySelectorAll('.borderElement')[i].classList.toggle("borderElementActive");
       }
-      for (let i=0; i < item.querySelectorAll('.icon2').length;i++) {
+      for (let i = 0; i < item.querySelectorAll('.icon2').length; i++) {
         item.querySelectorAll('.icon2')[i].classList.toggle("iconActive");
       }
 
       if (window.matchMedia('only screen and (max-width: 600px)').matches) {
-        start.mapOverviewProject.style.top = 0.15*window.innerHeight + "px";
+        start.mapOverviewProject.style.top = 0.15 * window.innerHeight + "px";
       }
       if (start.projectSelected !== null) {
         start.projectSelected.className = "projects";
@@ -1065,10 +1077,10 @@ define([
       if (start.projectSelected != null) {
         start.projectSelected.querySelector('.iconLabel').classList.toggle("iconLabelActive");
         start.projectSelected.querySelector('.icon').classList.toggle("iconActive");
-        for  (let i=0; i < start.projectSelected.querySelectorAll('.borderElement').length;i++) {
+        for (let i = 0; i < start.projectSelected.querySelectorAll('.borderElement').length; i++) {
           start.projectSelected.querySelectorAll('.borderElement')[i].classList.toggle("borderElementActive");
         }
-        for  (let i=0; i < start.projectSelected.querySelectorAll('.icon2').length;i++) {
+        for (let i = 0; i < start.projectSelected.querySelectorAll('.icon2').length; i++) {
           start.projectSelected.querySelectorAll('.icon2')[i].classList.toggle("iconActive");
         }
         start.buttons.style.display = "none";
@@ -1078,7 +1090,7 @@ define([
         start.viewOverview.popup.close();
 
         start.btn_project.style.display = "none"
-        
+
       }
     }
 
@@ -1102,13 +1114,13 @@ define([
         window.open("https://www.globe-swiss.ch/de/Angebote/BioDivSchool/", "_blank");
       });
 
-      
+
 
       on(this.btn_settings, "click", function (evt) {
-          start.settingsPanel.classList.toggle("btn3PanelActive");
-          start.btn_settings.classList.toggle("btn_active");
-          start.btn_settings.querySelector('.btn_icon').classList.toggle("btn_icon_active");
-          start.btn_settings.querySelector('.btn_label').classList.toggle("btn_label_active");
+        start.settingsPanel.classList.toggle("btn3PanelActive");
+        start.btn_settings.classList.toggle("btn_active");
+        start.btn_settings.querySelector('.btn_icon').classList.toggle("btn_icon_active");
+        start.btn_settings.querySelector('.btn_label').classList.toggle("btn_label_active");
       });
 
       // Close sort and settings window whenever a click happens outside of those elements
@@ -1127,7 +1139,7 @@ define([
           start.btn_login.querySelector('.btn_icon').classList.toggle("btn_icon_active");
           start.btn_login.querySelector('.btn_label').classList.toggle("btn_label_active");
 
-          
+
         };
 
         if (evt.srcElement.id != "btn_filter" && start.filterPanel.classList.contains("btn3PanelActive")) {
@@ -1201,10 +1213,10 @@ define([
         pos2 = 0,
         pos3 = 0,
         pos4 = 0;
-     
-        /* otherwise, move the DIV from anywhere inside the DIV:*/
-        elmnt.addEventListener('touchstart', dragMouseDown);
-        //elmnt.onmousedown = dragMouseDown;
+
+      /* otherwise, move the DIV from anywhere inside the DIV:*/
+      elmnt.addEventListener('touchstart', dragMouseDown);
+      //elmnt.onmousedown = dragMouseDown;
 
 
       function dragMouseDown(e) {
@@ -1213,11 +1225,11 @@ define([
         //e.preventDefault();
         // get the mouse cursor position at startup:
         pos4 = e.touches[0].clientY;
-        elmnt.addEventListener('touchend',closeDragElement)
+        elmnt.addEventListener('touchend', closeDragElement)
         //document.onmouseup = closeDragElement;
 
         // call a function whenever the cursor moves:
-        elmnt.addEventListener('touchmove',elementDrag)
+        elmnt.addEventListener('touchmove', elementDrag)
         //document.onmousemove  = elementDrag;
 
       }
@@ -1233,7 +1245,7 @@ define([
         pos4 = e.touches[0].clientY;
         // set the element's new position:
         let newTop = start.mapOverviewProject.offsetTop - pos2;
-        if (newTop > 0.15*window.innerHeight && newTop < 0.87*window.innerHeight) {
+        if (newTop > 0.15 * window.innerHeight && newTop < 0.87 * window.innerHeight) {
           start.mapOverviewProject.style.top = start.mapOverviewProject.offsetTop - pos2 + "px";
 
         }

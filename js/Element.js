@@ -725,6 +725,11 @@ define([
           this.valueSet = false;
           this.value = value;
 
+          if (this.type == "mapInput") {
+            this.area = "";
+            this.ratio = "";
+          }
+
           if (this.hasPoints) {
             this.points = null;
             this.pointsInfo.innerHTML = "";
@@ -765,6 +770,7 @@ define([
           }
 
           if (this.type == "mapInput") {
+
             this.geometry.definitionExpression = "objectid in (" + value.substring(1, value.length - 1) + ")";
 
           }

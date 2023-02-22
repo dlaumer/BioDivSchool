@@ -118,6 +118,19 @@ define([
       );
       this.container = domCtr.create("div", { id: "welcome" }, this.background);
 
+
+      this.loadingIcon = domCtr.create(
+        "lord-icon",
+        {
+          id: "loadingIcon",
+          src: "https://cdn.lordicon.com/adiugfir.json",
+          trigger: "loop",
+          colors: "primary:#121331,secondary:#a2c367",
+          style: "width:100px;height:100px"
+        },
+        this.container
+      );
+
       let title = this.strings.get("titleCollection");
 
       switch (this.mode) {
@@ -150,11 +163,13 @@ define([
         { id: "loading", innerHTML: this.strings.get("loading"), style: "font-size: 2vh" },
         this.container
       );
+      
     }
 
     // Create the GUI of the login screen
     createUI() {
       domCtr.destroy("loading");
+      domCtr.destroy("loadingIcon")
       this.inputProjectId = domCtr.create(
         "input",
         { className: "input inputField", placeholder: "Projekt ID" },
