@@ -97,6 +97,15 @@ define([
         // return the array
       }
 
+      checkString(stringID) {
+        if (Object.keys(this.data).includes(stringID)) {
+          return true
+        }
+        else {
+          return false
+        }
+      }
+
       get(stringID) {
 
         if (Object.keys(this.data).includes(stringID)) {

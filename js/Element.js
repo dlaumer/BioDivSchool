@@ -99,8 +99,10 @@ define([
       }
       if (args.textInfo) {
         args.textInfo.linkText = args.textInfo.linkText ? app.strings.get(args.textInfo.linkText) : null;
+        if (args.textInfo.text  && app.strings.checkString(args.textInfo.text)) {
+          args.textInfo.text = app.strings.get(args.textInfo.text);
+        }
       }
-      //args.textInfo.text =args.textInfo.linkText? app.strings.get(args.textInfo.linkText):null;
 
 
 
@@ -433,7 +435,7 @@ define([
       this.linkInstructions = domCtr.create("div", { id: "linkInstructions", className: "labelText linkText", innerHTML: app.strings.get("instructions") }, this.editorContainer);
       this.instructions = domCtr.create("div", { className: "expandable" }, this.element);
 
-      this.instructionsText = domCtr.create("div", { innerHTML: app.content.instructions, }, this.instructions);
+      this.instructionsText = domCtr.create("div", { innerHTML: app.strings.get(app.content.instructions), }, this.instructions);
       this.instructionsClose = domCtr.create("div", { className: "btn1", innerHTML: app.strings.get("close"), }, this.instructions);
 
       if (app.mode == "results") {
