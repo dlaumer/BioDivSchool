@@ -30,9 +30,7 @@ define([
 
       ]
 
-      this.instructions = `
-      instructionsProject
-      `
+      this.instructions = "instructionsProject"
     }
 
 
@@ -152,7 +150,7 @@ define([
 
       //08_wild_geomoid
       page_regionalitaet.addElement("mapInput", "wild_geomoid", {
-        text: `E08.text`,
+        text: "E08.text",
         area: "wild_geomarea",
         measure: "A08.0",
         ratio: {
@@ -248,7 +246,7 @@ define([
 
       //10b_neophyten__geomoid - Liste und Points tbd
       let elem10b = page_regionalitaet.addElement("mapInput", "neophyten__geomoid", {
-        text: `E10b.text`,
+        text: "E10b.text",
         placeholder: "E.placeholder",
         color: [147, 145, 98, 0.7],
         name_display: "E10b.nameDisplay",
@@ -310,7 +308,7 @@ define([
       //04_textInfo
       page_strukturelemente.addTextInfo({
         title: "T04.title",
-        text: `T04.text`,
+        text: "T04.text",
 
         textInfo: {
           linkText: "T04.textInfo.linkText",
@@ -331,7 +329,7 @@ define([
 
       //11_versieg_geomoid
       page_strukturelemente.addElement("mapInput", "versieg_geomoid", {
-        text: `E11.text`,
+        text: "E11.text",
         area: "versieg_area",
         measure: "A11.0",
         ratio: {
@@ -350,7 +348,7 @@ define([
 
       //12_rasen_geomoid
       page_strukturelemente.addElement("mapInput", "rasen_geomoid", {      
-        text: `E12.text`,
+        text: "E12.text",
         area: "rasen_area",
         measure: "A12.0",
         ratio: {
@@ -429,7 +427,7 @@ define([
       })
       //13_flaechen_geomoid
       page_strukturelemente.addElement("mapInput", "flaechen_geomoid", {
-        text: `E13a.text`,
+        text: "E13a.text",
         area: "flaechen_area",
         points: "flaechen_points",
         measure: "A13.0",
@@ -1227,9 +1225,7 @@ define([
         points: "pestizide_points",
           textInfo: {
           linkText: "T.textInfo.linkText",
-          text: `
-          E30.textInfo.text.1
-          `,
+          text: "E30.textInfo.text.1",
           }
       });
       //Chemische Pestizide werden kaum eingesetzt. <5%	2
@@ -1248,9 +1244,7 @@ define([
         points: "bekaempfung_points",
           textInfo: {
           linkText: "T.textInfo.linkText",
-          text: `
-          E31.textInfo.text.1
-          `,
+          text: "E31.textInfo.text.1",
           },
           version: ["long"]
       });
@@ -1383,9 +1377,7 @@ define([
         points: "mitteln_points",
         textInfo: {
           linkText: "T.textInfo.linkText",
-          text: `
-          E34.textInfo.text.1
-          `,
+          text: "E34.textInfo.text.1",
           },
           version: ["long"]
       });
@@ -1526,9 +1518,7 @@ define([
         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "T.textInfo.linkText",
-          text: `
-          E38.textInfo.text.1
-          `,
+          text: "E38.textInfo.text.1",
           }
       });
 
@@ -1551,9 +1541,7 @@ define([
           //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
           linkText: "T.textInfo.linkText",
-          text: `
-          E39.textInfo.text.1
-          `,
+          text: "E39.textInfo.text.1",
           }
       });
 
