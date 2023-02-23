@@ -82,6 +82,13 @@ document.addEventListener('gestureend', function(e) {
     document.body.style.zoom = 0.99;
 });
 
+window.addEventListener("touchmove", function(e){
+        var currentY = e.changedTouches[0].pageY;
+         if ($(window).scrollTop() <= 0 && startY <= currentY) {
+             e.preventDefault();
+             return false;
+         }
+    },{passive:false});
 
       function getJsonFromUrl() {
         var query = location.search.substr(1);
