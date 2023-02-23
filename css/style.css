@@ -50,14 +50,15 @@ input[type=checkbox]
 
 html {
   overflow-y: hidden !important;
-  overscroll-behavior: contain !important;
+  overscroll-behavior: none !important;
 }
-
 body {
+  overflow-y: hidden !important;
+  position: fixed;
   overflow: hidden;
-
   margin: 0;
   font-size: min(3vmax, 18px);
+  overscroll-behavior: none !important;
 
 }
 
@@ -635,11 +636,12 @@ body {
 
 .background {
   width: 100%;
+  height: 100%;
+  overflow: hidden !important;
+  position: fixed;
   top: 0;
   bottom: 0;
-height: 100vh;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+overscroll-behavior: contain !important;
 }
 #titlePage {
   width: 100%;
