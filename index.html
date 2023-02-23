@@ -82,6 +82,11 @@ document.addEventListener('gestureend', function(e) {
     document.body.style.zoom = 0.99;
 });
 
+let startY = 0;
+window.addEventListener('touchstart', function (e) {
+    startY = e.originalEvent.changedTouches[0].pageY;
+});
+
 window.addEventListener("touchmove", function(e){
         var currentY = e.changedTouches[0].pageY;
          if ($(window).scrollTop() <= 0 && startY <= currentY) {
