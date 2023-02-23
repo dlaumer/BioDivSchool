@@ -1254,6 +1254,14 @@ define([
       function closeDragElement() {
         //console.log("closeDragElement")
 
+        
+        if (pos2 > 0) {
+          start.mapOverviewProject.style.top = 0.15 * window.innerHeight + "px";
+        }
+        else {
+          start.mapOverviewProject.style.top = 0.87 * window.innerHeight + "px";
+        }
+
         /* stop moving when mouse button is released:*/
         document.addEventListener('touchend', null);
         //document.onmouseup = null;
