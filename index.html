@@ -88,8 +88,9 @@ window.addEventListener('touchstart', function (e) {
 });
 
 window.addEventListener("touchmove", function(e){
+
         var currentY = e.changedTouches[0].pageY;
-         if ($(window).scrollTop() <= 0 && startY <= currentY) {
+         if (document.scrollTop <= 0 && startY <= currentY) {
              e.preventDefault();
              return false;
          }
