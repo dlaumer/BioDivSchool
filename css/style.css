@@ -51,8 +51,6 @@ input[type=checkbox]
 html {
   overflow-y: hidden !important;
   overscroll-behavior: contain !important;
-  touch-action: pan-x pan-y;
-
 }
 body {
   overflow-y: hidden !important;
