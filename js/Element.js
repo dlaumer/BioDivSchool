@@ -835,7 +835,7 @@ define([
 
           });
         }
-        else if (app.mode == "project" && (this.key == "school" || this.key == "projectid" || this.key == "name")) {
+        else if (app.mode == "project" && (this.key == "school" || this.key == "projectid" || this.key == "name" || this.key == "gebaeude_geomoid")) {
           //app.arcgis.handleSignInOut();
           this.map.prototype.attributes[this.key] = this.value;
           this.map.prototype.attributes["owner"] = app.userNameEsri;

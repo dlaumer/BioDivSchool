@@ -1755,6 +1755,21 @@ define([
         elements: [school]
       }]
 
+      //P05.gebaeude
+      let buildings = page0.addElement("mapInput", "gebaeude_geomoid", { 
+        color: [0, 0, 255, 0.5],
+        name_display: "P05.gebaeude.nameDisplay",
+        text: "P05.gebaeude.text" 
+      });
+
+      // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
+      buildings.element.style.visibility = "hidden";
+      // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
+      school.rules = [{
+        values: [null], 
+        elements: [buildings]
+      }]
+
       //P05.gebiete
       let map = page0.addElement("mapInput", "gebiete", { 
         color: [255, 0, 0, 0.7],
@@ -1764,11 +1779,12 @@ define([
       projektid.map = map;
       name.map = map;
       school.map = map;
+      buildings.map = map;
 
-      // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
+      // IMPORTANT: Don't use hide here, because it used display: none and this does not make the map load
       map.element.style.visibility = "hidden";
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
-      school.rules = [{
+      buildings.rules = [{
         values: [null], 
         elements: [map]
       }]
@@ -1788,6 +1804,14 @@ define([
       page0.addTextInfo({
         title: "P06.title.2",
       })
+
+      //P05.gebaeude
+      let buildings = page0.addElement("mapInput", "gebaeude_geomoid", { 
+        color: [0, 0, 255, 0.5],
+        name_display: "P06.gebaeude.nameDisplay",
+        text: "P06.gebaeude.text" 
+      });
+
       page0.addElement("mapInput", "gebiete", { 
         color: [255, 0, 0, 0.7],
         name_display: "P06.nameDisplay",

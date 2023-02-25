@@ -95,7 +95,7 @@ define([
 
       this.createUI();
       this.clickHandler();
-      
+
     }
 
     handleSignInOut() {
@@ -132,11 +132,11 @@ define([
         }
         this.signedIn = true;
       })
-      .catch(() => {
-        esriId.destroyCredentials();
-        window.location.reload();
-        alert(this.strings.get("notAllowed"))
-      });
+        .catch(() => {
+          esriId.destroyCredentials();
+          window.location.reload();
+          alert(this.strings.get("notAllowed"))
+        });
     }
 
     handleSignedOut() {
@@ -150,15 +150,15 @@ define([
       }
     }
 
-    createUI() {}
+    createUI() { }
 
-    clickHandler() {}
+    clickHandler() { }
 
     // Here the ID of the table on AGO
     init(callback) {
       this.table = new FeatureLayer({
         portalItem: {
-          id: this.editMode?this.links.dataLayerId:this.links.dataViewLayerId,
+          id: this.editMode ? this.links.dataLayerId : this.links.dataViewLayerId,
         },
       });
       this.table
@@ -169,8 +169,8 @@ define([
         .catch((error) => {
           console.log(error);
           alert(
-            "The connection to the database could not be established: " + this.table.id + " " + 
-              error.toString()
+            "The connection to the database could not be established: " + this.table.id + " " +
+            error.toString()
           );
         });
     }
@@ -178,7 +178,7 @@ define([
     initGeo(callback) {
       this.geometry = new FeatureLayer({
         portalItem: {
-          id: this.editMode?this.links.geometryLayerId:this.links.geometryViewLayerId,
+          id: this.editMode ? this.links.geometryLayerId : this.links.geometryViewLayerId,
         },
       });
       this.geometry
@@ -189,7 +189,7 @@ define([
         .catch((error) => {
           console.log(error);
           alert(
-            "The connection to the database could not be established: " + this.editMode?this.links.geometryLayerId:this.links.geometryViewLayerId + " " + 
+            "The connection to the database could not be established: " + this.editMode ? this.links.geometryLayerId : this.links.geometryViewLayerId + " " +
               error.toString()
           );
         });
@@ -198,7 +198,7 @@ define([
     initProject(callback) {
       this.project = new FeatureLayer({
         portalItem: {
-          id: this.editMode?this.links.projectLayerId:this.links.projectViewLayerId,
+          id: this.editMode ? this.links.projectLayerId : this.links.projectViewLayerId,
         },
       });
       this.project
@@ -209,8 +209,8 @@ define([
         .catch((error) => {
           console.log(error);
           alert(
-            "The connection to the database could not be established: " + this.project.id + " " + 
-              error.toString()
+            "The connection to the database could not be established: " + this.project.id + " " +
+            error.toString()
           );
         });
     }
@@ -235,7 +235,7 @@ define([
             ? "projectid= '" + projectId + "'"
             : "projectid= '" + projectId + "' AND gruppe= '" + groupId + "'";
       }
-     
+
 
       featureClass.queryFeatures(query).then((results) => {
         // If it already exists, load the existing values
@@ -276,7 +276,7 @@ define([
                 } else {
                   alert(
                     "loading not possible: " +
-                      editInfo.addFeatureResults[0].error.message
+                    editInfo.addFeatureResults[0].error.message
                   );
                   console.error(editInfo.addFeatureResults[0].error);
                 }
@@ -424,9 +424,9 @@ define([
     // function to change several data in the table
     updateFeatures(data) {
       let featureClass = this.table;
-      
+
       return new Promise((resolve, reject) => {
-        
+
         // finally, upload the new data to ArcGIS Online
         featureClass
           .applyEdits({
@@ -444,13 +444,13 @@ define([
             reject(reason);
           });
 
-        });
+      });
     }
 
     deleteProject(objectId) {
       objectId = objectId.substring(1, objectId.length - 1);
       let featureClass = this.project;
-      
+
       return new Promise((resolve, reject) => {
         featureClass
           .queryFeatures({
@@ -462,7 +462,7 @@ define([
           .then((results) => {
             if (results.features.length > 0) {
               let editFeature = results.features[0];
-              
+
               // finally, upload the new data to ArcGIS Online
               featureClass
                 .applyEdits({
@@ -493,7 +493,7 @@ define([
           console.log(results);
           let elements = app.getAllElements(false);
 
-          for (let i in results) {  
+          for (let i in results) {
             console.log(results[i].attributes.objectId)
             for (let j in results[i].attributes) {
               if (results[i].attributes[j] != null) {
@@ -559,15 +559,14 @@ define([
     }
 
     addMap(containerMap, containerEditor, element, callback) {
-      let geometry;
       let editor;
       let prototype;
       let projectArea = new FeatureLayer({
         portalItem: {
-          id: this.editMode?this.links.projectLayerId:this.links.projectViewLayerId,
+          id: this.editMode ? this.links.projectLayerId : this.links.projectViewLayerId,
         },
 
-        editingEnabled: app.mode=="results"?false:true,
+        editingEnabled: false,
         renderer: {
           type: "simple", // autocasts as new SimpleRenderer()
           symbol: {
@@ -578,6 +577,40 @@ define([
         minScale: 0,
         maxScale: 0,
       });
+
+      let geometry = new FeatureLayer({
+        portalItem: {
+          id: this.editMode ? this.links.geometryLayerId : this.links.geometryViewLayerId,
+        },
+        editingEnabled: true,
+        title: "Pflanzenart",
+        definitionExpression: "objectid = 0",
+        renderer: {
+          type: "simple", // autocasts as new SimpleRenderer()
+          symbol: {
+            type: "simple-fill", // autocasts as new SimpleFillSymbol()
+            color: [...element.color, 0.5],
+          },
+        },
+
+        formTemplate: {
+          // autocastable to FormTemplate
+          elements: [
+            {
+              // autocastable to FieldElement
+              type: "field",
+              fieldName: "Notes",
+              label: "Notizen",
+            },
+          ],
+        },
+      });
+
+      if (element.key == "gebiete") {
+        projectArea.editingEnabled = true;
+        geometry.editingEnabled = false;
+        geometry.renderer.symbol.color = [0,0,255,0.5]
+      }
 
       if (app.projectAreaId != null) {
         projectArea.definitionExpression =
@@ -593,349 +626,321 @@ define([
       });
       map.add(projectArea);
 
-      if (app.mode != "project") {
-        projectArea.editingEnabled = false;
-        geometry = new FeatureLayer({
-          portalItem: {
-            id: this.editMode?this.links.geometryLayerId:this.links.geometryViewLayerId,
-          },
-          title: "Pflanzenart",
-          definitionExpression: "objectid = 0",
-          renderer: {
-            type: "simple", // autocasts as new SimpleRenderer()
-            symbol: {
-              type: "simple-fill", // autocasts as new SimpleFillSymbol()
-              color: [...element.color, 0.5],
+
+      if (element.key == "neophyten__geomoid") {
+        geometry.templates = [
+          new FeatureTemplate({
+            name: "Amerikanische Goldruten",
+            prototype: {
+              attributes: {
+                Labels: "Amerikanische Goldruten",
+              },
             },
-          },
+          }),
+          new FeatureTemplate({
+            name: "Ambrosia",
+            prototype: {
+              attributes: {
+                Labels: "Ambrosia",
+              },
+            },
+          }),
+          new FeatureTemplate({
+            name: "Asiatische Staudenknöteriche",
+            prototype: {
+              attributes: {
+                Labels: "Asiatische Staudenknöteriche",
+              },
+            },
+          }),
+          new FeatureTemplate({
+            name: "Drüsiges Springkraut",
+            prototype: {
+              attributes: {
+                Labels: "Drüsiges Springkraut",
+              },
+            },
+          }),
+          new FeatureTemplate({
+            name: "Einjähriges Berufskraut",
+            prototype: {
+              attributes: {
+                Labels: "Einjähriges Berufskraut",
+              },
+            },
+          }),
+          new FeatureTemplate({
+            name: "Kirschlorbeer",
+            prototype: {
+              attributes: {
+                Labels: "Kirschlorbeer",
+              },
+            },
+          }),
+          new FeatureTemplate({
+            name: "Sommerflieder",
+            prototype: {
+              attributes: {
+                Labels: "Sommerflieder",
+              },
+            },
+          }),
+          new FeatureTemplate({
+            name: "Götterbaum",
+            prototype: {
+              attributes: {
+                Labels: "Götterbaum",
+              },
+            },
+          }),
+          new FeatureTemplate({
+            name: "Robinie",
+            prototype: {
+              attributes: {
+                Labels: "Robinie",
+              },
+            },
+          }),
+        ];
 
-          formTemplate: {
-            // autocastable to FormTemplate
-            elements: [
-              {
-                // autocastable to FieldElement
-                type: "field",
-                fieldName: "Notes",
-                label: "Notizen",
-              },
-            ],
-          },
-        });
+        geometry.formTemplate = {
+          // autocastable to FormTemplate
+          elements: [
+            {
+              // autocastable to FieldElement
+              type: "field",
+              fieldName: "Labels",
+              label: "Pflanzenart",
+              editable: false,
+            },
+            {
+              // autocastable to FieldElement
+              type: "field",
+              fieldName: "Notes",
+              label: "Notizen",
+            },
+          ],
+        };
 
-        if (element.key == "neophyten__geomoid") {
-          geometry.templates = [
-            new FeatureTemplate({
-              name: "Amerikanische Goldruten",
-              prototype: {
-                attributes: {
-                  Labels: "Amerikanische Goldruten",
-                },
+        geometry.renderer = {
+          type: "unique-value",
+          field: "Labels",
+          defaultSymbol: { type: "simple-fill" }, // autocasts as new SimpleFillSymbol()
+          uniqueValueInfos: [
+            {
+              // All features with value of "North" will be blue
+              value: "Amerikanische Goldruten",
+              symbol: {
+                type: "simple-fill", // autocasts as new SimpleFillSymbol()
+                color: "blue",
               },
-            }),
-            new FeatureTemplate({
-              name: "Ambrosia",
-              prototype: {
-                attributes: {
-                  Labels: "Ambrosia",
-                },
+            },
+            {
+              // All features with value of "North" will be blue
+              value: "Ambrosia",
+              symbol: {
+                type: "simple-fill", // autocasts as new SimpleFillSymbol()
+                color: "red",
               },
-            }),
-            new FeatureTemplate({
-              name: "Asiatische Staudenknöteriche",
-              prototype: {
-                attributes: {
-                  Labels: "Asiatische Staudenknöteriche",
-                },
+            },
+            {
+              // All features with value of "North" will be blue
+              value: "Amerikanische Goldruten",
+              symbol: {
+                type: "simple-fill", // autocasts as new SimpleFillSymbol()
+                color: "blue",
               },
-            }),
-            new FeatureTemplate({
-              name: "Drüsiges Springkraut",
-              prototype: {
-                attributes: {
-                  Labels: "Drüsiges Springkraut",
-                },
+            },
+            {
+              // All features with value of "North" will be blue
+              value: "Asiatische Staudenknöteriche",
+              symbol: {
+                type: "simple-fill", // autocasts as new SimpleFillSymbol()
+                color: "orange",
               },
-            }),
-            new FeatureTemplate({
-              name: "Einjähriges Berufskraut",
-              prototype: {
-                attributes: {
-                  Labels: "Einjähriges Berufskraut",
-                },
+            },
+            {
+              // All features with value of "North" will be blue
+              value: "Drüsiges Springkraut",
+              symbol: {
+                type: "simple-fill", // autocasts as new SimpleFillSymbol()
+                color: "green",
               },
-            }),
-            new FeatureTemplate({
-              name: "Kirschlorbeer",
-              prototype: {
-                attributes: {
-                  Labels: "Kirschlorbeer",
-                },
+            },
+            {
+              // All features with value of "North" will be blue
+              value: "Einjähriges Berufskraut",
+              symbol: {
+                type: "simple-fill", // autocasts as new SimpleFillSymbol()
+                color: "yellow",
               },
-            }),
-            new FeatureTemplate({
-              name: "Sommerflieder",
-              prototype: {
-                attributes: {
-                  Labels: "Sommerflieder",
-                },
+            },
+            {
+              // All features with value of "North" will be blue
+              value: "Kirschlorbeer",
+              symbol: {
+                type: "simple-fill", // autocasts as new SimpleFillSymbol()
+                color: "brown",
               },
-            }),
-            new FeatureTemplate({
-              name: "Götterbaum",
-              prototype: {
-                attributes: {
-                  Labels: "Götterbaum",
-                },
+            },
+            {
+              // All features with value of "North" will be blue
+              value: "Sommerflieder",
+              symbol: {
+                type: "simple-fill", // autocasts as new SimpleFillSymbol()
+                color: "black",
               },
-            }),
-            new FeatureTemplate({
-              name: "Robinie",
-              prototype: {
-                attributes: {
-                  Labels: "Robinie",
-                },
+            },
+            {
+              // All features with value of "North" will be blue
+              value: "Götterbaum",
+              symbol: {
+                type: "simple-fill", // autocasts as new SimpleFillSymbol()
+                color: "pink",
               },
-            }),
-          ];
-
-          geometry.formTemplate = {
-            // autocastable to FormTemplate
-            elements: [
-              {
-                // autocastable to FieldElement
-                type: "field",
-                fieldName: "Labels",
-                label: "Pflanzenart",
-                editable: false,
+            },
+            {
+              // All features with value of "North" will be blue
+              value: "Robinie",
+              symbol: {
+                type: "simple-fill", // autocasts as new SimpleFillSymbol()
+                color: "purple",
               },
-              {
-                // autocastable to FieldElement
-                type: "field",
-                fieldName: "Notes",
-                label: "Notizen",
-              },
-            ],
-          };
-
-          geometry.renderer = {
-            type: "unique-value",
-            field: "Labels",
-            defaultSymbol: { type: "simple-fill" }, // autocasts as new SimpleFillSymbol()
-            uniqueValueInfos: [
-              {
-                // All features with value of "North" will be blue
-                value: "Amerikanische Goldruten",
-                symbol: {
-                  type: "simple-fill", // autocasts as new SimpleFillSymbol()
-                  color: "blue",
-                },
-              },
-              {
-                // All features with value of "North" will be blue
-                value: "Ambrosia",
-                symbol: {
-                  type: "simple-fill", // autocasts as new SimpleFillSymbol()
-                  color: "red",
-                },
-              },
-              {
-                // All features with value of "North" will be blue
-                value: "Amerikanische Goldruten",
-                symbol: {
-                  type: "simple-fill", // autocasts as new SimpleFillSymbol()
-                  color: "blue",
-                },
-              },
-              {
-                // All features with value of "North" will be blue
-                value: "Asiatische Staudenknöteriche",
-                symbol: {
-                  type: "simple-fill", // autocasts as new SimpleFillSymbol()
-                  color: "orange",
-                },
-              },
-              {
-                // All features with value of "North" will be blue
-                value: "Drüsiges Springkraut",
-                symbol: {
-                  type: "simple-fill", // autocasts as new SimpleFillSymbol()
-                  color: "green",
-                },
-              },
-              {
-                // All features with value of "North" will be blue
-                value: "Einjähriges Berufskraut",
-                symbol: {
-                  type: "simple-fill", // autocasts as new SimpleFillSymbol()
-                  color: "yellow",
-                },
-              },
-              {
-                // All features with value of "North" will be blue
-                value: "Kirschlorbeer",
-                symbol: {
-                  type: "simple-fill", // autocasts as new SimpleFillSymbol()
-                  color: "brown",
-                },
-              },
-              {
-                // All features with value of "North" will be blue
-                value: "Sommerflieder",
-                symbol: {
-                  type: "simple-fill", // autocasts as new SimpleFillSymbol()
-                  color: "black",
-                },
-              },
-              {
-                // All features with value of "North" will be blue
-                value: "Götterbaum",
-                symbol: {
-                  type: "simple-fill", // autocasts as new SimpleFillSymbol()
-                  color: "pink",
-                },
-              },
-              {
-                // All features with value of "North" will be blue
-                value: "Robinie",
-                symbol: {
-                  type: "simple-fill", // autocasts as new SimpleFillSymbol()
-                  color: "purple",
-                },
-              },
-            ],
-          };
-        }
-
-        if (element.key == "flaechen_geomoid") {
-          geometry.templates = [
-            new FeatureTemplate({
-              name: "Gemüsebeete oder Wildblumen",
-              prototype: {
-                attributes: {
-                  Labels: "Gemüsebeete oder Wildblumen",
-                },
-              },
-            }),
-            new FeatureTemplate({
-              name: "Kies, Sand, Ruderalflächen",
-              prototype: {
-                attributes: {
-                  Labels: "Kies, Sand, Ruderalflächen",
-                },
-              },
-            }),
-            new FeatureTemplate({
-              name: "Hohes Gras",
-              prototype: {
-                attributes: {
-                  Labels: "Hohes Gras",
-                },
-              },
-            }),
-            new FeatureTemplate({
-              name: "Sträucher oder Hecken",
-              prototype: {
-                attributes: {
-                  Labels: "Sträucher oder Hecken",
-                },
-              },
-            }),
-            new FeatureTemplate({
-              name: "Heimische Bäume",
-              prototype: {
-                attributes: {
-                  Labels: "Heimische Bäume",
-                },
-              },
-            }),
-            new FeatureTemplate({
-              name: "Gewässer",
-              prototype: {
-                attributes: {
-                  Labels: "Gewässer",
-                },
-              },
-            }),
-          ];
-
-          geometry.formTemplate = {
-            // autocastable to FormTemplate
-            elements: [
-              {
-                // autocastable to FieldElement
-                type: "field",
-                fieldName: "Labels",
-                label: "Pflanzenart",
-                editable: false,
-              },
-              {
-                // autocastable to FieldElement
-                type: "field",
-                fieldName: "Notes",
-                label: "Notizen",
-              },
-            ],
-          };
-
-          geometry.renderer = {
-            type: "unique-value",
-            field: "Labels",
-            defaultSymbol: { type: "simple-fill" }, // autocasts as new SimpleFillSymbol()
-            uniqueValueInfos: [
-              {
-                // All features with value of "North" will be blue
-                value: "Gemüsebeete oder Wildblumen",
-                symbol: {
-                  type: "simple-fill", // autocasts as new SimpleFillSymbol()
-                  color: "brown",
-                },
-              },
-              {
-                // All features with value of "North" will be blue
-                value: "Kies, Sand, Ruderalflächen",
-                symbol: {
-                  type: "simple-fill", // autocasts as new SimpleFillSymbol()
-                  color: "red",
-                },
-              },
-              {
-                // All features with value of "North" will be blue
-                value: "Hohes Gras",
-                symbol: {
-                  type: "simple-fill", // autocasts as new SimpleFillSymbol()
-                  color: "yellow",
-                },
-              },
-              {
-                // All features with value of "North" will be blue
-                value: "Sträucher oder Hecken",
-                symbol: {
-                  type: "simple-fill", // autocasts as new SimpleFillSymbol()
-                  color: "orange",
-                },
-              },
-              {
-                // All features with value of "North" will be blue
-                value: "Heimische Bäume",
-                symbol: {
-                  type: "simple-fill", // autocasts as new SimpleFillSymbol()
-                  color: "green",
-                },
-              },
-              {
-                // All features with value of "North" will be blue
-                value: "Gewässer",
-                symbol: {
-                  type: "simple-fill", // autocasts as new SimpleFillSymbol()
-                  color: "blue",
-                },
-              }
-            ],
-          };
-
-        }
-        map.add(geometry);
+            },
+          ],
+        };
       }
+
+      if (element.key == "flaechen_geomoid") {
+        geometry.templates = [
+          new FeatureTemplate({
+            name: "Gemüsebeete oder Wildblumen",
+            prototype: {
+              attributes: {
+                Labels: "Gemüsebeete oder Wildblumen",
+              },
+            },
+          }),
+          new FeatureTemplate({
+            name: "Kies, Sand, Ruderalflächen",
+            prototype: {
+              attributes: {
+                Labels: "Kies, Sand, Ruderalflächen",
+              },
+            },
+          }),
+          new FeatureTemplate({
+            name: "Hohes Gras",
+            prototype: {
+              attributes: {
+                Labels: "Hohes Gras",
+              },
+            },
+          }),
+          new FeatureTemplate({
+            name: "Sträucher oder Hecken",
+            prototype: {
+              attributes: {
+                Labels: "Sträucher oder Hecken",
+              },
+            },
+          }),
+          new FeatureTemplate({
+            name: "Heimische Bäume",
+            prototype: {
+              attributes: {
+                Labels: "Heimische Bäume",
+              },
+            },
+          }),
+          new FeatureTemplate({
+            name: "Gewässer",
+            prototype: {
+              attributes: {
+                Labels: "Gewässer",
+              },
+            },
+          }),
+        ];
+
+        geometry.formTemplate = {
+          // autocastable to FormTemplate
+          elements: [
+            {
+              // autocastable to FieldElement
+              type: "field",
+              fieldName: "Labels",
+              label: "Pflanzenart",
+              editable: false,
+            },
+            {
+              // autocastable to FieldElement
+              type: "field",
+              fieldName: "Notes",
+              label: "Notizen",
+            },
+          ],
+        };
+
+        geometry.renderer = {
+          type: "unique-value",
+          field: "Labels",
+          defaultSymbol: { type: "simple-fill" }, // autocasts as new SimpleFillSymbol()
+          uniqueValueInfos: [
+            {
+              // All features with value of "North" will be blue
+              value: "Gemüsebeete oder Wildblumen",
+              symbol: {
+                type: "simple-fill", // autocasts as new SimpleFillSymbol()
+                color: "brown",
+              },
+            },
+            {
+              // All features with value of "North" will be blue
+              value: "Kies, Sand, Ruderalflächen",
+              symbol: {
+                type: "simple-fill", // autocasts as new SimpleFillSymbol()
+                color: "red",
+              },
+            },
+            {
+              // All features with value of "North" will be blue
+              value: "Hohes Gras",
+              symbol: {
+                type: "simple-fill", // autocasts as new SimpleFillSymbol()
+                color: "yellow",
+              },
+            },
+            {
+              // All features with value of "North" will be blue
+              value: "Sträucher oder Hecken",
+              symbol: {
+                type: "simple-fill", // autocasts as new SimpleFillSymbol()
+                color: "orange",
+              },
+            },
+            {
+              // All features with value of "North" will be blue
+              value: "Heimische Bäume",
+              symbol: {
+                type: "simple-fill", // autocasts as new SimpleFillSymbol()
+                color: "green",
+              },
+            },
+            {
+              // All features with value of "North" will be blue
+              value: "Gewässer",
+              symbol: {
+                type: "simple-fill", // autocasts as new SimpleFillSymbol()
+                color: "blue",
+              },
+            }
+          ],
+        };
+
+      }
+      map.add(geometry);
+
 
       let view = new MapView({
         map: map,
@@ -991,7 +996,7 @@ define([
         return totalArea;
       }
 
-      if (app.mode == "project") {
+      if (element.key == "gebiete") {
         projectArea.on("edits", function (editInfo) {
           console.log(editInfo);
           if (editInfo.addedFeatures.length > 0) {
@@ -1007,7 +1012,7 @@ define([
             } else {
               alert(
                 "Saving not possible: " +
-                  editInfo.addedFeatures[0].error.message
+                editInfo.addedFeatures[0].error.message
               );
             }
           }
@@ -1026,11 +1031,18 @@ define([
                 newValue = [...value, ...JSON.parse(element.value)];
               }
               element.setter(JSON.stringify(newValue));
+              if (element.key == "gebaeude_geomoid") {
+                element.map.geometry.definitionExpression = "objectid in (" +
+                  JSON.stringify(newValue).substring(1, JSON.stringify(newValue).length - 1) +
+                  ")"
+                // Update project area map
+                // ToDo
+              }
               editor.layerInfos[0].updateEnabled = true;
             } else {
               alert(
                 "Saving not possible: " +
-                  editInfo.addedFeatures[0].error.message
+                editInfo.addedFeatures[0].error.message
               );
             }
           }
@@ -1044,15 +1056,29 @@ define([
               }
               if (newValue.length == 0) {
                 element.setter(null);
+                if (element.key == "gebaeude_geomoid") {
+                  // Update project area map
+                  // ToDo
+                  element.map.geometry.definitionExpression = "objectid in (" +
+                    JSON.stringify(newValue).substring(1, JSON.stringify(newValue).length - 1) +
+                    ")"
+                }
 
               }
               else {
                 element.setter(JSON.stringify(newValue));
+                if (element.key == "gebaeude_geomoid") {
+                  // Update project area map
+                  // ToDo
+                  element.map.geometry.definitionExpression = "objectid in (" +
+                    JSON.stringify(newValue).substring(1, JSON.stringify(newValue).length - 1) +
+                    ")"
+                }
               }
             } else {
               alert(
                 "Saving not possible: " +
-                  editInfo.addedFeatures[0].error.message
+                editInfo.addedFeatures[0].error.message
               );
             }
           }
@@ -1068,12 +1094,15 @@ define([
 
           });
 
-          editor.loadLocale = () => {  editor.messages = { ...editor.messages, 
-            selectTemplate: app.strings.get("selectTemplate"), 
-            editFeatures: app.strings.get("editFeatures"), 
-            editFeature: app.strings.get("editFeature"), 
-            addFeature: app.strings.get("addFeature"), 
-           };};
+          editor.loadLocale = () => {
+            editor.messages = {
+              ...editor.messages,
+              selectTemplate: app.strings.get("selectTemplate"),
+              editFeatures: app.strings.get("editFeatures"),
+              editFeature: app.strings.get("editFeature"),
+              addFeature: app.strings.get("addFeature"),
+            };
+          };
 
           editor.viewModel.watch("state", function (state) {
             if (state === "ready") {
@@ -1091,13 +1120,13 @@ define([
             }
           });
 
-          if (app.mode == "project") {
+          if (element.key == "gebiete") {
             projectArea.load().then(() => {
               prototype = projectArea.templates[0].prototype;
               callback({
                 projectArea: projectArea,
                 prototype: prototype,
-                geometry: null,
+                geometry: geometry,
                 editor: editor,
               });
             });
@@ -1114,19 +1143,25 @@ define([
                       // autocastable to FieldElement
                       type: "field",
                       fieldName: "projectid",
-                      label: "Projekt ID",
+                      label: this.strings.get("project") + " ID",
                     },
                     {
                       // autocastable to FieldElement
                       type: "field",
                       fieldName: "name",
-                      label: "Ort",
+                      label: this.strings.get("location"),
                     },
                     {
                       // autocastable to FieldElement
                       type: "field",
                       fieldName: "school",
-                      label: "Schule",
+                      label: this.strings.get("school"),
+                    },
+                    {
+                      // autocastable to FieldElement
+                      type: "field",
+                      fieldName: "gebaeude_geomoid",
+                      label: this.strings.get("P05.gebaeude.nameDisplay"),
                     },
                     /*{
                       // autocastable to FieldElement
@@ -1418,7 +1453,7 @@ define([
         });
         */
       });
-      
+
 
       function changeCursor(response) {
         if (response.results.length > 0) {
@@ -1432,7 +1467,7 @@ define([
         view.graphics.removeAll();
         if (response.results.length > 0) {
           var graphic = response.results[0].graphic;
-          graphic.symbol ={
+          graphic.symbol = {
             type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
             style: "circle",
             color: [169, 240, 43, 0.35],
