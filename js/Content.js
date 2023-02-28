@@ -1812,11 +1812,14 @@ define([
         text: "P06.gebaeude.text" 
       });
 
-      page0.addElement("mapInput", "gebiete", { 
+      let map = page0.addElement("mapInput", "gebiete", { 
         color: [255, 0, 0, 0.7],
         name_display: "P06.nameDisplay",
         text: "P06.text"
       });
+
+      buildings.map = map;
+
 
       app.addFinalPage("P06.finalPage");
 

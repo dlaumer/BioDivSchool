@@ -218,7 +218,7 @@ define([
     // function to add one row to the table
     checkData(projectId, groupId, callback) {
       let featureClass = this.table;
-      if (projectId == "null") {
+      if (projectId == "null" || projectId == null) {
         callback(null)
         return;
       }
@@ -565,7 +565,7 @@ define([
         portalItem: {
           id: this.editMode ? this.links.projectLayerId : this.links.projectViewLayerId,
         },
-
+        popupEnabled: false,
         editingEnabled: false,
         renderer: {
           type: "simple", // autocasts as new SimpleRenderer()
@@ -609,8 +609,15 @@ define([
       if (element.key == "gebiete") {
         projectArea.editingEnabled = true;
         geometry.editingEnabled = false;
-        geometry.renderer.symbol.color = [0,0,255,0.5]
+        geometry.renderer.symbol.color = [0,0,255,0.5];
+        geometry.popupEnabled = false;
       }
+
+      if (element.key == "gebaeude_geomoid") {
+        projectArea.visible = false;
+        geometry.editingEnabled = true;
+      }
+
 
       if (app.projectAreaId != null) {
         projectArea.definitionExpression =
@@ -998,7 +1005,6 @@ define([
 
       if (element.key == "gebiete") {
         projectArea.on("edits", function (editInfo) {
-          console.log(editInfo);
           if (editInfo.addedFeatures.length > 0) {
             if (editInfo.addedFeatures[0].objectId != -1) {
               projectArea.definitionExpression =
@@ -1019,7 +1025,6 @@ define([
         });
       } else {
         geometry.on("edits", function (editInfo) {
-          console.log(editInfo);
           if (editInfo.addedFeatures.length > 0) {
             if (editInfo.addedFeatures[0].objectId != -1) {
               let value = [];
@@ -1032,11 +1037,10 @@ define([
               }
               element.setter(JSON.stringify(newValue));
               if (element.key == "gebaeude_geomoid") {
+                // Update project area map
                 element.map.geometry.definitionExpression = "objectid in (" +
                   JSON.stringify(newValue).substring(1, JSON.stringify(newValue).length - 1) +
                   ")"
-                // Update project area map
-                // ToDo
               }
               editor.layerInfos[0].updateEnabled = true;
             } else {
@@ -1058,7 +1062,6 @@ define([
                 element.setter(null);
                 if (element.key == "gebaeude_geomoid") {
                   // Update project area map
-                  // ToDo
                   element.map.geometry.definitionExpression = "objectid in (" +
                     JSON.stringify(newValue).substring(1, JSON.stringify(newValue).length - 1) +
                     ")"
@@ -1069,7 +1072,6 @@ define([
                 element.setter(JSON.stringify(newValue));
                 if (element.key == "gebaeude_geomoid") {
                   // Update project area map
-                  // ToDo
                   element.map.geometry.definitionExpression = "objectid in (" +
                     JSON.stringify(newValue).substring(1, JSON.stringify(newValue).length - 1) +
                     ")"
@@ -1199,17 +1201,6 @@ define([
               ];
             }
           }
-
-          editor.watch(
-            "activeWorkflow.numPendingFeatures",
-            function (newValue, oldValue) {
-              /*
-            if (editor.activeWorkflow) {
-              calculateArea();
-            }
-            */
-            }
-          );
         }
 
         if (app.projectAreaId == null) {

@@ -816,7 +816,7 @@ define([
         }
       }).then(() => {
 
-        if (saveData && app.mode != "project" && app.mode != "results" && !app.offline) {
+        if (saveData && app.mode != "project" && app.mode != "results" && !app.offline || this.key == "gebaeude_geomoid" && app.projectId != "null") {
           app.save.innerHTML = app.strings.get("saving")
           app.save.className = "btn1"
           let data = this.getter();
@@ -834,6 +834,14 @@ define([
               });
 
           });
+
+          if (this.key == "gebaeude_geomoid" && app.projectId != null) {
+            
+            this.map.geometry.definitionExpression = "objectid in (" +
+            this.value.substring(1, this.value.length - 1) +
+            ")"
+            console.log(this.value)
+          }
         }
         else if (app.mode == "project" && (this.key == "school" || this.key == "projectid" || this.key == "name" || this.key == "gebaeude_geomoid")) {
           //app.arcgis.handleSignInOut();

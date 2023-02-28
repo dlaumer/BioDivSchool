@@ -35,7 +35,7 @@ warnFillAll;Bitte zuerst alle Felder ausfüllen!;Veuillez d'abord remplir tous l
 warnSaveSuccess;Die Daten wurden erfolgreich gespeichert;Les données ont été enregistrées avec succès;The data was saved successfully!;I dati sono stati salvati con successo;
 editProject;Projekt bearbeiten/löschen;Editer/effacer projet;Edit/delete project;Modifica/Elimina progetto;
 delete;Löschen;Effacer;Delete;Cancellare;
-deleteConfirm;Willst du dieses Projekt wirklich löschen?;Effacer le projet?;Do you really want to delete this project?;Vuoi davvero cancellare questo progetto?;
+deleteConfirm;Willst du dieses Projekt wirklich löschen? (Es kann einen Moment dauern bis das Projekt nicht mehr auf der Liste zu sehen ist);Effacer le projet? (Cela peut prendre un moment avant que le projet ne soit plus visible sur la liste);Do you really want to delete this project? (It may take a moment until the project is no longer visible on the list);Vuoi davvero cancellare questo progetto? (Potrebbe essere necessario un attimo prima che il progetto non sia più visibile nell'elenco).;
 edit;Bearbeiten;Editer;Edit;Modifica;
 noProjectChosen;Kein Projekt ausgewählt;Aucun projet sélectionné;No project selected;Nessun progetto selezionato;
 loginEsri;Einloggen;Connecter;Login;Accesso;

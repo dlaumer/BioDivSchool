@@ -38,7 +38,6 @@ define([
 
       this.strings = new StringsApp(this.lang);
       Promise.all(this.strings.init("app")).then(() => {
-        console.log(this.strings.data)
         this.createSplashScreen();
         callback();
       });
@@ -125,7 +124,7 @@ define([
           id: "loadingIcon",
           src: "https://cdn.lordicon.com/adiugfir.json",
           trigger: "loop",
-          colors: "primary:#121331,secondary:#a2c367",
+          colors: "primary:#4c4c4c,secondary:#a2c367",
           style: "width:100px;height:100px"
         },
         this.container

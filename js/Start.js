@@ -125,7 +125,7 @@ define([
           id: "icon",
           src: "https://cdn.lordicon.com/adiugfir.json",
           trigger: "hover",
-          colors: "primary:#121331,secondary:#a2c367",
+          colors: "primary:#4c4c4c,secondary:#a2c367",
           style: "width:70px;height:70px"
         },
         this.header1
