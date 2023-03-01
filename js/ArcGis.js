@@ -633,82 +633,7 @@ define([
       });
       map.add(projectArea);
 
-
-      if (element.key == "neophyten__geomoid") {
-        geometry.templates = [
-          new FeatureTemplate({
-            name: "Amerikanische Goldruten",
-            prototype: {
-              attributes: {
-                Labels: "Amerikanische Goldruten",
-              },
-            },
-          }),
-          new FeatureTemplate({
-            name: "Ambrosia",
-            prototype: {
-              attributes: {
-                Labels: "Ambrosia",
-              },
-            },
-          }),
-          new FeatureTemplate({
-            name: "Asiatische Staudenknöteriche",
-            prototype: {
-              attributes: {
-                Labels: "Asiatische Staudenknöteriche",
-              },
-            },
-          }),
-          new FeatureTemplate({
-            name: "Drüsiges Springkraut",
-            prototype: {
-              attributes: {
-                Labels: "Drüsiges Springkraut",
-              },
-            },
-          }),
-          new FeatureTemplate({
-            name: "Einjähriges Berufskraut",
-            prototype: {
-              attributes: {
-                Labels: "Einjähriges Berufskraut",
-              },
-            },
-          }),
-          new FeatureTemplate({
-            name: "Kirschlorbeer",
-            prototype: {
-              attributes: {
-                Labels: "Kirschlorbeer",
-              },
-            },
-          }),
-          new FeatureTemplate({
-            name: "Sommerflieder",
-            prototype: {
-              attributes: {
-                Labels: "Sommerflieder",
-              },
-            },
-          }),
-          new FeatureTemplate({
-            name: "Götterbaum",
-            prototype: {
-              attributes: {
-                Labels: "Götterbaum",
-              },
-            },
-          }),
-          new FeatureTemplate({
-            name: "Robinie",
-            prototype: {
-              attributes: {
-                Labels: "Robinie",
-              },
-            },
-          }),
-        ];
+      if (element.listTypes) {
 
         geometry.formTemplate = {
           // autocastable to FormTemplate
@@ -717,234 +642,53 @@ define([
               // autocastable to FieldElement
               type: "field",
               fieldName: "Labels",
-              label: "Pflanzenart",
+              label: this.strings.get(element.nameListTypes),
               editable: false,
             },
             {
               // autocastable to FieldElement
               type: "field",
               fieldName: "Notes",
-              label: "Notizen",
+              label: this.strings.get("notes"),
             },
           ],
         };
 
-        geometry.renderer = {
-          type: "unique-value",
-          field: "Labels",
-          defaultSymbol: { type: "simple-fill" }, // autocasts as new SimpleFillSymbol()
-          uniqueValueInfos: [
-            {
-              // All features with value of "North" will be blue
-              value: "Amerikanische Goldruten",
-              symbol: {
-                type: "simple-fill", // autocasts as new SimpleFillSymbol()
-                color: "blue",
-              },
-            },
-            {
-              // All features with value of "North" will be blue
-              value: "Ambrosia",
-              symbol: {
-                type: "simple-fill", // autocasts as new SimpleFillSymbol()
-                color: "red",
-              },
-            },
-            {
-              // All features with value of "North" will be blue
-              value: "Amerikanische Goldruten",
-              symbol: {
-                type: "simple-fill", // autocasts as new SimpleFillSymbol()
-                color: "blue",
-              },
-            },
-            {
-              // All features with value of "North" will be blue
-              value: "Asiatische Staudenknöteriche",
-              symbol: {
-                type: "simple-fill", // autocasts as new SimpleFillSymbol()
-                color: "orange",
-              },
-            },
-            {
-              // All features with value of "North" will be blue
-              value: "Drüsiges Springkraut",
-              symbol: {
-                type: "simple-fill", // autocasts as new SimpleFillSymbol()
-                color: "green",
-              },
-            },
-            {
-              // All features with value of "North" will be blue
-              value: "Einjähriges Berufskraut",
-              symbol: {
-                type: "simple-fill", // autocasts as new SimpleFillSymbol()
-                color: "yellow",
-              },
-            },
-            {
-              // All features with value of "North" will be blue
-              value: "Kirschlorbeer",
-              symbol: {
-                type: "simple-fill", // autocasts as new SimpleFillSymbol()
-                color: "brown",
-              },
-            },
-            {
-              // All features with value of "North" will be blue
-              value: "Sommerflieder",
-              symbol: {
-                type: "simple-fill", // autocasts as new SimpleFillSymbol()
-                color: "black",
-              },
-            },
-            {
-              // All features with value of "North" will be blue
-              value: "Götterbaum",
-              symbol: {
-                type: "simple-fill", // autocasts as new SimpleFillSymbol()
-                color: "pink",
-              },
-            },
-            {
-              // All features with value of "North" will be blue
-              value: "Robinie",
-              symbol: {
-                type: "simple-fill", // autocasts as new SimpleFillSymbol()
-                color: "purple",
-              },
-            },
-          ],
-        };
-      }
+        let templates = [];
+        let uniqueValueInfos = [];
+        for (let i in element.listTypes) {
+          let type = element.listTypes[i].name;
+          let color = element.listTypes[i].color;
 
-      if (element.key == "flaechen_geomoid") {
-        geometry.templates = [
-          new FeatureTemplate({
-            name: "Gemüsebeete oder Wildblumen",
-            prototype: {
-              attributes: {
-                Labels: "Gemüsebeete oder Wildblumen",
+          templates.push(
+            new FeatureTemplate({
+              name: this.strings.get(type),
+              prototype: {
+                attributes: {
+                  Labels: this.strings.get(type),
+                },
               },
-            },
-          }),
-          new FeatureTemplate({
-            name: "Kies, Sand, Ruderalflächen",
-            prototype: {
-              attributes: {
-                Labels: "Kies, Sand, Ruderalflächen",
-              },
-            },
-          }),
-          new FeatureTemplate({
-            name: "Hohes Gras",
-            prototype: {
-              attributes: {
-                Labels: "Hohes Gras",
-              },
-            },
-          }),
-          new FeatureTemplate({
-            name: "Sträucher oder Hecken",
-            prototype: {
-              attributes: {
-                Labels: "Sträucher oder Hecken",
-              },
-            },
-          }),
-          new FeatureTemplate({
-            name: "Heimische Bäume",
-            prototype: {
-              attributes: {
-                Labels: "Heimische Bäume",
-              },
-            },
-          }),
-          new FeatureTemplate({
-            name: "Gewässer",
-            prototype: {
-              attributes: {
-                Labels: "Gewässer",
-              },
-            },
-          }),
-        ];
-
-        geometry.formTemplate = {
-          // autocastable to FormTemplate
-          elements: [
-            {
-              // autocastable to FieldElement
-              type: "field",
-              fieldName: "Labels",
-              label: "Pflanzenart",
-              editable: false,
-            },
-            {
-              // autocastable to FieldElement
-              type: "field",
-              fieldName: "Notes",
-              label: "Notizen",
-            },
-          ],
-        };
-
-        geometry.renderer = {
-          type: "unique-value",
-          field: "Labels",
-          defaultSymbol: { type: "simple-fill" }, // autocasts as new SimpleFillSymbol()
-          uniqueValueInfos: [
+            })
+          )
+          uniqueValueInfos.push(
             {
               // All features with value of "North" will be blue
-              value: "Gemüsebeete oder Wildblumen",
+              value: this.strings.get(type),
               symbol: {
                 type: "simple-fill", // autocasts as new SimpleFillSymbol()
-                color: "brown",
-              },
-            },
-            {
-              // All features with value of "North" will be blue
-              value: "Kies, Sand, Ruderalflächen",
-              symbol: {
-                type: "simple-fill", // autocasts as new SimpleFillSymbol()
-                color: "red",
-              },
-            },
-            {
-              // All features with value of "North" will be blue
-              value: "Hohes Gras",
-              symbol: {
-                type: "simple-fill", // autocasts as new SimpleFillSymbol()
-                color: "yellow",
-              },
-            },
-            {
-              // All features with value of "North" will be blue
-              value: "Sträucher oder Hecken",
-              symbol: {
-                type: "simple-fill", // autocasts as new SimpleFillSymbol()
-                color: "orange",
-              },
-            },
-            {
-              // All features with value of "North" will be blue
-              value: "Heimische Bäume",
-              symbol: {
-                type: "simple-fill", // autocasts as new SimpleFillSymbol()
-                color: "green",
-              },
-            },
-            {
-              // All features with value of "North" will be blue
-              value: "Gewässer",
-              symbol: {
-                type: "simple-fill", // autocasts as new SimpleFillSymbol()
-                color: "blue",
-              },
+                color: color,
+              }
             }
-          ],
-        };
+          )
+        }
+        geometry.templates = templates;
 
+        geometry.renderer = {
+          type: "unique-value",
+          field: "Labels",
+          defaultSymbol: { type: "simple-fill" }, // autocasts as new SimpleFillSymbol()
+          uniqueValueInfos: uniqueValueInfos
+        }
       }
       map.add(geometry);
 

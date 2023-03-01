@@ -122,9 +122,9 @@ define([
         "lord-icon",
         {
           id: "loadingIcon",
-          src: "https://cdn.lordicon.com/adiugfir.json",
+          src: "https://cdn.lordicon.com/dlmpudxq.json",
+          colors:"primary:#a2c367,secondary:#ffc738,tertiary:#b26836",
           trigger: "loop",
-          colors: "primary:#4c4c4c,secondary:#a2c367",
           style: "width:100px;height:100px"
         },
         this.container

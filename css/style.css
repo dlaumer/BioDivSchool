@@ -68,7 +68,7 @@ body {
 }
 
 .mapOverview {
-  height: 85%;
+  height: 90%;
   width: 100%;
   display: flex;
   overflow: hidden !important;

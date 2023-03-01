@@ -250,7 +250,19 @@ define([
         placeholder: "E.placeholder",
         color: [147, 145, 98, 0.7],
         name_display: "E10b.nameDisplay",
-        version: ["long"]
+        nameListTypes: "E10b.nameListTypes",
+        version: ["long"],
+        listTypes: [
+          {name: "E10b.listTypes.1", color: "blue"},
+          {name: "E10b.listTypes.2", color: "red"},
+          {name: "E10b.listTypes.3", color: "blue"},
+          {name: "E10b.listTypes.4", color: "orange"},
+          {name: "E10b.listTypes.5", color: "green"},
+          {name: "E10b.listTypes.6", color: "yellow"},
+          {name: "E10b.listTypes.7", color: "brown"},
+          {name: "E10b.listTypes.8", color: "black"},
+          {name: "E10b.listTypes.9", color: "pink"}
+        ]
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
@@ -445,7 +457,16 @@ define([
         },
         color: [129, 0, 157, 0.7],
         name_display : "E13a.nameDisplay",
-        version: ["long"]
+        version: ["long"],
+        name_display : "E13a.nameListTypes",
+        listTypes: [
+          {name: "E13a.listTypes.1", color: "brown"},
+          {name: "E13a.listTypes.2", color: "red"},
+          {name: "E13a.listTypes.3", color: "yellow"},
+          {name: "E13a.listTypes.4", color: "orange"},
+          {name: "E13a.listTypes.5", color: "green"},
+          {name: "E13a.listTypes.6", color: "blue"},
+        ]
       }); 
 
       //07.textInfo

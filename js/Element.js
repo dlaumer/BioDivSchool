@@ -104,6 +104,10 @@ define([
         }
       }
 
+      if (args.listTypes) {
+        this.listTypes = args.listTypes;
+        this.nameListTypes = args.nameListTypes;
+      }
 
 
       this.element = domCtr.create("div", { id: this.name, className: "element inputElement" }, this.container);

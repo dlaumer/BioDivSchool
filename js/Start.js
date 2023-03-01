@@ -123,9 +123,10 @@ define([
         "lord-icon",
         {
           id: "icon",
-          src: "https://cdn.lordicon.com/adiugfir.json",
+          src: "https://cdn.lordicon.com/dlmpudxq.json",
+          colors:"primary:#a2c367,secondary:#ffc738,tertiary:#b26836",
+
           trigger: "hover",
-          colors: "primary:#4c4c4c,secondary:#a2c367",
           style: "width:70px;height:70px"
         },
         this.header1
