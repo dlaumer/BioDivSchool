@@ -93,6 +93,7 @@ define([
           app.projectAreaId = "[" + info.getObjectId().toFixed(0) + "]";
           app.projectName = info.attributes["name"];
           app.schoolName = info.attributes["school"];
+          app.buildings = info.attributes["gebaeude_geomoid"];
           app.content.init();
 
         
@@ -169,6 +170,7 @@ define([
             let data = info.data;
             app.projectName = data.attributes["name"];
             app.schoolName = data.attributes["school"];
+            app.buildings = data.attributes["gebaeude_geomoid"]
             app.objectId = data.getObjectId();
 
             app.projectAreaId = "[" + app.objectId.toFixed(0) + "]";

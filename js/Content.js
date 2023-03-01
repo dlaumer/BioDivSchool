@@ -159,6 +159,7 @@ define([
         },
         color: [74, 186, 27],
         name_display: "E08.nameDisplay",
+        includeBuildings: true,
         points: "wild_points",
         textInfo: {
           linkText: "T.textInfo.linkText",

@@ -616,6 +616,53 @@ define([
       if (element.key == "gebaeude_geomoid") {
         projectArea.visible = false;
         geometry.editingEnabled = true;
+
+        geometry.renderer = {
+          type: "simple",
+          symbol: {
+            type: "cim",
+            data: {
+              type: "CIMSymbolReference",
+              symbol: {
+                // CIM polygon symbol
+                type: "CIMPolygonSymbol",
+                symbolLayers: [
+                  {
+                    // light blue outline around the polygon
+                    type: "CIMSolidStroke",
+                    enable: true,
+                    width: 0.4,
+                    color: [114, 114, 114, 255]
+                  },
+                  {
+                    type: "CIMHatchFill",
+                    enable: true,
+                    lineSymbol: {
+                       type: "CIMLineSymbol",
+                       symbolLayers: [{
+                        type: "CIMSolidStroke",
+                         enable: true,
+                          capStyle: "Butt",
+                          joinStyle: "Miter",
+                          miterLimit: 5,
+                          width: 0.3,
+                          color: [114, 114, 114, 255]
+                       }]
+                    },
+                    rotation: 45,
+                    separation: 5
+                  },
+                  {
+                    // solid blue fill background
+                    type: "CIMSolidFill",
+                    enable: true,
+                    color: [190, 190, 190, 150]
+                  }
+                ]
+              }
+            }
+          }
+        }
       }
 
 
@@ -631,7 +678,68 @@ define([
       let map = new Map({
         basemap: "satellite",
       });
+
       map.add(projectArea);
+
+      if (element.includeBuildings && app.buildings) {
+        let buildings = new FeatureLayer({
+          portalItem: {
+            id: this.editMode ? this.links.geometryLayerId : this.links.geometryViewLayerId,
+          },
+          editingEnabled: false,
+          popupEnabled: false,
+          definitionExpression:  "objectid in (" +
+          app.buildings.substring(1, app.buildings.length - 1) +
+          ")",
+          renderer: {
+            type: "simple",
+            symbol: {
+              type: "cim",
+              data: {
+                type: "CIMSymbolReference",
+                symbol: {
+                  // CIM polygon symbol
+                  type: "CIMPolygonSymbol",
+                  symbolLayers: [
+                    {
+                      // light blue outline around the polygon
+                      type: "CIMSolidStroke",
+                      enable: true,
+                      width: 0.4,
+                      color: [114, 114, 114, 255]
+                    },
+                    {
+                      type: "CIMHatchFill",
+                      enable: true,
+                      lineSymbol: {
+                         type: "CIMLineSymbol",
+                         symbolLayers: [{
+                          type: "CIMSolidStroke",
+                           enable: true,
+                            capStyle: "Butt",
+                            joinStyle: "Miter",
+                            miterLimit: 5,
+                            width: 0.3,
+                            color: [114, 114, 114, 255]
+                         }]
+                      },
+                      rotation: 45,
+                      separation: 5
+                    },
+                    {
+                      // solid blue fill background
+                      type: "CIMSolidFill",
+                      enable: true,
+                      color: [190, 190, 190, 150]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+        });
+        map.add(buildings)
+      }
 
       if (element.listTypes) {
 
@@ -691,7 +799,6 @@ define([
         }
       }
       map.add(geometry);
-
 
       let view = new MapView({
         map: map,

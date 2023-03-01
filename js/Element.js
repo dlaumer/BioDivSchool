@@ -109,6 +109,10 @@ define([
         this.nameListTypes = args.nameListTypes;
       }
 
+      if (args.includeBuildings) {
+        this.includeBuildings = args.includeBuildings;
+      }
+
 
       this.element = domCtr.create("div", { id: this.name, className: "element inputElement" }, this.container);
       if (app.mode == "results") {
@@ -461,6 +465,8 @@ define([
         this.instructions.style.display = this.instructions.style.display == "" ? "flex" : "";
         this.instructions.scrollIntoView({ behavior: "smooth", block: 'start' });
       }.bind(this));
+
+      // Add ArcGIS JSAPI Map
       if (!app.offline) {
         app.arcgis.addMap(this.input.id, this.editor.id, this, (info) => {
           this.geometry = info.geometry;
