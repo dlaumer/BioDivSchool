@@ -432,6 +432,7 @@ define([
       this.color = args.color;
       this.name_display = args.name_display;
       //this.element.className = "element";
+      this.labelContainer.style.width = "100%";
       this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text, style: "width: 100%;" }, this.labelContainer);
       this.mapContainer = domCtr.create("div", { className: "mapContainer" }, this.element);
       this.input = domCtr.create("div", { id: this.name + "_map", className: "map" }, this.mapContainer);
@@ -765,6 +766,10 @@ define([
                   for (let j in this.rules[i].elements) {
                     this.rules[i].elements[j].element.style.display = "flex";
                     this.rules[i].elements[j].element.style.visibility = "visible";
+                    try {
+                      this.rules[i].elements[j].input.focus();
+                    }
+                    catch {}
 
                   }
                 }
@@ -973,17 +978,17 @@ define([
 
     reportWindowSize() {
       if (document.getElementsByClassName("element").length > 0) {
-        let i = 0;
+        let i = -1;
         //while (!document.getElementsByClassName("element")[i] || !document.getElementsByClassName("element")[i].hasOwnProperty('clientWidth') || document.getElementsByClassName("element")[i].hasOwnProperty('clientWidth') && document.getElementsByClassName("element")[i].clientWidth == 0) {
         let notFound = true;
         while (notFound && i < 50) {
+          i++;
           try {
             notFound = document.getElementsByClassName("element")[i].clientWidth == 0
           }
           catch {
 
           }
-          i++;
         }
         this.elementWidth = document.getElementsByClassName("element")[i].clientWidth;
 

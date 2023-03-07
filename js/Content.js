@@ -1752,7 +1752,7 @@ define([
 
       let name = page0.addElement("simpleTextInput", "name", {
         text: "P05.project.text.2",
-        placeholder: "",
+        placeholder: "null",
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
@@ -1766,7 +1766,7 @@ define([
       //P05.school
       let school = page0.addElement("simpleTextInput", "school", {
         text: "P05.school.text",
-        placeholder: "",
+        placeholder: "null",
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind

@@ -80,6 +80,54 @@ define([
         projectViewLayerId: "570211cfaa664d79ac66425f9490bd5c"
       };
 
+
+      this.buildingsRenderer = {
+        type: "simple",
+        symbol: {
+          type: "cim",
+          data: {
+            type: "CIMSymbolReference",
+            symbol: {
+              // CIM polygon symbol
+              type: "CIMPolygonSymbol",
+              symbolLayers: [
+                {
+                  // light blue outline around the polygon
+                  type: "CIMSolidStroke",
+                  enable: true,
+                  width: 0.4,
+                  color: [114, 114, 114, 255]
+                },
+                {
+                  type: "CIMHatchFill",
+                  enable: true,
+                  lineSymbol: {
+                     type: "CIMLineSymbol",
+                     symbolLayers: [{
+                      type: "CIMSolidStroke",
+                       enable: true,
+                        capStyle: "Butt",
+                        joinStyle: "Miter",
+                        miterLimit: 5,
+                        width: 0.3,
+                        color: [114, 114, 114, 255]
+                     }]
+                  },
+                  rotation: 45,
+                  separation: 5
+                },
+                {
+                  // solid blue fill background
+                  type: "CIMSolidFill",
+                  enable: true,
+                  color: [190, 190, 190, 150]
+                }
+              ]
+            }
+          }
+        }
+      };
+
       esriId.registerOAuthInfos([this.info]);
 
       esriId
@@ -609,7 +657,7 @@ define([
       if (element.key == "gebiete") {
         projectArea.editingEnabled = true;
         geometry.editingEnabled = false;
-        geometry.renderer.symbol.color = [0,0,255,0.5];
+        geometry.renderer = this.buildingsRenderer
         geometry.popupEnabled = false;
       }
 
@@ -617,52 +665,7 @@ define([
         projectArea.visible = false;
         geometry.editingEnabled = true;
 
-        geometry.renderer = {
-          type: "simple",
-          symbol: {
-            type: "cim",
-            data: {
-              type: "CIMSymbolReference",
-              symbol: {
-                // CIM polygon symbol
-                type: "CIMPolygonSymbol",
-                symbolLayers: [
-                  {
-                    // light blue outline around the polygon
-                    type: "CIMSolidStroke",
-                    enable: true,
-                    width: 0.4,
-                    color: [114, 114, 114, 255]
-                  },
-                  {
-                    type: "CIMHatchFill",
-                    enable: true,
-                    lineSymbol: {
-                       type: "CIMLineSymbol",
-                       symbolLayers: [{
-                        type: "CIMSolidStroke",
-                         enable: true,
-                          capStyle: "Butt",
-                          joinStyle: "Miter",
-                          miterLimit: 5,
-                          width: 0.3,
-                          color: [114, 114, 114, 255]
-                       }]
-                    },
-                    rotation: 45,
-                    separation: 5
-                  },
-                  {
-                    // solid blue fill background
-                    type: "CIMSolidFill",
-                    enable: true,
-                    color: [190, 190, 190, 150]
-                  }
-                ]
-              }
-            }
-          }
-        }
+        geometry.renderer = this.buildingsRenderer
       }
 
 
@@ -691,52 +694,7 @@ define([
           definitionExpression:  "objectid in (" +
           app.buildings.substring(1, app.buildings.length - 1) +
           ")",
-          renderer: {
-            type: "simple",
-            symbol: {
-              type: "cim",
-              data: {
-                type: "CIMSymbolReference",
-                symbol: {
-                  // CIM polygon symbol
-                  type: "CIMPolygonSymbol",
-                  symbolLayers: [
-                    {
-                      // light blue outline around the polygon
-                      type: "CIMSolidStroke",
-                      enable: true,
-                      width: 0.4,
-                      color: [114, 114, 114, 255]
-                    },
-                    {
-                      type: "CIMHatchFill",
-                      enable: true,
-                      lineSymbol: {
-                         type: "CIMLineSymbol",
-                         symbolLayers: [{
-                          type: "CIMSolidStroke",
-                           enable: true,
-                            capStyle: "Butt",
-                            joinStyle: "Miter",
-                            miterLimit: 5,
-                            width: 0.3,
-                            color: [114, 114, 114, 255]
-                         }]
-                      },
-                      rotation: 45,
-                      separation: 5
-                    },
-                    {
-                      // solid blue fill background
-                      type: "CIMSolidFill",
-                      enable: true,
-                      color: [190, 190, 190, 150]
-                    }
-                  ]
-                }
-              }
-            }
-          },
+          renderer: this.buildingsRenderer,
         });
         map.add(buildings)
       }

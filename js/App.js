@@ -271,7 +271,7 @@ define([
 
       this.home.style.display = app.mode == "project" ? "none" : "block";
       this.save.style.display = app.mode == "project" || app.mode == "results" ? "none" : "block";
-      this.next.style.display = app.mode == "project" && this.projectId == null ? "none" : "block";
+      this.next.style.display = app.mode == "project" ? "none" : "block";
       this.back.style.display = app.mode == "project" ? "none" : "block";
 
       if (app.mode == "results") {

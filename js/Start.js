@@ -1200,8 +1200,7 @@ define([
         "click",
         function (evt) {
           this.updateAttributes("mode", "project");
-          this.removeFromAttributes("project");
-
+          this.updateAttributes("project", "null");
           window.open(window.location.href, "_self");
         }.bind(this)
       );
