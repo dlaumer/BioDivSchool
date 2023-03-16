@@ -24,6 +24,17 @@ define([
       start.userNameEsri;
       let urlData = this.getJsonFromUrl();
 
+      //group labels
+      this.groups = [
+        { key: "a", label: "groupA" },
+        { key: "b", label: "groupB" },
+        { key: "c", label: "groupC" },
+        { key: "d", label: "groupD" },
+        { key: "e", label: "groupE" },
+        { key: "f", label: "groupF" },
+
+      ]
+
       this.admin = "false";
       if (Object.keys(urlData).includes("admin")) {
         this.admin = urlData["admin"];
@@ -431,15 +442,29 @@ define([
       );
 
       this.btn_collection = domCtr.create(
-        "div",
+        "select",
         {
           id: "btn_collection",
           className: "btn2",
           innerHTML: this.strings.get("collection"),
-          style: "min-width: 30%;",
+          style: "min-width: 30%;background-color:white !important",
         },
         this.buttons
       );
+
+      domCtr.create(
+        "option",
+        { value: "", disabled: true, selected: true, innerHTML: this.strings.get("group") },
+        this.btn_collection
+      );
+      let options = this.groups;
+      for (const i in options) {
+        domCtr.create(
+          "option",
+          { value: options[i].key, innerHTML: start.strings.get(options[i].label) },
+          this.btn_collection
+        );
+      }
       this.btn_consolidation = domCtr.create(
         "div",
         {
@@ -1153,8 +1178,9 @@ define([
 
       on(
         this.btn_collection,
-        "click",
+        "change",
         function (evt) {
+          this.updateAttributes("group", this.btn_collection.value)
           this.updateAttributes("mode", "collection");
           window.open(window.location.href, "_self");
         }.bind(this)

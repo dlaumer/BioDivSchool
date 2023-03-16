@@ -70,7 +70,6 @@ define([
     // Init function for collection and results
     init(projectId, groupId) {
 
-      document.getElementById("btn_login").innerHTML = this.strings.get("loading");
       this.projectId = projectId;
       this.updateAttributes("project", this.projectId)
       
@@ -159,7 +158,6 @@ define([
     // init function for project
     initProject(projectId) {
 
-      document.getElementById("btn_login").innerHTML = this.strings.get("loading");
       this.projectId = projectId;
       this.updateAttributes("project", this.projectId)
 
@@ -202,7 +200,6 @@ define([
 
     // init function for consolidation
     initConsolidation(projectId) {
-      document.getElementById("btn_login").innerHTML = this.strings.get("loading");
       this.projectId = projectId;
       this.updateAttributes("project", this.projectId)
 

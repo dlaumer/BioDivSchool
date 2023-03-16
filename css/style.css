@@ -1038,6 +1038,8 @@ overscroll-behavior: contain !important;
   color: var(--medium_gray);
   padding: 5px;
   display: flex;
+  margin: 0 !important;
+  height: unset !important;
 }
 
 .btn2:hover, .btn2:active {

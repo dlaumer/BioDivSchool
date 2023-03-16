@@ -297,7 +297,10 @@ define([
           // Make a new entry
           // In the case of project mode, just say that there is none yet
 
-          if (app.mode == "project") {
+          if (app.mode == "results") {
+            callback(null)
+          }
+          else if (app.mode == "project") {
             callback(null);
           } else {
             const attributes =
@@ -593,7 +596,7 @@ define([
               for (let i = 0; i < results.features.length; i++) {
                 let geom = results.features[i].geometry;
                 let area = geometryEngine.geodesicArea(geom, "square-meters");
-                areas[results.features[i].getObjectId()] = area;
+                areas[results.features[i].getObjectId()] = {area:area, type: results.features[i].attributes.Labels};
                 totalArea += area;
               }
             }
