@@ -465,7 +465,7 @@ define([
 
       domCtr.create(
         "option",
-        { value: "", disabled: true, selected: true, innerHTML: this.strings.get("group") },
+        { value: "", disabled: true, selected: true, innerHTML: this.strings.get("collection") },
         this.btn_collection
       );
       let options = this.groups;

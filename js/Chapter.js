@@ -14,53 +14,21 @@ define([
   "dojo/on",
   "biodivschool/Element",
 ], function (dom, domCtr, win, on, Element) {
-  return class Page {
-    constructor(id, container, title) {     
+  return class Chapter {
+    constructor(id, title) {     
       this.id = id;
-      this.name = "page_" + id.toString();
-      this.container = container;
+      this.name = "chapter_" + id.toString();
 
       this.title = title;
-      this.elements = [];
-
-      this.createUI();
-      this.clickHandler();
+      this.pages = [];
 
     }
 
-    init(prevPage) {
-      if (prevPage !== null) {
-        prevPage.page.className = "page";
-        this.page.style.display = app.mode == "consolidation" ? "none" : "block"
+    
 
-      }
-      this.page.className = "page active";
-      this.page.style.display = "block"
-
-      if (this.elements.length > 0) {
-        this.elements[0].reportWindowSize();
-      }
-
-    }
-
-    createUI() {
-      this.page = domCtr.create(
-        "div",
-        { id: this.name, className: "page" },
-        this.container
-      );
-      this.page.style.display = app.mode == "consolidation" ? "none" : "block"
-      this.titleDiv = domCtr.create(
-        "div",
-        { class: "pageTitle", innerHTML: this.title },
-        this.page
-      );
-    }
-
-    clickHandler() {}
-
-    addElement(type, key, args) {
+    addPage(type, key, args) {
         
+    
     let page = app.addPageNormal(this.title, this.container);
 
     let elem = this.addElementNormal(type, key, args, page.page)
@@ -76,6 +44,7 @@ define([
     }
 
     addElementNormal(type, key, args, container) {
+
       let elem = new Element(this, this.elements.length, container);
       elem.init(type, key, args);
       this.elements.push(elem);

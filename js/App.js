@@ -12,12 +12,12 @@ define([
   "dojo/dom-construct",
   "dojo/_base/window",
   "dojo/on",
-  "biodivschool/Page",
+  "biodivschool/Chapter",
   "biodivschool/Consolidation",
 
   "biodivschool/ArcGis",
   "biodivschool/Start",
-], function (dom, domCtr, win, on, Page, Consolidation, ArcGis, Start) {
+], function (dom, domCtr, win, on, Chapter, Consolidation, ArcGis, Start) {
   return class App {
     constructor(offline, mode, strings, version, callback) {
       app = this;
@@ -29,8 +29,8 @@ define([
       app.strings = strings;
       app.version = version;
       app.results = {};
-      app.pages = [];
-      app.pageNo = 0;
+      app.chapters = [];
+      app.chapterNo = 0;
       app.mapLoadedPromises = [];
 
       if (this.mode == "results") {
@@ -250,12 +250,12 @@ define([
       Array.from(document.getElementsByClassName("esri-editor__feature-list-name")).forEach(function(item) {
         item.innerHTML = item.innerHTML.replace("Feature", app.strings.get("feature"))
      });
-      for (let i in app.pages) {
-        app.pages[i].page.style.display = "none"
+      for (let i in app.chapters) {
+        app.chapters[i].page.style.display = "none"
       }
       */
-      this.pages[0].init(null);
-      this.currentPage = 0;
+      this.chapters[0].init(null);
+      this.currentChapter = 0;
       // TODO Warning if did not work!
       if (app.projectId != "null") {
         this.infoBox.innerHTML =
@@ -454,7 +454,7 @@ define([
         this.home,
         "click",
         function (evt) {
-          this.goToPage(0);
+          this.goToChapter(0);
         }.bind(this)
       );
 
@@ -462,7 +462,7 @@ define([
         this.back,
         "click",
         function (evt) {
-          this.goToPage(this.currentPage - 1);
+          this.goToChapter(this.currentChapter - 1);
         }.bind(this)
       );
 
@@ -475,35 +475,35 @@ define([
 
           }
           else {
-            this.goToPage(this.currentPage + 1);
+            this.goToChapter(this.currentChapter + 1);
           }
         }.bind(this)
       );
     }
 
-    goToPage(pageNumber) {
-      this.pages[pageNumber].init(this.pages[this.currentPage]);
-      this.currentPage = pageNumber;
+    goToChapter(chapterNumber) {
+      this.chapters[chapterNumber].init(this.chapters[this.currentChapter]);
+      this.currentChapter = chapterNumber;
 
-      if (this.currentPage + 1 == this.pages.length) {
+      if (this.currentChapter + 1 == this.chapters.length) {
         this.next.style.visibility = "hidden";
       } else {
         this.next.style.visibility = "visible";
       }
 
-      if (this.currentPage - 1 < 0) {
+      if (this.currentChapter - 1 < 0) {
         this.back.style.visibility = "hidden";
       } else {
         this.back.style.visibility = "visible";
       }
     }
 
-    addStartPage(title) {
-      let page = new Page(this.pages.length, this.pageContainer, title + " - " + app.strings.get(app.mode));
+    addZeroPage(title) {
+      let chapter = new Chapter(this.chapters.length, title + " - " + app.strings.get(app.mode));
 
-      page.titleDiv.id = "startTitle";
-      this.pages.push(page);
-      this.loginPage = page;
+      chapter.titleDiv.id = "startTitle";
+      this.chapters.push(chapter);
+      this.loginPage = chapter;
 
       if (app.mode == "results") {
        domCtr.create("div",
@@ -515,26 +515,19 @@ define([
       return page;
     }
 
-    addPage(title, args = {}) {
+    addChapter(title, args = {}) {
       title = app.strings.get(title);
       if (!args.version || args.version && args.version.includes(app.version)) {
-        let page;
-        if (app.mode == "consolidation") {
-          page = new Consolidation(
-            this.pages.length,
-            this.pageContainer,
-            title
-          );
-        } else {
-          page = this.addPageNormal(title, this.pageContainer);
-        }
+        
+        let chapter = new Chapter(this.chapters.length, title)
+
         if (args.pointsInfo) {
-          page.pointsInfo = args.pointsInfo;
+          chapter.pointsInfo = args.pointsInfo;
         }
 
         // Add to page of content
         if (this.loginPage != null) {
-          let pageNr = this.pages.length - 1;
+          let pageNr = this.chapters.length - 1;
 
           page.pageOverview = domCtr.create(
             "div",
@@ -544,37 +537,37 @@ define([
 
           domCtr.create(
             "div",
-            { class: "contentLink", innerHTML: (app.pageNo + 1) + ". " + title },
+            { class: "contentLink", innerHTML: (app.chapterNo + 1) + ". " + title },
             page.pageOverview
           );
           page.pageOverview.addEventListener("click", () => {
-            this.goToPage(app.mode == "consolidation" ? pageNr + 1 : pageNr);
+            this.goToChapter(app.mode == "consolidation" ? pageNr + 1 : pageNr);
           });
 
         }
-        app.pageNo = app.pageNo + 1;
+        app.chapterNo = app.chapterNo + 1;
         return page;
       }
     }
 
-    addPageNormal(title, container) {
+    addchapterNormal(title, container) {
       
-      let page = new Page(this.pages.length, container, title);
-      this.pages.push(page);
+      let page = new Page(this.chapters.length, container, title);
+      this.chapters.push(page);
       return page;
     }
 
     addFinalPage(title) {
       title = app.strings.get(title);
       if (app.mode != "results") {
-        let page = new Page(this.pages.length, this.pageContainer, title);
+        let page = new Page(this.chapters.length, this.pageContainer, title);
         let element = domCtr.create("div", { id: "finalElement", className: "element final" }, page.page);
         let final = domCtr.create("div", { id: "btn_final", className: "btn1", innerHTML: app.strings.get("results") }, element);
   
         on(final, "click", function (evt) {
           this.finalize();
         }.bind(this));
-        this.pages.push(page);
+        this.chapters.push(page);
         this.lastPage = page;
         
         return page;
@@ -617,8 +610,8 @@ define([
 
     parseResults() {
       
-      for (let i in app.pages) {
-        let page = app.pages[i];
+      for (let i in app.chapters) {
+        let page = app.chapters[i];
 
         if (i == 0 || page == app.lastPage) { continue }; // The first and last pages have no elements
         let points = 0;
@@ -818,8 +811,8 @@ define([
 
     getAllElements(checkIfSet) {
       let data = {};
-      for (let pageIndex in app.pages) {
-        let page = app.pages[pageIndex];
+      for (let pageIndex in app.chapters) {
+        let page = app.chapters[pageIndex];
         if (page != app.lastPage) {
           for (let elemIndex in page.elements) {
             let elem = page.elements[elemIndex];
@@ -874,9 +867,9 @@ define([
       } else if (e.keyCode == "40") {
         // down arrow
       } else if (e.keyCode == "37") {
-        app.goToPage(app.currentPage - 1);
+        app.goToChapter(app.currentChapter - 1);
       } else if (e.keyCode == "39") {
-        app.goToPage(app.currentPage + 1);
+        app.goToChapter(app.currentChapter + 1);
       }
     }
 

@@ -63,8 +63,6 @@ define([
         let groupDivContainer = domCtr.create("div", { className: "groupDivContainer"}, consolidation);
         domCtr.create("div", { className: "groupDivTitle", innerHTML: app.strings.get(app.content.groups[i].label)}, groupDivContainer);
         this.groupDivs[app.content.groups[i].key] = domCtr.create("div", { className: "resultContainer", }, groupDivContainer);
-
-        
       }
 
       let elem = page.addElementNormal(type, key, args, consolidationContainer);
