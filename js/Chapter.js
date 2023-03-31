@@ -1,8 +1,8 @@
 /*
 --------------
-Page.js
+Chapter.js
 --------------
-The app's main structure is based on pages and elements, an app can have several pages and a page can have several elements. One element corresponds to one entry in the database! (One input per element)
+The app's main structure is based on chapters, pages and elements, an app can have several chapers and a chapter can have several elements. Normally threre is one element per page, but sometimes there is additional information which adds to the page. One element corresponds to one entry in the database! (One input per element)
 */
 
 
@@ -12,8 +12,10 @@ define([
   "dojo/dom-construct",
   "dojo/_base/window",
   "dojo/on",
+  "biodivschool/Page",
+
   "biodivschool/Element",
-], function (dom, domCtr, win, on, Element) {
+], function (dom, domCtr, win, on, Page, Element) {
   return class Chapter {
     constructor(id, title) {     
       this.id = id;
@@ -22,37 +24,37 @@ define([
       this.title = title;
       this.pages = [];
 
+      let page = new Page("page_" + this.pages.length.toString(),app.pageContainer, this.title);
+      this.pages.push(page);
+      app.pages.push(page);
     }
 
-    
 
-    addPage(type, key, args) {
-        
-    
-    let page = app.addPageNormal(this.title, this.container);
-
-    let elem = this.addElementNormal(type, key, args, page.page)
-
-    if (Object.keys(args).includes("version") && !args.version.includes(app.version)) {
-      elem.element.style.display = "none"
-    }
-    return elem
-
-    
+    addElement(type, key, args, container) {
       
+      // Check if there is already an text info which was just added before. 
+      if (this.pages.length > 0 && this.pages[this.pages.length - 1].textInfos.length == 0) {
+        let page = new Page("page_" + this.pages.length.toString(),app.pageContainer, this.title);
+        this.pages.push(page);
+        app.pages.push(page);
+  
+      }
       
-    }
-
-    addElementNormal(type, key, args, container) {
-
-      let elem = new Element(this, this.elements.length, container);
+    let elem = new Element(this, this.pages.length, this.pages[this.pages.length-1].page);
       elem.init(type, key, args);
-      this.elements.push(elem);
+      this.pages[this.pages.length-1].elements.push(elem);
       return elem;
     }
 
     addTextInfo(args) {
-      let page = app.addPageNormal(this.title, this.container);
+
+      // Check if there is already an text info which was just added before. 
+      if (this.pages.length > 0 && this.pages[this.pages.length - 1].textInfos.length == 0) {
+
+      let page = new Page("page_" + this.pages.length.toString(),app.pageContainer, this.title);
+      this.pages.push(page);
+      app.pages.push(page);
+      }
 
       args.title =args.title? app.strings.get(args.title):null;
       args.text =args.text? app.strings.get(args.text):null;
@@ -63,7 +65,7 @@ define([
       }
       
 
-      let textInfo = domCtr.create("div", { id: "textInfo_" + args.title, className: args.title? "element titleContainer":"element"}, page.page);
+      let textInfo = domCtr.create("div", { id: "textInfo_" + args.title, className: args.title? "element titleContainer":"element"}, this.pages[this.pages.length-1].page);
         if (args.title) {
           domCtr.create("div", { className: "elementTitle", innerHTML: args.title}, textInfo);
 
@@ -87,7 +89,7 @@ define([
         }
 
         app.replaceWithText(textInfo);
-
+        this.pages[this.pages.length-1].textInfos.push(textInfo);
         return {element:textInfo, type: "textInfo"};
     }
 

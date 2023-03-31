@@ -36,6 +36,8 @@ input[type=checkbox]
   --highlight: #e0ca3c;
   --dark_gray: #4c4c4c;
   --medium_gray: #727272;
+  --secondary: #EBEBEB;
+  --secondaryText: #707070;
 }
 
 /* width */
@@ -147,7 +149,7 @@ body {
   #print {
     display: none !important;
   }
-  #startPage {
+  #startButton {
     display: none !important;
   }
 
@@ -194,7 +196,7 @@ body {
   .expandable {
     display: none !important;
   }
-  .page {
+  .chapter {
     height: auto !important;
     display: block !important;
     overflow: visible !important;
@@ -862,7 +864,7 @@ overscroll-behavior: contain !important;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px;
+  padding: 0 20px;
   font-size: min(max(2vmax, 12px),15px);
 }
 
@@ -982,6 +984,28 @@ overscroll-behavior: contain !important;
   border-radius: 20px;
   display: flex;
   font-weight: bold;
+}
+
+
+.primaryButton {
+  background-color: var(--project);
+  color: white;
+  border: none;
+}
+
+.primaryButton:hover {
+  filter: brightness(1.1) !important;
+  background-color: var(--project) !important;
+}
+.secondaryButton {
+  background-color: var(--secondary);
+  color: var(--secondaryText);
+  border: none;
+}
+
+.primaryButton:hover {
+  filter: brightness(1.1) !important;
+  background-color: var(--secondary) !important;
 }
 
 .btn_icon {
@@ -1288,7 +1312,7 @@ label {
 
 
 .pointsInfo {
-  width: 100%;
+  width: 40%;
   font-size: min(1.5vmax, 15px);
   padding: 10px 0;
 }

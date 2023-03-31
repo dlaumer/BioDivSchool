@@ -132,7 +132,7 @@ define([
 
      //01_page 
       /*Regionalität der Pflanzen*/
-      let page_regionalitaet = app.addPage("P01.title", {
+      let page_regionalitaet = app.addChapter("P01.title", {
         pointsInfo: [0, 10]
       });
 
@@ -278,7 +278,7 @@ define([
 
       //02_page 
       /*Strukturelemente*/      
-      let page_strukturelemente = app.addPage("P02.title", {
+      let page_strukturelemente = app.addChapter("P02.title", {
       pointsInfo: [10, 32]});
 
       //03_textInfo
@@ -1017,7 +1017,7 @@ define([
 
       //03_page
       /*Pflege*/
-      let page_pflege = app.addPage("P03.title", {
+      let page_pflege = app.addChapter("P03.title", {
       pointsInfo: [2, 11]});
 
       //17_textInfo
@@ -1489,7 +1489,7 @@ define([
 
       //04_page (-> P04
       /*Bauliche Massnahmen*/
-       let page_baumassnahmen = app.addPage("P04.title", {
+       let page_baumassnahmen = app.addChapter("P04.title", {
        pointsInfo: [2, 4]});
 
        //24_textInfo
@@ -1736,13 +1736,13 @@ define([
           }
       });      
 
-      app.addFinalPage("E42.finaPage");     
+      //app.addFinalPage("E42.finaPage");     
     }
 
     //05_page
   
     makeNewProject() {
-      let page0 = app.addPage("P05.title");
+      let page0 = app.addChapter("P05.title");
 
       let projektid = page0.addElement("simpleTextInput", "projectid", {
         text: "P05.project.text.1",
@@ -1810,13 +1810,13 @@ define([
         elements: [map]
       }]
 
-      app.addFinalPage("P05.finalPage");
+      //app.addFinalPage("P05.finalPage");
 
     }
 
     //P06
     editProject() {
-      let page0 = app.addPage("P06.page");
+      let page0 = app.addChapter("P06.page");
 
       page0.addTextInfo({
         title: "P06.title.1",
@@ -1842,13 +1842,13 @@ define([
       buildings.map = map;
 
 
-      app.addFinalPage("P06.finalPage");
+      //app.addFinalPage("P06.finalPage");
 
     }
 
     //not used
     makeContent2() {
-      let page0 = app.addPage("P00.1.addPage");
+      let page0 = app.addChapter("P00.1.addPage");
       page0.addElement("simpleTextInput", "standort", {
         text: "Was ist der Name des Standorts?",
         placeholder: "Standort",
@@ -1882,7 +1882,7 @@ define([
         ],
       });
 
-      let page1 = app.addPage("Slider Test");
+      let page1 = app.addChapter("Slider Test");
 
       page1.addElement("sliderInput", "slider1", {
         text: "How much of this?",
@@ -1903,10 +1903,10 @@ define([
         step: 2,
       });
 
-      let page2 = app.addPage("Page 2");
+      let page2 = app.addChapter("Page 2");
       page2.addElement("mapInput", "gebiete", { text: "Zeichne die Gebiete" });
 
-      let page3 = app.addPage("Page 3");
+      let page3 = app.addChapter("Page 3");
       let page4 = app.addFinalPage("Ende");
     }
   };
