@@ -406,9 +406,20 @@ define([
         this.mapOverview
       );
 
+      this.footer = domCtr.create(
+        "div",
+        { id: "footer", className: "footer footerStart" },
+        this.background
+      );
+
+      this.footerBar = domCtr.create("div", { id: "footerBar", className: "footerBar footerBarStart" }, this.footer);
+      this.logo1 = domCtr.create("img", {src:"img/Logos/aplus.png", className:"logos"}, this.footerBar);
+      this.logo2 = domCtr.create("img", {src:"img/Logos/phsg.jpg", className:"logos"}, this.footerBar);
+      this.logo3 = domCtr.create("img", {src:"img/Logos/somaha.jpg", className:"logos"}, this.footerBar);
+
       this.buttons = domCtr.create(
         "div",
-        { className: "footerRightElement", style: "display: none" },
+        { className: "navigationBarRightElement", style: "display: none" },
         document.body
       );
 

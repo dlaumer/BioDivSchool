@@ -328,15 +328,25 @@ define([
         { id: "pageContainer" },
         this.background
       );
+
       this.footer = domCtr.create("div", { id: "footer", className: "footer" }, this.background);
-      this.footerLeft = domCtr.create(
+
+      this.navigationBar = domCtr.create("div", { id: "navigationBar", className: "navigationBar" }, this.footer);
+      this.footerBar = domCtr.create("div", { id: "footerBar", className: "footerBar" }, this.footer);
+      this.logo1 = domCtr.create("img", {src:"img/Logos/aplus.png", className:"logos"}, this.footerBar);
+      this.logo2 = domCtr.create("img", {src:"img/Logos/phsg.jpg", className:"logos"}, this.footerBar);
+      this.logo3 = domCtr.create("img", {src:"img/Logos/somaha.jpg", className:"logos"}, this.footerBar);
+
+      this.navigationBarLeft = domCtr.create(
         "div",
         {
-          className: "footerElements",
+          className: "navigationBarElements",
           style: "justify-content: start;",
         },
-        this.footer
+        this.navigationBar
       );
+
+
       this.home = domCtr.create(
         "div",
         {
@@ -345,13 +355,13 @@ define([
           innerHTML: this.strings.get("home"),
           style: "min-width: 10vw;",
         },
-        this.footerLeft
+        this.navigationBarLeft
       );
 
-      this.footerCenter = domCtr.create(
+      this.navigationBarCenter = domCtr.create(
         "div",
-        { className: "footerElements" },
-        this.footer
+        { className: "navigationBarElements" },
+        this.navigationBar
       );
       this.back = domCtr.create(
         "div",
@@ -361,17 +371,17 @@ define([
           innerHTML: this.strings.get("back"),
           style: "visibility:hidden",
         },
-        this.footerCenter
+        this.navigationBarCenter
       );
       this.next = domCtr.create(
         "div",
         { id: "btn_next", className: "btn1", innerHTML: this.strings.get("next") },
-        this.footerCenter
+        this.navigationBarCenter
       );
-      this.footerRight = domCtr.create(
+      this.navigationBarRight = domCtr.create(
         "div",
-        { className: "footerElements" },
-        this.footer
+        { className: "navigationBarElements" },
+        this.navigationBar
       );
       this.pointsTotalDiv = domCtr.create(
         "div",
@@ -380,7 +390,7 @@ define([
           className: "pointsInfo",
           innerHTML: app.mode == "project" | !app.showPoints ? "" : this.strings.get("totalPoints") + ": 0",
         },
-        this.footerRight
+        this.navigationBarRight
       );
 
     }
