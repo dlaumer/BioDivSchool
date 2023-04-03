@@ -12,19 +12,23 @@
 }
 */
 
-input[type='radio'], input[type='checkbox'] {
+input[type='radio'],
+input[type='checkbox'] {
   float: left;
   width: 3mm;
   height: 3mm;
 }
 
-input[type=checkbox]
-{
+input[type=checkbox] {
   /* Double-sized Checkboxes */
-  -ms-transform: scale(1); /* IE */
-  -moz-transform: scale(1); /* FF */
-  -webkit-transform: scale(1); /* Safari and Chrome */
-  -o-transform: scale(1); /* Opera */
+  -ms-transform: scale(1);
+  /* IE */
+  -moz-transform: scale(1);
+  /* FF */
+  -webkit-transform: scale(1);
+  /* Safari and Chrome */
+  -o-transform: scale(1);
+  /* Opera */
   transform: scale(1);
 }
 
@@ -46,9 +50,10 @@ input[type='radio']:checked:after {
   visibility: visible;
   border: 3px solid white;
 }
+
 :root {
   --gray: #bebebe;
-  --very_gray: #f5f3f3;
+  --very_gray: #FCFAFA;
   --project: #A2C367;
   --projectHover: #8dac56;
   --projectLight: #A2C367b0;
@@ -58,12 +63,14 @@ input[type='radio']:checked:after {
   --medium_gray: #727272;
   --secondary: #EBEBEB;
   --secondaryText: #707070;
+  --line: #DEDEDE;
 }
 
 /* width */
 ::-webkit-scrollbar {
   width: 7px;
 }
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: var(--gray);
@@ -74,19 +81,57 @@ html {
   overflow-y: hidden !important;
   overscroll-behavior: none !important;
 }
+
 body {
   overflow-y: hidden !important;
   position: fixed;
   overflow: hidden;
   margin: 0;
   font-size: min(2vmax, 14px);
-    overscroll-behavior: none !important;
-    color: var(--secondaryText);
+  overscroll-behavior: none !important;
+  color: var(--secondaryText);
 }
 
 #start {
   height: 100%;
-  width: 100%;;
+  width: 100%;
+  ;
+}
+
+#aboutUsContainer {
+  height: 90%;
+  width: 100%;
+  position: absolute;
+  top: 10%;
+  right: 0;
+  background-color: white;
+  z-index: 3;
+  flex-direction: column;
+    text-align: justify;
+    overflow: scroll;
+}
+
+#closeContainer {
+  width: 100%;
+  text-align: right;
+  padding: 20px;
+  font-size: 20px;
+  display: flex;
+  justify-content: end;
+}
+#close {
+  cursor: pointer;
+}
+.aboutUsElement {
+    margin: 0px 200px;
+    padding: 0 0 30px 0;
+}
+
+.aboutUsLogo {
+  height: 20%;
+  display: flex;
+  justify-content: center;
+  text-align: center;
 }
 
 .mapOverview {
@@ -102,7 +147,7 @@ body {
   width: 60%;
 }
 
-.mapOverviewProjects{
+.mapOverviewProjects {
   height: 100%;
   width: 40%;
   display: flex;
@@ -130,7 +175,7 @@ body {
   width: 100%;
 }
 
-.mapOverviewResultsLegend{
+.mapOverviewResultsLegend {
   height: 20%;
   width: 100%;
   overflow: visible;
@@ -145,9 +190,11 @@ body {
 .esri-legend--card__service-caption-container {
   border-bottom: unset !important;
 }
+
 .esri-legend--card__service {
-  border: 1px solid rgba(110,110,110,.3);
+  border: 1px solid rgba(110, 110, 110, .3);
 }
+
 .esri-legend--card {
   flex-wrap: wrap;
 }
@@ -158,9 +205,9 @@ body {
 
 @media print {
   body {
-  -webkit-print-color-adjust: exact !important;
-  font-size: 14px !important;
-}
+    -webkit-print-color-adjust: exact !important;
+    font-size: 14px !important;
+  }
 
   #titlePage {
     display: flex !important;
@@ -169,6 +216,7 @@ body {
   #print {
     display: none !important;
   }
+
   #startButton {
     display: none !important;
   }
@@ -186,6 +234,7 @@ body {
   #title {
     font-size: xxx-large;
   }
+
   .titleInfo {
     font-size: x-large;
   }
@@ -193,6 +242,7 @@ body {
   .header {
     display: none !important;
   }
+
   #navigationBar {
     display: none !important;
   }
@@ -200,31 +250,39 @@ body {
   .mapOverviewProjects {
     overflow: visible;
   }
+
   .esri-legend__service {
     padding: 0 14px !important;
   }
+
   .esri-widget__heading {
 
     margin: 0 !important;
   }
+
   .esri-legend__layer-table {
     margin-bottom: 0px !important;
   }
+
   .linkText {
     display: none !important;
   }
+
   .expandable {
     display: none !important;
   }
+
   .chapter {
     height: auto !important;
     display: block !important;
     overflow: visible !important;
     position: unset !important;
   }
+
   .esri-editor__temp-wrapper {
     display: none !important;
   }
+
   .mapOverview {
     height: 400px !important;
   }
@@ -233,21 +291,27 @@ body {
   #title_areas {
     page-break-before: always;
   }
+
   .mapOverviewResults {
     page-break-after: always;
   }
-  .inputElement {page-break-after: always;}
+
+  .inputElement {
+    page-break-after: always;
+  }
 
   #startTitle {
-    page-break-before:avoid !important;
+    page-break-before: avoid !important;
   }
+
   #pointsTitle {
-    page-break-before:avoid !important;
+    page-break-before: avoid !important;
   }
 
   .labelContainer {
     width: 100% !important;
   }
+
   .input {
     width: 100% !important;
     font-size: 14px !important;
@@ -257,14 +321,16 @@ body {
     width: 100% !important;
   }
 
-  .map  {
+  .map {
     width: 100% !important;
     height: 70% !important;
     display: none;
   }
+
   .screenshot {
     display: block !important;
   }
+
   .mapContainer {
     flex-direction: column !important;
     height: unset !important;
@@ -281,15 +347,16 @@ body {
   outline: none !important;
 }
 
-@media only screen and (max-height: 600px){
+@media only screen and (max-height: 600px) {
 
- 
+
   .mapOverview {
     height: 100% !important;
   }
+
   #pageContainer {
     height: 65% !important;
-}
+  }
 }
 
 @media only screen and (max-width: 600px) {
@@ -297,31 +364,40 @@ body {
   body {
     font-size: 22px !important;
   }
+
   .page {
     padding: 0 20px !important;
   }
-  
 
-.pageTitle {
-  font-size: 28px;
-}
+  #aboutUsContainer {
+    height: 80% !important;
+  }
+  .aboutUsElement {
+    padding: 0 0 30px 0 !important;
+  }
+
+  .pageTitle {
+    font-size: 28px;
+  }
+
   #userNameEsri {
     display: none;
   }
+
   .mapOverview {
     height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
   }
-  
+
   .mapOverviewMap {
     height: 100%;
     width: 100%;
     position: absolute;
   }
-  
-  .mapOverviewProjects{
+
+  .mapOverviewProjects {
     height: 85%;
     width: 100%;
     position: absolute;
@@ -332,7 +408,7 @@ body {
     box-shadow: 0px -5px 3px #00000029;
   }
 
-  .iconLabel{
+  .iconLabel {
     display: none !important;
   }
 
@@ -359,7 +435,7 @@ body {
   }
 
   .citySchoolWrapper {
-  
+
     display: flex;
     flex-direction: row !important;
   }
@@ -368,18 +444,19 @@ body {
     display: flex;
     flex-direction: column !important;
     justify-content: space-evenly;
-}
+  }
 
   .projects {
     background-color: var(--very_gray);
     min-height: 70px !important;
     padding: 5px !important;
-    
+
   }
 
   .projects_active {
     height: 110px !important;
   }
+
   .draggableLine {
     display: block !important;
   }
@@ -387,7 +464,7 @@ body {
   #appTitle {
     display: none;
   }
-  
+
 
   #navigationBarBottom {
     height: 20%;
@@ -396,7 +473,7 @@ body {
 
 .projectsTitle {
   font-weight: bold;
-  font-size: min(max(3vmax, 18px),28px);
+  font-size: min(max(3vmax, 18px), 28px);
   color: var(--medium_gray);
   margin-bottom: 20px;
 }
@@ -432,8 +509,17 @@ body {
   position: relative;
   top: 0;
   left: 0;
-  z-index: 10;
+  z-index: 5;
   transition: all 0.2s linear !important;
+}
+
+#btn_filter {
+  z-index: 2;
+}
+
+#filterPanel {
+  z-index: 1;
+
 }
 
 .btn3Panel {
@@ -450,13 +536,13 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: end;
-  z-index: 1;
+  z-index: 4;
 }
 
 
 .btn3PanelActive {
   height: fit-content !important;
-  padding-top: min(max(7vh, 40px),90px) !important;
+  padding-top: min(max(7vh, 40px), 90px) !important;
   transition: all 0.2s linear !important;
   padding: 5px;
 
@@ -469,12 +555,12 @@ body {
   height: 30px;
   padding: 0 10px;
   margin: 2px 5px;
-  
-  padding: 10px 0 0 0;
+
+  padding: 0 0 30px 0;
 }
 
-.btn_active{
-  background-color: var(--project  ) !important;
+.btn_active {
+  background-color: var(--project) !important;
   color: white !important;
   width: calc(100% - 10px);
   height: calc(100% - 5px);
@@ -487,17 +573,16 @@ body {
 
 .nonselectableElement {
   height: 30px;
-  font-size: min(max(2vmax, 12px),15px);
+  font-size: min(max(2vmax, 12px), 15px);
   padding: 0 10px;
   text-align: center;
   border-radius: 20px;
   margin: 2px 5px;
-  margin-top: 20px;
 }
 
 .selectableElement {
   height: 30px;
-  font-size: min(max(2vmax, 12px),15px);
+  font-size: min(max(2vmax, 12px), 15px);
   padding: 0 10px;
   text-align: center;
   border-radius: 20px;
@@ -507,11 +592,11 @@ body {
 }
 
 .selectableElement:hover {
-    background-color: var(--very_gray);
+  background-color: var(--very_gray);
 }
 
 .selectableElementActive {
-  background-color: var(--project  ) !important;
+  background-color: var(--project) !important;
   color: white !important;
 }
 
@@ -527,8 +612,8 @@ body {
   background-color: var(--very_gray);
 }
 
-.projects_active{
-  background-color: var(--project  ) !important;
+.projects_active {
+  background-color: var(--project) !important;
   color: white !important;
   min-height: 120px;
   transition: all 0.2s linear;
@@ -606,13 +691,14 @@ body {
   flex-direction: column;
   justify-content: space-evenly;
 }
+
 .projectElemLabel {
   width: 50%;
   text-align: left;
-  overflow: hidden; 
+  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: min(max(1vmax, 10px),12px);
+  font-size: min(max(1vmax, 10px), 12px);
 }
 
 .projectElemLabelMobile {
@@ -626,10 +712,10 @@ body {
 .projectElemValue {
   width: 50%;
   text-align: left;
-  overflow: hidden; 
+  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: min(max(2vmax, 12px),18px);
+  font-size: min(max(2vmax, 12px), 18px);
   font-weight: bold;
 }
 
@@ -676,11 +762,13 @@ body {
   position: fixed;
   top: 0;
   bottom: 0;
-overscroll-behavior: contain !important;
+  overscroll-behavior: contain !important;
 }
+
 #titlePage {
   width: 100%;
-  height: 100%;;
+  height: 100%;
+  ;
   display: none;
   justify-content: center;
   flex-direction: column;
@@ -700,7 +788,7 @@ overscroll-behavior: contain !important;
   align-items: center;
   padding: 0 10px;
   background-color: var(--very_gray);
-  font-size: min(max(2vmax, 12px),15px);
+  font-size: min(max(2vmax, 12px), 14px);
   z-index: 100;
   box-shadow: 0px 3px 6px #00000029;
 
@@ -717,7 +805,7 @@ overscroll-behavior: contain !important;
   display: flex;
   z-index: 100;
   box-shadow: 0px 3px 6px #00000029;
-  font-size: min(max(2vmax, 12px),15px);
+  font-size: min(max(2vmax, 12px), 15px);
 
 }
 
@@ -734,13 +822,64 @@ overscroll-behavior: contain !important;
   height: 100%;
   width: 60%;
   display: flex;
-  justify-content: right;
+  justify-content: end;
   align-items: center;
   padding: 0 10px;
 }
 
+#headerRight {
+  justify-content: start !important;
+}
+
+#infoBox {
+  border-left: 1px black solid;
+  padding-left: 10px;
+}
+
+#infoBoxTitle {
+  font-size: min(2vmax, 16px);
+  font-weight: bold;
+}
+
+#infoBoxInfo {
+  font-size: min(1.5vmax, 12px);
+}
+
+.chapterLinks {
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+}
 
 
+
+#chapterLinks:before { content: '';
+  content: '';
+  position: absolute;
+  border-bottom: 2px var(--secondary) solid;
+  height: 60%;
+  width: 32%;
+  transform: translateY(-50%);
+  z-index: -1;
+   }
+
+.chapterLink {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border: solid 1px var(--secondaryText);
+  border-radius: 20px;
+  cursor: pointer;
+  justify-content: center;
+}
+
+
+.chapterLink:hover {
+  background-color: var(--secondary);
+
+}
 .settings {
   width: 100%;
 }
@@ -754,7 +893,7 @@ overscroll-behavior: contain !important;
 .consolidationContainer {
   width: 100%;
   height: 100%;
-    display: flex;
+  display: flex;
   flex-direction: row;
 }
 
@@ -762,8 +901,9 @@ overscroll-behavior: contain !important;
   display: flex;
   flex-direction: column;
   height: 100%;
-width: 40%;
-overflow: scroll;
+  width: 40%;
+  overflow: scroll;
+  margin: 20px 0 0 0;
 }
 
 .consolidationArea {
@@ -771,7 +911,7 @@ overflow: scroll;
   height: 100%;
 }
 
-.consolidation{
+.consolidation {
   width: 100%;
   height: 90%;
   display: flex;
@@ -799,6 +939,7 @@ overflow: scroll;
 .title {
   margin-top: 30px;
 }
+
 .pageOverview:hover {
   background-color: var(--very_gray);
 }
@@ -827,25 +968,25 @@ overflow: scroll;
 }
 
 .red {
-  background-color: rgba(255,0,0,0.3);
+  background-color: rgba(255, 0, 0, 0.3);
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
-  border: 2px solid rgba(255,0,0,1);
+  border: 2px solid rgba(255, 0, 0, 1);
   border-right: none;
 }
 
 .orange {
-  background-color: rgba(255, 192,0,0.3);
-  border: 2px solid rgba(255, 192,0,1);
+  background-color: rgba(255, 192, 0, 0.3);
+  border: 2px solid rgba(255, 192, 0, 1);
   border-right: none;
   border-left: none;
 }
 
 .green {
-  background-color: rgba(0, 176, 80,0.3);
+  background-color: rgba(0, 176, 80, 0.3);
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
-  border: 2px solid rgba(0, 176, 80,1);
+  border: 2px solid rgba(0, 176, 80, 1);
   border-left: none;
 
 }
@@ -862,7 +1003,7 @@ overflow: scroll;
 
 .resultContainer {
   width: 100%;
-  height:90%;
+  height: 90%;
   border-radius: 15px;
   background-color: var(--very_gray);
   display: flex;
@@ -874,7 +1015,8 @@ overflow: scroll;
 
 
 .groupResult {
-  flex-direction: column !important;;
+  flex-direction: column !important;
+  ;
 }
 
 .result {
@@ -890,6 +1032,7 @@ overflow: scroll;
   overflow-wrap: anywhere;
   text-align: center;
 }
+
 .measure {
   background-color: var(--gray);
   padding: 10px;
@@ -906,7 +1049,9 @@ overflow: scroll;
   background-color: white;
   align-items: center;
   display: flex;
+  flex-direction: column;
   box-shadow: 0px -3px 6px #00000029;
+  justify-content: center;
 }
 
 .footerStart {
@@ -921,7 +1066,7 @@ overflow: scroll;
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
-  font-size: min(max(2vmax, 12px),15px);
+  font-size: min(max(2vmax, 12px), 15px);
 }
 
 .footerBar {
@@ -934,7 +1079,7 @@ overflow: scroll;
 }
 
 .footerBarStart {
-  height: 100% !important;
+  height: 10% !important;
 }
 
 .logos {
@@ -955,8 +1100,8 @@ overflow: scroll;
   width: 70%;
   height: 100%;
   display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 .navigationBarRightElement {
@@ -980,12 +1125,20 @@ overflow: scroll;
 @media only screen and (max-width: 600px) {
 
   .header1 {
-  width: 20% !important;
+    width: 20% !important;
   }
 
   .header2 {
     width: 80% !important;
-    }
+  }
+
+  #headerLeft {
+    width: 100% !important;
+  }
+  #headerRight {
+    display: none;
+  }
+
   .navigationBarRight {
     width: 100%;
     height: 60%;
@@ -993,8 +1146,8 @@ overflow: scroll;
     flex-direction: column;
     justify-content: space-around;
     border-bottom: solid;
-  border-width: 1px;
-  border-color: var(--gray);
+    border-width: 1px;
+    border-color: var(--gray);
   }
 
   .navigationBarLeft {
@@ -1019,7 +1172,7 @@ overflow: scroll;
     padding: 20px;
     font-size: min(2vmax, 18px);
   }
-  
+
 }
 
 #pointsTotalInfo {
@@ -1052,10 +1205,12 @@ overflow: scroll;
   filter: brightness(1.1) !important;
   background-color: var(--project) !important;
 }
+
 .secondaryButton {
   background-color: var(--secondary);
   color: var(--secondaryText);
   border: none;
+  white-space: nowrap
 }
 
 .secondaryButton:hover {
@@ -1068,6 +1223,7 @@ overflow: scroll;
   pointer-events: none;
   filter: invert(44%) sepia(4%) saturate(4%) hue-rotate(332deg) brightness(98%) contrast(91%);
 }
+
 .btn_icon_active {
   filter: invert(100%);
 }
@@ -1089,7 +1245,7 @@ overflow: scroll;
 }
 
 #btn_project {
-  display: none; 
+  display: none;
 }
 
 .icon {
@@ -1104,26 +1260,30 @@ overflow: scroll;
 }
 
 .iconActive {
-  filter: invert(100%) ;
+  filter: invert(100%);
 }
 
 .iconLabel {
   text-decoration: underline;
   color: var(--project);
   text-overflow: ellipsis;
-    width: 100%;
-    text-align: center;
+  width: 100%;
+  text-align: center;
 }
+
 .iconLabelActive {
   color: white;
 }
 
 #save {
   border: none !important;
+  font-weight: bold !important;
+  font-size: min(1.5vmax, 12px);
 }
 
 
-.btn1:hover, .btn1:active{
+.btn1:hover,
+.btn1:active {
   background-color: var(--gray);
 }
 
@@ -1143,7 +1303,7 @@ overflow: scroll;
   overflow: hidden;
   text-overflow: ellipsis;
   border-radius: 20px;
-  font-size: min(max(2vmax, 12px),15px);
+  font-size: min(max(2vmax, 12px), 15px);
   font-weight: bold;
   color: var(--medium_gray);
   padding: 5px;
@@ -1152,15 +1312,15 @@ overflow: scroll;
   height: unset !important;
 }
 
-.btn2:hover, .btn2:active {
+.btn2:hover,
+.btn2:active {
   background-color: var(--gray);
 }
 
 .btn_disabled {
-  border-color: var(--dark_gray) !important;
-  opacity: 0.5 !important;
-  color: var(--dark_gray) !important;
+  color: var(--secondaryText) !important;
   pointer-events: none !important;
+  background-color: var(--very_gray) !important;
 }
 
 .page {
@@ -1184,8 +1344,8 @@ overflow: scroll;
 .pageTitle {
   width: 100%;
   font-size: min(4vmax, 20px);
-    padding: 10px;
-    font-weight: bold;
+  padding: 10px;
+  font-weight: bold;
 }
 
 .element {
@@ -1199,7 +1359,7 @@ overflow: scroll;
 
 
 .elementTitle {
-  width:100%;
+  width: 100%;
   font-weight: bold;
   margin: 0 0 20px 0;
 }
@@ -1212,8 +1372,9 @@ overflow: scroll;
 }
 
 .linkText:hover {
-  background-color:var(--expandable);
+  background-color: var(--expandable);
 }
+
 .expandable {
   width: 100%;
   display: none;
@@ -1273,18 +1434,19 @@ input[type='date'] {
   height: min(8vmax, 50px) !important;
   margin: 2% !important;
   padding: 0px 10px !important;
-  font-size: min(3vmax, 18px);;
+  font-size: min(3vmax, 18px);
+  ;
 }
 
 .radioButtonContainer {
   display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin: 5px 0;
-    padding: 5px 15px;
-    border-radius: 20px;
-    outline: solid 1px;
-    cursor: pointer;
+  flex-direction: row;
+  align-items: center;
+  margin: 5px 0;
+  padding: 5px 15px;
+  border-radius: 20px;
+  outline: solid 1px;
+  cursor: pointer;
 }
 
 .radioButtonContainer:hover {
@@ -1375,7 +1537,8 @@ label {
 
 .mapContainer {
   width: 100%;
-  height: 50vh;;
+  height: 50vh;
+  ;
   display: flex;
   flex-direction: row;
 }
@@ -1406,7 +1569,6 @@ label {
 }
 
 .editor {
-    width: 30%;
-    overflow: scroll;
+  width: 30%;
+  overflow: scroll;
 }
-

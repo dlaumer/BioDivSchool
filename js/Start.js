@@ -373,17 +373,94 @@ define([
         loginBtnContainer
       );
 
+
+
       start.login = domCtr.create(
         "div",
         { id: "login", className: "selectableElement", innerHTML: this.strings.get("loginEsri") },
         start.loginPanel
       );
 
-      start.globeWebsite = domCtr.create(
+      
+      start.aboutUs = domCtr.create(
         "div",
-        { className: "selectableElement", innerHTML: "GLOBE Swiss" },
+        { className: "selectableElement", innerHTML: this.strings.get("aboutUs") },
         start.loginPanel
       );
+
+      start.globeWebsite = domCtr.create(
+        "div",
+        { className: "selectableElement", innerHTML: this.strings.get("resources") },
+        start.loginPanel
+      );
+
+      start.aboutUsContainer = domCtr.create(
+        "div",
+        { id: "aboutUsContainer", style: "display: none"},
+        start.background
+      );
+
+      let closeContainer = domCtr.create(
+        "div",
+        { id: "closeContainer"},
+        start.aboutUsContainer
+      );
+
+      let close = domCtr.create(
+        "div",
+        { id: "close",innerHTML: "X"},
+        closeContainer
+      );
+
+      on(close, "click", function (evt) {
+        start.aboutUsContainer.style.display = start.aboutUsContainer.style.display == "none"? "flex": "none"
+      })
+
+      let logoBioDiv = domCtr.create(
+        "div",
+        { className: "aboutUsLogo"},
+        start.aboutUsContainer
+      );
+      domCtr.create("img", {src:"img/Logos/phsg.jpg", className:"logos"}, logoBioDiv);
+
+
+      domCtr.create(
+        "div",
+        { id: "aboutUsBioDiv", className: "aboutUsElement",innerHTML: start.strings.get("aboutUsBioDiv")},
+        start.aboutUsContainer
+      );
+
+      let logoGlobe = domCtr.create(
+        "div",
+        { className: "aboutUsLogo"},
+        start.aboutUsContainer
+      );
+      domCtr.create("img", {src:"img/Logos/globe.png", className:"logos"}, logoGlobe);
+
+      domCtr.create(
+        "div",
+        { id: "aboutUsGlobe", className: "aboutUsElement",innerHTML: start.strings.get("aboutUsGlobe")},
+        start.aboutUsContainer
+      );
+
+      let logoSmartTrip = domCtr.create(
+        "div",
+        { className: "aboutUsLogo"},
+        start.aboutUsContainer
+      );
+      domCtr.create("img", {src:"img/Logos/logo_smarttrip_edu.png", className:"logos"}, logoSmartTrip);
+
+      domCtr.create(
+        "div",
+        { id: "aboutUsSmartTrip", className: "aboutUsElement",innerHTML: start.strings.get("aboutUsSmartTrip")},
+        start.aboutUsContainer
+      );
+
+
+      this.footerBar = domCtr.create("div", { id: "footerBar", className: "footerBar footerBarStart" }, this.aboutUsContainer);
+      this.logo1 = domCtr.create("img", {src:"img/Logos/aplus.png", className:"logos"}, this.footerBar);
+      this.logo2 = domCtr.create("img", {src:"img/Logos/phsg.jpg", className:"logos"}, this.footerBar);
+      this.logo3 = domCtr.create("img", {src:"img/Logos/somaha.jpg", className:"logos"}, this.footerBar);
 
 
       this.mapOverview = domCtr.create(
@@ -411,11 +488,6 @@ define([
         { id: "footer", className: "footer footerStart" , style:"display:none" },
         this.background
       );
-
-      this.footerBar = domCtr.create("div", { id: "footerBar", className: "footerBar footerBarStart", style:"display:none" }, this.footer);
-      this.logo1 = domCtr.create("img", {src:"img/Logos/aplus.png", className:"logos"}, this.footerBar);
-      this.logo2 = domCtr.create("img", {src:"img/Logos/phsg.jpg", className:"logos"}, this.footerBar);
-      this.logo3 = domCtr.create("img", {src:"img/Logos/somaha.jpg", className:"logos"}, this.footerBar);
 
       this.buttons = domCtr.create(
         "div",
@@ -641,6 +713,7 @@ define([
         start.filterPanel = domCtr.create(
           "div",
           {
+            id: "filterPanel",
             className: "btn3Panel",
           },
           filterContainer
@@ -1143,10 +1216,14 @@ define([
 
 
       });
+
+  
       on(start.login, "click", function (evt) {
         start.arcgis.handleSignInOut();
       });
-
+      on(start.aboutUs, "click", function (evt) {
+        start.aboutUsContainer.style.display = start.aboutUsContainer.style.display == "none"? "flex": "none"
+      });
       on(start.globeWebsite, "click", function (evt) {
         window.open("https://www.globe-swiss.ch/de/Angebote/BioDivSchool/", "_blank");
       });

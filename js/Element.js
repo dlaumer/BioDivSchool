@@ -16,6 +16,9 @@ Element.js
 let style = document.createElement('style')
 style.innerHTML = `
 
+        .footer {
+          height: 15% !important;
+        }
         .labelContainer {
           width: 100% !important;
         }
@@ -859,7 +862,6 @@ define([
 
         if (saveData && app.mode != "project" && app.mode != "results" && !app.offline || this.key == "gebaeude_geomoid" && app.projectId != "null") {
           app.save.innerHTML = app.strings.get("saving")
-          app.save.className = "btn1"
           let data = this.getterWithRules(this, {})
           new Promise((resolve, reject) => {
             app.arcgis
@@ -871,7 +873,6 @@ define([
                 reject(reason);
               }).then(() => {
                 app.save.innerHTML = app.strings.get("saved")
-                app.save.className = "btn1 btn_disabled"
               });
 
           });
@@ -1036,12 +1037,14 @@ define([
           if (this.elementWidth < 600) {
 
             document.head.appendChild(style);
-
+            app.moveChapterLinks("bottom");
           } else {
             if (document.head.contains(style)) {
               document.head.removeChild(style);
 
             }
+            app.moveChapterLinks("header");
+
           }
         }
       }

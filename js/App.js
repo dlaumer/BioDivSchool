@@ -33,6 +33,7 @@ define([
       app.pages = [];
       app.chapterNo = 0;
       app.mapLoadedPromises = [];
+      app.currentChapter = null;
 
       if (this.mode == "results") {
         app.showPoints = true;
@@ -277,10 +278,10 @@ define([
       }
       // TODO Warning if did not work!
       if (app.projectId != "null") {
-        this.infoBox.innerHTML =
+        this.infoBoxInfo.innerHTML =
           app.mode == "project"
-            ? app.projectName + ", " + app.schoolName + " <small>(" + app.projectId + ")</small>"
-            : app.projectName + ", " + app.schoolName + " <small>(" + app.projectId + ")</small>, " + this.strings.get("group") + ": " + this.groupId;
+            ?  app.schoolName 
+            :  app.schoolName + ", " + this.strings.get("group") + ": " + this.groupId;
       }
       this.save.className = "btn1 btn_disabled";
       document.onkeydown = this.checkKey;
@@ -303,17 +304,24 @@ define([
 
       this.header = domCtr.create("div", { id: "header", className: "header" }, this.background);
 
+      this.headerLeft = domCtr.create("div", { id: "headerLeft", className: "header1" }, this.header);
+
+      this.startButton = domCtr.create(
+        "div",
+        { id: "startButton", className: "btn1 secondaryButton", innerHTML: this.strings.get("startButton") },
+        this.headerLeft
+      );
       this.save = domCtr.create(
         "div",
         { id: "save", className: "saveInfo", innerHTML: this.strings.get("saved") },
-        this.header
+        this.headerLeft
       );
 
       if (app.mode == "results") {
         this.print = domCtr.create(
           "div",
           { id: "print", className: "btn1 btn_disabled", innerHTML: this.strings.get("printWait") },
-          this.header
+          this.headerLeft
         );
         setTimeout(() => {
           Promise.all(app.mapLoadedPromises).then(() => {
@@ -328,18 +336,21 @@ define([
         this.delete = domCtr.create(
           "div",
           { id: "delete", className: "btn1 btn_disabled", innerHTML: this.strings.get("delete") },
-          this.header
+          this.headerLeft
         );
       }
 
 
 
-      this.infoBox = domCtr.create("div", { id: "userName" }, this.header);
-      this.startButton = domCtr.create(
-        "div",
-        { id: "startButton", className: "btn1", innerHTML: this.strings.get("startButton") },
-        this.header
-      );
+      this.infoBox = domCtr.create("div", { id: "infoBox" }, this.headerLeft);
+      this.infoBoxTitle = domCtr.create("div", { id: "infoBoxTitle", innerHTML: this.strings.get(this.mode) }, this.infoBox);
+      this.infoBoxInfo = domCtr.create("div", { id: "infoBoxInfo" }, this.infoBox);
+
+
+
+      this.headerRight = domCtr.create("div", { id: "headerRight", className: "header2" }, this.header);
+
+      this.chapterLinks = domCtr.create("div", { id: "chapterLinks", className: "chapterLinks" }, this.headerRight);
 
       this.pageContainer = domCtr.create(
         "div",
@@ -381,7 +392,7 @@ define([
         this.navigationBar
       );
 
-      this.footerBar = domCtr.create("div", { id: "footerBar", className: "footerBar", style:"display:none" }, this.footer);
+      this.footerBar = domCtr.create("div", { id: "footerBar", className: "footerBar", style: "display:none" }, this.footer);
       this.logo1 = domCtr.create("img", { src: "img/Logos/aplus.png", className: "logos" }, this.footerBar);
       this.logo2 = domCtr.create("img", { src: "img/Logos/phsg.jpg", className: "logos" }, this.footerBar);
       this.logo3 = domCtr.create("img", { src: "img/Logos/somaha.jpg", className: "logos" }, this.footerBar);
@@ -394,17 +405,27 @@ define([
       let elements = app.getAllElements(false);
       app.uploadData(elements).then((value) => {
         app.save.innerHTML = this.strings.get("saved");
-        app.save.className = "btn1 btn_disabled";
         callback()
       });
       /*
         .catch((reason) => {
           app.save.innerHTML = "Save";
-          app.save.className = "btn1";
           alert("Saving not successful");
           console.log(reason);
         });
         */
+    }
+
+    moveChapterLinks(location) {
+
+      if (location == "header") {
+        domCtr.place(this.chapterLinks, this.headerRight, "first")
+      }
+      else if (location == "bottom") {
+        domCtr.place(this.chapterLinks, this.footer, "last")
+
+      }
+
     }
 
     clickHandler() {
@@ -438,6 +459,7 @@ define([
         function (evt) {
           this.updateAttributes("mode", "start");
           this.removeAttributes("group");
+          this.removeAttributes("page");
           window.open(window.location.href, "_self")
 
         }.bind(this)
@@ -495,23 +517,65 @@ define([
         this.updateAttributes("page", pageNumber);
       }
 
+      // Update the selected Chapter;
+      if (app.currentChapter != null) {
+        app.currentChapter.pageOverview.classList.remove("radioButtonContainerSelected");
+      }
+      let chapter= this.determineChapter(pageNumber);
+      chapter.pageOverview.classList.add("radioButtonContainerSelected")
+      app.currentChapter = chapter;
+
+
+    }
+
+    determineChapter(pageNumber) {
+      let chapter = app.chapters[0];
+
+      for (let i = 0; i < app.chapters.length; i++) {
+        chapter = app.chapters[i];
+        if (i == app.chapters.length - 1) {
+            break;
+        }
+        else {
+          let nextChapter = app.chapters[i+1];
+          if (pageNumber >= chapter.firstPageNr && pageNumber < nextChapter.firstPageNr) {
+            break;
+          }
+        }
+
+       
+      }
+      return chapter;
+
     }
 
     addZeroPage(title) {
-      let chapter = new Chapter(this.chapters.length, title + " - " + app.strings.get(app.mode));
-
-      chapter.titleDiv.id = "startTitle";
-      this.chapters.push(chapter);
-      this.loginPage = chapter;
-
       if (app.mode == "results") {
-        domCtr.create("div",
-          { class: "pageTitle title", id: "pointsTitle", innerHTML: app.strings.get("points") },
-          chapter.chapter
-        );
-      }
+        let chapter = new Chapter(this.chapters.length, title + " - " + app.strings.get(app.mode));
 
-      return chapter;
+        chapter.pages[0].titleDiv.id = "startTitle";
+        this.chapters.push(chapter);
+        this.loginPage = chapter;
+
+        chapter.pageOverview = domCtr.create(
+          "div",
+          { class: "chapterLink", innerHTML: "0" },
+          this.chapterLinks
+        );
+        chapter.pageOverview.addEventListener("click", () => {
+          this.goToPage(0);
+        });
+  
+        if (app.mode == "results") {
+          domCtr.create("div",
+            { class: "pageTitle title", id: "pointsTitle", innerHTML: app.strings.get("points") },
+            chapter.chapter
+          );
+        }
+  
+        return chapter;
+      }
+      
     }
 
     addChapter(title, args = {}) {
@@ -523,24 +587,32 @@ define([
         if (args.pointsInfo) {
           chapter.pointsInfo = args.pointsInfo;
         }
+        chapter.pageOverview = domCtr.create(
+          "div",
+          { class: "chapterLink", innerHTML: app.mode == "results"? (this.chapters.length).toString():(this.chapters.length+1).toString() },
+          this.chapterLinks
+        );
+        chapter.pageOverview.addEventListener("click", () => {
+          this.goToPage(chapter.firstPageNr);
+        });
 
         // Add to chapter of content
         if (this.loginPage != null) {
           let chapterNr = this.chapters.length - 1;
 
-          chapter.pageOverview = domCtr.create(
+          chapter.pageOverviewResults = domCtr.create(
             "div",
             { class: "pageOverview" },
-            this.loginPage.chapter
+            this.loginPage.pages[0].page
           );
 
           domCtr.create(
             "div",
             { class: "contentLink", innerHTML: (app.chapterNo + 1) + ". " + title },
-            chapter.pageOverview
+            chapter.pageOverviewResults
           );
-          chapter.pageOverview.addEventListener("click", () => {
-            this.goToPage(app.mode == "consolidation" ? chapterNr + 1 : chapterNr);
+          chapter.pageOverviewResults.addEventListener("click", () => {
+            this.goToPage(chapter.firstPageNr);
           });
 
         }
@@ -632,7 +704,7 @@ define([
         let pointBar = domCtr.create(
           "div",
           { class: "pointsBar pointsNumber" },
-          chapter.pageOverview
+          chapter.pageOverviewResults
         );
 
         domCtr.create("div",
@@ -656,7 +728,7 @@ define([
         let colorBar = domCtr.create(
           "div",
           { class: "pointsBar colorBar" },
-          chapter.pageOverview
+          chapter.pageOverviewResults
         );
         let red = domCtr.create(
           "div",
@@ -677,7 +749,7 @@ define([
         let pointsLabels = domCtr.create(
           "div",
           { class: "pointsBar pointsLabels" },
-          chapter.pageOverview
+          chapter.pageOverviewResults
         );
         domCtr.create("div",
           { id: "green", class: "labelElement", innerHTML: minPoints },
@@ -809,6 +881,9 @@ define([
       for (let chapterIndex in app.chapters) {
         let chapter = app.chapters[chapterIndex];
         if (chapter != app.lastChapter) {
+          if (app.mode == "results" && chapterIndex == "0") {
+            continue;
+          }
           for (let pageIndex in chapter.pages) {
             let elem = chapter.pages[pageIndex].element;
             if (checkIfSet) {

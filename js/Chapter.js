@@ -24,7 +24,10 @@ define([
       this.title = title;
       this.pages = [];
 
+
       let page = new Page("page_" + app.pages.length.toString(), app.pageContainer, this.title);
+      this.firstPageNr = app.pages.length ;
+
       this.pages.push(page);
       app.pages.push(page);
       page.elementContainer = page.page;

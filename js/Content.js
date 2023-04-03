@@ -131,6 +131,7 @@ define([
 
 
      //01_page 
+     app.addZeroPage("BioDivSchool");
       /*Regionalität der Pflanzen*/
       let page_regionalitaet = app.addChapter("P01.title", {
         pointsInfo: [0, 10]
