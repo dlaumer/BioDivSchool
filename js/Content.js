@@ -261,7 +261,8 @@ define([
           {name: "E10b.listTypes.6", color: "yellow"},
           {name: "E10b.listTypes.7", color: "brown"},
           {name: "E10b.listTypes.8", color: "black"},
-          {name: "E10b.listTypes.9", color: "pink"}
+          {name: "E10b.listTypes.9", color: "pink"},
+          {name: "E10b.listTypes.10", color: "white"},
         ]
       });
 
@@ -271,8 +272,8 @@ define([
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem10.rules = [{
         values: [
-          "E10.options.label.0",
-          "E10.options.label.1"], 
+          "E10.options.label.1",
+          "E10.options.label.2"], 
         elements: [elem10a, elem10b]
       }]
 
@@ -510,7 +511,7 @@ define([
 
       //14a_baeume
       let elem14a = page_strukturelemente.addElement("radioButtonInput", "a_baeume", {
-        text: "E14.text",
+        text: "E14a.text",
         placeholder: "E.placeholder",
         points: "a_baeume_points",
         options: [
@@ -536,8 +537,8 @@ define([
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem14.rules = [{
         values: [
-          "2",
-          "3"], 
+          "E14.options.label.2",
+          "E14.options.label.3"], 
         elements: [elem14a, elem14b]
       }]
 
@@ -1580,7 +1581,7 @@ define([
         measure: "A40.0",
         options: [
           { key: "0", points: 2, label: "E40a.options.label.0", measure: "A40.1" },
-          { key: "1", points: 0, label: "E40a.options.label.1" },
+          { key: "1", points: 0, label: "E40a.options.label.1", measure: "null" },
         ],
          //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
@@ -1634,7 +1635,7 @@ define([
       elem40b.hide();
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem40a.rules = [{
-        values: ["E40a.options.label.0"], 
+        values: ["E40a.options.label.1"], 
         elements: [elem40b]
       }]
 
@@ -1701,7 +1702,7 @@ define([
        elem41b.hide();
        // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
        elem41a.rules = [{
-         values: ["E41a.options.label.0"], 
+         values: ["E41a.options.label.1"], 
          elements: [elem41b]
        }]
 

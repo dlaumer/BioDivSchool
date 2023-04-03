@@ -21,9 +21,10 @@ define([
       this.container = container;
 
       this.title = title;
-      this.elements = [];
-      this.textInfos = [];
+      this.element  = null;
+      this.content = [];
 
+      this.hidden = false;
       this.createUI();
       this.clickHandler();
 
@@ -32,14 +33,14 @@ define([
     init(prevPage) {
       if (prevPage !== null) {
         prevPage.page.className = "page";
-        this.page.style.display = app.mode == "consolidation" ? "none" : "block"
+        //this.page.style.display = app.mode == "consolidation" ? "none" : "block"
 
       }
       this.page.className = "page active";
-      this.page.style.display = "block"
+      //this.page.style.display = "block"
 
-      if (this.elements.length > 0) {
-        this.elements[0].reportWindowSize();
+      if (this.element != null) {
+        this.element.reportWindowSize();
       }
 
     }
@@ -50,7 +51,7 @@ define([
         { id: this.name, className: "page" },
         this.container
       );
-      this.page.style.display = app.mode == "consolidation" ? "none" : "block"
+      //this.page.style.display = app.mode == "consolidation" ? "none" : "block"
       this.titleDiv = domCtr.create(
         "div",
         { class: "pageTitle", innerHTML: this.title },

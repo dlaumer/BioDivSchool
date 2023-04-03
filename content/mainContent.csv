@@ -41,6 +41,7 @@ E10b.listTypes.6;Kirschlorbeer;;;;
 E10b.listTypes.7;Sommerflieder;;;;
 E10b.listTypes.8;Götterbaum;;;;
 E10b.listTypes.9;Robinie;;;;
+E10b.listTypes.10;Andere;;;;
 P02.title;Strukturelemente;Eléments de structure;Structural elements;Elementi strutturali;
 T03.textInfo.text.1;Strukturelemente sind einzelne Teile eines Lebensraums wie beispielsweise:;Les éléments structurels sont des parties individuelles d'un habitat telles que:;Structural elements are individual parts of a habitat such as:;Gli elementi strutturali sono singole parti di un habitat come:;
 T03.textInfo.text.2;Bäume;Arbres;Trees;Alberi;
@@ -145,7 +146,7 @@ E18.text;18: Gibt es auf der Untersuchungsfläche Ruderalflächen mit passenden 
 E18.options.label.0;Keine Ruderalfläche vorhanden.;Aucune zone rudérale n'est présente;No ruderal area is present.;Non sono presenti aree ruderali;
 E18.options.label.1;Ruderalfläche vorhanden. Darin kommen aber schädliche gebietsfremden Pflanzen vor..;Présence d'une zone rudérale. Mais des plantes exotiques nuisibles y sont présentes.;"Ruderal area is present. However, harmful non-native plants occur in this area.";"È presente un'area ruderale. Tuttavia, sono presenti piante non autoctone dannose";
 E18.options.label.2;Ruderalfläche ist insgesamt etwa so gross wie zwei Autoparkplätze.;La surface rudérale est au total à peu près de la taille de deux places de parking pour voitures;Ruderal area is in total about the size of two car parking spaces.;L'area ruderale ha in totale le dimensioni di due posti auto;
-E18.options.label.3;Ruderalfläche ist insgesamt etwa so gross wie zwei Autoparkplätze.;La superficie totale de la zone rudérale est à peu près égale à celle de deux places de parking pour voitures.;Ruderal area is in total about the size of two car parking spaces.;L'area ruderale è in totale grande quanto due posti auto.;
+E18.options.label.3;Ruderalfläche ist insgesamt etwa so gross wie vier Autoparkplätze.;La superficie totale de la zone rudérale est à peu près égale à celle de deux places de parking pour voitures.;Ruderal area is in total about the size of two car parking spaces.;L'area ruderale è in totale grande quanto due posti auto.;
 E18.options.label.4;Ruderalfläche ist insgesamt grösser als vier Autoparkplätze.;La surface rudérale est au total plus grande que quatre places de parking pour voitures;Ruderal area is altogether larger than four car parking spaces.;L'area ruderale è complessivamente più grande di quattro posti auto;
 E18.textInfo.text.1;Ruderalflächen sind offene Bodenflächen auf denen keine Pflanzen angepflanzt wurden. Beispiele von Ruderalflächen:;Les surfaces rudérales sont des surfaces au sol ouvertes sur lesquelles aucune plante n'a été plantée. Exemples de surfaces rudérales :;Ruderal areas are open ground areas where no plants have been planted. Examples of ruderal areas:;Le aree ruderali sono aree di terreno aperto in cui non sono state piantate piante. Esempi di aree ruderali:;
 E18.textInfo.text.2;Flächen mit Geröll;Surfaces avec éboulis;Areas with boulders;Aree con massi;

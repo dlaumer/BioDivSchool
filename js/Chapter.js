@@ -33,23 +33,27 @@ define([
     addElement(type, key, args, container) {
       
       // Check if there is already an text info which was just added before. 
-      if (this.pages.length > 0 && this.pages[this.pages.length - 1].textInfos.length == 0) {
+      if (this.pages[this.pages.length - 1].content.length > 0 && this.pages[this.pages.length - 1].content[this.pages[this.pages.length - 1].content.length-1].type != "textInfo") {
         let page = new Page("page_" + this.pages.length.toString(),app.pageContainer, this.title);
         this.pages.push(page);
         app.pages.push(page);
   
       }
+
+    // Consolidation
       
-    let elem = new Element(this, this.pages.length, this.pages[this.pages.length-1].page);
+    let elem = new Element(this.pages[this.pages.length-1], this.pages.length, this.pages[this.pages.length-1].page);
       elem.init(type, key, args);
-      this.pages[this.pages.length-1].elements.push(elem);
+      this.pages[this.pages.length-1].content.push({"type":"element",content: elem});
+      this.pages[this.pages.length-1].element = elem;
+
       return elem;
     }
 
     addTextInfo(args) {
 
       // Check if there is already an text info which was just added before. 
-      if (this.pages.length > 0 && this.pages[this.pages.length - 1].textInfos.length == 0) {
+      if (this.pages[this.pages.length - 1].content.length > 0 && this.pages[this.pages.length - 1].content[this.pages[this.pages.length - 1].content.length-1].type != "textInfo") {
 
       let page = new Page("page_" + this.pages.length.toString(),app.pageContainer, this.title);
       this.pages.push(page);
@@ -89,7 +93,7 @@ define([
         }
 
         app.replaceWithText(textInfo);
-        this.pages[this.pages.length-1].textInfos.push(textInfo);
+        this.pages[this.pages.length-1].content.push({content:textInfo, type: "textInfo"});
         return {element:textInfo, type: "textInfo"};
     }
 

@@ -257,6 +257,12 @@ define([
       */
       this.pages[0].init(null);
       this.currentPage = 0;
+
+      let urlData = this.getJsonFromUrl();
+
+      if (Object.keys(urlData).includes("page")) {
+        this.goToPage(parseInt(urlData["page"]))
+      }
       // TODO Warning if did not work!
       if (app.projectId != "null") {
         this.infoBox.innerHTML =
@@ -418,7 +424,6 @@ define([
         this.startButton,
         "click",
         function (evt) {
-          let urlData = this.getJsonFromUrl();
           this.updateAttributes("mode", "start");
           this.removeAttributes("group");
           window.open(window.location.href, "_self")
@@ -450,20 +455,34 @@ define([
     }
 
     goToPage(pageNumber) {
-      this.pages[pageNumber].init(this.pages[this.currentPage]);
-      this.currentPage = pageNumber;
+      if (this.pages[pageNumber].hidden) {
+        if (this.currentPage - pageNumber  > 0) {
+          this.goToPage(pageNumber-1)
 
-      if (this.currentPage + 1 == this.chapters.length) {
-        this.next.style.visibility = "hidden";
-      } else {
-        this.next.style.visibility = "visible";
-      }
+        }
+        else {
+          this.goToPage(pageNumber+1)
 
-      if (this.currentPage - 1 < 0) {
-        this.back.style.visibility = "hidden";
-      } else {
-        this.back.style.visibility = "visible";
+        }
       }
+      else {
+        this.pages[pageNumber].init(this.pages[this.currentPage]);
+        this.currentPage = pageNumber;
+  
+        if (this.currentPage + 1 == this.pages.length) {
+          this.next.style.visibility = "hidden";
+        } else {
+          this.next.style.visibility = "visible";
+        }
+  
+        if (this.currentPage - 1 < 0) {
+          this.back.style.visibility = "hidden";
+        } else {
+          this.back.style.visibility = "visible";
+        }
+        this.updateAttributes("page",pageNumber);
+      }
+      
     }
 
     addZeroPage(title) {
@@ -513,18 +532,11 @@ define([
           });
 
         }
+        this.chapters.push(chapter);
         app.chapterNo = app.chapterNo + 1;
         return chapter;
       }
     }
-
-    addchapterNormal(title, container) {
-      
-      let Chapter = new Chapter(this.chapters.length, container, title);
-      this.chapters.push(chapter);
-      return chapter;
-    }
-
     addFinalPage(title) {
       title = app.strings.get(title);
       if (app.mode != "results") {
@@ -585,8 +597,8 @@ define([
         let points = 0;
         let maxPoints = 0;
         let minPoints = 0;
-        for (let j in chapter.elements) {
-          let element = chapter.elements[j];
+        for (let j in chapter.pages) {
+          let element = chapter.pages[j].element;
           // 1. if it's a map element, get the ids
           if (element.type == "mapInput") {
             let layerData = { name: element.key, value: element.value, color: element.color, name_display: element.name_display };
@@ -696,17 +708,20 @@ define([
         }
 
       }
+      /*
       domCtr.create("div",
           { class: "pageTitle title", id: "title_areas",innerHTML: app.strings.get("areas") },
           this.loginPage.chapter
         );
-
+*
       let map = domCtr.create("div", { className: "mapOverviewResults" }, this.loginPage.chapter);
       this.loginPage.mapResults = domCtr.create("div", { className: "mapOverviewResultsMap" }, map);
       this.screenshotDiv = domCtr.create("img", { className: "screenshot" }, map);
       this.loginPage.legendResults = domCtr.create("div", { className: "mapOverviewResultsLegend" }, map);
       app.arcgis.addMapResults(this.loginPage.mapResults, this.loginPage.legendResults, app.results.mapLayers, this.screenshotDiv)
+    */
     }
+
 
     loadInputsGroup(data, count) {
       let elements = app.getAllElements(false);
@@ -782,8 +797,8 @@ define([
       for (let chapterIndex in app.chapters) {
         let chapter = app.chapters[chapterIndex];
         if (chapter != app.lastChapter) {
-          for (let elemIndex in chapter.elements) {
-            let elem = chapter.elements[elemIndex];
+          for (let pageIndex in chapter.pages) {
+            let elem = chapter.pages[pageIndex].element;
             if (checkIfSet) {
               elem.checkValueSet();
             }
@@ -836,8 +851,12 @@ define([
         // down arrow
       } else if (e.keyCode == "37") {
         app.goToPage(app.currentPage - 1);
+        e.preventDefault();
+
       } else if (e.keyCode == "39") {
         app.goToPage(app.currentPage + 1);
+        e.preventDefault();
+
       }
     }
 

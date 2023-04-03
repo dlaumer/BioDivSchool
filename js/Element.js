@@ -294,9 +294,28 @@ define([
       if (app.mode != "results") {
         this.input = domCtr.create("div", { className: "input inputRows" }, this.element);
         for (const i in args.options) {
-          let radioButtonContainer = domCtr.create("div", { className: "radioButtonContainer" }, this.input);
-          domCtr.create("input", { type: "radio", name: this.key, id: this.key + "___" + args.options[i].key, className: "radioButton" }, radioButtonContainer);
+          let radioButtonContainer = domCtr.create("div", { className: "radioButtonContainer", id: this.key + "___" + args.options[i].key + "_container" }, this.input);
+          let radio = domCtr.create("input", { type: "radio", name: this.key, id: this.key + "___" + args.options[i].key, className: "radioButton" }, radioButtonContainer);
           domCtr.create("label", { for: args.options[i].key, innerHTML: args.options[i].label }, radioButtonContainer);
+          this.selectedRadio = null;
+          radioButtonContainer.addEventListener("click", () => {
+            if (this.selectedRadio != null) {
+              this.selectedRadio.checked = false;
+              this.selectedRadio.parentElement.classList.remove("radioButtonContainerSelected");
+            }
+            if (radio == this.selectedRadio) {
+              this.setter("")
+              this.selectedRadio = null;
+            }
+            else {
+              radio.checked = radio.checked ? false :true;
+              radioButtonContainer.classList.add("radioButtonContainerSelected");
+              this.setter(args.options[i].key);
+              this.selectedRadio = radio;
+  
+            }
+           
+          })
         }
       }
       else {
@@ -348,10 +367,14 @@ define([
           if (value == null || value == "") {
             if (this.element.querySelector('input[name="' + this.key + '"]:checked') != null) {
               this.element.querySelector('input[name="' + this.key + '"]:checked').checked = false
+              this.element.querySelector('input[name="' + this.key + '"]:checked').parentElement.classList.remove("radioButtonContainerSelected")
+
             }
           }
           else {
             document.getElementById(this.key + "___" + value).checked = true;
+            document.getElementById(this.key + "___" + value + "_container").classList.add("radioButtonContainerSelected");
+            this.selectedRadio = document.getElementById(this.key + "___" + value);
           }
         }
       }
@@ -609,7 +632,7 @@ define([
             }
             this.pointsInfo.innerHTML = app.showPoints ? "(" + app.strings.get("points") + ": " + this.points + ")" : "";
             if (app.mode == "results") {
-              this.resultDiv.innerHTML = "<b>" + app.strings.get("result") + ":</b><br>" + app.strings.get("areaTotal") + ": " + this.area.toFixed(0) + " m2, " + app.strings.get("ratioBin") + ": " + this.ratio;
+              this.resultDiv.innerHTML = "<b>" + app.strings.get("result") + ":</b><br>" + app.strings.get("areaTotal") + ": " + this.area.toFixed(0) + " m2, " + app.strings.get("ratioBin") + ": " + app.strings.get(this.ratio);
             }
           }
 
@@ -681,7 +704,7 @@ define([
             domCtr.create("div", { className: "result", innerHTML: val }, container);
           }
           else {
-            if (value != '' && (this.type == "radioButtonInput" || this.type == "dropdownInput")) {
+            if (value != '' && (this.type == "radioButtonInput" || this.type == "dropdownInput" || this.type == "sliderInput")) {
               this.resultDiv.innerHTML = "<b>" + app.strings.get("result") + ":</b><br>" + val;
 
             }
@@ -726,7 +749,7 @@ define([
 
         if (app.mode == "results" && value != null && value != "") {
 
-          this.element.style.display = "flex"
+          this.show()
         }
 
         let previousPoints = 0;
@@ -764,8 +787,9 @@ define([
               for (let k in this.rules[i].values) {
                 if ((this.rules[i].values[k] == this.value) || (this.rules[i].values.length == 1 && this.rules[i].values[k] == null && this.value != "")) {
                   for (let j in this.rules[i].elements) {
-                    this.rules[i].elements[j].element.style.display = "flex";
-                    this.rules[i].elements[j].element.style.visibility = "visible";
+                    this.rules[i].elements[j].show();
+                    //this.rules[i].elements[j].element.style.display = "flex";
+                    //this.rules[i].elements[j].element.style.visibility = "visible";
                     try {
                       this.rules[i].elements[j].input.focus();
                     }
@@ -934,9 +958,11 @@ define([
     }
 
     hide() {
-      if (app.mode != "consolidation") {
-        this.element.style.display = "none";
-      }
+      this.page.hidden = true;
+    }
+
+    show() {
+      this.page.hidden = false;
     }
 
     hideWithRules(element) {

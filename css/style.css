@@ -27,10 +27,30 @@ input[type=checkbox]
   -o-transform: scale(1); /* Opera */
   transform: scale(1);
 }
+
+input[type='radio'] {
+  pointer-events: none;
+
+}
+
+input[type='radio']:checked:after {
+  width: 7px;
+  height: 7px;
+  border-radius: 15px;
+  top: -3px;
+  left: -1px;
+  position: relative;
+  background-color: #2b5c00;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 3px solid white;
+}
 :root {
   --gray: #bebebe;
   --very_gray: #f5f3f3;
   --project: #A2C367;
+  --projectHover: #8dac56;
   --projectLight: #A2C367b0;
   --expandable: #7fd63266;
   --highlight: #e0ca3c;
@@ -1003,9 +1023,8 @@ overscroll-behavior: contain !important;
   border: none;
 }
 
-.primaryButton:hover {
+.secondaryButton:hover {
   filter: brightness(1.1) !important;
-  background-color: var(--secondary) !important;
 }
 
 .btn_icon {
@@ -1140,7 +1159,6 @@ overscroll-behavior: contain !important;
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 10px;
-  background-color: var(--very_gray);
 }
 
 .titleContainer {
@@ -1231,6 +1249,26 @@ input[type='date'] {
     flex-direction: row;
     align-items: center;
     margin: 5px 0;
+    padding: 5px 15px;
+    border-radius: 20px;
+    outline: solid 1px;
+    cursor: pointer;
+}
+
+.radioButtonContainer:hover {
+  background-color: var(--very_gray);
+}
+
+.radioButtonContainerSelected {
+  background-color: var(--project);
+  color: white;
+  border: none;
+
+}
+
+.radioButtonContainerSelected:hover {
+  background-color: var(--projectHover) !important;
+
 }
 
 .radioButton {
