@@ -370,6 +370,7 @@ define([
         },
         color: [46, 37, 72, 0.7],
         name_display: "E12.nameDisplay",
+        includeBuildings: true,
         points: "rasen_points",
           textInfo: {
           linkText: "T.textInfo.linkText",

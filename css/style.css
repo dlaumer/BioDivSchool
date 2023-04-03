@@ -79,9 +79,9 @@ body {
   position: fixed;
   overflow: hidden;
   margin: 0;
-  font-size: min(3vmax, 18px);
-  overscroll-behavior: none !important;
-
+  font-size: min(2vmax, 14px);
+    overscroll-behavior: none !important;
+    color: var(--secondaryText);
 }
 
 #start {
@@ -294,6 +294,17 @@ body {
 
 @media only screen and (max-width: 600px) {
 
+  body {
+    font-size: 22px !important;
+  }
+  .page {
+    padding: 0 20px !important;
+  }
+  
+
+.pageTitle {
+  font-size: 28px;
+}
   #userNameEsri {
     display: none;
   }
@@ -458,6 +469,8 @@ body {
   height: 30px;
   padding: 0 10px;
   margin: 2px 5px;
+  
+  padding: 10px 0 0 0;
 }
 
 .btn_active{
@@ -740,9 +753,17 @@ overscroll-behavior: contain !important;
 
 .consolidationContainer {
   width: 100%;
-  height: 90%;
-  display: flex;
+  height: 100%;
+    display: flex;
   flex-direction: row;
+}
+
+.elementContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+width: 40%;
+overflow: scroll;
 }
 
 .consolidationArea {
@@ -760,7 +781,7 @@ overscroll-behavior: contain !important;
 }
 
 .groupDivContainer {
-  height: 50%;
+  height: 49%;
   width: 33%;
   padding: 10px;
 }
@@ -842,6 +863,12 @@ overscroll-behavior: contain !important;
 .resultContainer {
   width: 100%;
   height:90%;
+  border-radius: 15px;
+  background-color: var(--very_gray);
+  display: flex;
+  align-items: center;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 
@@ -857,6 +884,12 @@ overscroll-behavior: contain !important;
   max-height: 100%;
 }
 
+.resultConsolidation {
+  padding: 10px;
+  width: 100%;
+  overflow-wrap: anywhere;
+  text-align: center;
+}
 .measure {
   background-color: var(--gray);
   padding: 10px;
@@ -865,12 +898,15 @@ overscroll-behavior: contain !important;
 
 .footer {
   width: 100%;
-  height: 15%;
+  height: 10%;
   position: absolute;
   bottom: 0;
   right: 0;
   padding-top: 0;
   background-color: white;
+  align-items: center;
+  display: flex;
+  box-shadow: 0px -3px 6px #00000029;
 }
 
 .footerStart {
@@ -992,7 +1028,6 @@ overscroll-behavior: contain !important;
 
 
 .btn1 {
-  min-height: 60%;
   text-align: center;
   background-color: white;
   border: 1px solid black;
@@ -1093,6 +1128,7 @@ overscroll-behavior: contain !important;
 }
 
 #diagram {
+  min-height: 50px;
   height: fit-content;
   position: absolute;
 }
@@ -1136,8 +1172,7 @@ overscroll-behavior: contain !important;
   background-color: white;
   z-index: -1;
   position: inherit;
-  padding: 20px;
-
+  padding: 0 100px;
 }
 
 .active {
@@ -1148,8 +1183,9 @@ overscroll-behavior: contain !important;
 
 .pageTitle {
   width: 100%;
-  font-size: min(5vmax, 30px);
-  padding: 10px;
+  font-size: min(4vmax, 20px);
+    padding: 10px;
+    font-weight: bold;
 }
 
 .element {
@@ -1158,12 +1194,9 @@ overscroll-behavior: contain !important;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 10px;
+  padding: 0 10px;
 }
 
-.titleContainer {
-  margin: 30px 0 0 0;
-}
 
 .elementTitle {
   width:100%;
@@ -1218,7 +1251,6 @@ overscroll-behavior: contain !important;
   width: 40%;
   display: flex;
   flex-direction: row;
-  font-size: min(3vmax, 18px);;
 }
 
 .inputRows {

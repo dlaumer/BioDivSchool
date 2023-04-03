@@ -39,7 +39,7 @@ define([
       this.page.className = "page active";
       //this.page.style.display = "block"
 
-      if (this.element != null) {
+      if (this.element != null && app.mode != "consolidation") {
         this.element.reportWindowSize();
       }
 

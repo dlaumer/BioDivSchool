@@ -112,6 +112,7 @@ define([
       if (args.includeBuildings) {
         this.includeBuildings = args.includeBuildings;
       }
+      
 
 
       this.element = domCtr.create("div", { id: this.name, className: "element inputElement" }, this.container);
@@ -301,7 +302,7 @@ define([
           radioButtonContainer.addEventListener("click", () => {
             if (this.selectedRadio != null) {
               this.selectedRadio.checked = false;
-              this.selectedRadio.parentElement.classList.remove("radioButtonContainerSelected");
+              this.selectedRadio.parentNode.classList.remove("radioButtonContainerSelected");;
             }
             if (radio == this.selectedRadio) {
               this.setter("")
@@ -365,9 +366,9 @@ define([
         }
         else {
           if (value == null || value == "") {
-            if (this.element.querySelector('input[name="' + this.key + '"]:checked') != null) {
-              this.element.querySelector('input[name="' + this.key + '"]:checked').checked = false
-              this.element.querySelector('input[name="' + this.key + '"]:checked').parentElement.classList.remove("radioButtonContainerSelected")
+            if (this.selectedRadio != null) {
+              this.selectedRadio.checked = false
+              this.selectedRadio.parentNode.classList.remove("radioButtonContainerSelected")
 
             }
           }
@@ -549,7 +550,7 @@ define([
               this.measure = this.ratioStops[0].measure ? this.ratioStops[0].measure : null
             }
             else {
-              numRatio = this.area / app.projectArea;
+              numRatio = this.includeBuildings ? this.area / (app.projectArea - app.buildingsArea) : this.area / app.projectArea;
               if (numRatio > 1) {
                 alert(app.strings.get("alertAreSize"));
               }
@@ -685,6 +686,7 @@ define([
 
       if (this.type == "mapInput") {
         if (app.mode == "consolidation") {
+          container.style.alignItems = "normal"
           app.arcgis.addMap(container, null, this, (info) => {
             info.geometry.definitionExpression = "objectid in (" + value.substring(1, value.length - 1) + ")";
 
@@ -701,7 +703,7 @@ define([
             val = this.data[value].label
           }
           if (this.resultDiv == null) {
-            domCtr.create("div", { className: "result", innerHTML: val }, container);
+            domCtr.create("div", { className: "resultConsolidation", innerHTML: val }, container);
           }
           else {
             if (value != '' && (this.type == "radioButtonInput" || this.type == "dropdownInput" || this.type == "sliderInput")) {
@@ -799,8 +801,8 @@ define([
                 }
                 else {
                   for (let j in this.rules[i].elements) {
-                    if (this.rules[i].elements[j].type != "textInfo") {
-                      this.rules[i].elements[j].setter("");
+                    if (this.rules[i].elements[j].type != "textInfo" && this.rules[i].elements[j].page.hidden) {
+                      this.rules[i].elements[j].setter("", false);
                       this.rules[i].elements[j].setterUI("");
                     }
                   }
@@ -858,7 +860,7 @@ define([
         if (saveData && app.mode != "project" && app.mode != "results" && !app.offline || this.key == "gebaeude_geomoid" && app.projectId != "null") {
           app.save.innerHTML = app.strings.get("saving")
           app.save.className = "btn1"
-          let data = this.getter();
+          let data = this.getterWithRules(this, {})
           new Promise((resolve, reject) => {
             app.arcgis
               .updateFeature(app.objectId, data)
@@ -903,7 +905,7 @@ define([
       }
 
       if (app.consolidationWidth == null) {
-        app.consolidationWidth = document.getElementById('consolidation_' + this.key).clientWidth;
+        app.consolidationWidth = document.getElementById('consolidation_' + this.page.name).clientWidth;
       }
 
       if (this.type != "mapInput") {
@@ -924,7 +926,7 @@ define([
           hovermode: "x"
         };
         var data = [trace];
-        Plotly.newPlot('consolidation_' + this.key, data, layout);
+        Plotly.newPlot('consolidation_' + this.page.name, data, layout);
       }
 
     }
@@ -974,6 +976,18 @@ define([
           }
         }
       }
+    }
+
+    getterWithRules(element, data) {
+      if (element.rules != null) {
+        for (let i in element.rules) {
+          for (let j in element.rules[i].elements) {
+            data = element.getterWithRules(element.rules[i].elements[j], data)
+          }
+        }
+      }
+      return {...data, ...element.getter()};
+
     }
 
     checkAllowedValues(value) {

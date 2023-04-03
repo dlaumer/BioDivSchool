@@ -136,7 +136,7 @@ define([
         {
           id: "description1",
           innerHTML: title,
-          style: "font-size: 4vh",
+          style: "font-size: 4vh; text-align: center;",
         },
         this.container
       );

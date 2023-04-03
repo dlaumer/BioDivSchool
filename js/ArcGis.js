@@ -795,7 +795,7 @@ define([
       view.ui.add(fullScreenBtn, "top-left");
       // add button click listener
       fullScreenBtn.addEventListener("click", () => {
-        document.getElementById(containerMap).classList.toggle("fullscreen");
+        containerMap.classList.toggle("fullscreen");
       });
       const locate = new Locate({
         view: view,

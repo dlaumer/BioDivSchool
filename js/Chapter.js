@@ -17,84 +17,150 @@ define([
   "biodivschool/Element",
 ], function (dom, domCtr, win, on, Page, Element) {
   return class Chapter {
-    constructor(id, title) {     
+    constructor(id, title) {
       this.id = id;
       this.name = "chapter_" + id.toString();
 
       this.title = title;
       this.pages = [];
 
-      let page = new Page("page_" + this.pages.length.toString(),app.pageContainer, this.title);
+      let page = new Page("page_" + app.pages.length.toString(), app.pageContainer, this.title);
       this.pages.push(page);
       app.pages.push(page);
+      page.elementContainer = page.page;
+      this.prepareConsolidationPage(page);
+
     }
 
 
     addElement(type, key, args, container) {
-      
+
       // Check if there is already an text info which was just added before. 
-      if (this.pages[this.pages.length - 1].content.length > 0 && this.pages[this.pages.length - 1].content[this.pages[this.pages.length - 1].content.length-1].type != "textInfo") {
-        let page = new Page("page_" + this.pages.length.toString(),app.pageContainer, this.title);
-        this.pages.push(page);
-        app.pages.push(page);
-  
+      let page = this.preparePage();
+
+      // Consolidation
+
+
+        let elem = new Element(page, this.pages.length, page.elementContainer);
+        elem.init(type, key, args);
+        page.content.push({ "type": "element", content: elem });
+        page.element = elem;
+
+        if (app.mode == "consolidation") {
+
+        elem.groupDivs = page.groupDivs;
+
+        if (type != "mapInput") {
+          let diagram = domCtr.create(
+            "div",
+            { id: "diagram", className: "btn1", innerHTML: app.strings.get("diagram") },
+            page.consolidationArea
+          );
+
+          on(
+            diagram,
+            "click",
+            function (evt) {
+              if (evt.target.innerHTML == app.strings.get("diagram")) {
+                page.consolidation.style.display = "none";
+                page.consolidationDiagramm.style.display = "flex";
+                evt.target.innerHTML = app.strings.get("values");
+              }
+              else {
+                page.consolidation.style.display = "flex";
+                page.consolidationDiagramm.style.display = "none";
+                evt.target.innerHTML = app.strings.get("diagram");
+              }
+            }
+          );
+        }
+
       }
 
-    // Consolidation
-      
-    let elem = new Element(this.pages[this.pages.length-1], this.pages.length, this.pages[this.pages.length-1].page);
-      elem.init(type, key, args);
-      this.pages[this.pages.length-1].content.push({"type":"element",content: elem});
-      this.pages[this.pages.length-1].element = elem;
+
+
 
       return elem;
     }
 
     addTextInfo(args) {
-
       // Check if there is already an text info which was just added before. 
-      if (this.pages[this.pages.length - 1].content.length > 0 && this.pages[this.pages.length - 1].content[this.pages[this.pages.length - 1].content.length-1].type != "textInfo") {
+      let page = this.preparePage()
 
-      let page = new Page("page_" + this.pages.length.toString(),app.pageContainer, this.title);
-      this.pages.push(page);
-      app.pages.push(page);
-      }
 
-      args.title =args.title? app.strings.get(args.title):null;
-      args.text =args.text? app.strings.get(args.text):null;
+      args.title = args.title ? app.strings.get(args.title) : null;
+      args.text = args.text ? app.strings.get(args.text) : null;
 
       if (args.textInfo) {
-        args.textInfo.text =args.textInfo.text? app.strings.get(args.textInfo.text):null;
-        args.textInfo.linkText =args.textInfo.linkText? app.strings.get(args.textInfo.linkText):null;
+        args.textInfo.text = args.textInfo.text ? app.strings.get(args.textInfo.text) : null;
+        args.textInfo.linkText = args.textInfo.linkText ? app.strings.get(args.textInfo.linkText) : null;
       }
+
+      let textInfo = domCtr.create("div", { id: "textInfo_" + args.title, className: args.title ? "element titleContainer" : "element" }, page.elementContainer);
+      if (args.title) {
+        domCtr.create("div", { className: "elementTitle", innerHTML: args.title }, textInfo);
+
+      }
+      if (args.text) {
+        domCtr.create("div", { className: "labelText", innerHTML: args.text, style: "width: 100%" }, textInfo);
+      }
+
+      if (args.textInfo) {
+        //this.label.innerHTML = this.label.innerHTML + "<br><br> <a onclick=expand()>sdsdd</a>" + args.linkText;
+        let link = domCtr.create("div", { className: "labelText linkText", innerHTML: args.textInfo.linkText }, textInfo);
+        let expandable = domCtr.create("div", { className: "expandable", innerHTML: args.textInfo.text, }, textInfo);
+
+        on(link, "click", function (evt) {
+          expandable.style.display = expandable.style.display == "" ? "flex" : "";
+        }.bind(this));
+      }
+
+      if (Object.keys(args).includes("version") && !args.version.includes(app.version)) {
+        textInfo.style.display = "none"
+      }
+
+      app.replaceWithText(textInfo);
+      this.pages[this.pages.length - 1].content.push({ content: textInfo, type: "textInfo" });
+      return { element: textInfo, type: "textInfo" };
+    }
+
+    preparePage() {
+      let page = this.pages[this.pages.length - 1];
+      if (page.content.length > 0 && page.content[page.content.length - 1].type != "textInfo") {
+
+        page = new Page("page_" + app.pages.length.toString(), app.pageContainer, this.title);
+        this.pages.push(page);
+        app.pages.push(page);
+        page.elementContainer = page.page;
+
+        this.prepareConsolidationPage(page);
+
+      }
+      return page;
       
+    }
 
-      let textInfo = domCtr.create("div", { id: "textInfo_" + args.title, className: args.title? "element titleContainer":"element"}, this.pages[this.pages.length-1].page);
-        if (args.title) {
-          domCtr.create("div", { className: "elementTitle", innerHTML: args.title}, textInfo);
+    prepareConsolidationPage(page) {
+      if (app.mode == "consolidation") {
+        page.consolidationContainer = domCtr.create("div", { className: "consolidationContainer" }, page.page);
 
-        }
-        if (args.text) {
-          domCtr.create("div", { className: "labelText", innerHTML: args.text, style: "width: 100%"}, textInfo);
-        }
+        page.consolidationArea = domCtr.create("div", { className: "consolidationArea" }, page.consolidationContainer);
+        page.elementContainer = domCtr.create("div", { className: "elementContainer" }, page.consolidationContainer);
 
-        if (args.textInfo) {
-          //this.label.innerHTML = this.label.innerHTML + "<br><br> <a onclick=expand()>sdsdd</a>" + args.linkText;
-          let link = domCtr.create("div", { className: "labelText linkText", innerHTML: args.textInfo.linkText}, textInfo);
-          let expandable = domCtr.create("div", { className: "expandable", innerHTML: args.textInfo.text, },textInfo);
+        page.consolidation = domCtr.create("div", { className: "consolidation" }, page.consolidationArea);
+        domCtr.place(page.titleDiv, page.consolidation, "before");
 
-          on(link, "click", function (evt) {
-            expandable.style.display = expandable.style.display=="" ? "flex" : "";
-          }.bind(this));
-        }
+        page.consolidationDiagramm = domCtr.create("div", { className: "consolidation", id: "consolidation_" + page.name, style: "display:none" }, page.consolidationArea);
 
-        if (Object.keys(args).includes("version") && !args.version.includes(app.version)) {
-          textInfo.style.display = "none"
+        page.groupDivs = {}
+        for (let i in app.content.groups) {
+          let groupDivContainer = domCtr.create("div", { className: "groupDivContainer" }, page.consolidation);
+          domCtr.create("div", { className: "groupDivTitle", innerHTML: app.strings.get(app.content.groups[i].label) }, groupDivContainer);
+          page.groupDivs[app.content.groups[i].key] = domCtr.create("div", { className: "resultContainer", }, groupDivContainer);
         }
 
-        app.replaceWithText(textInfo);
-        this.pages[this.pages.length-1].content.push({content:textInfo, type: "textInfo"});
-        return {element:textInfo, type: "textInfo"};
+
+      }
     }
 
     addWarning(text) {
@@ -117,5 +183,5 @@ define([
 
   };
 
-    
+
 });

@@ -408,11 +408,11 @@ define([
 
       this.footer = domCtr.create(
         "div",
-        { id: "footer", className: "footer footerStart" },
+        { id: "footer", className: "footer footerStart" , style:"display:none" },
         this.background
       );
 
-      this.footerBar = domCtr.create("div", { id: "footerBar", className: "footerBar footerBarStart" }, this.footer);
+      this.footerBar = domCtr.create("div", { id: "footerBar", className: "footerBar footerBarStart", style:"display:none" }, this.footer);
       this.logo1 = domCtr.create("img", {src:"img/Logos/aplus.png", className:"logos"}, this.footerBar);
       this.logo2 = domCtr.create("img", {src:"img/Logos/phsg.jpg", className:"logos"}, this.footerBar);
       this.logo3 = domCtr.create("img", {src:"img/Logos/somaha.jpg", className:"logos"}, this.footerBar);
