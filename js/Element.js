@@ -966,6 +966,9 @@ define([
 
     show() {
       this.page.hidden = false;
+      if (app.mode == "project") {
+        app.next.style.visibility = "visible";
+      }
     }
 
     hideWithRules(element) {

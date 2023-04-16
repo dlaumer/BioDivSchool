@@ -1174,6 +1174,15 @@ body {
     font-size: min(2vmax, 18px);
   }
 
+  .footerBar {
+    flex-direction: column !important;
+  }
+  .footerBarStart {
+    height: unset !important
+  }
+  .logos {
+    max-width: 80% !important;
+  }
 }
 
 #pointsTotalInfo {

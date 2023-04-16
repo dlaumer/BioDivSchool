@@ -170,6 +170,7 @@ define([
 
       this.projectId = projectId;
       this.updateAttributes("project", this.projectId)
+      this.removeAttributes("page")
 
       // Add a new element in the database
       if (!this.offline) {
@@ -271,6 +272,10 @@ define([
       this.pages[0].init(null);
       this.currentPage = 0;
 
+      if (app.mode == "project" && (this.pages[0].element.value == "" || this.pages[0].element.value == null) ) {
+        this.next.style.visibility = "hidden"; 
+      }
+
       let urlData = this.getJsonFromUrl();
 
       if (Object.keys(urlData).includes("page")) {
@@ -280,15 +285,13 @@ define([
       if (app.projectId != "null") {
         this.infoBoxInfo.innerHTML =
           app.mode == "project"
-            ?  app.schoolName 
-            :  app.schoolName + ", " + this.strings.get("group") + ": " + this.groupId;
+            ? app.schoolName
+            : app.schoolName + ", " + this.strings.get("group") + ": " + this.groupId;
       }
       this.save.className = "btn1 btn_disabled";
       document.onkeydown = this.checkKey;
 
       this.save.style.display = app.mode == "project" || app.mode == "results" ? "none" : "block";
-      this.next.style.display = app.mode == "project" ? "none" : "block";
-      this.back.style.display = app.mode == "project" ? "none" : "block";
 
       if (app.mode == "results") {
         app.makeTitlePage();
@@ -477,13 +480,9 @@ define([
         this.next,
         "click",
         function (evt) {
-          if (app.mode == "project") {
-            window.open(window.location.href + "?admin=true&mode=start", "_self")
 
-          }
-          else {
-            this.goToPage(this.currentPage + 1);
-          }
+          this.goToPage(this.currentPage + 1);
+
         }.bind(this)
       );
     }
@@ -514,6 +513,9 @@ define([
         } else {
           this.back.style.visibility = "visible";
         }
+        if (app.mode == "project" && (this.pages[pageNumber].element.value == "" || this.pages[pageNumber].element.value == null) ) {
+          this.next.style.visibility = "hidden"; 
+        }
         this.updateAttributes("page", pageNumber);
       }
 
@@ -521,7 +523,7 @@ define([
       if (app.currentChapter != null) {
         app.currentChapter.pageOverview.classList.remove("radioButtonContainerSelected");
       }
-      let chapter= this.determineChapter(pageNumber);
+      let chapter = this.determineChapter(pageNumber);
       chapter.pageOverview.classList.add("radioButtonContainerSelected")
       app.currentChapter = chapter;
 
@@ -534,16 +536,16 @@ define([
       for (let i = 0; i < app.chapters.length; i++) {
         chapter = app.chapters[i];
         if (i == app.chapters.length - 1) {
-            break;
+          break;
         }
         else {
-          let nextChapter = app.chapters[i+1];
+          let nextChapter = app.chapters[i + 1];
           if (pageNumber >= chapter.firstPageNr && pageNumber < nextChapter.firstPageNr) {
             break;
           }
         }
 
-       
+
       }
       return chapter;
 
@@ -565,17 +567,17 @@ define([
         chapter.pageOverview.addEventListener("click", () => {
           this.goToPage(0);
         });
-  
+
         if (app.mode == "results") {
           domCtr.create("div",
             { class: "pageTitle title", id: "pointsTitle", innerHTML: app.strings.get("points") },
             chapter.chapter
           );
         }
-  
+
         return chapter;
       }
-      
+
     }
 
     addChapter(title, args = {}) {
@@ -589,7 +591,7 @@ define([
         }
         chapter.pageOverview = domCtr.create(
           "div",
-          { class: "chapterLink", innerHTML: app.mode == "results"? (this.chapters.length).toString():(this.chapters.length+1).toString() },
+          { class: "chapterLink", innerHTML: app.mode == "results" ? (this.chapters.length).toString() : (this.chapters.length + 1).toString() },
           this.chapterLinks
         );
         chapter.pageOverview.addEventListener("click", () => {

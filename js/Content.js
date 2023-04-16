@@ -1087,8 +1087,8 @@ define([
         measure: "A29.0",
         points: "a_maehen_points",
         options: [
-          { key: "0", points: 0, label: "E29a.options.label.0", measure: "A29a.1" },
-          { key: "1", points: 1, label: "E29a.options.label.1", measure: "A29.P" },
+          { key: "0", points: 1, label: "E29a.options.label.0", measure: "A29a.1" },
+          { key: "1", points: 0, label: "E29a.options.label.1", measure: "A29.P" },
         ],
       });
 
@@ -1187,31 +1187,7 @@ define([
       elem29etal.hide();
       elem29eberg1.hide();
       elem29eberg2.hide();
-      // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
-      elem29a.rules = [{
-        values: [
-          "E29a.options.label.1",
-        ],
-        elements: [elem29d]
-      },
-      {
-        values: [
-          "E29a.options.label.1",
-        ],
-        elements: [elem29etal]
-      },
-      {
-        values: [
-          "E29a.options.label.1",
-        ],
-        elements: [elem29eberg1]
-      },
-      {
-        values: [
-          "E29a.options.label.1",
-        ],
-        elements: [elem29eberg2]
-      }]
+      
 
       //@Dani: gell diese Regel ist nötig!?
       elem29d.rules = [{
@@ -1650,7 +1626,7 @@ define([
         measure: "A41.0",
         options: [
           { key: "0", points: 2, label: "E41a.options.label.0", measure: "A41.1" },
-          { key: "1", points: 0, label: "E41a.options.label.1" },
+          { key: "1", points: 0, label: "E41a.options.label.1", measure: "null" },
         ],
         //bitte noch Hilfestellung/Zusatzinfos hinzufügen
           textInfo: {
@@ -1787,7 +1763,7 @@ define([
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
-      buildings.element.style.visibility = "hidden";
+      buildings.hide();
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       school.rules = [{
         values: [null], 
@@ -1806,7 +1782,7 @@ define([
       buildings.map = map;
 
       // IMPORTANT: Don't use hide here, because it used display: none and this does not make the map load
-      map.element.style.visibility = "hidden";
+      map.hide();
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       buildings.rules = [{
         values: [null], 

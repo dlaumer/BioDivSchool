@@ -456,11 +456,18 @@ define([
         start.aboutUsContainer
       );
 
+      domCtr.create(
+        "div",
+        { id: "aboutUsSmartTrip", className: "aboutUsElement",innerHTML: start.strings.get("supportedBy")},
+        start.aboutUsContainer
+      );
+
 
       this.footerBar = domCtr.create("div", { id: "footerBar", className: "footerBar footerBarStart" }, this.aboutUsContainer);
       this.logo1 = domCtr.create("img", {src:"img/Logos/aplus.png", className:"logos"}, this.footerBar);
       this.logo2 = domCtr.create("img", {src:"img/Logos/phsg.jpg", className:"logos"}, this.footerBar);
       this.logo3 = domCtr.create("img", {src:"img/Logos/somaha.jpg", className:"logos"}, this.footerBar);
+      this.logo4 = domCtr.create("img", {src:"img/Logos/hamasil.png", className:"logos"}, this.footerBar);
 
 
       this.mapOverview = domCtr.create(
