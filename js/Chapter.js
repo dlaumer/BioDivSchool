@@ -26,7 +26,7 @@ define([
 
 
       let page = new Page("page_" + app.pages.length.toString(), app.pageContainer, this.title);
-      this.firstPageNr = app.pages.length ;
+      this.firstPageNr = app.pages.length;
 
       this.pages.push(page);
       app.pages.push(page);
@@ -41,15 +41,18 @@ define([
       // Check if there is already an text info which was just added before. 
       let page = this.preparePage();
 
-      // Consolidation
+      let elem = new Element(page, this.pages.length, page.elementContainer);
+      elem.init(type, key, args);
+      page.content.push({ "type": "element", content: elem });
+      page.element = elem;
+      elem.pageNr = app.pages.length
 
+      elem.linkButton = domCtr.create("div", { className: "subHeaderLink" }, this.subHeader);
+      elem.linkButton.addEventListener("click", () => {
+        app.goToPage(elem.pageNr-1);
+      });
 
-        let elem = new Element(page, this.pages.length, page.elementContainer);
-        elem.init(type, key, args);
-        page.content.push({ "type": "element", content: elem });
-        page.element = elem;
-
-        if (app.mode == "consolidation") {
+      if (app.mode == "consolidation") {
 
         elem.groupDivs = page.groupDivs;
 
@@ -140,7 +143,7 @@ define([
 
       }
       return page;
-      
+
     }
 
     prepareConsolidationPage(page) {

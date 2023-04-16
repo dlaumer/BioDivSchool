@@ -522,11 +522,13 @@ define([
       // Update the selected Chapter;
       if (app.currentChapter != null) {
         app.currentChapter.pageOverview.classList.remove("radioButtonContainerSelected");
+        app.currentChapter.subHeader.style.display = "none"
+
       }
       let chapter = this.determineChapter(pageNumber);
       chapter.pageOverview.classList.add("radioButtonContainerSelected")
       app.currentChapter = chapter;
-
+      chapter.subHeader.style.display = "flex"
 
     }
 
@@ -589,14 +591,28 @@ define([
         if (args.pointsInfo) {
           chapter.pointsInfo = args.pointsInfo;
         }
+        chapter.pageOverviewContainer = domCtr.create(
+          "div",
+          { class: "chapterLinkContainer" },
+          this.chapterLinks
+        );
         chapter.pageOverview = domCtr.create(
           "div",
           { class: "chapterLink", innerHTML: app.mode == "results" ? (this.chapters.length).toString() : (this.chapters.length + 1).toString() },
-          this.chapterLinks
+          chapter.pageOverviewContainer
+        );
+        chapter.pageOverviewLabel = domCtr.create(
+          "div",
+          { class: "chapterLinkLabel", innerHTML: chapter.title},
+          chapter.pageOverviewContainer
         );
         chapter.pageOverview.addEventListener("click", () => {
           this.goToPage(chapter.firstPageNr);
         });
+
+        chapter.subHeader = domCtr.create("div", { id: "subHeader", className: "subHeader" });
+        domCtr.place(chapter.subHeader, this.header, "after")
+
 
         // Add to chapter of content
         if (this.loginPage != null) {

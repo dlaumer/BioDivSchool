@@ -121,8 +121,8 @@ body {
   background-color: white;
   z-index: 3;
   flex-direction: column;
-    text-align: justify;
-    overflow: scroll;
+  text-align: justify;
+  overflow: scroll;
 }
 
 #closeContainer {
@@ -133,12 +133,14 @@ body {
   display: flex;
   justify-content: end;
 }
+
 #close {
   cursor: pointer;
 }
+
 .aboutUsElement {
-    margin: 0px 200px;
-    padding: 0 0 30px 0;
+  margin: 0px 200px;
+  padding: 0 0 30px 0;
 }
 
 .aboutUsLogo {
@@ -386,6 +388,7 @@ body {
   #aboutUsContainer {
     height: 80% !important;
   }
+
   .aboutUsElement {
     margin: 0px 20px !important;
     padding: 0 0 30px 0 !important;
@@ -410,6 +413,10 @@ body {
     height: 100%;
     width: 100%;
     position: absolute;
+  }
+
+  .chapterLinkLabel {
+    display: none;
   }
 
   .mapOverviewProjects {
@@ -868,15 +875,12 @@ body {
 
 
 
-#chapterLinks:before { content: '';
-  content: '';
-  position: absolute;
-  border-bottom: 2px var(--secondary) solid;
-  height: 60%;
-  width: 32%;
-  transform: translateY(-50%);
-  z-index: -1;
-   }
+.chapterLinkContainer {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 .chapterLink {
   width: 40px;
@@ -890,18 +894,43 @@ body {
   justify-content: center;
 }
 
+.chapterLinkLabel {
+  font-size: xx-small;
+  text-align: center;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+
 
 .chapterLink:hover {
   background-color: var(--secondary);
 
 }
+
 .settings {
   width: 100%;
 }
 
+#subHeader {
+  height: 3%;
+  width: 100%;
+  background-color: var(--secondary);
+  display: none;
+  justify-content: center;
+}
+
+.subHeaderLink {
+  width: 30px;
+  margin: 5px 3px;
+  background-color: white;
+}
 #pageContainer {
   width: 100%;
-  height: 75%;
+  height: 72%;
   position: absolute;
 }
 
@@ -1150,6 +1179,7 @@ body {
   #headerLeft {
     width: 100% !important;
   }
+
   #headerRight {
     display: none;
   }
@@ -1191,9 +1221,11 @@ body {
   .footerBar {
     flex-direction: column !important;
   }
+
   .footerBarStart {
     height: unset !important
   }
+
   .logos {
     max-width: 80% !important;
   }
@@ -1547,9 +1579,8 @@ label {
 
 .bubble {
   height: 50px;
-  width: 50px;
   margin: 0 0 0 20px;
-  padding: 4px 12px;
+  padding: 4px 6px;
   border-radius: 4px;
   display: flex;
   justify-content: center;

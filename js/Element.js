@@ -40,6 +40,9 @@ style.innerHTML = `
           height: 70%;
         }
       
+        .chapterLinkLabel {
+          display: none;
+        }
         .editor {
           width: 100% !important;
           height: 60% !important;
