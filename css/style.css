@@ -37,6 +37,20 @@ input[type='radio'] {
 
 }
 
+input[type='radio']:after {
+  width: 10px;
+  height: 10px;
+  border-radius: 15px;
+  top: -3.5px;
+  left: 0px;
+  position: relative;
+  background-color: #ffffff;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 1px solid var(--secondaryText);
+}
+
 input[type='radio']:checked:after {
   width: 7px;
   height: 7px;
