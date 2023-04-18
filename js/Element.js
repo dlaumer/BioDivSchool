@@ -780,6 +780,8 @@ define([
             app.pointsTotal = app.pointsTotal - parseInt(previousPoints);
             app.pointsTotalDiv.innerHTML = app.showPoints ? app.strings.get("totalPoints") + ": " + app.pointsTotal.toFixed(0) : "";
           }
+          this.checkValueSet()
+
           resolve();
         }
         else {
@@ -826,6 +828,8 @@ define([
 
           if (this.hasPoints) {
             if (this.type == "mapInput") {
+              this.checkValueSet()
+
               this.calculateRatioAndPoints(previousPoints, resolve);
             }
             else {
@@ -853,13 +857,18 @@ define([
 
               app.pointsTotal = app.pointsTotal - parseInt(previousPoints) + parseInt(this.points);
               app.pointsTotalDiv.innerHTML = app.showPoints ? app.strings.get("totalPoints") + ": " + app.pointsTotal.toFixed(0) : "";
+              this.checkValueSet()
+
               resolve();
             }
 
           }
           else {
+            this.checkValueSet()
+
             resolve();
           }
+          
         }
       }).then(() => {
 
@@ -876,6 +885,7 @@ define([
                 reject(reason);
               }).then(() => {
                 app.save.innerHTML = app.strings.get("saved")
+                this.checkValueSet()
               });
 
           });
@@ -885,7 +895,6 @@ define([
             this.map.geometry.definitionExpression = "objectid in (" +
             this.value.substring(1, this.value.length - 1) +
             ")"
-            console.log(this.value)
           }
         }
         else if (app.mode == "project" && (this.key == "school" || this.key == "projectid" || this.key == "name" || this.key == "gebaeude_geomoid")) {
@@ -956,15 +965,19 @@ define([
 
     checkValueSet() {
       if (this.valueSet) {
-        this.label.style.color = "black";
+        //this.label.style.color = "black";
+        this.linkButton.classList.add("subHeaderLinkDone")
       }
       else {
-        this.label.style.color = "red";
+        //this.label.style.color = "red";
+        this.linkButton.classList.remove("subHeaderLinkDone")
+
       }
     }
 
     hide() {
       this.page.hidden = true;
+      this.linkButton.classList.add("subHeaderLinkInactive")
     }
 
     show() {
@@ -972,6 +985,8 @@ define([
       if (app.mode == "project") {
         app.next.style.visibility = "visible";
       }
+      this.linkButton.classList.remove("subHeaderLinkInactive")
+
     }
 
     hideWithRules(element) {

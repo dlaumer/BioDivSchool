@@ -488,6 +488,8 @@ define([
     }
 
     goToPage(pageNumber) {
+      this.pages[this.currentPage].element.linkButton.classList.remove("subHeaderLinkCurrent")
+
       if (this.pages[pageNumber].hidden) {
         if (this.currentPage - pageNumber > 0) {
           this.goToPage(pageNumber - 1)
@@ -518,6 +520,8 @@ define([
         }
         this.updateAttributes("page", pageNumber);
       }
+
+      this.pages[this.currentPage].element.linkButton.classList.add("subHeaderLinkCurrent")
 
       // Update the selected Chapter;
       if (app.currentChapter != null) {
@@ -895,6 +899,7 @@ define([
     }
 
     getAllElements(checkIfSet) {
+      checkIfSet = true;  
       let data = {};
       for (let chapterIndex in app.chapters) {
         let chapter = app.chapters[chapterIndex];

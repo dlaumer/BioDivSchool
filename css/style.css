@@ -78,6 +78,7 @@ input[type='radio']:checked:after {
   --secondary: #EBEBEB;
   --secondaryText: #707070;
   --line: #DEDEDE;
+  --current: #618028;
 }
 
 /* width */
@@ -417,6 +418,10 @@ body {
 
   .chapterLinkLabel {
     display: none;
+  }
+
+  .subHeaderLink {
+    height: 30% !important;
   }
 
   .mapOverviewProjects {
@@ -921,12 +926,27 @@ body {
   background-color: var(--secondary);
   display: none;
   justify-content: center;
+  align-items: center;
 }
 
 .subHeaderLink {
   width: 30px;
-  margin: 5px 3px;
+  margin: 0px 3px;
   background-color: white;
+  cursor: pointer;
+  height: 50%;
+}
+
+.subHeaderLinkCurrent {
+  background-color: var(--current) !important;
+}
+
+.subHeaderLinkDone {
+  background-color: var(--project) ;
+}
+
+.subHeaderLinkInactive {
+  background-color: var(--gray) ;
 }
 #pageContainer {
   width: 100%;
