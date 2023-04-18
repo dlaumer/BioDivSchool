@@ -40,9 +40,6 @@ style.innerHTML = `
           height: 70%;
         }
       
-        .chapterLinkLabel {
-          display: none;
-        }
         .editor {
           width: 100% !important;
           height: 60% !important;
@@ -91,6 +88,7 @@ define([
     init(type, key, args) {
       this.type = type;
       this.key = key;
+      this.title = args.title;
 
       args.text = args.text ? app.strings.get(args.text) : null;
       args.title = args.title ? app.strings.get(args.title) : null;

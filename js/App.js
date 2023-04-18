@@ -272,8 +272,8 @@ define([
       this.pages[0].init(null);
       this.currentPage = 0;
 
-      if (app.mode == "project" && (this.pages[0].element.value == "" || this.pages[0].element.value == null) ) {
-        this.next.style.visibility = "hidden"; 
+      if (app.mode == "project" && (this.pages[0].element.value == "" || this.pages[0].element.value == null)) {
+        this.next.style.visibility = "hidden";
       }
 
       let urlData = this.getJsonFromUrl();
@@ -488,7 +488,10 @@ define([
     }
 
     goToPage(pageNumber) {
-      this.pages[this.currentPage].element.linkButton.classList.remove("subHeaderLinkCurrent")
+      if (this.pages[this.currentPage].element) {
+        this.pages[this.currentPage].element.linkButton.classList.remove("subHeaderLinkCurrent")
+
+      }
 
       if (this.pages[pageNumber].hidden) {
         if (this.currentPage - pageNumber > 0) {
@@ -515,14 +518,17 @@ define([
         } else {
           this.back.style.visibility = "visible";
         }
-        if (app.mode == "project" && (this.pages[pageNumber].element.value == "" || this.pages[pageNumber].element.value == null) ) {
-          this.next.style.visibility = "hidden"; 
+        if (app.mode == "project" && (this.pages[pageNumber].element.value == "" || this.pages[pageNumber].element.value == null)) {
+          this.next.style.visibility = "hidden";
         }
         this.updateAttributes("page", pageNumber);
       }
 
-      this.pages[this.currentPage].element.linkButton.classList.add("subHeaderLinkCurrent")
+      if (this.pages[this.currentPage].element) {
 
+        this.pages[this.currentPage].element.linkButton.classList.add("subHeaderLinkCurrent")
+
+      }
       // Update the selected Chapter;
       if (app.currentChapter != null) {
         app.currentChapter.pageOverview.classList.remove("radioButtonContainerSelected");
@@ -581,6 +587,8 @@ define([
           );
         }
 
+        chapter.subHeader = domCtr.create("div", { id: "subHeader", className: "subHeader" });
+        domCtr.place(chapter.subHeader, this.header, "after")
         return chapter;
       }
 
@@ -607,7 +615,7 @@ define([
         );
         chapter.pageOverviewLabel = domCtr.create(
           "div",
-          { class: "chapterLinkLabel", innerHTML: chapter.title},
+          { class: "chapterLinkLabel", innerHTML: chapter.title },
           chapter.pageOverviewContainer
         );
         chapter.pageOverview.addEventListener("click", () => {
@@ -653,6 +661,7 @@ define([
         on(final, "click", function (evt) {
           this.finalize();
         }.bind(this));
+
         this.chapters.push(chapter);
         this.lastChapter = chapter;
 
@@ -899,7 +908,7 @@ define([
     }
 
     getAllElements(checkIfSet) {
-      checkIfSet = true;  
+      checkIfSet = true;
       let data = {};
       for (let chapterIndex in app.chapters) {
         let chapter = app.chapters[chapterIndex];
