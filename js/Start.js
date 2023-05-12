@@ -915,7 +915,6 @@ define([
             "div",
             {
               className: "projectElem1",
-              style: "width:50%",
             },
             citySchoolWrapper
           );
@@ -941,8 +940,7 @@ define([
           let citySchoolContainer = domCtr.create(
             "div",
             {
-              className: "projectElem1",
-              style: "width:50%;",
+              className: "projectElem3",
             },
             citySchoolWrapper
           );

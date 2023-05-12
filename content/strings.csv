@@ -39,7 +39,7 @@ deleteConfirm;Willst du dieses Projekt wirklich löschen?;Voulez-vous vraiment s
 edit;Bearbeiten;Modifier;Edit;Modifica;
 noProjectChosen;Kein Projekt ausgewählt;Aucun projet sélectionné;No project selected;Nessun progetto selezionato;
 loginEsri;Einloggen;Connexion;Login;Connessione;
-startPage;< Startseite;< Page d'accueil;< Start page;< Home page;
+startButton;< Startseite;< Page d'accueil;< Start page;< Home page;
 short;Kurz;Court;Short;Corto;
 long;Lang;Long;Long;Lungo;
 de;Deutsch;Allemand;German;Tedesco;
