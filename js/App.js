@@ -16,7 +16,9 @@ define([
 
   "biodivschool/ArcGis",
   "biodivschool/Start",
-], function (dom, domCtr, win, on, Chapter, ArcGis, Start) {
+  "biodivschool/Page",
+
+], function (dom, domCtr, win, on, Chapter, ArcGis, Start, Page) {
   return class App {
     constructor(offline, mode, strings, version, callback) {
       app = this;
@@ -97,7 +99,7 @@ define([
           app.schoolName = info.attributes["school"];
           app.buildings = info.attributes["gebaeude_geomoid"];
           app.content.init();
-
+          this.addFinalPage()
 
           this.arcgis
             .calculateArea(this.projectAreaId, "project")
@@ -224,6 +226,7 @@ define([
           app.projectName = info.attributes["name"];
           app.schoolName = info.attributes["school"];
           app.content.init();
+          this.addFinalPage()
 
           this.arcgis
             .calculateArea(this.projectAreaId, "project")
@@ -651,22 +654,40 @@ define([
         return chapter;
       }
     }
-    addFinalPage(title) {
-      title = app.strings.get(title);
-      if (app.mode != "results") {
-        let chapter = new Chapter(this.chapters.length, this.pageContainer, title);
-        let element = domCtr.create("div", { id: "finalElement", className: "element final" }, page.page);
-        let final = domCtr.create("div", { id: "btn_final", className: "btn1", innerHTML: app.strings.get("results") }, element);
+    addFinalPage() {
+      let title = app.strings.get("finalPage");
 
-        on(final, "click", function (evt) {
-          this.finalize();
-        }.bind(this));
+      let page = new Page("page_" + app.pages.length.toString(), app.pageContainer, title);
+      app.pages.push(page);
 
-        this.chapters.push(chapter);
-        this.lastChapter = chapter;
+      let element = domCtr.create("div", { id: "finalElement", className: "element final"}, page.page);
 
-        return chapter;
-      }
+      
+      this.loadingIcon = domCtr.create(
+        "lord-icon",
+        {
+          id: "loadingIcon",
+          src: "https://cdn.lordicon.com/dlmpudxq.json",
+          colors:"primary:#a2c367,secondary:#ffc738,tertiary:#b26836",
+          trigger: "loop",
+          style: "width:100px;height:100px"
+        },
+        element
+      );
+
+      let text = domCtr.create("div", {innerHTML: this.strings.get("finalMessage")}, element);
+
+      this.footerBar = domCtr.create("div", { id: "footerBar", className: "footerBar footerBarStart" }, page.page);
+      this.logo1 = domCtr.create("img", {src:"img/Logos/aplus.png", className:"logos"}, this.footerBar);
+      this.logo2 = domCtr.create("img", {src:"img/Logos/phsg.jpg", className:"logos"}, this.footerBar);
+      this.logo3 = domCtr.create("img", {src:"img/Logos/somaha.jpg", className:"logos"}, this.footerBar);
+      this.logo4 = domCtr.create("img", {src:"img/Logos/hamasil.png", className:"logos"}, this.footerBar);
+
+
+
+
+      return page;
+
 
     }
 

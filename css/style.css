@@ -1488,6 +1488,8 @@ body {
 .final {
   align-items: center;
   flex-direction: column;
+  height: 80%;
+  justify-content: center;
 }
 
 .labelContainer {
