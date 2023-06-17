@@ -463,6 +463,7 @@ define([
       this.labelContainer.style.width = "100%";
       this.label = domCtr.create("div", { className: "labelText", innerHTML: args.text, style: "width: 100%;" }, this.labelContainer);
       this.mapContainer = domCtr.create("div", { className: "mapContainer" }, this.element);
+      this.legendContainer = domCtr.create("div", { className: "legendContainer", id: this.name + "_legend" }, this.element);
       this.input = domCtr.create("div", { id: this.name + "_map", className: "map" }, this.mapContainer);
       this.screenshot = domCtr.create("img", { className: "screenshot" }, this.mapContainer);
 
@@ -497,7 +498,7 @@ define([
 
       // Add ArcGIS JSAPI Map
       if (!app.offline) {
-        app.arcgis.addMap(this.input.id, this.editor.id, this, (info) => {
+        app.arcgis.addMap(this.input.id, this.editor.id, this.legendContainer.id, this, (info) => {
           this.geometry = info.geometry;
           this.editorEsri = info.editor;
           this.projectAreaClass = info.projectArea;
@@ -575,22 +576,33 @@ define([
           }
           else if (this.ratioOptions) {
 
-            let numAreas = JSON.parse(this.value).length;
-            let maxArea = Math.max(...Object.values(this.areas));
+            let areaTypes = [];
+            let maxArea = 0;
 
-            if (numAreas < 3) {
+            for (let i in this.areas) {
+
+              let area = this.areas[i];
+              if (area.area > maxArea) {
+                maxArea = area.area;
+              }
+              areaTypes.push(area.type)
+            }
+
+            let numDistinctAreas = new Set(areaTypes).size;
+
+            if (numDistinctAreas < 3) {
 
               this.ratio = this.ratioOptions[0].label;
               this.points = this.ratioOptions[0].points
               this.measure = this.ratioOptions[0].measure ? this.ratioOptions[6].measure : null;
 
-            } else if (numAreas < 5 && 0.5 * app.projectArea < maxArea) {
+            } else if (numDistinctAreas < 5 && 0.5 * app.projectArea < maxArea) {
 
               this.ratio = this.ratioOptions[1].label;
               this.points = this.ratioOptions[1].points
               this.measure = this.ratioOptions[1].measure ? this.ratioOptions[6].measure : null;
 
-            } else if (numAreas < 5 && 0.5 * app.projectArea >= maxArea) {
+            } else if (numDistinctAreas < 5 && 0.5 * app.projectArea >= maxArea) {
 
               this.ratio = this.ratioOptions[2].label;
               this.points = this.ratioOptions[2].points
@@ -598,7 +610,7 @@ define([
 
             }
 
-            else if (numAreas < 6 && 0.4 * app.projectArea < maxArea) {
+            else if (numDistinctAreas < 6 && 0.4 * app.projectArea < maxArea) {
 
               this.ratio = this.ratioOptions[3].label;
               this.points = this.ratioOptions[3].points
@@ -606,7 +618,7 @@ define([
 
             }
 
-            else if (numAreas < 6 && 0.4 * app.projectArea >= maxArea) {
+            else if (numDistinctAreas < 6 && 0.4 * app.projectArea >= maxArea) {
 
               this.ratio = this.ratioOptions[4].label;
               this.points = this.ratioOptions[4].points
@@ -614,7 +626,7 @@ define([
 
             }
 
-            else if (numAreas < 7 && 0.3 * app.projectArea < maxArea) {
+            else if (numDistinctAreas < 7 && 0.3 * app.projectArea < maxArea) {
 
               this.ratio = this.ratioOptions[5].label;
               this.points = this.ratioOptions[5].points
@@ -622,7 +634,7 @@ define([
 
             }
 
-            else if (numAreas < 7 && 0.3 * app.projectArea >= maxArea) {
+            else if (numDistinctAreas < 7 && 0.3 * app.projectArea >= maxArea) {
 
               this.ratio = this.ratioOptions[6].label;
               this.points = this.ratioOptions[6].points
@@ -691,7 +703,7 @@ define([
       if (this.type == "mapInput") {
         if (app.mode == "consolidation") {
           container.style.alignItems = "normal"
-          app.arcgis.addMap(container, null, this, (info) => {
+          app.arcgis.addMap(container, null, null, this, (info) => {
             info.geometry.definitionExpression = "objectid in (" + value.substring(1, value.length - 1) + ")";
 
           });

@@ -355,8 +355,8 @@ P06.gebaeude.text;Bearbeite deine Gebäudeflächen:<br> 1. Klicke auf «Feature 
 P06.nameDisplay;Untersuchungsgebiet;Zone d'étude;Study Area;Area di studio;
 P06.text;"Bearbeite dein Projekt:<br> 1. Klicke auf «Feature bearbeiten». <br>2. Klicke auf die Projektfläche. <br>3. Ändere die Form der Projektfläche oder die Attribute (ID, Ort, Schule). <br>4. Klicke auf «Aktualisieren». <br>5. Falls du dein Projekt löschen willst, klicke auf «Löschen».";"Modifie ton projet:<br> 1. clique sur «Modifier la caractéristique». <br>2. clique sur la surface du projet. <br>3. modifie la forme de la surface du projet ou les attributs (ID, lieu, école). <br>4. clique sur «Actualiser». <br>5. si tu veux supprimer ton projet, clique sur «Supprimer».";"Edit your project:<br> 1. Click on Edit Feature. <br>2. Click on the project area. <br>3. Change the project area shape or attributes (ID, location, school). <br>4. click on ""Update"". <br>5. If you want to delete your project, click ""Delete"".";"Modifica progetto:<br> 1. Fare clic su «Modifica caratteristica». <br>2. Fare clic sull'area di progetto. <br>3. Modificare la forma dell'area di progetto o gli attributi (ID, località, scuola). <br>4. Fare clic su «Aggiorna». <br>5. Se si desidera eliminare il progetto, fare clic su «Elimina».";
 P06.finalPage;Ende;Fin;End;Fine;
-P00.1. addPage;Allgemeine Infos;Informations générales;General info;Informazioni generali;
-P00.1. text;Was ist der Name des Standorts?;Quel est le nom du site ?;What is the name of the site?;Qual è il nome del sito?;
+P00.1.addPage;Allgemeine Infos;Informations générales;General info;Informazioni generali;
+P00.1.text;Was ist der Name des Standorts?;Quel est le nom du site ?;What is the name of the site?;Qual è il nome del sito?;
 E10b.nameListTypes;Pflanzenarten;Espèces végétales;Plant species;Specie vegetale;
 E10b.listTypes.1;Amerikanische Goldruten;Verge d'or américaine;American goldenrod;Verga d'oro americana;
 E10b.listTypes.2;Ambrosia;Ambroisie;Ragweed;Ambrosia;

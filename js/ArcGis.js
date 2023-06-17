@@ -30,6 +30,7 @@ define([
   "esri/config",
   "dojo/dom-construct",
   "esri/layers/support/FeatureTemplate",
+  "esri/intl"
 ], function (
   Portal,
   OAuthInfo,
@@ -55,7 +56,8 @@ define([
   PrintParameters,
   esriConfig,
   domCtr,
-  FeatureTemplate
+  FeatureTemplate,
+  intl
 ) {
   return class ArcGis {
     constructor(editMode, strings, callback) {
@@ -144,6 +146,7 @@ define([
       this.createUI();
       this.clickHandler();
 
+      intl.setLocale(strings.lang)
     }
 
     handleSignInOut() {
@@ -609,13 +612,14 @@ define([
       });
     }
 
-    addMap(containerMap, containerEditor, element, callback) {
+    addMap(containerMap, containerEditor, containerLegend, element, callback) {
       let editor;
       let prototype;
       let projectArea = new FeatureLayer({
         portalItem: {
           id: this.editMode ? this.links.projectLayerId : this.links.projectViewLayerId,
         },
+        title: this.strings.get("projectArea"),
         popupEnabled: false,
         editingEnabled: false,
         renderer: {
@@ -634,7 +638,7 @@ define([
           id: this.editMode ? this.links.geometryLayerId : this.links.geometryViewLayerId,
         },
         editingEnabled: true,
-        title: "Pflanzenart",
+        title: this.strings.get("data"),
         definitionExpression: "objectid = 0",
         renderer: {
           type: "simple", // autocasts as new SimpleRenderer()
@@ -692,6 +696,7 @@ define([
           portalItem: {
             id: this.editMode ? this.links.geometryLayerId : this.links.geometryViewLayerId,
           },
+          title: this.strings.get("P05.gebaeude.nameDisplay"),
           editingEnabled: false,
           popupEnabled: false,
           definitionExpression:  "objectid in (" +
@@ -771,6 +776,13 @@ define([
       });
       //view.ui.add(fullscreen, "bottom-right");
 
+      console.log(containerLegend)
+      new Legend({
+        view: view,
+        style: { type: "card", layout: "side-by-side" },
+        container: containerLegend,
+      });
+
       const homeButton = new Home({
         view: view,
       });
@@ -795,7 +807,7 @@ define([
       view.ui.add(fullScreenBtn, "top-left");
       // add button click listener
       fullScreenBtn.addEventListener("click", () => {
-        containerMap.classList.toggle("fullscreen");
+        document.getElementById(containerMap).classList.toggle("fullscreen");
       });
       const locate = new Locate({
         view: view,
