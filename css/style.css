@@ -1418,11 +1418,10 @@ body {
 .page {
   width: 100%;
   height: 100%;
-
+  display: none;
   overflow-y: auto;
   overflow-x: hidden;
   background-color: white;
-  z-index: -1;
   position: inherit;
   padding: 0 100px;
 }
@@ -1430,7 +1429,7 @@ body {
 .active {
   width: 100% !important;
   height: 100% !important;
-  z-index: unset;
+  display: block;
 }
 
 .pageTitle {
