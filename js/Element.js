@@ -485,7 +485,7 @@ define([
         this.linkInstructions.display = "none";
         this.resultDiv = domCtr.create("div", { className: "result", innerHTML: "<b>" + app.strings.get("result") + ":</b><br> " + app.strings.get("noAnswer") }, this.editorContainer);
         this.measureDiv = domCtr.create("div", { className: "measure", innerHTML: app.strings.get(this.measureNone) }, this.editorContainer)
-
+        this.page.page.classList.add("pageMap")
       }
 
       on(this.instructionsClose, "click", function (evt) {

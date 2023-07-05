@@ -1044,13 +1044,13 @@ define([
       if (app.mode == "results") {
         app.mapLoadedPromises.push(
           new Promise((resolve, reject) => {
-            //watchUtils.whenFalseOnce(view, "updating", () => {
+            watchUtils.whenFalseOnce(view, "updating", () => {
               console.log("The map with id:" + element.key + " has loaded");
-              //this.printMap(view).then((image) => {
-                //element.screenshot.src = image.url;
+              this.printMap(view).then((image) => {
+                element.screenshot.src = image.url;
                 resolve();
-              //});
-            //});
+              });
+            });
           })
         );
       }
@@ -1435,8 +1435,8 @@ define([
           format: "png32",
           layout: "map-only",
           exportOptions: {
-            width: 1600,
-            height: 900,
+            width: 800,
+            height: 450,
           },
           scalePreserved: false,
         });

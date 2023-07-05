@@ -32,11 +32,12 @@ define([
 
     init(prevPage) {
       if (prevPage !== null) {
-        prevPage.page.className = "page";
+        prevPage.page.classList.remove("active")
         //this.page.style.display = app.mode == "consolidation" ? "none" : "block"
 
       }
-      this.page.className = "page active";
+      this.page.classList.add("active");
+
       //this.page.style.display = "block"
 
       if (this.element != null && app.mode != "consolidation") {
