@@ -182,7 +182,7 @@ define([
       }
       else {
         this.input = domCtr.create("div", { className: " input", innerHTML: "" }, this.element);
-        this.resultDiv = domCtr.create("div", { className: "result", innerHTML: "<b>" + app.strings.get("result") + ":</b><br> n/a" }, this.input);
+        this.resultDiv = domCtr.create("div", { className: "result", innerHTML: "<b>" + app.strings.get("result") + ":</b><br> " + app.strings.get("noAnswer") }, this.input);
         this.measureDiv = domCtr.create("div", { className: "measure", innerHTML: app.strings.get(this.measureNone) }, this.input)
       }
 
@@ -208,7 +208,7 @@ define([
       }
       else {
         this.input = domCtr.create("div", { className: "groupResult input", innerHTML: "" }, this.element);
-        this.resultDiv = domCtr.create("div", { className: "result", innerHTML: "<b>" + app.strings.get("result") + ":</b><br> n/a" }, this.input);
+        this.resultDiv = domCtr.create("div", { className: "result", innerHTML: "<b>" + app.strings.get("result") + ":</b><br> " + app.strings.get("noAnswer") }, this.input);
         this.measureDiv = domCtr.create("div", { className: "measure", innerHTML: app.strings.get(this.measureNone) }, this.input)
       }
 
@@ -237,7 +237,7 @@ define([
       }
       else {
         this.input = domCtr.create("div", { className: "groupResult input", innerHTML: "" }, this.element)
-        this.resultDiv = domCtr.create("div", { className: "result", innerHTML: "<b>" + app.strings.get("result") + ":</b><br> n/a" }, this.input);
+        this.resultDiv = domCtr.create("div", { className: "result", innerHTML: "<b>" + app.strings.get("result") + ":</b><br> " + app.strings.get("noAnswer") }, this.input);
         this.measureDiv = domCtr.create("div", { className: "measure", innerHTML: app.strings.get(this.measureNone) }, this.input)
       }
 
@@ -325,7 +325,7 @@ define([
       }
       else {
         this.input = domCtr.create("div", { className: "groupResult input", innerHTML: "" }, this.element);
-        this.resultDiv = domCtr.create("div", { className: "result", innerHTML: "<b>" + app.strings.get("result") + ":</b><br> n/a" }, this.input);
+        this.resultDiv = domCtr.create("div", { className: "result", innerHTML: "<b>" + app.strings.get("result") + ":</b><br> " + app.strings.get("noAnswer") }, this.input);
         this.measureDiv = domCtr.create("div", { className: "measure", innerHTML: app.strings.get(this.measureNone) }, this.input)
 
       }
@@ -417,7 +417,7 @@ define([
       }
       else {
         this.input = domCtr.create("div", { className: "groupResult input", innerHTML: "" }, this.element)
-        this.resultDiv = domCtr.create("div", { className: "result", innerHTML: "<b>" + app.strings.get("result") + ":</b><br> n/a" }, this.input);
+        this.resultDiv = domCtr.create("div", { className: "result", innerHTML: "<b>" + app.strings.get("result") + ":</b><br> " + app.strings.get("noAnswer") }, this.input);
         this.measureDiv = domCtr.create("div", { className: "measure", innerHTML: app.strings.get(this.measureNone) }, this.input)
       }
 
@@ -483,7 +483,7 @@ define([
         this.mapContainer.style = "justify-content: space-between;";
         this.editorContainer.style = "width:40%;";
         this.linkInstructions.display = "none";
-        this.resultDiv = domCtr.create("div", { className: "result", innerHTML: "<b>" + app.strings.get("result") + ":</b><br> n/a" }, this.editorContainer);
+        this.resultDiv = domCtr.create("div", { className: "result", innerHTML: "<b>" + app.strings.get("result") + ":</b><br> " + app.strings.get("noAnswer") }, this.editorContainer);
         this.measureDiv = domCtr.create("div", { className: "measure", innerHTML: app.strings.get(this.measureNone) }, this.editorContainer)
 
       }
@@ -988,6 +988,7 @@ define([
     hide() {
       this.page.hidden = true;
       this.linkButton.classList.add("subHeaderLinkInactive")
+      this.page.page.classList.add("pageInactive")
     }
 
     show() {
@@ -996,6 +997,7 @@ define([
         app.next.style.visibility = "visible";
       }
       this.linkButton.classList.remove("subHeaderLinkInactive")
+      this.page.page.classList.remove("pageInactive")
 
     }
 

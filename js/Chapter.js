@@ -47,7 +47,7 @@ define([
       page.element = elem;
       elem.pageNr = app.pages.length
 
-      elem.linkButton = domCtr.create("div", { className: "subHeaderLink", title: elem.title }, this.subHeader);
+      elem.linkButton = domCtr.create("div", { className: "subHeaderLink", title: args.text }, this.subHeader);
       elem.linkButton.addEventListener("click", () => {
         app.goToPage(elem.pageNr-1);
       });

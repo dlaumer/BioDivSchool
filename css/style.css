@@ -1535,7 +1535,7 @@ label {
 
   body {
     -webkit-print-color-adjust: exact !important;
-    font-size: 16px !important;
+    font-size: 18px !important;
   }
 
   .background {
@@ -1616,11 +1616,15 @@ label {
 
   .page {
     height: auto !important;
-    display: block !important;
+    display: block;
     overflow: visible !important;
     position: unset !important;
     page-break-before: always;
+    padding: 0 30px !important;
+  }
 
+  .pageInactive {
+    display: none !important;
   }
 
   .esri-editor__temp-wrapper {
