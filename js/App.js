@@ -1004,6 +1004,17 @@ define([
     makeTitlePage() {
       this.titlePage = domCtr.create("div", { id: "titlePage" });
       domCtr.place(this.titlePage, this.header, "before");
+      domCtr.create(
+        "lord-icon",
+        {
+          id: "loadingIcon",
+          src: "https://cdn.lordicon.com/dlmpudxq.json",
+          colors:"primary:#a2c367,secondary:#ffc738,tertiary:#b26836",
+          style: "width:100px;height:100px"
+        },
+        this.titlePage
+      );
+
       domCtr.create("div", { id: "title", innerHTML: app.strings.get("titlePdf") }, this.titlePage);
       domCtr.create("div", { id: "school", className: "titleInfo", innerHTML: app.strings.get("school") + ": " + app.schoolName }, this.titlePage);
       domCtr.create("div", { id: "location", className: "titleInfo", innerHTML: app.strings.get("location") + ": " + app.projectName }, this.titlePage);

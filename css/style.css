@@ -99,8 +99,6 @@ html {
 
 body {
   overflow-y: hidden !important;
-  position: fixed;
-  overflow: hidden;
   margin: 0;
   font-size: min(2vmax, 14px);
   overscroll-behavior: none !important;
@@ -220,145 +218,7 @@ body {
   min-width: 200px;
 }
 
-@media print {
-  body {
-    -webkit-print-color-adjust: exact !important;
-    font-size: 14px !important;
-  }
 
-  #titlePage {
-    display: flex !important;
-  }
-
-  #print {
-    display: none !important;
-  }
-
-  #startButton {
-    display: none !important;
-  }
-
-  .esri-legend--card {
-    flex-wrap: wrap;
-  }
-
-  #pageContainer {
-    height: unset !important;
-    position: unset !important;
-  }
-
-
-  #title {
-    font-size: xxx-large;
-  }
-
-  .titleInfo {
-    font-size: x-large;
-  }
-
-  .header {
-    display: none !important;
-  }
-
-  #navigationBar {
-    display: none !important;
-  }
-
-  .mapOverviewProjects {
-    overflow: visible;
-  }
-
-  .esri-legend__service {
-    padding: 0 14px !important;
-  }
-
-  .esri-widget__heading {
-
-    margin: 0 !important;
-  }
-
-  .esri-legend__layer-table {
-    margin-bottom: 0px !important;
-  }
-
-  .linkText {
-    display: none !important;
-  }
-
-  .expandable {
-    display: none !important;
-  }
-
-  .chapter {
-    height: auto !important;
-    display: block !important;
-    overflow: visible !important;
-    position: unset !important;
-  }
-
-  .esri-editor__temp-wrapper {
-    display: none !important;
-  }
-
-  .mapOverview {
-    height: 400px !important;
-  }
-
-
-  #title_areas {
-    page-break-before: always;
-  }
-
-  .mapOverviewResults {
-    page-break-after: always;
-  }
-
-  .inputElement {
-    page-break-after: always;
-  }
-
-  #startTitle {
-    page-break-before: avoid !important;
-  }
-
-  #pointsTitle {
-    page-break-before: avoid !important;
-  }
-
-  .labelContainer {
-    width: 100% !important;
-  }
-
-  .input {
-    width: 100% !important;
-    font-size: 14px !important;
-  }
-
-  .labelText {
-    width: 100% !important;
-  }
-
-  .map {
-    width: 100% !important;
-    height: 70% !important;
-    display: none;
-  }
-
-  .screenshot {
-    display: block !important;
-  }
-
-  .mapContainer {
-    flex-direction: column !important;
-    height: unset !important;
-  }
-
-  .editor {
-    width: 100% !important;
-    height: 60% !important;
-    overflow: inherit !important;
-  }
-}
 
 .esri-view-surface::after {
   outline: none !important;
@@ -800,7 +660,7 @@ body {
 .background {
   width: 100%;
   height: 100%;
-  overflow: hidden !important;
+  overflow: hidden;
   position: fixed;
   top: 0;
   bottom: 0;
@@ -1666,4 +1526,171 @@ label {
 .editor {
   width: 30%;
   overflow: scroll;
+}
+
+@media print {
+  html {
+    overflow: visible !important;
+  }
+
+  body {
+    -webkit-print-color-adjust: exact !important;
+    font-size: 16px !important;
+  }
+
+  .background {
+    overflow: visible !important;
+    position: unset !important;
+  }
+
+  #titlePage {
+    display: flex !important;
+  }
+
+  #print {
+    display: none !important;
+  }
+
+  #startButton {
+    display: none !important;
+  }
+
+  .esri-legend--card {
+    flex-wrap: wrap;
+  }
+
+  #pageContainer {
+    height: unset !important;
+    position: unset !important;
+  }
+
+
+  #title {
+    font-size: xxx-large;
+  }
+
+  .titleInfo {
+    font-size: x-large;
+  }
+
+  .header {
+    display: none !important;
+  }
+
+  .footer {
+    display: none !important;
+  }
+
+  .subHeader {
+    display: none !important;
+  }
+
+  #navigationBar {
+    display: none !important;
+  }
+
+  .mapOverviewProjects {
+    overflow: visible;
+  }
+
+  .esri-legend__service {
+    padding: 0 14px !important;
+  }
+
+  .esri-widget__heading {
+
+    margin: 0 !important;
+  }
+
+  .esri-legend__layer-table {
+    margin-bottom: 0px !important;
+  }
+
+  .linkText {
+    display: none !important;
+  }
+
+  .expandable {
+    display: none !important;
+  }
+
+  .page {
+    height: auto !important;
+    display: block !important;
+    overflow: visible !important;
+    position: unset !important;
+    page-break-before: always;
+
+  }
+
+  .esri-editor__temp-wrapper {
+    display: none !important;
+  }
+
+  .mapOverview {
+    height: 400px !important;
+  }
+
+
+  #title_areas {
+    page-break-before: always;
+  }
+
+  .mapOverviewResults {
+    page-break-after: always;
+  }
+
+
+  #startTitle {
+    page-break-before: avoid !important;
+  }
+
+  #pointsTitle {
+    page-break-before: avoid !important;
+  }
+
+  .labelContainer {
+    width: 100% !important;
+  }
+
+  .input {
+    width: 100% !important;
+    font-size: 14px !important;
+  }
+
+  .labelText {
+    width: 100% !important;
+  }
+
+  .map {
+    width: 100% !important;
+    height: 70% !important;
+    display: none;
+  }
+
+  .screenshot {
+    display: block !important;
+  }
+
+  .mapContainer {
+    flex-direction: column !important;
+    height: unset !important;
+  }
+
+  .editor {
+    width: 100% !important;
+    height: 60% !important;
+    overflow: inherit !important;
+  }
+
+
+  .final {
+    margin-bottom: 100px;
+  }
+  .footerBarStart {
+    height: 50px !important;
+    position: relative;
+    bottom: 0;
+    left: 0;
+  }
 }

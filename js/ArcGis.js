@@ -1044,13 +1044,13 @@ define([
       if (app.mode == "results") {
         app.mapLoadedPromises.push(
           new Promise((resolve, reject) => {
-            watchUtils.whenFalseOnce(view, "updating", () => {
+            //watchUtils.whenFalseOnce(view, "updating", () => {
               console.log("The map with id:" + element.key + " has loaded");
-              this.printMap(view).then((image) => {
-                element.screenshot.src = image.url;
+              //this.printMap(view).then((image) => {
+                //element.screenshot.src = image.url;
                 resolve();
-              });
-            });
+              //});
+            //});
           })
         );
       }
