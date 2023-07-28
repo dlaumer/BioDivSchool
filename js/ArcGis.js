@@ -104,16 +104,16 @@ define([
                   type: "CIMHatchFill",
                   enable: true,
                   lineSymbol: {
-                     type: "CIMLineSymbol",
-                     symbolLayers: [{
+                    type: "CIMLineSymbol",
+                    symbolLayers: [{
                       type: "CIMSolidStroke",
-                       enable: true,
-                        capStyle: "Butt",
-                        joinStyle: "Miter",
-                        miterLimit: 5,
-                        width: 0.3,
-                        color: [114, 114, 114, 255]
-                     }]
+                      enable: true,
+                      capStyle: "Butt",
+                      joinStyle: "Miter",
+                      miterLimit: 5,
+                      width: 0.3,
+                      color: [114, 114, 114, 255]
+                    }]
                   },
                   rotation: 45,
                   separation: 5
@@ -599,7 +599,7 @@ define([
               for (let i = 0; i < results.features.length; i++) {
                 let geom = results.features[i].geometry;
                 let area = geometryEngine.geodesicArea(geom, "square-meters");
-                areas[results.features[i].getObjectId()] = {area:area, type: results.features[i].attributes.Labels};
+                areas[results.features[i].getObjectId()] = { area: area, type: results.features[i].attributes.Labels };
                 totalArea += area;
               }
             }
@@ -699,9 +699,9 @@ define([
           title: this.strings.get("P05.gebaeude.nameDisplay"),
           editingEnabled: false,
           popupEnabled: false,
-          definitionExpression:  "objectid in (" +
-          app.buildings.substring(1, app.buildings.length - 1) +
-          ")",
+          definitionExpression: "objectid in (" +
+            app.buildings.substring(1, app.buildings.length - 1) +
+            ")",
           renderer: this.buildingsRenderer,
         });
         map.add(buildings)
@@ -771,12 +771,6 @@ define([
         container: containerMap,
       });
 
-      const fullscreen = new Fullscreen({
-        view: view,
-      });
-      //view.ui.add(fullscreen, "bottom-right");
-
-      console.log(containerLegend)
       new Legend({
         view: view,
         style: { type: "card", layout: "side-by-side" },
@@ -949,6 +943,7 @@ define([
           if (element.key == "gebiete") {
             projectArea.load().then(() => {
               prototype = projectArea.templates[0].prototype;
+
               callback({
                 projectArea: projectArea,
                 prototype: prototype,
@@ -957,48 +952,46 @@ define([
               });
             });
 
-            let layerInfos;
-            view.map.layers.forEach((layer) => {
-              // Specify a few of the fields to edit within the form
-              layerInfos = {
-                layer: layer,
-                formTemplate: {
-                  // autocastable to FormTemplate
-                  elements: [
-                    {
-                      // autocastable to FieldElement
-                      type: "field",
-                      fieldName: "projectid",
-                      label: this.strings.get("project") + " ID",
-                    },
-                    {
-                      // autocastable to FieldElement
-                      type: "field",
-                      fieldName: "name",
-                      label: this.strings.get("location"),
-                    },
-                    {
-                      // autocastable to FieldElement
-                      type: "field",
-                      fieldName: "school",
-                      label: this.strings.get("school"),
-                    },
-                    {
-                      // autocastable to FieldElement
-                      type: "field",
-                      fieldName: "gebaeude_geomoid",
-                      label: this.strings.get("P05.gebaeude.nameDisplay"),
-                    },
-                    /*{
-                      // autocastable to FieldElement
-                      type: "field",
-                      fieldName: "owner",
-                      label: "Owner",
-                    },*/
-                  ],
-                },
-              };
-            });
+            // Specify a few of the fields to edit within the form
+            let layerInfos = {
+              layer: projectArea,
+              disableAttributeUpdateTriggers: ["projectid"],
+              formTemplate: {
+                // autocastable to FormTemplate
+                elements: [
+                  {
+                    // autocastable to FieldElement
+                    type: "field",
+                    fieldName: "projectid",
+                    label: this.strings.get("project") + " ID",
+                  },
+                  {
+                    // autocastable to FieldElement
+                    type: "field",
+                    fieldName: "name",
+                    label: this.strings.get("location"),
+                  },
+                  {
+                    // autocastable to FieldElement
+                    type: "field",
+                    fieldName: "school",
+                    label: this.strings.get("school"),
+                  },
+                  {
+                    // autocastable to FieldElement
+                    type: "field",
+                    fieldName: "gebaeude_geomoid",
+                    label: this.strings.get("P05.gebaeude.nameDisplay"),
+                  },
+                  /*{
+                    // autocastable to FieldElement
+                    type: "field",
+                    fieldName: "owner",
+                    label: "Owner",
+                  },*/
+                ],
+              },
+            };
 
             if (app.projectAreaId != null) {
               layerInfos.addEnabled = false;
