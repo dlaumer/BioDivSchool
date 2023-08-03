@@ -37,7 +37,9 @@ define([
 
 
     addElement(type, key, args, container) {
-
+      if (Object.keys(args).includes("version") && !args.version.includes(app.version)) {
+        return {hide:()=>{}}
+      }
       // Check if there is already an text info which was just added before. 
       let page = this.preparePage();
 
@@ -90,6 +92,10 @@ define([
     }
 
     addTextInfo(args) {
+
+      if (Object.keys(args).includes("version") && !args.version.includes(app.version)) {
+        return {hide:()=>{}}
+      }
       // Check if there is already an text info which was just added before. 
       let page = this.preparePage()
 
@@ -121,9 +127,7 @@ define([
         }.bind(this));
       }
 
-      if (Object.keys(args).includes("version") && !args.version.includes(app.version)) {
-        textInfo.style.display = "none"
-      }
+      
 
       app.replaceWithText(textInfo);
       this.pages[this.pages.length - 1].content.push({ content: textInfo, type: "textInfo" });

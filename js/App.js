@@ -660,28 +660,28 @@ define([
       let page = new Page("page_" + app.pages.length.toString(), app.pageContainer, title);
       app.pages.push(page);
 
-      let element = domCtr.create("div", { id: "finalElement", className: "element final"}, page.page);
+      let element = domCtr.create("div", { id: "finalElement", className: "element final" }, page.page);
 
-      
+
       this.loadingIcon = domCtr.create(
         "lord-icon",
         {
           id: "loadingIcon",
           src: "https://cdn.lordicon.com/dlmpudxq.json",
-          colors:"primary:#a2c367,secondary:#ffc738,tertiary:#b26836",
+          colors: "primary:#a2c367,secondary:#ffc738,tertiary:#b26836",
           trigger: "loop",
           style: "width:100px;height:100px"
         },
         element
       );
 
-      let text = domCtr.create("div", {innerHTML: this.strings.get("finalMessage")}, element);
+      let text = domCtr.create("div", { innerHTML: this.strings.get("finalMessage") }, element);
 
       this.footerBar = domCtr.create("div", { id: "footerBar", className: "footerBar footerBarStart" }, page.page);
-      this.logo1 = domCtr.create("img", {src:"img/Logos/aplus.png", className:"logos"}, this.footerBar);
-      this.logo2 = domCtr.create("img", {src:"img/Logos/phsg.jpg", className:"logos"}, this.footerBar);
-      this.logo3 = domCtr.create("img", {src:"img/Logos/somaha.jpg", className:"logos"}, this.footerBar);
-      this.logo4 = domCtr.create("img", {src:"img/Logos/hamasil.png", className:"logos"}, this.footerBar);
+      this.logo1 = domCtr.create("img", { src: "img/Logos/aplus.png", className: "logos" }, this.footerBar);
+      this.logo2 = domCtr.create("img", { src: "img/Logos/phsg.jpg", className: "logos" }, this.footerBar);
+      this.logo3 = domCtr.create("img", { src: "img/Logos/somaha.jpg", className: "logos" }, this.footerBar);
+      this.logo4 = domCtr.create("img", { src: "img/Logos/hamasil.png", className: "logos" }, this.footerBar);
 
 
 
@@ -784,17 +784,17 @@ define([
         );
         let red = domCtr.create(
           "div",
-          { class: "red", style: "width:" + (100 / (maxPoints - minPoints) * (chapter.pointsInfo[0] - minPoints)).toFixed(0) + "%" },
+          { class: "red", style: "width:" + (100 / (maxPoints - minPoints) * (chapter.pointsInfo[app.version][0] - minPoints)).toFixed(0) + "%" },
           colorBar
         );
         let orange = domCtr.create(
           "div",
-          { class: "orange", style: "width:" + (100 / (maxPoints - minPoints) * (chapter.pointsInfo[1] - chapter.pointsInfo[0])).toFixed(0) + "%" },
+          { class: "orange", style: "width:" + (100 / (maxPoints - minPoints) * (chapter.pointsInfo[app.version][1] - chapter.pointsInfo[app.version][0])).toFixed(0) + "%" },
           colorBar
         );
         let green = domCtr.create(
           "div",
-          { class: "green", style: "width:" + (100 / (maxPoints - minPoints) * (maxPoints - chapter.pointsInfo[1])).toFixed(0) + "%" },
+          { class: "green", style: "width:" + (100 / (maxPoints - minPoints) * (maxPoints - chapter.pointsInfo[app.version][1])).toFixed(0) + "%" },
           colorBar
         );
 
@@ -808,27 +808,27 @@ define([
           pointsLabels
         );
         domCtr.create("div",
-          { id: "green", class: "labelElement", innerHTML: chapter.pointsInfo[0], style: "width:" + (100 / (maxPoints - minPoints) * (chapter.pointsInfo[0] - minPoints)).toFixed(0) + "%" },
+          { id: "green", class: "labelElement", innerHTML: chapter.pointsInfo[app.version][0], style: "width:" + (100 / (maxPoints - minPoints) * (chapter.pointsInfo[app.version][0] - minPoints)).toFixed(0) + "%" },
           pointsLabels
         );
         domCtr.create(
           "div",
-          { id: "orange", class: "labelElement", innerHTML: chapter.pointsInfo[1], style: "width:" + (100 / (maxPoints - minPoints) * (chapter.pointsInfo[1] - chapter.pointsInfo[0])).toFixed(0) + "%" },
+          { id: "orange", class: "labelElement", innerHTML: chapter.pointsInfo[app.version][1], style: "width:" + (100 / (maxPoints - minPoints) * (chapter.pointsInfo[app.version][1] - chapter.pointsInfo[app.version][0])).toFixed(0) + "%" },
           pointsLabels
         );
         domCtr.create(
           "div",
-          { id: "green", class: "labelElement", innerHTML: maxPoints, style: "width:" + (100 / (maxPoints - minPoints) * (maxPoints - chapter.pointsInfo[1])).toFixed(0) + "%" },
+          { id: "green", class: "labelElement", innerHTML: maxPoints, style: "width:" + (100 / (maxPoints - minPoints) * (maxPoints - chapter.pointsInfo[app.version][1])).toFixed(0) + "%" },
           pointsLabels
         );
 
-        if (points <= chapter.pointsInfo[0]) {
+        if (points <= chapter.pointsInfo[app.version][0]) {
           label.style.color = "rgba(255,0,0,1)";
           bubble.style.backgroundColor = "rgba(255,0,0,1)";
           //bubble.style.border  = "2px solid rgba(255,0,0,1)";
 
         }
-        else if (points >= chapter.pointsInfo[0] && points <= chapter.pointsInfo[1]) {
+        else if (points >= chapter.pointsInfo[app.version][0] && points <= chapter.pointsInfo[app.version][1]) {
           label.style.color = "rgba(255, 192,0,1)";
           bubble.style.backgroundColor = "rgba(255, 192,0,1)";
           //bubble.style.border  = "2px solid rgba(255, 192,0,1)";
@@ -929,7 +929,6 @@ define([
     }
 
     getAllElements(checkIfSet) {
-      checkIfSet = true;
       let data = {};
       for (let chapterIndex in app.chapters) {
         let chapter = app.chapters[chapterIndex];
@@ -939,10 +938,13 @@ define([
           }
           for (let pageIndex in chapter.pages) {
             let elem = chapter.pages[pageIndex].element;
-            if (checkIfSet) {
-              elem.checkValueSet();
+            if (elem) {
+              if (checkIfSet) {
+                elem.checkValueSet();
+              }
+              data[elem.key] = elem;
             }
-            data[elem.key] = elem;
+
           }
         }
       }
@@ -1009,7 +1011,7 @@ define([
         {
           id: "loadingIcon",
           src: "https://cdn.lordicon.com/dlmpudxq.json",
-          colors:"primary:#a2c367,secondary:#ffc738,tertiary:#b26836",
+          colors: "primary:#a2c367,secondary:#ffc738,tertiary:#b26836",
           style: "width:100px;height:100px"
         },
         this.titlePage

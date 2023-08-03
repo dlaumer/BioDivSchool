@@ -134,7 +134,7 @@ define([
      app.addZeroPage("BioDivSchool");
       /*Regionalität der Pflanzen*/
       let page_regionalitaet = app.addChapter("P01.title", {
-        pointsInfo: [0, 10]
+        pointsInfo: {long:[-4, 14], short: [-4,14]}
       });
 
       // 01_textinfo
@@ -268,8 +268,8 @@ define([
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
-      elem10a.hide();
-      elem10b.hide();
+      elem10a?.hide();
+      elem10b?.hide();
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem10.rules = [{
         values: [
@@ -281,7 +281,7 @@ define([
       //02_page 
       /*Strukturelemente*/      
       let page_strukturelemente = app.addChapter("P02.title", {
-      pointsInfo: [10, 32]});
+      pointsInfo: {long:[10, 72], short:[0,56]}});
 
       //03_textInfo
       page_strukturelemente.addTextInfo({        
@@ -469,7 +469,8 @@ define([
           {name: "E13a.listTypes.4", color: "orange"},
           {name: "E13a.listTypes.5", color: "green"},
           {name: "E13a.listTypes.6", color: "blue"},
-        ]
+        ],
+        version: ["long"]
       }); 
 
       //07.textInfo
@@ -534,8 +535,8 @@ define([
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
-      elem14a.hide();
-      elem14b.hide();
+      elem14a?.hide();
+      elem14b?.hide();
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem14.rules = [{
         values: [
@@ -586,7 +587,7 @@ define([
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
-      elem15a.hide();
+      elem15a?.hide();
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem15.rules = [{
         values: [
@@ -652,8 +653,8 @@ define([
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
-      elem16a.hide();
-      elem16b.hide();
+      elem16a?.hide();
+      elem16b?.hide();
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem16.rules = [{
         values: [
@@ -994,6 +995,7 @@ define([
       //16_textInfo
       page_strukturelemente.addTextInfo({
         title: "T16.title", 
+        version: ["long"]
       }) 
 
       //27_umgebung
@@ -1021,7 +1023,7 @@ define([
       //03_page
       /*Pflege*/
       let page_pflege = app.addChapter("P03.title", {
-      pointsInfo: [2, 11]});
+      pointsInfo: {long:[-2, 25], short:[-2,21]}});
 
       //17_textInfo
       page_pflege.addTextInfo({
@@ -1184,9 +1186,9 @@ define([
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
-      elem29etal.hide();
-      elem29eberg1.hide();
-      elem29eberg2.hide();
+      elem29etal?.hide();
+      elem29eberg1?.hide();
+      elem29eberg2?.hide();
       
 
       //@Dani: gell diese Regel ist nötig!?
@@ -1297,7 +1299,7 @@ define([
       });
       
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
-      elem32b.hide();
+      elem32b?.hide();
       
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem32a.rules = [{
@@ -1385,9 +1387,9 @@ define([
     
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
-      elem33gras.hide();
-      elem33a.hide();    
-      elem34.hide();
+      elem33gras?.hide();
+      elem33a?.hide();    
+      elem34?.hide();
 
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem33.rules = [{
@@ -1469,7 +1471,7 @@ define([
       //04_page (-> P04
       /*Bauliche Massnahmen*/
        let page_baumassnahmen = app.addChapter("P04.title", {
-       pointsInfo: [2, 4]});
+       pointsInfo: {long:[0, 10], short:[0,10]}});
 
        //24_textInfo
       page_baumassnahmen.addTextInfo({
@@ -1610,7 +1612,7 @@ define([
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
-      elem40b.hide();
+      elem40b?.hide();
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       elem40a.rules = [{
         values: ["E40a.options.label.1"], 
@@ -1677,7 +1679,7 @@ define([
       });
 
        // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
-       elem41b.hide();
+       elem41b?.hide();
        // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
        elem41a.rules = [{
          values: ["E41a.options.label.1"], 
@@ -1734,7 +1736,7 @@ define([
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
-      name.hide();
+      name?.hide();
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       projektid.rules = [{
         values: [null], 
@@ -1748,7 +1750,7 @@ define([
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
-      school.hide();
+      school?.hide();
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       name.rules = [{
         values: [null], 
@@ -1763,7 +1765,7 @@ define([
       });
 
       // Antwort-abhängige display: Zuerst die Elemente ausblenden welche nur bedingt eingeblendet sind
-      buildings.hide();
+      buildings?.hide();
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       school.rules = [{
         values: [null], 
@@ -1782,7 +1784,7 @@ define([
       buildings.map = map;
 
       // IMPORTANT: Don't use hide here, because it used display: none and this does not make the map load
-      map.hide();
+      map?.hide();
       // Dann eine Regel erstellen. Wenn die Values ausgewaehlt sind, dann die folgenden Elemente aus oder einblenden:
       buildings.rules = [{
         values: [null], 
