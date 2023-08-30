@@ -31,7 +31,7 @@ style.innerHTML = `
         }
       
         .mapContainer {
-          flex-direction: column !important;
+          flex-direction: column-reverse !important;
           height: 600px !important;
         }
       
@@ -42,7 +42,7 @@ style.innerHTML = `
       
         .editor {
           width: 100% !important;
-          height: 60% !important;
+          height: 75% !important;
         }`;
 
 define([
@@ -821,7 +821,7 @@ define([
                 }
                 else {
                   for (let j in this.rules[i].elements) {
-                    if (this.rules[i].elements[j].type != "textInfo" && this.rules[i].elements[j].page.hidden) {
+                    if (this.rules[i].elements[j].type != "textInfo" && this.rules[i].elements[j].page?.hidden) {
                       this.rules[i].elements[j].setter("", false);
                       this.rules[i].elements[j].setterUI("");
                     }

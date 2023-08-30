@@ -134,7 +134,7 @@ define([
      app.addZeroPage("BioDivSchool");
       /*Regionalität der Pflanzen*/
       let page_regionalitaet = app.addChapter("P01.title", {
-        pointsInfo: {long:[-4, 14], short: [-4,14]}
+        pointsInfo: {long:[0, 10], short: [0,10]}
       });
 
       // 01_textinfo
@@ -281,7 +281,7 @@ define([
       //02_page 
       /*Strukturelemente*/      
       let page_strukturelemente = app.addChapter("P02.title", {
-      pointsInfo: {long:[10, 72], short:[0,56]}});
+      pointsInfo: {long:[8, 32], short:[8,24]}});
 
       //03_textInfo
       page_strukturelemente.addTextInfo({        
@@ -1023,25 +1023,14 @@ define([
       //03_page
       /*Pflege*/
       let page_pflege = app.addChapter("P03.title", {
-      pointsInfo: {long:[-2, 25], short:[-2,21]}});
+      pointsInfo: {long:[2, 11], short:[2,10]}});
 
       //17_textInfo
       page_pflege.addTextInfo({
         title: "T17.title", 
       }) 
 
-      //28_geraet
-      page_pflege.addElement("sliderInput", "geraet", {
-        text: "E28.text",
-        min: 0,
-        max: 100,
-        step: 0.1,
-        stops: [{ points: 0, value: 20, measure: "A28.1" }, { points: 1, value: 50, measure: "A28.2" }, { points: 2, value: 80, measure: "A28.2" }, { points: 3, value: 100, measure: "A28.3" }],
-        measure: "A28.0",
-        points: "geraet_points",
-      });
-      //0 P.	< 20 %, 1 P.	21 – 50 %, 2 P.	51 % - 80 %, 3 P.	> 80% 
-
+      
       page_pflege.addTextInfo({
         textInfo: {
           linkText: "T.textInfo.linkText",
@@ -1069,6 +1058,18 @@ define([
           `
         }
       }) 
+
+      //28_geraet
+      page_pflege.addElement("sliderInput", "geraet", {
+        text: "E28.text",
+        min: 0,
+        max: 100,
+        step: 0.1,
+        stops: [{ points: 0, value: 20, measure: "A28.1" }, { points: 1, value: 50, measure: "A28.2" }, { points: 2, value: 80, measure: "A28.2" }, { points: 3, value: 100, measure: "A28.3" }],
+        measure: "A28.0",
+        points: "geraet_points",
+      });
+      //0 P.	< 20 %, 1 P.	21 – 50 %, 2 P.	51 % - 80 %, 3 P.	> 80% 
 
       //18_textInfo
       page_pflege.addTextInfo({
@@ -1471,7 +1472,7 @@ define([
       //04_page (-> P04
       /*Bauliche Massnahmen*/
        let page_baumassnahmen = app.addChapter("P04.title", {
-       pointsInfo: {long:[0, 10], short:[0,10]}});
+       pointsInfo: {long:[0, 2], short:[0,2]}});
 
        //24_textInfo
       page_baumassnahmen.addTextInfo({

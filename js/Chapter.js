@@ -38,7 +38,7 @@ define([
 
     addElement(type, key, args, container) {
       if (Object.keys(args).includes("version") && !args.version.includes(app.version)) {
-        return {hide:()=>{}}
+        return {hide:()=>{}, show:()=>{}, getter:()=>{} }
       }
       // Check if there is already an text info which was just added before. 
       let page = this.preparePage();
