@@ -17,7 +17,9 @@ define([
   "biodivschool/Content",
   "biodivschool/ArcGis",
   "biodivschool/StringsApp",
-], function (dom, domCtr, win, on, Content, ArcGis, StringsApp) {
+  "biodivschool/Settings",
+
+], function (dom, domCtr, win, on, Content, ArcGis, StringsApp, Settings) {
   return class Start {
     constructor(callback) {
       start = this;
@@ -182,148 +184,9 @@ define([
         },
         this.btn_project_new
       );
-
-
-      // Setting button
-      let settingsBtnContainer = domCtr.create(
-        "div",
-        {
-          className: "btn3_container",
-          style: "height: 60%;margin: 0 5px;"
-        },
-        start.header2
-      );
-
-      this.btn_settings = domCtr.create(
-        "div",
-        {
-          id: "btn_settings",
-          className: "btn3 btn1",
-        },
-        settingsBtnContainer
-      );
-
-      domCtr.create(
-        "img",
-        {
-          className: "btn_icon",
-          src: "./img/Icons/Settings_black.svg",
-        },
-        this.btn_settings
-      );
-      domCtr.create(
-        "div",
-        {
-          className: "btn_label",
-          innerHTML: this.strings.get("settings"),
-        },
-        this.btn_settings
-      );
-
-      start.settingsPanel = domCtr.create(
-        "div",
-        {
-          className: "btn3Panel",
-        },
-        settingsBtnContainer
-      );
-
-      domCtr.create(
-        "div",
-        { className: "nonselectableElement", innerHTML: this.strings.get("versionLabel") },
-        this.settingsPanel
-      );
-
-      let versionsContainer = domCtr.create(
-        "div",
-        {
-          className: "panelElementContainer"
-        },
-        this.settingsPanel
-      );
-
-      let shortElement = domCtr.create(
-        "div",
-        {
-          className: "selectableElement",
-          innerHTML: this.strings.get("short"),
-        },
-        versionsContainer
-      );
-      let longElement = domCtr.create(
-        "div",
-        {
-          className: "selectableElement selectableElementActive",
-          innerHTML: this.strings.get("long"),
-        },
-        versionsContainer
-      );
-
-      on(shortElement, "click", function (evt) {
-        if (!shortElement.classList.contains("selectableElementActive")) {
-          longElement.classList.toggle("selectableElementActive")
-          shortElement.classList.toggle("selectableElementActive")
-          start.updateAttributes("version", "short");
-        }
-
-      });
-
-      on(longElement, "click", function (evt) {
-        if (!longElement.classList.contains("selectableElementActive")) {
-          longElement.classList.toggle("selectableElementActive")
-          shortElement.classList.toggle("selectableElementActive")
-          start.updateAttributes("version", "long");
-        }
-      });
-
-      domCtr.create(
-        "div",
-        { className: "nonselectableElement", innerHTML: this.strings.get("langLabel") },
-        this.settingsPanel
-      );
-
-      let langContainer = domCtr.create(
-        "div",
-        {
-          className: "panelElementContainer"
-        },
-        this.settingsPanel
-      );
-
-      let langElement = {};
-      for (const i in start.strings.languages) {
-        langElement[start.strings.languages[i]] = domCtr.create(
-          "div",
-          {
-            className: "selectableElement",
-            innerHTML: start.strings.languages[i],
-          },
-          langContainer
-        );
-
-        if (start.strings.languages[i] == this.lang) {
-          langElement[start.strings.languages[i]].classList.toggle("selectableElementActive")
-        }
-
-      }
-
-      for (const i in start.strings.languages) {
-
-
-        on(langElement[start.strings.languages[i]], "click", function (evt) {
-          for (const j in start.strings.languages) {
-            langElement[start.strings.languages[j]].classList.remove("selectableElementActive")
-          }
-          langElement[start.strings.languages[i]].classList.toggle("selectableElementActive")
-
-          start.updateAttributes(
-            "lang",
-            start.strings.languages[i]
-          );
-          window.open(window.location.href, "_self");
-        })
-      }
-
+      
+      let settings = new Settings(start.strings, "start", start.version);
+      settings.addSettings(start.header2)
 
       // Login/User button!
 
@@ -1235,22 +1098,9 @@ define([
 
 
 
-      on(this.btn_settings, "click", function (evt) {
-        start.settingsPanel.classList.toggle("btn3PanelActive");
-        start.btn_settings.classList.toggle("btn_active");
-        start.btn_settings.querySelector('.btn_icon').classList.toggle("btn_icon_active");
-        start.btn_settings.querySelector('.btn_label').classList.toggle("btn_label_active");
-      });
 
       // Close sort and settings window whenever a click happens outside of those elements
       on(window, "click", function (evt) {
-        if (evt.srcElement.id != "btn_settings" && start.settingsPanel.classList.contains("btn3PanelActive")) {
-          start.settingsPanel.classList.toggle("btn3PanelActive");
-          start.btn_settings.classList.toggle("btn_active");
-          start.btn_settings.querySelector('.btn_icon').classList.toggle("btn_icon_active");
-          start.btn_settings.querySelector('.btn_label').classList.toggle("btn_label_active");
-
-        };
 
         if (evt.srcElement.id != "btn_login" && start.loginPanel.classList.contains("btn3PanelActive")) {
           start.loginPanel.classList.toggle("btn3PanelActive");

@@ -51,6 +51,7 @@ define([
                   reader.onload = function (e) {
                       const text = e.target.result;
                       this2.csvToArray(text);
+                      console.log(this2.data)
                       resolve()
                   };
                   reader.readAsText(blob);

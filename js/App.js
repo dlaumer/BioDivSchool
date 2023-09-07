@@ -17,8 +17,9 @@ define([
   "biodivschool/ArcGis",
   "biodivschool/Start",
   "biodivschool/Page",
+  "biodivschool/Settings"
 
-], function (dom, domCtr, win, on, Chapter, ArcGis, Start, Page) {
+], function (dom, domCtr, win, on, Chapter, ArcGis, Start, Page, Settings) {
   return class App {
     constructor(offline, mode, strings, version, callback) {
       app = this;
@@ -292,7 +293,7 @@ define([
         this.infoBoxInfo.innerHTML =
           app.mode == "project"
             ? app.schoolName
-            : app.schoolName + ", " + this.strings.get("group") + ": " + this.groupId;
+            : app.schoolName + ", " + this.strings.get("group") + ": " + this.groupId + ", " + this.strings.get("versionLabel") + ": " + this.strings.get(this.version);
       }
       this.save.className = "btn1 btn_disabled";
       document.onkeydown = this.checkKey;
@@ -357,9 +358,14 @@ define([
 
 
 
-      this.headerRight = domCtr.create("div", { id: "headerRight", className: "header2" }, this.header);
+      this.headerCenter = domCtr.create("div", { id: "headerCenter", className: "header2" }, this.header);
 
-      this.chapterLinks = domCtr.create("div", { id: "chapterLinks", className: "chapterLinks" }, this.headerRight);
+      this.chapterLinks = domCtr.create("div", { id: "chapterLinks", className: "chapterLinks" }, this.headerCenter);
+
+      this.headerRight = domCtr.create("div", { id: "headerRight", className: "header3" }, this.header);
+
+      let settings = new Settings(this.strings, this.mode, this.version);
+      settings.addSettings(this.headerRight)
 
       this.pageContainer = domCtr.create(
         "div",
@@ -428,7 +434,7 @@ define([
     moveChapterLinks(location) {
 
       if (location == "header") {
-        domCtr.place(this.chapterLinks, this.headerRight, "first")
+        domCtr.place(this.chapterLinks, this.headerCenter, "first")
       }
       else if (location == "bottom") {
         domCtr.place(this.chapterLinks, this.footer, "last")

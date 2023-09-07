@@ -729,8 +729,12 @@ body {
   padding: 0 10px;
 }
 
-#headerRight {
+#headerCenter {
   justify-content: start !important;
+}
+
+#headerRight {
+
 }
 
 #infoBox {
@@ -1076,10 +1080,18 @@ body {
     width: 100% !important;
   }
 
-  #headerRight {
+  #headerCenter {
     display: none;
   }
 
+  #headerRight {
+
+  }
+
+  .infoBox_inactive {
+    display: none !important;
+  }
+  
   .navigationBarRight {
     width: 100%;
     height: 60%;
