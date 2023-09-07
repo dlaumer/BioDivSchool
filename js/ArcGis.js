@@ -98,7 +98,7 @@ define([
                   type: "CIMSolidStroke",
                   enable: true,
                   width: 0.4,
-                  color: [114, 114, 114, 255]
+                  color: [0, 0, 255, 255]
                 },
                 {
                   type: "CIMHatchFill",
@@ -112,7 +112,7 @@ define([
                       joinStyle: "Miter",
                       miterLimit: 5,
                       width: 0.3,
-                      color: [114, 114, 114, 255]
+                      color: [0, 0, 255, 255]
                     }]
                   },
                   rotation: 45,
@@ -638,7 +638,7 @@ define([
           id: this.editMode ? this.links.geometryLayerId : this.links.geometryViewLayerId,
         },
         editingEnabled: true,
-        title: this.strings.get("data"),
+        title: app.mode == "project" ? this.strings.get("P05.gebaeude.nameDisplay") : this.strings.get("data"),
         definitionExpression: "objectid = 0",
         renderer: {
           type: "simple", // autocasts as new SimpleRenderer()

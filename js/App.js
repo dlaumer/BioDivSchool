@@ -284,6 +284,9 @@ define([
       if (Object.keys(urlData).includes("page")) {
         this.goToPage(parseInt(urlData["page"]))
       }
+      else {
+        this.goToPage(0)
+      }
       // TODO Warning if did not work!
       if (app.projectId != "null") {
         this.infoBoxInfo.innerHTML =
