@@ -120,30 +120,34 @@ define([
                           app.loadInputs(data.attributes);
                         }
                       }
-                      let versionData = {
-                        "version": this.version
+                      if (app.mode == "collection") {
+                        let versionData = {
+                          "version": this.version
+                        }
+                        app.arcgis
+                          .updateFeature(app.objectId, versionData)
+                          .then((value) => {
+                            if (groupId == "all") {
+                              app.arcgis
+                                .updateFeature(app.projectId, versionData, true)
+                                .then((value) => {
+                                  this.initUI();
+                                })
+                                .catch((reason) => {
+                                  alert(reason)
+                                })
+                            }
+                            else {
+                              this.initUI();
+                            }
+                          })
+                          .catch((reason) => {
+                            alert(reason)
+                          })
                       }
-                      app.arcgis
-                        .updateFeature(app.objectId, versionData)
-                        .then((value) => {
-                          if (groupId == "all") {
-                            app.arcgis
-                              .updateFeature(app.projectId, versionData, true)
-                              .then((value) => {
-                                this.initUI();
-                              })
-                              .catch((reason) => {
-                                alert(reason)
-                              })
-                          }
-                          else {
-                            this.initUI();
-                          }
-                        })
-                        .catch((reason) => {
-                          alert(reason)
-                        })
-
+                      else {
+                        this.initUI()
+                      }
                     });
                   }
                 });
@@ -613,10 +617,20 @@ define([
         this.chapters.push(chapter);
         this.loginPage = chapter;
 
+        chapter.pageOverviewContainer = domCtr.create(
+          "div",
+          { class: "chapterLinkContainer" },
+          this.chapterLinks
+        );
         chapter.pageOverview = domCtr.create(
           "div",
           { class: "chapterLink", innerHTML: "0" },
-          this.chapterLinks
+          chapter.pageOverviewContainer
+        );
+        chapter.pageOverviewLabel = domCtr.create(
+          "div",
+          { class: "chapterLinkLabel", innerHTML: app.strings.get("results") },
+          chapter.pageOverviewContainer
         );
         chapter.pageOverview.addEventListener("click", () => {
           this.goToPage(0);
