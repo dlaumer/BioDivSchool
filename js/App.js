@@ -108,9 +108,7 @@ define([
               this.arcgis.calculateArea(this.buildingsAreaId)
                 .then((areaBuildings) => {
                   app.buildingsArea = areaBuildings.totalArea;
-                  console.log(app.buildingsArea)
                   app.projectArea = area.totalArea;
-                  console.log(app.projectArea)
 
                   if (app.mode == "collection" || app.mode == "results") {
                     this.arcgis.checkData(app.projectId, app.groupId, (info) => {
@@ -122,15 +120,29 @@ define([
                           app.loadInputs(data.attributes);
                         }
                       }
-                      this.initUI();
-                      if (app.mode == "results") {
-                        /*
-                        Promise.allSettled(app.mapLoadedPromises).then(() => {
-                          console.log("All Maps loaded!")
-                          app.print.classList.remove("btn_disabled");
-                        })
-                        */
+                      let versionData = {
+                        "version": this.version
                       }
+                      app.arcgis
+                        .updateFeature(app.objectId, versionData)
+                        .then((value) => {
+                          if (groupId == "all") {
+                            app.arcgis
+                              .updateFeature(app.projectId, versionData, true)
+                              .then((value) => {
+                                this.initUI();
+                              })
+                              .catch((reason) => {
+                                alert(reason)
+                              })
+                          }
+                          else {
+                            this.initUI();
+                          }
+                        })
+                        .catch((reason) => {
+                          alert(reason)
+                        })
 
                     });
                   }
@@ -147,8 +159,25 @@ define([
                 if (!info.newFeature) {
                   app.loadInputs(data.attributes);
                 }
+                let versionData = {
+                  "version": this.version
+                }
+                app.arcgis
+                  .updateFeature(app.objectId, versionData)
+                  .then((value) => {
+                    app.arcgis
+                      .updateFeature(app.projectId, versionData, true)
+                      .then((value) => {
+                        this.initUI();
+                      })
+                      .catch((reason) => {
+                        alert(reason)
+                      })
+                  })
+                  .catch((reason) => {
+                    alert(reason)
+                  })
 
-                this.initUI();
               });
             });
           }
@@ -249,6 +278,7 @@ define([
                 app.loadInputs(data.attributes);
               }
 
+
               this.initUI();
             });
           });
@@ -293,7 +323,7 @@ define([
         this.infoBoxInfo.innerHTML =
           app.mode == "project"
             ? app.schoolName
-            : app.schoolName + ", " + this.strings.get("group") + ": " + this.groupId + ", " + this.strings.get("versionLabel") + ": " + this.strings.get(this.version);
+            : app.schoolName + ", " + this.strings.get("group") + ": " + this.strings.get(this.groupId) + ", " + this.strings.get("versionLabel") + ": " + this.strings.get(this.version);
       }
       this.save.className = "btn1 btn_disabled";
       document.onkeydown = this.checkKey;

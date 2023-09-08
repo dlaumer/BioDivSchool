@@ -34,6 +34,8 @@ define([
         { key: "d", label: "groupD" },
         { key: "e", label: "groupE" },
         { key: "f", label: "groupF" },
+        { key: "all", label: "all" },
+
 
       ]
 
@@ -514,7 +516,8 @@ define([
           for (let i in results) {
             if (results[i].attributes.owner == start.userNameEsri) {
               let container = addProject(i, this.myProjectsContainer);
-              this.projects[results[i].attributes.OBJECTID] = { container: container, projectid: results[i].attributes.OBJECTID, location: results[i].attributes.name, school: results[i].attributes.school, date: results[i].attributes.CreationDate, author: results[i].attributes.owner };
+              console.log(results[i].attributes)
+              this.projects[results[i].attributes.OBJECTID] = { container: container, projectid: results[i].attributes.OBJECTID, location: results[i].attributes.name, school: results[i].attributes.school, date: results[i].attributes.CreationDate, author: results[i].attributes.owner, version: results[i].attributes.version==null?"long":results[i].attributes.version };
             }
           }
         }
@@ -698,7 +701,7 @@ define([
         for (let i in results) {
           if (results[i].attributes.owner != start.userNameEsri) {
             let container = addProject(i, start.allProjectsContainer);
-            this.projects[results[i].attributes.OBJECTID] = { container: container, projectid: results[i].attributes.OBJECTID, location: results[i].attributes.name, school: results[i].attributes.school, date: results[i].attributes.CreationDate, author: results[i].attributes.owner };
+            this.projects[results[i].attributes.OBJECTID] = { container: container, projectid: results[i].attributes.OBJECTID, location: results[i].attributes.name, school: results[i].attributes.school, date: results[i].attributes.CreationDate, author: results[i].attributes.owner, version: results[i].attributes.version==null?"long":results[i].attributes.version  };
           }
         }
 
@@ -1019,6 +1022,7 @@ define([
 
       start.buttons.style.display = "flex";
       this.updateAttributes("project", projectId);
+      this.updateAttributes("version", start.projects[projectId].version);
 
       if (
         item.offsetTop - this.scrollable.offsetTop >

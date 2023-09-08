@@ -77,9 +77,9 @@ define([
         geometryViewLayerId: "7426e05330d147c78052dffb482140ac",
         //dataLayerId: "51be950e7c1b4cbb8085c67a2c412868",    // Daniel
         dataLayerId: "3e5de63361774b82a560150dab5cdd68", //Christian
-        dataViewLayerId: "3d01293c42d448989196387cca6b8dc4",
+        dataViewLayerId: "60ef7db4c8d947c287de926cf88042f6",
         projectLayerId: "28aa4770fce5454d830bc51e53f12c07",
-        projectViewLayerId: "570211cfaa664d79ac66425f9490bd5c"
+        projectViewLayerId: "5afeae52a425403180454df4b6bebbd4"
       };
 
 
@@ -432,9 +432,9 @@ define([
     }
 
     // function to change one row in the table
-    updateFeature(objectid, data) {
+    updateFeature(objectid, data, project=false) {
       let featureClass = this.table;
-      if (app.mode == "project") {
+      if (app.mode == "project" || project==true) {
         featureClass = this.project;
       }
       return new Promise((resolve, reject) => {
