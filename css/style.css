@@ -1070,11 +1070,11 @@ body {
 @media only screen and (max-width: 600px) {
 
   .header1 {
-    width: 20% !important;
+    width: 50% !important;
   }
 
   .header2 {
-    width: 80% !important;
+    width: 50% !important;
   }
 
   #headerLeft {
