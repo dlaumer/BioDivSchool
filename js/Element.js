@@ -705,7 +705,7 @@ define([
       if (this.type == "mapInput") {
         if (app.mode == "consolidation") {
           container.style.alignItems = "normal"
-          app.arcgis.addMap(container, null, null, this, (info) => {
+          app.arcgis.addMap(container.id, null, null, this, (info) => {
             info.geometry.definitionExpression = "objectid in (" + value.substring(1, value.length - 1) + ")";
 
           });

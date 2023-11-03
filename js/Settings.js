@@ -79,7 +79,7 @@ define([
             let shortElement = domCtr.create(
                 "div",
                 {
-                    className: this.version == "short"? "selectableElement selectableElementActive" : "selectableElement",
+                    className: this.version == "short" ? "selectableElement selectableElementActive" : "selectableElement",
                     innerHTML: this.strings.get("short"),
                 },
                 versionsContainer
@@ -87,7 +87,7 @@ define([
             let longElement = domCtr.create(
                 "div",
                 {
-                    className: this.version == "long"? "selectableElement selectableElementActive" : "selectableElement",
+                    className: this.version == "long" ? "selectableElement selectableElementActive" : "selectableElement",
                     innerHTML: this.strings.get("long"),
                 },
                 versionsContainer
@@ -155,7 +155,9 @@ define([
                 btn_settings.querySelector('.btn_label').classList.toggle("btn_label_active");
                 document.getElementById("infoBox")?.classList.toggle("infoBox_inactive");
                 document.getElementById("save")?.classList.toggle("infoBox_inactive");
-
+                if (that.mode == "start") {
+                    start.mapOverviewProject.style.top = 0.87 * window.innerHeight + "px";
+                }
             });
 
             // Close sort and settings window whenever a click happens outside of those elements

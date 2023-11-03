@@ -1085,7 +1085,7 @@ define([
         start.btn_login.classList.toggle("btn_active");
         start.btn_login.querySelector('.btn_icon').classList.toggle("btn_icon_active");
         start.btn_login.querySelector('.btn_label').classList.toggle("btn_label_active");
-
+        start.mapOverviewProject.style.top = 0.87 * window.innerHeight + "px";
 
       });
 
