@@ -346,7 +346,7 @@ define([
         win.body()
       );
 
-      this.header = domCtr.create("div", { id: "header", className: "header" }, this.background);
+      this.header = domCtr.create("div", { id: "header" }, this.background);
 
       this.headerLeft = domCtr.create("div", { id: "headerLeft", className: "header1" }, this.header);
 

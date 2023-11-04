@@ -728,9 +728,22 @@ body {
 
 #headerCenter {
   justify-content: start !important;
+  width: 60%;
+  height: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding: 0 10px;
 }
 
-#headerRight {}
+#headerRight {
+  width: 20%;
+  height: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding: 0 10px;
+}
 
 #infoBox {
   border-left: 1px black solid;
@@ -1060,6 +1073,15 @@ body {
   border-right: solid;
   border-width: 1px;
   border-color: var(--gray);
+}
+
+#headerLeft {
+  width: 40%;
+  height: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 0 10px;
 }
 
 @media only screen and (max-width: 600px) {
