@@ -349,12 +349,33 @@ define([
       this.header = domCtr.create("div", { id: "header" }, this.background);
 
       this.headerLeft = domCtr.create("div", { id: "headerLeft", className: "header1" }, this.header);
-
+      
       this.startButton = domCtr.create(
         "div",
-        { id: "startButton", className: "btn1 secondaryButton", innerHTML: this.strings.get("startButton") },
+        {
+          id: "btn_project_new",
+          className: "btn1",
+        },
         this.headerLeft
       );
+
+      domCtr.create(
+        "img",
+        {
+          className: "btn_icon",
+          src: "./img/Icons/Arrow_black.svg",
+        },
+        this.startButton
+      );
+      domCtr.create(
+        "div",
+        {
+          className: "btn_label",
+          innerHTML: this.strings.get("startButton"),
+        },
+        this.startButton
+      );
+
       this.save = domCtr.create(
         "div",
         { id: "save", className: "saveInfo", innerHTML: this.strings.get("saved") },
@@ -413,17 +434,34 @@ define([
 
       this.navigationBar = domCtr.create("div", { id: "navigationBar", className: "navigationBar" }, this.footer);
 
+      
       this.back = domCtr.create(
         "div",
         {
           id: "btn_back",
           className: "btn1 secondaryButton",
-          innerHTML: this.strings.get("back"),
-          style: "visibility:hidden",
+          style: "visibility:hidden;",
+
         },
         this.navigationBar
       );
-
+      domCtr.create(
+        "img",
+        {
+          className: "btn_icon",
+          src: "./img/Icons/Arrow_black.svg",
+        },
+        this.back
+      );
+      domCtr.create(
+        "div",
+        {
+          className: "btn_label",
+          innerHTML: this.strings.get("back"),
+        },
+        this.back
+      );
+     
 
       this.pointsTotalDiv = domCtr.create(
         "div",
@@ -435,10 +473,33 @@ define([
         this.navigationBar
       );
 
+
+      
       this.next = domCtr.create(
         "div",
-        { id: "btn_next", className: "btn1 primaryButton", innerHTML: this.strings.get("next") },
+        {
+          id: "btn_next",
+          className: "btn1 primaryButton",
+        },
         this.navigationBar
+      );
+
+      domCtr.create(
+        "div",
+        {
+          className: "btn_label",
+          innerHTML: this.strings.get("next"),
+        },
+        this.next
+      );
+      domCtr.create(
+        "img",
+        {
+          className: "btn_icon btn_icon_active",
+          src: "./img/Icons/Arrow_black.svg",
+          style: "transform:scale(-1,1)"
+        },
+        this.next
       );
 
       this.footerBar = domCtr.create("div", { id: "footerBar", className: "footerBar", style: "display:none" }, this.footer);
