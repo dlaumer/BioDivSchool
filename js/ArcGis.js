@@ -633,10 +633,29 @@ define([
         maxScale: 0,
       });
 
+      let template = {
+        content: [{
+          type: "fields",
+          fieldInfos: [
+            {
+              fieldName: "Notes",
+              label: "Notes"
+            },
+            {
+              fieldName: "Labels",
+              label: "Labels"
+            }
+          ]
+        }, {
+          type: "attachments",
+          displayType: "preview"
+        }]
+      };
       let geometry = new FeatureLayer({
         portalItem: {
           id: this.editMode ? this.links.geometryLayerId : this.links.geometryViewLayerId,
         },
+        popupTemplate: template,
         editingEnabled: true,
         title: app.mode == "project" ? this.strings.get("P05.gebaeude.nameDisplay") : this.strings.get("data"),
         definitionExpression: "objectid = 0",
