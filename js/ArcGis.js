@@ -174,8 +174,8 @@ define([
         if (document.getElementById("login")) {
           document.getElementById("login").innerHTML =
             this.strings.get("logoutEsri");
-          document.getElementById("userName").innerHTML =
-            portal.user.username;
+          document.getElementById("userName").innerHTML = portal.user.username;
+          document.getElementById("loginIcon").src = "./img/Icons/Logout_black2.svg",
           start.userNameEsri = portal.user.username;
           start.addProjectMap();
         } else {

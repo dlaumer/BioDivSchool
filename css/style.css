@@ -224,18 +224,6 @@ body {
   outline: none !important;
 }
 
-@media only screen and (max-height: 600px) {
-
-
-  .mapOverview {
-    height: 100% !important;
-  }
-
-  #pageContainer {
-    height: 65% !important;
-  }
-}
-
 @media only screen and (max-width: 600px) {
 
   body {
@@ -303,6 +291,10 @@ body {
     width: 0px !important;
     margin: 0 !important;
   }
+  .btn_Container_active {
+    position: absolute !important;
+    z-index: 10;
+  }
 
   .projectElemLabel {
     width: 100% !important;
@@ -366,6 +358,14 @@ body {
     height: 20%;
   }
 }
+
+#userName {
+  margin-right: 20px;
+  font-size: min(max(1vmax, 10px), 15px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 
 .projectsTitle {
   font-weight: bold;
@@ -481,7 +481,7 @@ body {
   padding: 0 10px;
   text-align: center;
   border-radius: 20px;
-  margin: 4px 8px;
+  margin: 4px;
   font-weight: bold;
   cursor: pointer;
 }
@@ -707,12 +707,11 @@ body {
   z-index: 100;
   box-shadow: 0px 3px 6px #00000029;
   font-size: min(max(3vmax, 12px), 17px);
-
+  justify-content: space-between;
 }
 
 .header1 {
   height: 100%;
-  width: 40%;
   display: flex;
   justify-content: start;
   align-items: center;
@@ -721,7 +720,6 @@ body {
 
 .header2 {
   height: 100%;
-  width: 60%;
   display: flex;
   justify-content: end;
   align-items: center;
@@ -732,9 +730,7 @@ body {
   justify-content: start !important;
 }
 
-#headerRight {
-
-}
+#headerRight {}
 
 #infoBox {
   border-left: 1px black solid;
@@ -1068,12 +1064,13 @@ body {
 
 @media only screen and (max-width: 600px) {
 
-  .header1 {
-    width: 50% !important;
+
+  .mapOverview {
+    height: 100% !important;
   }
 
-  .header2 {
-    width: 50% !important;
+  #pageContainer {
+    height: 65% !important;
   }
 
   #headerLeft {
@@ -1084,14 +1081,10 @@ body {
     display: none;
   }
 
-  #headerRight {
-
-  }
-
   .infoBox_inactive {
     display: none !important;
   }
-  
+
   .navigationBarRight {
     width: 100%;
     height: 60%;
@@ -1145,6 +1138,7 @@ body {
 
 
 .btn1 {
+  justify-content: center;
   text-align: center;
   background-color: white;
   border: 1px solid black;
@@ -1183,8 +1177,10 @@ body {
 
 .btn_icon {
   width: 20px;
-  margin: 0 10px;
+  margin-right: 10px;
+  margin-left: 10px;
   pointer-events: none;
+  transition: all 0.2s linear !important;
   filter: invert(44%) sepia(4%) saturate(4%) hue-rotate(332deg) brightness(98%) contrast(91%);
 }
 
@@ -1192,9 +1188,16 @@ body {
   filter: invert(100%);
 }
 
+.btn_icon_active2 {
+  filter: invert(100%);
+  margin-right: 80px;
+  margin-left: 80px;
+
+}
+
 .btn_label {
   pointer-events: none;
-  width: 160px;
+  width: 120px;
   transition: all 0.2s linear !important;
   overflow: hidden;
   display: flex;
@@ -1529,7 +1532,7 @@ label {
 }
 
 .fullscreen {
-  position: fixed!important;
+  position: fixed !important;
   width: 100% !important;
   height: 80% !important;
   z-index: 1000000;
@@ -1709,6 +1712,7 @@ label {
   .final {
     margin-bottom: 100px;
   }
+
   .footerBarStart {
     height: 50px !important;
     position: relative;

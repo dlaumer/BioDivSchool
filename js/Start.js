@@ -164,8 +164,8 @@ define([
           className: "btn1",
           style:
             this.admin == "true"
-              ? "min-width: 30%;display: flex;"
-              : "min-width: 30%;display: none;",
+              ? "display: flex;"
+              : "display: none;",
         },
         this.header1
       );
@@ -185,6 +185,15 @@ define([
           innerHTML: this.strings.get("newProject"),
         },
         this.btn_project_new
+      );
+
+      
+      let userName = domCtr.create(
+        "div",
+        {
+          id: "userName",
+        },
+        start.header2
       );
       
       let settings = new Settings(start.strings, "start", start.version);
@@ -211,20 +220,12 @@ define([
       );
 
 
-      domCtr.create(
+      this.loginIcon = domCtr.create(
         "img",
         {
           className: "btn_icon",
+          id: "loginIcon",
           src: "./img/Icons/Logout_black.svg",
-        },
-        this.btn_login
-      );
-      domCtr.create(
-        "div",
-        {
-          id: "userName",
-          className: "btn_label",
-          innerHTML: this.strings.get("loginEsri"),
         },
         this.btn_login
       );
@@ -1083,8 +1084,8 @@ define([
       on(this.btn_login, "click", function (evt) {
         start.loginPanel.classList.toggle("btn3PanelActive");
         start.btn_login.classList.toggle("btn_active");
-        start.btn_login.querySelector('.btn_icon').classList.toggle("btn_icon_active");
-        start.btn_login.querySelector('.btn_label').classList.toggle("btn_label_active");
+        start.btn_login.parentNode.classList.toggle("btn_Container_active")
+        start.btn_login.querySelector('.btn_icon').classList.toggle("btn_icon_active2");
         start.mapOverviewProject.style.top = 0.87 * window.innerHeight + "px";
 
       });
@@ -1109,8 +1110,8 @@ define([
         if (evt.srcElement.id != "btn_login" && start.loginPanel.classList.contains("btn3PanelActive")) {
           start.loginPanel.classList.toggle("btn3PanelActive");
           start.btn_login.classList.toggle("btn_active");
-          start.btn_login.querySelector('.btn_icon').classList.toggle("btn_icon_active");
-          start.btn_login.querySelector('.btn_label').classList.toggle("btn_label_active");
+          start.btn_login.parentNode.classList.toggle("btn_Container_active")
+          start.btn_login.querySelector('.btn_icon').classList.toggle("btn_icon_active2");
 
 
         };

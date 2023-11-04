@@ -45,14 +45,6 @@ define([
                 },
                 btn_settings
             );
-            domCtr.create(
-                "div",
-                {
-                    className: "btn_label",
-                    innerHTML: this.strings.get("settings"),
-                },
-                btn_settings
-            );
 
             this.settingsPanel = domCtr.create(
                 "div",
@@ -151,8 +143,8 @@ define([
             on(btn_settings, "click", function (evt) {
                 that.settingsPanel.classList.toggle("btn3PanelActive");
                 btn_settings.classList.toggle("btn_active");
-                btn_settings.querySelector('.btn_icon').classList.toggle("btn_icon_active");
-                btn_settings.querySelector('.btn_label').classList.toggle("btn_label_active");
+                btn_settings.parentNode.classList.toggle("btn_Container_active")
+                btn_settings.querySelector('.btn_icon').classList.toggle("btn_icon_active2");
                 document.getElementById("infoBox")?.classList.toggle("infoBox_inactive");
                 document.getElementById("save")?.classList.toggle("infoBox_inactive");
                 if (that.mode == "start") {
@@ -165,8 +157,8 @@ define([
                 if (evt.srcElement.id != "btn_settings" && that.settingsPanel.classList.contains("btn3PanelActive")) {
                     that.settingsPanel.classList.toggle("btn3PanelActive");
                     btn_settings.classList.toggle("btn_active");
-                    btn_settings.querySelector('.btn_icon').classList.toggle("btn_icon_active");
-                    btn_settings.querySelector('.btn_label').classList.toggle("btn_label_active");
+                    btn_settings.parentNode.classList.toggle("btn_Container_active")
+                    btn_settings.querySelector('.btn_icon').classList.toggle("btn_icon_active2");
                     document.getElementById("infoBox")?.classList.toggle("infoBox_inactive");
                     document.getElementById("save")?.classList.toggle("infoBox_inactive");
 
