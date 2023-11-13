@@ -176,7 +176,7 @@ define([
             this.strings.get("logoutEsri");
           document.getElementById("userName").innerHTML = portal.user.username;
           document.getElementById("loginIcon").src = "./img/Icons/Logout_black2.svg",
-          start.userNameEsri = portal.user.username;
+            start.userNameEsri = portal.user.username;
           start.addProjectMap();
         } else {
           app.userNameEsri = portal.user.username;
@@ -432,9 +432,9 @@ define([
     }
 
     // function to change one row in the table
-    updateFeature(objectid, data, project=false) {
+    updateFeature(objectid, data, project = false) {
       let featureClass = this.table;
-      if (app.mode == "project" || project==true) {
+      if (app.mode == "project" || project == true) {
         featureClass = this.project;
       }
       return new Promise((resolve, reject) => {
@@ -814,7 +814,7 @@ define([
 
       // create DOM object
       let fullScreenBtn = domCtr.toDom(
-        "<div class='map-button esri-component esri-locate esri-widget--button esri-widget' role='button' title='Recenter'><span aria-hidden='true' role='presentation' class='esri-icon esri-icon-zoom-out-fixed'></span></div>"
+        "<div class='map-button esri-component esri-locate esri-widget--button esri-widget' role='button' title='Fullscreen'><span aria-hidden='true' role='presentation' class='esri-icon esri-icon-zoom-out-fixed'></span></div>"
       );
       // add to view
       view.ui.add(fullScreenBtn, "top-left");
@@ -828,6 +828,29 @@ define([
       });
 
       view.ui.add(locate, "top-left");
+
+      if (containerEditor && app.mode != "results") {
+        // create DOM object
+        let undoBtn = domCtr.toDom(
+          "<div class='map-button esri-component esri-locate esri-widget--button esri-widget' role='button' title='Undo'><span aria-hidden='true' role='presentation' class='esri-icon esri-icon-undo'></span></div>"
+        );
+        // add to view
+        view.ui.add(undoBtn, "top-left");
+        // add button click listener
+        undoBtn.addEventListener("click", () => {
+          editor.viewModel.sketchViewModel.undo();
+        });
+        // create DOM object
+        let redoBtn = domCtr.toDom(
+          "<div class='map-button esri-component esri-locate esri-widget--button esri-widget' role='button' title='Undo'><span aria-hidden='true' role='presentation' class='esri-icon esri-icon-redo'></span></div>"
+        );
+        // add to view
+        view.ui.add(redoBtn, "top-left");
+        // add button click listener
+        redoBtn.addEventListener("click", () => {
+          editor.viewModel.sketchViewModel.redo();
+        });
+      }
 
       // TODO also calculate exisiting areas!
       function calculateAreaPending() {

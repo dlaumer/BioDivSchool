@@ -202,6 +202,10 @@ body {
   width: 100%;
 }
 
+.esri-ui-top-right .esri-component, .esri-ui-top-left .esri-component {
+  margin-bottom: 0px !important;
+}
+
 .esri-legend--card__service-caption-container {
   border-bottom: unset !important;
 }
