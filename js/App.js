@@ -99,6 +99,8 @@ define([
           app.projectName = info.attributes["name"];
           app.schoolName = info.attributes["school"];
           app.buildings = info.attributes["gebaeude_geomoid"];
+          app.owner = info.attributes["owner"];
+
           app.content.init();
           this.addFinalPage()
 
@@ -216,6 +218,7 @@ define([
             app.projectName = data.attributes["name"];
             app.schoolName = data.attributes["school"];
             app.buildings = data.attributes["gebaeude_geomoid"]
+            app.owner = data.attributes["owner"]
             app.objectId = data.getObjectId();
 
             app.projectAreaId = "[" + app.objectId.toFixed(0) + "]";
@@ -259,6 +262,7 @@ define([
           app.projectAreaId = "[" + info.getObjectId().toFixed(0) + "]";
           app.projectName = info.attributes["name"];
           app.schoolName = info.attributes["school"];
+          app.owner = info.attributes["owner"];
           app.content.init();
           this.addFinalPage()
 
@@ -326,8 +330,8 @@ define([
       if (app.projectId != "null") {
         this.infoBoxInfo.innerHTML =
           app.mode == "project"
-            ? app.schoolName
-            : app.schoolName + ", " + this.strings.get("group") + ": " + this.strings.get(this.groupId) + ", " + this.strings.get("versionLabel") + ": " + this.strings.get(this.version);
+            ? app.schoolName + ", " + this.strings.get("owner") + ": " + this.owner
+            : app.schoolName + ", " + this.strings.get("group") + ": " + this.strings.get(this.groupId) + ", " + this.strings.get("versionLabel") + ": " + this.strings.get(this.version) + ", " + this.strings.get("owner") + ": " + this.owner;
       }
       this.save.className = "btn1 btn_disabled";
       document.onkeydown = this.checkKey;
@@ -349,7 +353,7 @@ define([
       this.header = domCtr.create("div", { id: "header" }, this.background);
 
       this.headerLeft = domCtr.create("div", { id: "headerLeft", className: "header1" }, this.header);
-      
+
       this.startButton = domCtr.create(
         "div",
         {
@@ -434,7 +438,7 @@ define([
 
       this.navigationBar = domCtr.create("div", { id: "navigationBar", className: "navigationBar" }, this.footer);
 
-      
+
       this.back = domCtr.create(
         "div",
         {
@@ -461,7 +465,7 @@ define([
         },
         this.back
       );
-     
+
 
       this.pointsTotalDiv = domCtr.create(
         "div",
@@ -474,7 +478,7 @@ define([
       );
 
 
-      
+
       this.next = domCtr.create(
         "div",
         {
@@ -1131,9 +1135,20 @@ define([
         this.titlePage
       );
 
+      const currentDate = new Date();
+
+      const options = { 
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+      };
+      const formattedDate = currentDate.toLocaleDateString('en-GB', options);
+
       domCtr.create("div", { id: "title", innerHTML: app.strings.get("titlePdf") }, this.titlePage);
       domCtr.create("div", { id: "school", className: "titleInfo", innerHTML: app.strings.get("school") + ": " + app.schoolName }, this.titlePage);
       domCtr.create("div", { id: "location", className: "titleInfo", innerHTML: app.strings.get("location") + ": " + app.projectName }, this.titlePage);
+      domCtr.create("div", { id: "owner", className: "titleInfo", innerHTML: app.strings.get("owner") + ": " + app.owner }, this.titlePage);
+      domCtr.create("div", { id: "date", className: "titleInfo", innerHTML: app.strings.get("date") + ": " + formattedDate}, this.titlePage);
 
     }
 
