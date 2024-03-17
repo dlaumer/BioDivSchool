@@ -821,6 +821,9 @@ define([
       // add button click listener
       fullScreenBtn.addEventListener("click", () => {
         document.getElementById(containerMap).classList.toggle("fullscreen");
+        fullScreenBtn.childNodes[0].classList.toggle("esri-icon-zoom-out-fixed")
+        fullScreenBtn.childNodes[0].classList.toggle("esri-icon-zoom-in-fixed")
+
       });
       const locate = new Locate({
         view: view,
