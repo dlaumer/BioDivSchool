@@ -362,11 +362,7 @@ define([
 
       this.table.queryFeatures(query).then((results) => {
         // If it already exists, load the existing values
-        if (results.features.length > 0) {
           callback(results.features);
-        } else {
-          alert("Es gibt keine Gruppen mit dieser ProjektID");
-        }
       });
     }
 

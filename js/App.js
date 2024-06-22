@@ -248,56 +248,6 @@ define([
       }
     }
 
-    // init function for consolidation
-    initConsolidation(projectId) {
-      this.projectId = projectId;
-      this.updateAttributes("project", this.projectId)
-
-      this.groupId = "all";
-
-
-      if (!this.offline) {
-        // Check if this project alreayd exists
-        this.arcgis.checkDataProject(app.projectId, (info) => {
-          app.projectAreaId = "[" + info.getObjectId().toFixed(0) + "]";
-          app.projectName = info.attributes["name"];
-          app.schoolName = info.attributes["school"];
-          app.owner = info.attributes["owner"];
-          app.content.init();
-          this.addFinalPage()
-
-          this.arcgis
-            .calculateArea(this.projectAreaId, "project")
-            .then((area) => {
-              this.arcgis.calculateArea(this.buildingsAreaId)
-                .then((areaBuildings) => {
-                  app.buildingsArea = areaBuildings.totalArea;
-                  app.projectArea = area.totalArea;
-                });
-            });
-          this.arcgis.checkDataGroups(app.projectId, (data) => {
-            let dataGroups = app.parseGroups(data);
-            let occurences = app.countOccurence(dataGroups);
-            app.loadInputsGroup(dataGroups, occurences.count);
-            this.arcgis.checkData(app.projectId, app.groupId, (info) => {
-              let data = info.data;
-              app.objectId = info.objectId;
-              if (!info.newFeature) {
-                app.loadInputs(data.attributes);
-              }
-
-
-              this.initUI();
-            });
-          });
-        });
-      } else {
-        app.content.init();
-        this.initUI();
-      }
-    }
-
-
     initUI() {
       // destroy welcome page when app is started
       domCtr.destroy("splashScreen");
@@ -832,11 +782,13 @@ define([
 
     parseGroups(data) {
       let newData = {};
-      for (let item in data[0].attributes) {
-        newData[item] = {};
-        for (let group = 0; group < data.length; group++) {
-          newData[item][data[group].attributes["gruppe"]] =
-            data[group].attributes[item];
+      if (data.length > 0) {
+        for (let item in data[0].attributes) {
+          newData[item] = {};
+          for (let group = 0; group < data.length; group++) {
+            newData[item][data[group].attributes["gruppe"]] =
+              data[group].attributes[item];
+          }
         }
       }
       return newData;
