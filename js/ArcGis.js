@@ -30,7 +30,8 @@ define([
   "esri/config",
   "dojo/dom-construct",
   "esri/layers/support/FeatureTemplate",
-  "esri/intl"
+  "esri/intl",
+  "esri/symbols/PictureMarkerSymbol"
 ], function (
   Portal,
   OAuthInfo,
@@ -57,7 +58,8 @@ define([
   esriConfig,
   domCtr,
   FeatureTemplate,
-  intl
+  intl,
+  PictureMarkerSymbol
 ) {
   return class ArcGis {
     constructor(editMode, strings, callback) {
@@ -362,7 +364,7 @@ define([
 
       this.table.queryFeatures(query).then((results) => {
         // If it already exists, load the existing values
-          callback(results.features);
+        callback(results.features);
       });
     }
 
@@ -1139,6 +1141,16 @@ define([
         },
       };
 
+      const svgSymbol = new PictureMarkerSymbol({
+        url: "./img/Icons/sunflower.svg", // can also be a data URL for inline SVG
+        width: "32px",
+        height: "32px",
+        // Optionally, you can add offsets if needed
+        // xoffset: 0,
+        // yoffset: 0
+      });
+
+
       var customZoomAction = {
         title: "Zoom to",
         id: "custom-zoom",
@@ -1166,7 +1178,7 @@ define([
         labelingInfo: [labelClass],
         renderer: {
           type: "simple",
-          symbol: pointSymbol,
+          symbol: svgSymbol,
         },
         minScale: 0,
         maxScale: 144447,
