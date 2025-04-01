@@ -1232,8 +1232,8 @@ define([
         start.unSelectProject();
         view.popup.close();
         return view.goTo({
-          center: [8.722167506135465, 47.32443911582187],
-          zoom: 9,
+          center: [8.32, 46.82],
+          zoom: 8,
         });
       };
 
@@ -1286,8 +1286,8 @@ define([
         // MapView is now ready for display and can be used. Here we will
         // use goTo to view a particular location at a given zoom level and center
         view.goTo({
-          center: [8.722167506135465, 47.32443911582187],
-          zoom: 9,
+          center: [8.32, 46.82],
+          zoom: 8,
         });
 
         /*
