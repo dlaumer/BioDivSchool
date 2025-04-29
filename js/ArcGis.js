@@ -580,11 +580,10 @@ define([
       return new Promise((resolve, reject) => {
         let totalArea = 0;
         let areas = {};
-        if (objectIds == "") {
+        if (objectIds == "" || objectIds == null) {
           resolve({ totalArea: totalArea, areas: areas });
           return;
         }
-
         var query = data.createQuery();
         query.where =
           "objectid in (" + objectIds.substring(1, objectIds.length - 1) + ")";
