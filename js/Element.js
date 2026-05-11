@@ -559,7 +559,7 @@ define([
             else {
               numRatio = this.includeBuildings ? this.area / (app.projectArea - app.buildingsArea) : this.area / app.projectArea;
               if (numRatio > 1) {
-                alert(app.strings.get("alertAreSize"));
+                alert(app.strings.get("alertAreaSize"));
               }
               for (let i in this.ratioStops) {
                 if (numRatio < this.ratioStops[i].value) {
